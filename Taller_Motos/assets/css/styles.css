@@ -137,8 +137,9 @@ table{
 
   }
 
-  .titulosCards{
-      text-align: center;
+  #titulosCards{
+    text-align: center;
+      color: #000 !important;
   }
 
 #boton_selector_usuarios{
