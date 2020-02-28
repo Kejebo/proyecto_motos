@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
 
 *{
   margin: 0;
@@ -6,7 +5,6 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: 'Josefin Sans', sans-serif;
 }
 
 body{
@@ -36,7 +34,7 @@ body{
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 30px;
-  
+
 }
 
 .wrapper .sidebar ul li{
@@ -44,7 +42,7 @@ body{
   border-bottom: 1px solid #bdb8d7;
   border-bottom: 1px solid rgba(0,0,0,0.05);
   border-top: 1px solid rgba(255,255,255,0.05);
-}    
+}
 
 .wrapper .sidebar ul li a{
   color: #bdb8d7;
@@ -58,12 +56,12 @@ body{
 .wrapper .sidebar ul li:hover{
   background-color: rgba(0, 0, 0, 0.925);
 }
-    
+
 .wrapper .sidebar ul li:hover a{
   color: #fff;
   text-decoration:none;
 }
- 
+
 .wrapper .sidebar .social_media{
   position: absolute;
   bottom: 0;
@@ -103,7 +101,7 @@ body{
   line-height: 25px;
 }
 footer {
-  background-color: #000; 
+  background-color: #000;
   height: 40px;
   color: white;
   text-align: center;
@@ -139,12 +137,12 @@ table{
     }
   }
 
-  
+
 
   #formulario {
      margin: 0px;
      margin-top: 8%;
-      
+
   }
 
   .titulosCards{
@@ -165,5 +163,3 @@ table{
 .titulosCards{
 
 }
-
- 
