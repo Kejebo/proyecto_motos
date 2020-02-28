@@ -60,6 +60,3 @@ $ui = new GUI($config);
     </div>
 
 
-<!-- PIE DE PÁGINA -->
-<?php $ui->get_footer(); ?>
-
