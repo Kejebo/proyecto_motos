@@ -102,7 +102,7 @@ body{
   color: #717171;
   line-height: 25px;
 }
-footer{
+footer {
   background-color: #000; 
   height: 40px;
   color: white;
@@ -138,3 +138,32 @@ table{
       display: none !important;
     }
   }
+
+  
+
+  #formulario {
+     margin: 0px;
+     margin-top: 8%;
+      
+  }
+
+  .titulosCards{
+      text-align: center;
+  }
+
+#boton_selector_usuarios{
+  border-radius: 20px;
+  border-color: darkgray;
+
+
+}
+
+#boton_inicio_sesion{
+  width: 100%;
+}
+
+.titulosCards{
+
+}
+
+ 
