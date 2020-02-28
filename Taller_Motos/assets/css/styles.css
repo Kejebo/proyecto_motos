@@ -62,14 +62,6 @@ body{
   text-decoration:none;
 }
 
-.wrapper .sidebar .social_media{
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-}
-
 .wrapper .sidebar .social_media a{
   display: block;
   width: 40px;
