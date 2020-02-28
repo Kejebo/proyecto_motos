@@ -106,11 +106,11 @@ class Gui
                     </footer>
                 </div>
             </div>
+            
             <script src="assets/js/main.js"></script>
             <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
             <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
             <script src="assets/js/datatables.js"></script>
-
             <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
             <script src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"></script>
 

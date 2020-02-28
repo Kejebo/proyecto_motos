@@ -23,7 +23,7 @@ $ui = new GUI($config);
    
     <div class="col-sm-4">
     <div class="card shadow mt-4">
-    <div class="card-header titulosCards">
+    <div class="card-header" id="titulosCards">
     <h6 class="card-title">Taller de Motos Mighty</h6>
     <h5 class="card-title">Bienvenidos</h5>
 
