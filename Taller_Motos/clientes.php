@@ -1,6 +1,7 @@
 <?php
-require_once('ui/ui_clientes.php');
-$ui= new ui_cliente();
+require_once('ui/ui_client.php');
+$ui= new ui_client();
+$ui->action_controller();
 $ui->get_header();
 $ui->get_sidebar();
 $ui->get_nabvar();
