@@ -37,14 +37,14 @@ $ui = new GUI($config);
     
     <div class="card-body">
     
-    <input type="text" class="form-control" placeholder="Usuario">
+    <input type="text" class="form-control" id="inputuser" placeholder="Usuario">
     <hr>
 
-    <div class="input-group mb-3">
-    <input type="password" class="form-control" placeholder="Contraseña" id=inputpass>
+
+    <div class="input-group mb-3" id="grup-pass">
+    <input type="password" class="form-control pass-input" onblur="quitarborde()" onclick="ponerborde()" placeholder="Contraseña" id=inputpass>
     <div class="input-group-append">
     <div id="ojos">
-        
     <a class="btn" id="ojo" onclick="mostrarPass()"><i onclick="cambiarojo(this)" class="far fa-eye" ></i></a>
     </div>
     </div>
