@@ -17,40 +17,50 @@ $ui = new GUI($config);
 <?php $ui->get_header(); ?>
 
     <div>
-    
     <div class="row"  id="formulario">
     <div class="col-sm-4"></div>
-   
+    
     <div class="col-sm-4">
+    <form action="">
     <div class="card shadow mt-4">
     <div class="card-header" id="titulosCards">
-    <h6 class="card-title">Taller de Motos Mighty</h6>
+    <h6 class="card-title" id="nombre_empresa">Taller de Motos Mighty</h6>
     <h5 class="card-title">Bienvenidos</h5>
 
+    <select id="usuarios">
+    <option value="" data-content="<i class='fas fa-users' 'aria-hidden='true'></i>"> Tipos de Usuarios</option>
+    <option value="Administrador"><i class="fas fa-user-tie"></i> Administrador</option>
+    <option value="Cliente"><a><i class="fas fa-user"></i> Cliente</option>
+    </select>
 
-    <div class="dropdown">
-    <button type="button" class="btn btn-secundary dropdown-toggle" data-toggle="dropdown" id="boton_selector_usuarios">
-    Tipo de Usuario
-    </button>
-     <div class="dropdown-menu">
-    <a class="dropdown-item">Aministrador</a>
-    <a class="dropdown-item">Cliente</a>
-    </div>
-    </div>
     </div>
     
     <div class="card-body">
+    
     <input type="text" class="form-control" placeholder="Usuario">
     <hr>
-    <input type="password" class="form-control" placeholder="Contraseña">
 
-    <hr>
-
-    <div class="container-fluid">
-    <button class="btn btn-primary" id="boton_inicio_sesion">Iniciar Sesion</button>
+    <div class="input-group mb-3">
+    <input type="password" class="form-control" placeholder="Contraseña" id=inputpass>
+    <div class="input-group-append">
+    <div id="ojos">
+        
+    <a class="btn" id="ojo" onclick="mostrarPass()"><i onclick="cambiarojo(this)" class="far fa-eye" ></i></a>
     </div>
+    </div>
+    </div>
+
     <hr>
-    <a href="">Olvidaste tu contraseña?</a>
+
+    <div class="iniciar_sesion_boton">
+    <button class="btn btn-primary" id="boton_inicio_sesion"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+    </form>
+    </div>
+   
+    <hr>
+    <div id="contenedor_pregunta">
+    <a class="pregunta_contrasena" href="">¿Olvidaste tu contraseña?</a>
+    </div>
     </div>
     </div>
     </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz&display=swap';
 
 *{
   margin: 0;
@@ -6,7 +6,7 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
 body{
@@ -139,32 +139,57 @@ table{
     }
   }
 
-  
 
   #formulario {
-     margin: 0px;
-     margin-top: 8%;
-      
-  }
+    margin: 0px;
+    margin-top: 8%;
+     
+ }
 
-  #titulosCards{
-    text-align: center;
-      color: #000 !important;
-  }
+ #titulosCards{
+   text-align: center;
+   color: #000 !important;
+   padding-bottom: 20px;
+   padding-top: 20px;
+ }
 
-#boton_selector_usuarios{
-  border-radius: 20px;
-  border-color: darkgray;
-
-
+#ojos{
+ text-align: right;
+ color: gray;
 }
 
-#boton_inicio_sesion{
-  width: 100%;
+#nombre_empresa{
+font-weight: bold;
 }
 
-.titulosCards{
-
+.items_desplegables{
+cursor: pointer;
 }
+
+.pregunta_contrasena{
+ font-size: 12px !important;
+ font-weight: bold;
+}
+
+.iniciar_sesion_boton{
+ text-align: left;
+}
+
+#contenedor_pregunta{
+ text-align: right;
+}
+
+#usuarios{
+ border-radius: 20px;
+ border-color: darkgrey;
+ font-size: 12px;
+}
+
+
+
+
+
+
+
 
  
