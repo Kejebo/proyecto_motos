@@ -1,3 +1,4 @@
+import url('https://fonts.googleapis.com/css?family=Khand|Montserrat|Open+Sans+Condensed:300&display=swap');
 
 *{
   margin: 0;
@@ -5,6 +6,8 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 body{
@@ -122,8 +125,6 @@ footer {
     }
   }
 
-
-
   #formulario {
      margin: 0px;
      margin-top: 8%;
@@ -132,20 +133,46 @@ footer {
 
   #titulosCards{
     text-align: center;
-      color: #000 !important;
+    color: #000 !important;
+    padding-bottom: 20px;
+    padding-top: 20px;
   }
 
-#boton_selector_usuarios{
+#ojos{
+  text-align: right;
+  color: gray;
+}
+
+#nombre_empresa{
+font-weight: bold;
+}
+
+.items_desplegables{
+ cursor: pointer;
+}
+
+.pregunta_contrasena{
+  font-size: 12px !important;
+  font-weight: bold;
+}
+
+.iniciar_sesion_boton{
+  text-align: left;
+}
+
+#contenedor_pregunta{
+  text-align: right;
+}
+
+#usuarios{
   border-radius: 20px;
-  border-color: darkgray;
-
-
+  border-color: darkgrey;
+  font-size: 12px;
 }
 
-#boton_inicio_sesion{
-  width: 100%;
-}
 
-.titulosCards{
 
-}
+
+
+
+ 

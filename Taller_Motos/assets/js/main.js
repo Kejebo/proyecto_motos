@@ -1,6 +1,10 @@
 var clicks = 0;
 var monto = document.querySelector('#monto');
 
+function cambiarojo(x) {
+  x.classList.toggle("fa-eye-slash");
+}
+
 function add() {
   if (clicks == 0) {
     let before = document.querySelector('form');
@@ -33,4 +37,13 @@ function delete_span(e) {
 function selec(sel) {
   var value = sel.options[sel.selectedIndex].value;
   add();
+}
+
+function mostrarPass() {
+  var x = document.getElementById("inputpass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
 }
