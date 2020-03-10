@@ -14,7 +14,6 @@ body{
   background-color: #f8f9fa;
 }
 .card-header{
-    background-color: #007bff !important;
     color: white;
     padding: 5px;
     border: none;
@@ -168,6 +167,10 @@ font-weight: bold;
   border-radius: 20px;
   border-color: darkgrey;
   font-size: 12px;
+}
+
+.card-header{
+  background-color: rgba(0,0,0,.03);
 }
 
 
