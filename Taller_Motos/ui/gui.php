@@ -23,6 +23,7 @@ class Gui
         
             </script>
 
+
         </head>
 
     <?php

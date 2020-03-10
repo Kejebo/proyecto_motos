@@ -1,6 +1,8 @@
 var clicks = 0;
 var monto = document.querySelector('#monto');
 
+
+
 function cambiarojo(x) {
   x.classList.toggle("fa-eye-slash");
 }
@@ -47,3 +49,22 @@ function mostrarPass() {
     x.type = "password";
   }
 }
+
+function ponerborde() {
+  var x = document.getElementById("grup-pass");
+  var valor = document.getElementById("inputpass");
+  if(valor.focus){
+  x.style.borderColor ="#00b894";
+  x.style.boxShadow = "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 184, 148, 0.6)";
+
+  }
+
+}
+
+function quitarborde() {
+var x = document.getElementById("grup-pass");
+x.style.borderColor ="";
+x.style.boxShadow = "none";
+
+}
+
