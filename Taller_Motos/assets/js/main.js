@@ -39,7 +39,6 @@ function selec(sel) {
   add();
 }
 
-
 function mostrarPass() {
   var x = document.getElementById("inputpass");
   if (x.type === "password") {
