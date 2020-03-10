@@ -3,34 +3,37 @@ var monto = document.querySelector('#monto');
 
 function add() {
   if (clicks == 0) {
-    let before = document.querySelector('form');
-    let general = document.createElement('div');
-    general.className = "input-group mb-3";
-    general.innerHTML = `<select name="marca" class="form-control">
-    <option value="Fox">Fox</option>
-    <option value="Suzuki">Suzuki</option>
-    <option value="Generica">Generica</option>
-  </select>
-  <div class="input-group-append">
-    <span class="btn btn-danger" id="eliminar" type="submit" onclick="delete_span(this)">-</span>
-  </div>`
-    clicks = 1;
     monto.style.display = 'block';
-    before.insertBefore(general, document.querySelector('#x'));
+    get_medida()
   }
 
 }
-
+function get_medida() {
+  let action='get_medida';
+  let id=document.querySelector('#categoria').value;
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: { action,id },
+    success: function (response) {
+      let medida=JSON.parse(response);
+      document.querySelector('.medida').textContent=medida.nombre_medida;
+    }
+  });
+}
 function delete_span(e) {
   clicks = 0;
   monto.style.display = 'none';
 
-  e.parentElement.parentElement.remove();
 
 }
 
 
 function selec(sel) {
-  var value = sel.options[sel.selectedIndex].value;
-  add();
+  var opciones = sel.options[sel.selectedIndex].textContent;
+  if (opciones != "Tornillos" && opciones != "Cables") {
+    add();
+  } else {
+    delete_span(document.querySelector('.medida'));
+  }
 }
