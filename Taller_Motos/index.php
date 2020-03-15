@@ -24,7 +24,7 @@ $ui = new GUI($config);
     <form action="">
     <div class="card shadow mt-4">
     <div class="card-header" id="titulosCards">
-    <h6 class="card-title" id="nombre_empresa">Taller de Motos Mighty</h6>
+    <h6 class="card-title" id="nombre_empresa">Mighty Motors</h6>
     <h5 class="card-title">Bienvenidos</h5>
 
     <select id="usuarios">
