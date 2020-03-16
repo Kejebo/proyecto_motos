@@ -2,7 +2,7 @@
 require_once('conexion.php');
 
 
-class db_usuarios extends conexion{
+class db_usuario extends conexion{
 
 
     function __construct(){
@@ -45,9 +45,5 @@ class db_usuarios extends conexion{
 
 
 }
-
-
-
-
 
 ?>
