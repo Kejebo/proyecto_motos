@@ -45,8 +45,10 @@ function mostrarPass() {
   var x = document.getElementById("inputpass");
   if (x.type === "password") {
     x.type = "text";
+    cambiarojo(document.getElementById("font_ojo"));
   } else {
     x.type = "password";
+    cambiarojo(document.getElementById("font_ojo"));
   }
 }
 
