@@ -43,11 +43,11 @@ function login($data){
     if($result){
         setcookie('usuario', $json, time() + 60*60*24*365);
         //$this->enviar_correo($this->ln_usuarios->get_ultimo_usuario());
-        header('Location:libros.php');
+        header('Location:entrada.php');
 
     }else{
 
-       header('Location:login_registro.php?msg=Datos Erroneos');
+       header('Location:index.php?msg=Datos Erroneos');
 
     }
 
@@ -66,7 +66,7 @@ function logout(){
     unset($_COOKIE['usuario']);
     setcookie('usuario', null, time()-100);
 
-    header('Location:login_registro.php');
+    header('Location:index.php');
 
 } 
 
@@ -74,20 +74,20 @@ function check_access($url){
 
     if(isset($_COOKIE['usuario'])){
         
-        if($url == "login_registro.php"){
+        if($url == "index.php"){
             $id=json_decode($_COOKIE['usuario']);
             foreach($id as $item){
             $id=$item;
             break;
             }
-            header('Location:libros.php');
+            header('Location:entrada.php');
         }
 
     }else{
 
-        if($url == 'libros.php'){
+        if($url!='index.php'){
 
-            header('Location:login_registro.php?msg= Te jodiste!');
+            header('Location:index.php?msg= Te jodiste!');
 
         }
     }
