@@ -1,6 +1,30 @@
 <?php
+
+require_once('ln/ln_security.php');
+
+
 class Gui
 {
+
+    var $ln_security;
+
+	
+	function __construct($config=null){
+		
+		$this->config = array(
+			'titulo'	=> 'Sin Título',
+			'url'		=> 'index.php',
+        );
+        
+        if($config){
+			$this->config = $config;
+        }
+        
+		$this->ln_security = new ln_security();
+		$this->ln_security->check_access(
+		$this->config['url']);
+		
+	} 
 
     function get_header()
     {
