@@ -27,7 +27,7 @@ $ui = new gui($config);
     <h6 class="card-title" id="nombre_empresa">Taller de Motos Mighty</h6>
     <h5 class="card-title">Bienvenidos</h5>
 
-    <select id="usuarios" name="tipo_usuario">
+    <select id="usuarios" name="tipo_usuario" required>
     <option value="" data-content="<i class='fas fa-users' 'aria-hidden='true'></i>"> Tipos de Usuarios</option>
     <option value="Administrador"><i class="fas fa-user-tie"></i> Administrador</option>
     <option value="Cliente"><a><i class="fas fa-user"></i> Cliente</option>
