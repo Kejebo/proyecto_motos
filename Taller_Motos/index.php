@@ -36,13 +36,20 @@ $ui = new gui($config);
     </div>
     
     <div class="card-body">
+
+   <?php if(isset($_GET['mer'])){?>
+
+    <div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Error!</strong> Usuario o Contraseña incorrectos, Intente nuevamente.
+    </div>
+   <?php } ?>
     
-    <input type="text" class="form-control" id="inputuser" placeholder="Usuario" name="correo_electronico">
+    <input type="text"  patteern="[A-Za-z0-9_-]{1,15}" required class="form-control" id="inputuser" placeholder="Usuario" name="correo_electronico">
     <hr>
 
-
     <div class="input-group mb-3" id="grup-pass">
-    <input type="password" class="form-control pass-input" onblur="quitarborde()" onclick="ponerborde()" placeholder="Contraseña" id=inputpass name="contrasena">
+    <input type="password" required pattern="[A-Za-z0-9_-]{1,15}" class="form-control pass-input" onblur="quitarborde()" onclick="ponerborde()" placeholder="Contraseña" id=inputpass name="contrasena">
     <div class="input-group-append">
     <div id="ojos">
     <a class="btn" id="ojo" onclick="mostrarPass()"><i onclick="cambiarojo('font_ojo')" class="far fa-eye" id="font_ojo"></i></a>

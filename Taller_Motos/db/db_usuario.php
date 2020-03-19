@@ -7,13 +7,21 @@ class db_usuario extends conexion{
 
     function __construct(){
         parent::__construct();
+  
     }
 
     function get_login($data){
 
         extract($data);
 
-        $sql = "call get_usuario('$correo_electronico','$contrasena','$tipo_usuario')";
+        $this->conectar();
+
+        mysqli_set_charset($this,'utf8');
+        $us = mysqli_real_escape_string($this,$correo_electronico);
+        $pass = mysqli_real_escape_string($this,$contrasena);
+        $admin = mysqli_real_escape_string($this,$tipo_usuario);
+
+        $sql = "call get_usuario('$us','$pass','$admin')";
 
         $result = $this->get_data($sql);
 

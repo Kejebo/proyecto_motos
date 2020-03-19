@@ -25,9 +25,8 @@ function action_controller(){
             break;
 
             case 'insert_user':
-            print_r("llegue");
             $this->insert_usuario($_POST);
-            header('Location:login_registro.php?msg=Rexitoso');
+            header('Location:login_registro.php?mex=Registro Exitoso');
             break;
 
         }
@@ -42,12 +41,11 @@ function login($data){
 
     if($result){
         setcookie('usuario', $json, time() + 60*60*24*365);
-        //$this->enviar_correo($this->ln_usuarios->get_ultimo_usuario());
         header('Location:entrada.php');
 
     }else{
 
-       header('Location:index.php?msg=Datos Erroneos');
+       header('Location:index.php?mer=Datos Erroneos');
 
     }
 
@@ -87,7 +85,7 @@ function check_access($url){
 
         if($url!='index.php'){
 
-            header('Location:index.php?msg= Te jodiste!');
+            header('Location:index.php');
 
         }
     }
