@@ -65,12 +65,49 @@ $ui = new gui($config);
     </div>
    
     <hr>
+
+    
     <div id="contenedor_pregunta">
-    <a class="pregunta_contrasena" href="cambio.php">¿Olvidaste tu contraseña?</a>
+    <a   href="" class="pregunta_contrasena" data-toggle="modal" data-target="#myModal">¿Olvidaste tu contraseña?</a>
+
+  
+    
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="card shadow mt-4" id=modal_card>
+    <div class="card-header" id="titulosCards">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h6 class="modal-title">Ingrese su correo para cambio de contrasena</h6>
+    </div>
+    <div class="card-body">
+
+    <div class="modal-body">
+    
+    <form action="security.php?action=enviar_correo" method="post">
+
+    <input type="text" class="form-control" placeholder="correo_electronico" name="correo_electronico_link">
+
+    <hr>
+
+    <button class="btn btn-primary">enviar correo</button>
+
+    </div>
+
+    </form>
+   
+    </div>
+    </div>
+
+    </div>
+    </div>
+  
     </div>
     </div>
     </div>
     </div>
+
+
 
     <div class="col-sm-4"></div>
 
