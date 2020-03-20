@@ -37,6 +37,20 @@ class db_usuario extends conexion{
 
     }
 
+    function update_usuario($id){
+
+        $this->conectar();
+        extract($data);
+        $sql = "call update_cambio_usuario('$id')";
+        $result = $this->execute($sql);
+        return $result;
+        $this->desconectar();
+   
+    }
+
+    
+
+
     function insert_usuario($data){
         $this->conectar();
         extract($data);
@@ -52,6 +66,26 @@ class db_usuario extends conexion{
         return $result[0];
     }
 
+
+    function get_usuario_cambio($data){
+
+        extract($data);
+
+        $sql = "call get_usuario_cambio('$correo_electronico_link)";
+
+        $result = $this->get_data($sql);
+
+        if($result){
+
+            $this->update_usuario($result[0][0]);
+            return $result[0];
+           
+        }else {
+
+            return false;
+        }
+
+    }
 
 }
 

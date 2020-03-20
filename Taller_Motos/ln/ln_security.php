@@ -32,7 +32,8 @@ function action_controller(){
             break;
 
             case 'enviar_correo':
-            $this->enviar_correo($_POST);
+            $id = $this->get_usuario_cambio($_POST); 
+            $this->enviar_correo($_POST,$id);
             header('Location:cambio.php?mcor=Correo Exitoso');
             break;
 
@@ -96,6 +97,10 @@ function check_access($url){
 
         }
     }
+}
+
+function get_usuario_cambio($data){
+    $this->ln_usuarios->get_usuario_cambio($data);
 }
 
 function enviar_correo($data){

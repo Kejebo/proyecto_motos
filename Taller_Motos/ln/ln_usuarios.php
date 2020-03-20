@@ -19,6 +19,12 @@ class ln_usuarios{
 
     }
 
+    function get_usuario_cambio($data){
+
+        return $this->db->get_usuario_cambio($data);
+
+    }
+
     function get_login($data){
 
         return $this->db->get_login($data);
