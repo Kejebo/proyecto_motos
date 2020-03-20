@@ -66,7 +66,7 @@ $ui = new gui($config);
    
     <hr>
     <div id="contenedor_pregunta">
-    <a class="pregunta_contrasena" href="">¿Olvidaste tu contraseña?</a>
+    <a class="pregunta_contrasena" href="cambio.php">¿Olvidaste tu contraseña?</a>
     </div>
     </div>
     </div>
