@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require_once('assets/phpmailer/Exception.php');
+require_once('assets/phpmailer/PHPMailer.php');
+require_once('assets/phpmailer/SMTP.php');
+
 require_once('ln_usuarios.php');
 
 class ln_security{
@@ -24,9 +31,9 @@ function action_controller(){
             $this->logout();
             break;
 
-            case 'insert_user':
-            $this->insert_usuario($_POST);
-            header('Location:login_registro.php?mex=Registro Exitoso');
+            case 'enviar_correo':
+            $this->enviar_correo($_POST);
+            header('Location:cambio.php?mcor=Correo Exitoso');
             break;
 
         }
@@ -89,6 +96,33 @@ function check_access($url){
 
         }
     }
+}
+
+function enviar_correo($data){
+
+    $mail = new PHPMailer(true);
+try {
+    $mail->SMTPDebug = 0;                                       // Enable verbose debug output
+    $mail->isSMTP();                                            // Set mailer to use SMTP
+    $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = 'wrdkillvibe@gmail.com';                     // SMTP username
+    $mail->Password   = 's.Zuniga29';                               // SMTP password
+    $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+    $mail->Port       = 587;                                    // TCP port to connect to
+
+    $mail->setFrom('wrdkillvibe@gmail.com', 'VirtualLibrery');
+    $mail->addAddress($data['correo_electronico_link']);     // Add a recipient
+   
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = 'MightyMotors[CAMBIOCONTRASEÑA]';
+    $mail->Body    = 'usuario : ' .$data['correo_electronico_link']. ' ha solicitada un cambio de contrasena ' .$data['correo_electronico_link'].'clink en el siguinte link http://localhost:3000/Taller_Motos/form_cambio.php';
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+
 }
 
 }
