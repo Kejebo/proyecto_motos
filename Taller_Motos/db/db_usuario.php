@@ -20,6 +20,7 @@ class db_usuario extends conexion{
         $us = mysqli_real_escape_string($this,$correo_electronico);
         $pass = mysqli_real_escape_string($this,$contrasena);
         $admin = mysqli_real_escape_string($this,$tipo_usuario);
+    print_r($us);
 
         $sql = "call get_usuario('$us','$pass','$admin')";
 
