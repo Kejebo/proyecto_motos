@@ -87,6 +87,25 @@ class db_usuario extends conexion{
 
     }
 
+    function validar_estado($id){
+
+        extract($id);
+
+        $sql = "call validar_estado($id)";
+
+        $result = $this->get_data($sql);
+
+        if($result){
+            
+            return true;
+           
+        }else {
+
+            return false;
+        }
+
+    }
+
 }
 
 ?>

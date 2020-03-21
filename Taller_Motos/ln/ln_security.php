@@ -32,9 +32,11 @@ function action_controller(){
             break;
 
             case 'enviar_correo':
-            $id = $this->get_usuario_cambio($_POST); 
+            $id = $this->get_usuario_cambio($_POST).[0]; 
+            
             $this->enviar_correo($_POST,$id);
-            header('Location:cambio.php?mcor=Correo Exitoso');
+            print_r($id);
+          //  header('Location:cambio.php?mcor=Correo Exitoso');
             break;
 
         }
@@ -65,6 +67,16 @@ function insert_usuario($data){
     if($this->ln_usuario->insert_user($data)!=false){
 
     }
+}
+
+function validar_estado($id){
+
+    if($this->ln_usuarios->validar_estado($id)!=false){
+        header('Location:form_cambio.php');
+    }else{
+        header('Location:index.php?mt=falso');
+    }
+
 }
 
 function logout(){
@@ -100,10 +112,10 @@ function check_access($url){
 }
 
 function get_usuario_cambio($data){
-    $this->ln_usuarios->get_usuario_cambio($data);
+     return $this->ln_usuarios->get_usuario_cambio($data);
 }
 
-function enviar_correo($data){
+function enviar_correo($data,$id){
 
     $mail = new PHPMailer(true);
 try {
@@ -121,7 +133,7 @@ try {
    
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'MightyMotors[CAMBIOCONTRASEÑA]';
-    $mail->Body    = 'usuario : ' .$data['correo_electronico_link']. ' ha solicitada un cambio de contrasena ' .$data['correo_electronico_link'].'clink en el siguinte link http://localhost:3000/Taller_Motos/form_cambio.php';
+    $mail->Body    = 'usuario : ' .$data['correo_electronico_link']. ' ha solicitada un cambio de contrasena ' .$data['correo_electronico_link'].'clink en el siguinte link http://localhost:8080/proyecto_motos-Taller_Motos_Local_Branch/Taller_Motos/index.php/form_cambio.php?id='.$id;
     $mail->send();
     echo 'Message has been sent';
 } catch (Exception $e) {

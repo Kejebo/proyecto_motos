@@ -7,6 +7,7 @@ class Gui
 {
 
     var $ln_security;
+    var $estado;
 
 	
 	function __construct($config=null){
@@ -15,12 +16,21 @@ class Gui
 			'titulo'	=> 'Sin Título',
 			'url'		=> 'index.php',
         );
+
+        $this->ln_security = new ln_security();
+
+        if(isset($_GET['id'])){
+            if($_GET['id']!=0){
+               $this->estado = $this->ln_security->validar_estado($_GET['id']);
+            }
+        }else{
+           header('Location:index.php?hola=hola');
+        }
         
         if($config){
 			$this->config = $config;
         }
         
-		$this->ln_security = new ln_security();
 		$this->ln_security->check_access(
 		$this->config['url']);
 		

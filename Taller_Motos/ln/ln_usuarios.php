@@ -37,6 +37,11 @@ class ln_usuarios{
 
     }
 
+    function validar_estado($id){
+
+        return $this->db->validar_estado($id);
+    }
+
 }
 
 ?>

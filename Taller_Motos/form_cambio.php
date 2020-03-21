@@ -16,6 +16,8 @@ $ui = new gui($config);
 <!-- HEADER -->
 <?php $ui->get_header(); ?>
 
+
+
 <h5>From de cambio de contrasena</h5>
 
 <form action="security.php?action=enviar_correo" method="post">
