@@ -19,6 +19,10 @@
                     break;
                     case 'delete':
                         $this->delete_material($_GET['id']);
+                    break;
+                    case 'update':
+                        $this->db->update_inventory($_POST);
+                        $this->rediretion();
                 }
             }
         }

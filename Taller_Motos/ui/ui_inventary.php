@@ -36,7 +36,8 @@ class ui_inventary extends gui
               <h6 style="margin-left: 20px"> <span><i class="fas fa-bars"></i></span> Registro de Inventario</h6>
             </div>
             <div class="card-body">
-              <form method="post" action="inventary.php?action=insert">
+              <form method="post" action="inventary.php?action=<?=$action?>">
+              <input type="hidden" name="id" value="<?=$material['id_material']?>">
                 <div class="form-group">
                   <label class="etiquetas">Nombre</label>
                   <input class="form-control" type="text" name="nombre" value="<?= $material['nombre'] ?>">
@@ -79,7 +80,7 @@ class ui_inventary extends gui
 
                 <div class="form-group">
                   <label class="etiquetas">Cantidad inicial</label>
-                  <input class="form-control" type="number" name="cantidad">
+                  <input class="form-control" type="number" name="cantidad" value="<?=$material['cantidad_inicial']?>">
                 </div>
 
                 <div class="form-group" id="monto" style="display: none">
@@ -107,7 +108,7 @@ class ui_inventary extends gui
                 </div>
 
                 <hr>
-                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> Registrar</button>
+                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?=$boton?></button>
               </form>
             </div>
           </div>

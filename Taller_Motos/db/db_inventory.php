@@ -24,6 +24,14 @@ class db_inventory extends conexion
         return $result;
     }
 
+    function update_inventory($data)
+    {
+        extract($data);
+        $sql = "call update_material('$id','$nombre','$marca','$categoria
+        ','$cantidad','$cant_minima','$precio_venta','$precio_compra');";
+        $result = $this->execute($sql);
+        return $result;
+    }
 
 
     function get_category()
