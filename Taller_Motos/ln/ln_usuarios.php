@@ -19,9 +19,9 @@ class ln_usuarios{
 
     }
 
-    function get_usuario_cambio($data){
+    function get_usuario_cambio($data,$codigo){
 
-        return $this->db->get_usuario_cambio($data);
+        return $this->db->get_usuario_cambio($data,$codigo);
 
     }
 
@@ -37,9 +37,25 @@ class ln_usuarios{
 
     }
 
-    function validar_estado($id){
+    function validar_codigo($codigo,$id){
 
-        return $this->db->validar_estado($id);
+       
+        return $this->db->validar_codigo($codigo,$id);
+    }
+
+    function cambio_contrasena($data){
+
+        return $this->db->cambio_contrasena($data);
+    }
+
+    function update_usuario($codigo,$id){
+
+        return $this->db->update_usuario($codigo,$id);
+    }
+
+    function  update_estado_cambio_negativo($id){
+
+        $this->db->update_estado_cambio_negativo($id);
     }
 
 }
