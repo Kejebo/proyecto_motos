@@ -32,16 +32,54 @@ function action_controller(){
             break;
 
             case 'enviar_correo':
-            $id = $this->get_usuario_cambio($_POST).[0]; 
-            
-            $this->enviar_correo($_POST,$id);
-            print_r($id);
-          //  header('Location:cambio.php?mcor=Correo Exitoso');
+            $codigo = $this->get_codigo();
+            $id = $this->get_usuario_cambio($_POST,$codigo);
+            print_r($codigo);
+            $this->enviar_correo($_POST,$codigo);
+            header('Location:validacion.php?users_id='.$id);
             break;
+
+            case 'cambio_contrasena': 
+            $this->cambio_contrasena($_POST);
+           // $this->ln_usuarios->update_estado_cambio_negativo($_POST['id']);
+            header('Location:index.php?mcor=Cambio-Correcto');
+            break;
+
+            case 'validar': 
+            $this->validar_codigo($_POST['codigo'], $_POST['id']);
+            break;
+    
 
         }
     }
 
+}
+
+function generar_numero_aleatorio(){
+
+    return rand(0,100);
+}
+
+function get_codigo(){
+
+    $data = array();
+
+    for($i = 0; $i < 4; $i++){
+        
+        array_push($data,$this->generar_numero_aleatorio());
+    }
+
+    return $data;
+}
+
+function update_usuario($codigo,$id){
+
+    $this->ln_usuarios->update_usuario($codigo,$id);
+
+}
+
+function cambio_contrasena($data){
+    $this->ln_usuarios->cambio_contrasena($data);
 }
 
 function login($data){
@@ -69,12 +107,12 @@ function insert_usuario($data){
     }
 }
 
-function validar_estado($id){
+function validar_codigo($codigo,$id){
 
-    if($this->ln_usuarios->validar_estado($id)!=false){
-        header('Location:form_cambio.php');
+    if($this->ln_usuarios->validar_codigo($codigo,$id)!=false){
+        header('Location:form_cambio.php?user_id='.$id);
     }else{
-        header('Location:index.php?mt=falso');
+       header('Location:index.php?mt=falso');
     }
 
 }
@@ -103,7 +141,7 @@ function check_access($url){
 
     }else{
 
-        if($url!='index.php'){
+        if($url!='index.php' && $url=='entrada.php'){
 
             header('Location:index.php');
 
@@ -111,11 +149,12 @@ function check_access($url){
     }
 }
 
-function get_usuario_cambio($data){
-     return $this->ln_usuarios->get_usuario_cambio($data);
+function get_usuario_cambio($data,$codigo){
+     return $this->ln_usuarios->get_usuario_cambio($data,$codigo);
 }
 
-function enviar_correo($data,$id){
+function enviar_correo($data,$codigo){
+
 
     $mail = new PHPMailer(true);
 try {
@@ -130,10 +169,14 @@ try {
 
     $mail->setFrom('wrdkillvibe@gmail.com', 'VirtualLibrery');
     $mail->addAddress($data['correo_electronico_link']);     // Add a recipient
-   
+    
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'MightyMotors[CAMBIOCONTRASEÑA]';
-    $mail->Body    = 'usuario : ' .$data['correo_electronico_link']. ' ha solicitada un cambio de contrasena ' .$data['correo_electronico_link'].'clink en el siguinte link http://localhost:8080/proyecto_motos-Taller_Motos_Local_Branch/Taller_Motos/index.php/form_cambio.php?id='.$id;
+    $mail->Body    = 'usuario : ' .$data['correo_electronico_link']. ' ha solicitada un cambio de contrasena ' .$data['correo_electronico_link'].'copie el siguinte codigo:'.$codigo[0].$codigo[1].$codigo[2];
+        # code...
+    
+        # code...
+    
     $mail->send();
     echo 'Message has been sent';
 } catch (Exception $e) {
