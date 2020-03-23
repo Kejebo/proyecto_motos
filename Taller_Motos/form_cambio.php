@@ -13,16 +13,17 @@ $ui = new gui($config);
 
 ?>
 
-<!-- HEADER -->
 <?php $ui->get_header(); ?>
-
 
 
 <h5>From de cambio de contrasena</h5>
 
-<form action="security.php?action=enviar_correo" method="post">
+<form action="security.php?action=cambio_contrasena" method="post">
 
-<input type="password" placeholder="nueva_contrasena" name="nuevaContrasena">
+<input type="hidden" value=<?=$_GET['user_id'];?> name="id">
+
+
+<input type="password" placeholder="nueva_contrasena" name="contrasena">
 
 <hr>
 
