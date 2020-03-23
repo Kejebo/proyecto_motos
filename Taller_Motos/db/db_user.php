@@ -7,19 +7,19 @@ class db_user extends conexion{
 
     function __construct()
     {
-      parent::__construct();
+      parent::__construct();  
     }
 
 
     function insert_user($data){
         extract($data);
-
+        
         $sql = "insert into usuarios(nombre_completo,clave) values('$nombre','$clave')";
         $result = $this->execute($sql);
         return $result;
     }
 
-
+    
 
     function get_users(){
         $sql = "select * from usuarios;";

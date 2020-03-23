@@ -1,11 +1,13 @@
 <?php
     require_once('db/db_client.php');
+    require_once('db/db_user.php');
     class ln_client{
         var $db;
-
+        var $user;
         function __construct()
         {
             $this->db= new db_client();
+            $this->user= new db_user();
         }
 
         function action_controller(){
@@ -16,12 +18,18 @@
                         header('Location: clients.php');
 
                     break;
-
+                    
+                    case 'insert_client_user':
+                        $this->insert_client($_POST);
+                        $this->user->insert_user($_POST);
+                        header('Location: clients.php');
+                    break;
+                    
                     case 'update':
                         $this->update_client($_POST);
-                    //    header('Location: clients.php');
+                        header('Location: clients.php');
                     break;
-
+                    
 
                     case 'delete':
                         $this->delete_client($_GET['id']);
@@ -32,7 +40,7 @@
         }
         function insert_client($data){
             $this->db->insert_client($data);
-
+            
         }
         function get_clients(){
             return $this->db->get_clients();

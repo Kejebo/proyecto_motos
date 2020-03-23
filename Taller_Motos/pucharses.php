@@ -1,6 +1,6 @@
 <?php
-require_once('ui/ui_client.php');
-$ui= new ui_client();
+require_once('ui/ui_pucharse.php');
+$ui= new Ui_pucharse();
 $ui->action_controller();
 $ui->get_header();
 $ui->get_sidebar();

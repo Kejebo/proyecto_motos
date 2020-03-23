@@ -13,22 +13,17 @@ class db_inventory extends conexion{
 
     function insert_inventory($data){
         extract($data);
-
-        $sql = "call insert_canal('$name','$category','$digital','$destino')";
+        if(!isset($presentacion)){
+            $presentacion=0;
+        }
+        $sql = "call insert_material('$nombre','$marca','$categoria','$cantidad
+        ','$presentacion','$precio_compra','$precio_venta','$cant_minima');";
         $result = $this->execute($sql);
         return $result;
     }
 
-    function get_inventory(){
-        $sql = "call get_inventario()";
-        $result = $this->get_data($sql);
-            if($result){
-                return $result;
-            }else{
-        return false;
-            }
-    }
     
+
     function get_category(){
         $sql = "select * from categorias_material;";
         $result = $this->get_data($sql);
@@ -38,7 +33,43 @@ class db_inventory extends conexion{
         return false;
             }
     }
-
+    function get_inventory(){
+        $sql = "call get_inventario()";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
+    function get_category_medida($id){
+        $sql = "select * from categorias_material c 
+        inner join medidas m on m.id_medida=c.id_medida where id_categoria='$id';";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
+    function get_marcas(){
+        $sql = "select * from marcas_materiales;";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
+    function get_medidas(){
+        $sql = "select * from medidas;";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }   
 }
 
 ?>

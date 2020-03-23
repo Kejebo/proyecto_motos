@@ -30,10 +30,10 @@ class Ui_client extends Gui
 
 ?>
         <div class=" container row">
-            <div class="col-12 col-sm-12 col-lg-4">
+            <div class="col-12 col-sm-12 col-lg-3">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h5 <span><i class="fas fa-bars"></i></span> Registro de clientes</h5>
+                        <h5 <span> <i class="fas fa-bars"></i></span> Registro de clientes</h5>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="clients.php?action=<?=$action?>">
@@ -55,11 +55,8 @@ class Ui_client extends Gui
                                 <input class="form-control" type="text" name="cedula" value="<?=$client['cedula_juridica']?>">
                             </div>
                             <div class="form-group">
-                                <label class="etiquetas">Tipo de clientes</label>
-                                <select id="clientes" class="form-control" name="tipo">
-                                    <option value="privado">Privado</option>
-                                    <option value="gobierno">Gobierno</option>
-                                </select>
+                                <label class="etiquetas">Contraseña</label>
+                                <input type="password" class="form-control" name="clave" id="clave">
                             </div>
                             <hr>
                             <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?=$boton?></button>
@@ -68,13 +65,13 @@ class Ui_client extends Gui
                 </div>
             </div>
 
-            <div class="col-12 col-sm-8  table-responsive">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-9">
                 <div class="card shadow">
                     <div class="card-header">
                         <h5 class="card-title">Lista de Clientes</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered" id="example">
+                        <table class="table table-bordered   table-responsive" id="example">
                             <thead class="thead-dark text-center text-white">
                                 <tr>
                                     <th>Nombre</th>

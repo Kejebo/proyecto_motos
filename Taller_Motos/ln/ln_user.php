@@ -16,12 +16,12 @@
                         header('Location: users.php');
 
                     break;
-
+                    
                     case 'update':
                         $this->update_user($_POST);
                         header('Location: users.php');
                     break;
-
+                    
 
                     case 'delete':
                         $this->delete_user($_GET['id']);
@@ -32,7 +32,7 @@
     }
         function insert_user($data){
             $this->db->insert_user($data);
-
+            
         }
         function get_users(){
             return $this->db->get_users();

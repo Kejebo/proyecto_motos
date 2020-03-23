@@ -7,19 +7,19 @@ class db_client extends conexion{
 
     function __construct()
     {
-      parent::__construct();
+      parent::__construct();  
     }
 
 
     function insert_client($data){
         extract($data);
-
-        $sql = "call insert_clientes('$cedula','$nombre','$correo','$telefono')";
+        
+        $sql = "call insert_clientes('$cedula','$nombre','$correo','$telefono','$clave')";
         $result = $this->execute($sql);
         return $result;
     }
 
-
+    
 
     function get_clients(){
         $sql = "select * from clientes;";
@@ -46,8 +46,8 @@ class db_client extends conexion{
     function update_client($data){
         extract($data);
         echo $id_cliente;
-        $sql="update clientes c set c.nombre_cliente='$nombre', c.cedula_juridica='$cedula', c.telefono='$telefono', c.correo='$correo'
-        where c.id_cliente='$id_cliente';";
+        $sql="update clientes c set c.nombre_cliente='$nombre', c.cedula_juridica='$cedula', c.telefono='$telefono', c.correo='$correo' 
+        ,c.clave='$clave' where c.id_cliente='$id_cliente';";
         $this->execute($sql);
     }
     }
