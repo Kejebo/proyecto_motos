@@ -37,18 +37,50 @@ class db_usuario extends conexion{
 
     }
 
-    function update_usuario($id){
+    function update_usuario($codigo,$id){
 
         $this->conectar();
-        extract($data);
-        $sql = "call update_cambio_usuario('$id')";
+        $sql = "call update_codigo_usuario('$codigo','$id')";
         $result = $this->execute($sql);
+        print_r($result);
         return $result;
         $this->desconectar();
    
     }
 
-    
+    function update_estado_cambio($id){
+
+        $this->conectar();
+        $sql = "call update_estado_cambio('$id')";
+        $result = $this->execute($sql);
+        print_r($result);
+        return $result;
+        $this->desconectar();
+   
+    }
+
+    function update_estado_cambio_negativo($id){
+
+        $this->conectar();
+        $sql = "call update_estado_cambio_negativo('$id')";
+        $result = $this->execute($sql);
+        print_r($result);
+        return $result;
+        $this->desconectar();
+   
+    }
+
+    function cambio_contrasena($data){
+        extract($data);
+      
+        $this->conectar();
+        $sql = "call update_codigo_contrasena('$contrasena','$id')";
+        $result = $this->execute($sql);
+        $this->update_estado_cambio_negativo($id);
+        return $result;
+        $this->desconectar();
+   
+    }
 
 
     function insert_usuario($data){
@@ -67,35 +99,38 @@ class db_usuario extends conexion{
     }
 
 
-    function get_usuario_cambio($data){
-
+    function get_usuario_cambio($data,$codigo){
+  
         extract($data);
+        print_r($correo_electronico_link);
+        $cod = $codigo[0].$codigo[1].$codigo[2];
 
-        $sql = "call get_usuario_cambio('$correo_electronico_link)";
 
+        $sql = "call get_usuario_cambio('$correo_electronico_link')";
+        
         $result = $this->get_data($sql);
-
+       
         if($result){
-
-            $this->update_usuario($result[0][0]);
-            return $result[0];
+           
+           $this->update_usuario($cod,$result[0]['id_usuario']);
+            return $result[0]['id_usuario'];
            
         }else {
-
             return false;
         }
+     
 
     }
 
-    function validar_estado($id){
+    function validar_codigo($codigo,$id){
 
-        extract($id);
 
-        $sql = "call validar_estado($id)";
+        $sql = "call validar_codigo($codigo,$id)";
 
         $result = $this->get_data($sql);
-
         if($result){
+
+            $this->update_estado_cambio($id);
             
             return true;
            
