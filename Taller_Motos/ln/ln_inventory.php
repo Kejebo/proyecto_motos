@@ -15,7 +15,10 @@
                 switch($_GET['action']){
                     case 'insert':
                         $this->db->insert_inventory($_POST);
+                        $this->rediretion();
                     break;
+                    case 'delete':
+                        $this->delete_material($_GET['id']);
                 }
             }
         }
@@ -32,7 +35,15 @@
         }
         function get_inventory(){
             return $this->db->get_inventory();
+
         }
+        function delete_material($id){
+            $this->db->delete_material($id);
+            $this->rediretion();
+       }
+       function rediretion(){
+           header('location:inventary.php');
+       }
     }
 
 ?>

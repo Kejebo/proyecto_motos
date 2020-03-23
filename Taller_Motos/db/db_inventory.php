@@ -69,7 +69,11 @@ class db_inventory extends conexion{
             }else{
         return false;
             }
-    }   
+    }
+    
+    function delete_material($id){
+        $this->execute("update materiales set estado=0 where id_material='$id'");
+    }
 }
 
 ?>

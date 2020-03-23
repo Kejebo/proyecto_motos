@@ -144,8 +144,8 @@ class ui_inventary extends gui
                 <th>Cantidad</th>
                 <th>Venta</th>
                 <th>Compra</th>
+                <th>Eiminar</th>
                 <th>Editar</th>
-                <th>Eliminar</th>
               </tr>
             </thead>
             <tbody>
@@ -157,7 +157,7 @@ class ui_inventary extends gui
                   <td><?= $list['compra']; ?></td>
                   <td><a href="inventary.php?action=delete&id=<?= $list['id']; ?>" class="btn btn-danger">x</a></td>
                   <td><a href="inventary.php?action=update_inventary&id=<?= $list['id']; ?>" class="btn btn-warning">edit</a></td>
-
+   
                 </tr>
               <?php } ?>
             </tbody>
