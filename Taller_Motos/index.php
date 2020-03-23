@@ -86,7 +86,7 @@ $ui = new gui($config);
     
     <form action="security.php?action=enviar_correo" method="post">
 
-    <input type="text" class="form-control" placeholder="correo_electronico" name="correo_electronico_link">
+    <input type="text" class="form-control" placeholder="correo_electronico" name="correo_electronico_link" required>
 
     <hr>
 
