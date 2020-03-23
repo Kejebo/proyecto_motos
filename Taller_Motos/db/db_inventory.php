@@ -19,8 +19,16 @@ class db_inventory extends conexion{
         return $result;
     }
 
+    function get_inventory(){
+        $sql = "call get_inventario()";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
     
-
     function get_category(){
         $sql = "select * from categorias_material;";
         $result = $this->get_data($sql);

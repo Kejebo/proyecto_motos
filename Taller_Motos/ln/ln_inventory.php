@@ -14,6 +14,8 @@
         function get_category(){
             return $this->db->get_category();
         }
+
+        
     }
 
 ?>
