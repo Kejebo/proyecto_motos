@@ -112,5 +112,3 @@ $ui = new gui($config);
     <div class="col-sm-4"></div>
 
     </div>
-
-
