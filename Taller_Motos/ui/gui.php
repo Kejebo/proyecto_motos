@@ -19,21 +19,13 @@ class Gui
 
         $this->ln_security = new ln_security();
 
-        if(isset($_GET['id'])){
-            if($_GET['id']!=0){
-               $this->estado = $this->ln_security->validar_estado($_GET['id']);
-            }
-        }else{
-           header('Location:index.php?hola=hola');
-        }
-        
         if($config){
 			$this->config = $config;
         }
         
 		$this->ln_security->check_access(
 		$this->config['url']);
-		
+        
 	} 
 
     function get_header()
