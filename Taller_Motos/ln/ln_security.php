@@ -34,14 +34,12 @@ function action_controller(){
             case 'enviar_correo':
             $codigo = $this->get_codigo();
             $id = $this->get_usuario_cambio($_POST,$codigo);
-            print_r($codigo);
             $this->enviar_correo($_POST,$codigo);
-            header('Location:validacion.php?users_id='.$id);
+            header('Location:validacion.php?users_id='.$id.'&correo='.$_POST['correo_electronico_link']);
             break;
 
             case 'cambio_contrasena': 
             $this->cambio_contrasena($_POST);
-           // $this->ln_usuarios->update_estado_cambio_negativo($_POST['id']);
             header('Location:index.php?mcor=Cambio-Correcto');
             break;
 
@@ -54,6 +52,7 @@ function action_controller(){
     }
 
 }
+
 
 function generar_numero_aleatorio(){
 
@@ -112,7 +111,7 @@ function validar_codigo($codigo,$id){
     if($this->ln_usuarios->validar_codigo($codigo,$id)!=false){
         header('Location:form_cambio.php?user_id='.$id);
     }else{
-       header('Location:index.php?mt=falso');
+        header('Location:validacion.php?users_id='.$id.'&correo='.$_POST['correo_electronico_link'].'&mer=true');
     }
 
 }
@@ -155,8 +154,9 @@ function get_usuario_cambio($data,$codigo){
 
 function enviar_correo($data,$codigo){
 
-
+    $respuesta = false;
     $mail = new PHPMailer(true);
+
 try {
     $mail->SMTPDebug = 0;                                       // Enable verbose debug output
     $mail->isSMTP();                                            // Set mailer to use SMTP
@@ -178,10 +178,13 @@ try {
         # code...
     
     $mail->send();
-    echo 'Message has been sent';
+   $respuesta = true;
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    $respuesta= false;
 }
+
+return $respuesta;
 
 }
 
