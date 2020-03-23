@@ -14,6 +14,17 @@ class ui_inventary extends gui
   }
   function get_content()
   {
+    $material = null;
+    $action = 'insert';
+    $boton = 'Registrar';
+    if (isset($_GET['action'])) {
+      if ($_GET['action'] == 'update_material') {
+
+        $material = $this->ln->get_material($_GET['id'])[0];
+        $action = 'update';
+        $boton = 'Actualizar';
+      }
+    }
 ?>
 
     <section class="container" style="color: #04ADBF;">
@@ -27,15 +38,21 @@ class ui_inventary extends gui
               <form method="post" action="inventary.php?action=insert">
                 <div class="form-group">
                   <label class="etiquetas">Nombre</label>
-                  <input class="form-control" type="text" name="nombre">
+                  <input class="form-control" type="text" name="nombre" value="<?=$material['id_categoria']?>">
                 </div>
 
                 <label class="etiquetas">Categoria</label>
                 <div class="input-group mb-3">
                   <select name="categoria" id="categoria" class="form-control" onchange="selec(this)">
-                    <?php foreach ($this->ln->get_category() as $lista) { ?>
-                      <option value="<?= $lista['id_categoria'] ?>"><?= $lista['nombre_categoria'] ?></option>
-                    <?php } ?>
+                    <?php foreach ($this->ln->get_category() as $lista) {
+                      print($material['id_categoria']);
+                      if ($material['id_categoria'] == $lista['id_categoria']) {
+                    ?>
+                        <option selected value="<?= $lista['id_categoria'] ?>"><?= $lista['nombre_categoria'] ?></option>
+                      <?php } else { ?>
+                        <option value="<?= $lista['id_categoria'] ?>"><?= $lista['nombre_categoria'] ?></option>
+                    <?php }
+                    } ?>
                   </select>
                   <div class="input-group-append">
                     <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_categoria">+</span>
@@ -156,8 +173,8 @@ class ui_inventary extends gui
                   <td><?= $list['venta']; ?></td>
                   <td><?= $list['compra']; ?></td>
                   <td><a href="inventary.php?action=delete&id=<?= $list['id']; ?>" class="btn btn-danger">x</a></td>
-                  <td><a href="inventary.php?action=update_inventary&id=<?= $list['id']; ?>" class="btn btn-warning">edit</a></td>
-   
+                  <td><a href="inventary.php?action=update_material&id=<?= $list['id']; ?>" class="btn btn-warning">edit</a></td>
+
                 </tr>
               <?php } ?>
             </tbody>

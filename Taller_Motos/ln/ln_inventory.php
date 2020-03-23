@@ -41,9 +41,10 @@
             $this->db->delete_material($id);
             $this->rediretion();
        }
+       function get_material($id){
+           $this->db->get_material($id);
+       }
        function rediretion(){
            header('location:inventary.php');
        }
     }
-
-?>
