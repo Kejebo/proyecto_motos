@@ -85,12 +85,10 @@ class db_inventory extends conexion
     function get_material($id)
     {
 
-        $sql = "call get_material'$id';";
+        $sql = "call get_material('$id')";
         $result = $this->get_data($sql);
         if ($result) {
-            return $result;
-        } else {
-            return false;
-        }
+            return $result[0];
     }
+}
 }

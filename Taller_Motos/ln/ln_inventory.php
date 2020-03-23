@@ -42,7 +42,7 @@
             $this->rediretion();
        }
        function get_material($id){
-           $this->db->get_material($id);
+           return $this->db->get_material($id);
        }
        function rediretion(){
            header('location:inventary.php');

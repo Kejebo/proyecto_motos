@@ -20,7 +20,8 @@ class ui_inventary extends gui
     if (isset($_GET['action'])) {
       if ($_GET['action'] == 'update_material') {
 
-        $material = $this->ln->get_material($_GET['id'])[0];
+        $material = $this->ln->get_material($_GET['id']);
+        
         $action = 'update';
         $boton = 'Actualizar';
       }
@@ -38,14 +39,13 @@ class ui_inventary extends gui
               <form method="post" action="inventary.php?action=insert">
                 <div class="form-group">
                   <label class="etiquetas">Nombre</label>
-                  <input class="form-control" type="text" name="nombre" value="<?=$material['id_categoria']?>">
+                  <input class="form-control" type="text" name="nombre" value="<?= $material['nombre'] ?>">
                 </div>
 
                 <label class="etiquetas">Categoria</label>
                 <div class="input-group mb-3">
                   <select name="categoria" id="categoria" class="form-control" onchange="selec(this)">
                     <?php foreach ($this->ln->get_category() as $lista) {
-                      print($material['id_categoria']);
                       if ($material['id_categoria'] == $lista['id_categoria']) {
                     ?>
                         <option selected value="<?= $lista['id_categoria'] ?>"><?= $lista['nombre_categoria'] ?></option>
@@ -64,9 +64,13 @@ class ui_inventary extends gui
 
                 <div class="input-group mb-3">
                   <select name="marca" class="form-control">
-                    <?php foreach ($this->ln->get_marcas() as $lista) { ?>
-                      <option value="<?= $lista['id_marca_material'] ?>"><?= $lista['nombre_marca'] ?></option>
-                    <?php } ?>
+                    <?php foreach ($this->ln->get_marcas() as $list) {
+                      if ($material['id_marca_material'] == $list['id_marca_material']) { ?>
+                        <option selected value="<?= $list['id_marca_material'] ?>"><?= $list['nombre_marca'] ?></option>
+                      <?php } else { ?>
+                        <option value="<?= $list['id_marca_material'] ?>"><?= $list['nombre_marca'] ?></option>
+                    <?php  }
+                    } ?>
                   </select>
                   <div class="input-group-append">
                     <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_marca">+</span>
@@ -74,7 +78,7 @@ class ui_inventary extends gui
                 </div>
 
                 <div class="form-group">
-                  <label class="etiquetas">Cantidad</label>
+                  <label class="etiquetas">Cantidad inicial</label>
                   <input class="form-control" type="number" name="cantidad">
                 </div>
 
@@ -90,16 +94,16 @@ class ui_inventary extends gui
                 </div>
                 <div class="form-group presentacion">
                   <label class="etiquetas">Cantidad minima</label>
-                  <input class="form-control" type="number" name="cant_minima">
+                  <input class="form-control" type="number" name="cant_minima" value="<?=$material['cantidad_minima']?>">
                 </div>
 
                 <div class="form-group">
                   <label class="etiquetas">Precio de Compra</label>
-                  <input class="form-control" type="number" name="precio_compra">
+                  <input class="form-control" type="number" name="precio_compra" value="<?=$material['precio_compra']?>">
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Precio de Venta</label>
-                  <input class="form-control" type="number" name="precio_venta">
+                  <input class="form-control" type="number" name="precio_venta" value="<?=$material['precio_venta']?>">
                 </div>
 
                 <hr>
