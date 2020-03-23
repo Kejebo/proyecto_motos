@@ -28,9 +28,9 @@ class ui_proveedores extends gui
       }
     }
 ?>
-    <section class="py-3" style="color: #04ADBF;">
+    <section class="container py-3" style="color: #04ADBF;">
       <div class="row">
-        <div class="col-12 col-sm-4">
+        <div class="col-12 col-sm-4 py-3">
           <div class="card shadow">
             <div class="card-header">
               <h5 class="card-title">Registro de Proveedores</h5>
@@ -62,8 +62,13 @@ class ui_proveedores extends gui
           </div>
         </div>
         <br>
-        <div class="col-12 col-sm-8  table-responsive">
-          <table class="table table-bordered" id="example">
+        <div class="col-12 col-sm-8 py-3">
+          <div class="card shadow ">
+          <div class="card-header">
+          <h5 class="card-title">Lista de Proveedores</h5>
+          </div>
+          <div class="card-body">
+          <table class="table table-bordered table-responsive" id="example">
             <thead class="thead-dark text-center text-white">
               <tr>
                 <th>Nombre</th>
@@ -89,6 +94,8 @@ class ui_proveedores extends gui
             </tbody>
 
           </table>
+          </div>
+        </div>
         </div>
       </div>
 
