@@ -1,11 +1,16 @@
+
+
 var clicks = 0;
 var monto = document.querySelector('#monto');
-
-
 
 function cambiarojo(x) {
   x.classList.toggle("fa-eye-slash");
 }
+
+function mostrar_contrasena_diferentes(){
+  $('.toast').toast('show');
+
+  }
 
 function add() {
   if (clicks == 0) {

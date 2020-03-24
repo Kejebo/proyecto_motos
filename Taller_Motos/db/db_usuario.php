@@ -77,7 +77,12 @@ class db_usuario extends conexion{
         $sql = "call update_codigo_contrasena('$contrasena','$id')";
         $result = $this->execute($sql);
         $this->update_estado_cambio_negativo($id);
-        return $result;
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+      
         $this->desconectar();
    
     }
