@@ -1,5 +1,9 @@
+window.addEventListener('load',()=>{
+ // document.getElementById('purchase').style.display='none';
+});
 var clicks = 0;
 var monto = document.querySelector('#monto');
+
 
 function add() {
   if (clicks == 0) {

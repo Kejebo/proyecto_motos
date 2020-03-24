@@ -1,22 +1,23 @@
 <?php
 require_once('gui.php');
-class Ui_pucharse extends Gui
+require_once('ln/ln_purchase.php');
+class ui_purchase extends Gui
 {
     var $ln;
 
     function __construct()
     {
-        //        $this->ln = new ln_user();
+        $this->ln = new ln_purchase();
     }
 
     function action_controller()
     {
-        //      $this->ln->action_controller();
+        $this->ln->action_controller();
     }
 
     function get_content()
     {
-        $user = null;
+        $purchase = null;
         $action = 'insert';
         $boton = 'Registrar';
         if (isset($_GET['action'])) {
@@ -35,10 +36,10 @@ class Ui_pucharse extends Gui
                         <h5 <span><i class="fas fa-bars"></i></span> Registrar Compra</h5>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="users.php?action=<?= $action ?>">
-                            <input type="hidden" name="id_usuario" value="<?= $user['id_usuario'] ?>">
+                        <form method="POST" action="purchases.php?action=<?= $action ?>">
+                            <input type="hidden" name="id" value="">
                             <div class="form-group">
-                                <label class="etiquetas">fecha</label>
+                                <label class="etiquetas">Fecha</label>
                                 <input class="form-control" type="date" name="fecha">
                             </div>
 
@@ -48,14 +49,19 @@ class Ui_pucharse extends Gui
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Proveedor</label>
-                                <select id="my-select" class="form-control" name="">
-                                    <option>Text</option>
+                                <select id="my-select" class="form-control" name="proveedor">
+                                    <?php foreach ($this->ln->get_proveedor() as $proveedores) { ?>
+                                        <option value="<?= $proveedores['id_proveedor'] ?>"><?= $proveedores['nombre'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Material</label>
-                                <select id="my-select" class="form-control" name="">
-                                    <option>Text</option>
+                                <select id="my-select" class="form-control" name="material">
+                                <?php foreach ($this->ln->get_inventory() as $material) { ?>
+                                        <option value="<?= $material['id'] ?>"><?= $material['nombre'].' '.$material['marca'].' '.
+                                        $material['monto'] .$material['medida']?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -79,7 +85,7 @@ class Ui_pucharse extends Gui
 
             <div class="col-12 col-sm-12 col-md-8 col-lg-9 py-3">
 
-            <div class="card shadow">
+                <div class="card shadow" id="purchase">
                     <div class="card-header">
                         <h5 class="card-title">Detalle de compra</h5>
                     </div>
@@ -97,10 +103,9 @@ class Ui_pucharse extends Gui
 
                     </div>
                 </div>
-                <br>
                 <div class="card shadow">
                     <div class="card-header">
-                        <h5 class="card-title">Lista de Usuarios</h5>
+                        <h5 class="card-title">Lista de Compras</h5>
                     </div>
                     <div class="card-body table-responsive">
                         <table class="table table-bordered" id="example">

@@ -1,6 +1,6 @@
 <?php
-require_once('ui/ui_pucharse.php');
-$ui= new Ui_pucharse();
+require_once('ui/ui_purchase.php');
+$ui= new ui_purchase();
 $ui->action_controller();
 $ui->get_header();
 $ui->get_sidebar();

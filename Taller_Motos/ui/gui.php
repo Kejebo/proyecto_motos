@@ -35,7 +35,7 @@ class Gui
                     <ul>
                         <li><a href="inventary.php"><i class="fas fa-boxes"></i> Inventario</a></li>
                         <li><a href="#"><i class="fas fa-tools"></i> Reparacion</a></li>
-                        <li><a href="pucharses.php"><i class="fas fa-shopping-cart"></i> Compras</a></li>
+                        <li><a href="purchases.php"><i class="fas fa-shopping-cart"></i> Compras</a></li>
                         <li><a href="ventas.php"><i class="fas fa-cash-register"></i> Ventas</a></li>
                         <li><a href="clients.php"><i class="fas fa-users"></i> Clientes</a></li>
                         <li><a href="proveedores.php"><i class="fas fa-user-tie"></i> Proveedores</a></li>
@@ -67,7 +67,7 @@ class Gui
                                     <a class="nav-link" href="#"></i> Reparacion</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pucharses.php">Compras</a>
+                                    <a class="nav-link" href="purchases.php">Compras</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="ventas.php">Ventas</a>
