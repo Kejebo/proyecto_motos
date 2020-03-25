@@ -78,11 +78,14 @@ function update_usuario($codigo,$id){
 }
 
 function cambio_contrasena($data){
-    if($this->ln_usuarios->cambio_contrasena($data)!=true){
-        header('Location:index.php?mcor=Cambio-Correcto');
-    }else{
-        header('Location:form_cambio.php?user_id='.$_POST['id'].'&igualdad=');
-    }
+    print_r($_POST['contrasena']);
+    //if(
+        $this->ln_usuarios->cambio_contrasena($data);
+        //!=true){
+       // header('Location:index.php?mcor=Cambio-Correcto');
+  //  }//else{
+       // header('Location:form_cambio.php?user_id='.$_POST['id'].'&igualdad=');
+   // }
 }
 
 function login($data){

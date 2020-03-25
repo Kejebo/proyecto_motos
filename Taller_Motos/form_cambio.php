@@ -17,30 +17,31 @@ $ui = new gui($config);
 
 <div style="width: 500px">
 
+<div class="toast">
+  <div class="toast-header">
+    Toast Header
+  </div>
+  <div class="toast-body">
+    Some text inside the toast body
+  </div>
+</div>
+
 <h5>From de cambio de contrasena</h5>
 
-<form action="security.php?action=cambio_contrasena" method="post">
+<form method="post" id="formulario">
 
-<input type="hidden" value=<?=$_GET['user_id'];?> name="id">
+<input type="hidden" value=<?=$_GET['user_id'];?> name="id" id="id">
 
-
-<input type="password" class="form-control" placeholder="nueva_contrasena" name="contrasena">
-
-<hr>
-
-<input type="password" class="form-control" placeholder="verificar_contrasena" name="confirmarContrasena">
-
-<?php if(isset($_GET['igualdad'])){?>
-<div class="alert alert-danger alert-dismissible fade show">
-<button type="button" class="close" data-dismiss="alert">&times;</button>
-<strong>Error!</strong> Las contrasenas coinciden.
-</div>
-<?php } ?>
+<input type="password" class="form-control" placeholder="nueva_contrasena" name="contrasena" id="contrasenaUno">
 
 <hr>
 
-<button>Cambiar</button>
+<input type="password" class="form-control" placeholder="verificar_contrasena" name="confirmarContrasena" id="contrasenaDos">
 
+
+<hr>
+
+<button onclick="validacionContrasenas($('#contrasenaUno').val(),$('#contrasenaDos').val(),$('#id').val())">Cambiar</button>
 
 </form>
 

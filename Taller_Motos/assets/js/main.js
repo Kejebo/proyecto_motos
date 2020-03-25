@@ -1,7 +1,27 @@
 
-
 var clicks = 0;
 var monto = document.querySelector('#monto');
+
+function validacionContrasenas(contrasena1,contrasena2){
+  
+ 
+            var contraUno= contrasena1;
+            var contraDos= contrasena2;
+
+            if(contraUno==contraDos){
+
+             $.ajax({
+            data:  $("#formulario").serialize(),//datos que se envian a traves de ajax
+            url:   'security.php?action=cambio_contrasena', //archivo que recibe la peticion
+            type:  'post', //método de envio
+            });
+
+            }else{
+              $('.toast').toast('show');
+            }
+}
+
+
 
 function cambiarojo(x) {
   x.classList.toggle("fa-eye-slash");
