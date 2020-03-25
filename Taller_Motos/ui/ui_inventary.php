@@ -4,8 +4,10 @@ require_once('ln/ln_inventory.php');
 class ui_inventary extends gui
 {
   var $ln;
-  function __construct()
+
+  function __construct($config)
   {
+    parent::__construct($config);
     $this->ln = new ln_inventory();
   }
   function action_controller()
@@ -21,7 +23,7 @@ class ui_inventary extends gui
       if ($_GET['action'] == 'update_material') {
 
         $material = $this->ln->get_material($_GET['id']);
-        
+
         $action = 'update';
         $boton = 'Actualizar';
       }
@@ -36,8 +38,8 @@ class ui_inventary extends gui
               <h6 style="margin-left: 20px"> <span><i class="fas fa-bars"></i></span> Registro de Inventario</h6>
             </div>
             <div class="card-body">
-              <form method="post" action="inventary.php?action=<?=$action?>">
-              <input type="hidden" name="id" value="<?=$material['id_material']?>">
+              <form method="post" action="inventary.php?action=<?= $action ?>">
+                <input type="hidden" name="id" value="<?= $material['id_material'] ?>">
                 <div class="form-group">
                   <label class="etiquetas">Nombre</label>
                   <input class="form-control" type="text" name="nombre" value="<?= $material['nombre'] ?>">
@@ -80,7 +82,7 @@ class ui_inventary extends gui
 
                 <div class="form-group">
                   <label class="etiquetas">Cantidad inicial</label>
-                  <input class="form-control" type="number" name="cantidad" value="<?=$material['cantidad_inicial']?>">
+                  <input class="form-control" type="number" name="cantidad" value="<?= $material['cantidad_inicial'] ?>">
                 </div>
 
                 <div class="form-group" id="monto" style="display: none">
@@ -95,20 +97,20 @@ class ui_inventary extends gui
                 </div>
                 <div class="form-group presentacion">
                   <label class="etiquetas">Cantidad minima</label>
-                  <input class="form-control" type="number" name="cant_minima" value="<?=$material['cantidad_minima']?>">
+                  <input class="form-control" type="number" name="cant_minima" value="<?= $material['cantidad_minima'] ?>">
                 </div>
 
                 <div class="form-group">
                   <label class="etiquetas">Precio de Compra</label>
-                  <input class="form-control" type="number" name="precio_compra" value="<?=$material['precio_compra']?>">
+                  <input class="form-control" type="number" name="precio_compra" value="<?= $material['precio_compra'] ?>">
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Precio de Venta</label>
-                  <input class="form-control" type="number" name="precio_venta" value="<?=$material['precio_venta']?>">
+                  <input class="form-control" type="number" name="precio_venta" value="<?= $material['precio_venta'] ?>">
                 </div>
 
                 <hr>
-                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?=$boton?></button>
+                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
               </form>
             </div>
           </div>
@@ -170,7 +172,7 @@ class ui_inventary extends gui
                 <th>Editar</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
               <?php foreach ($this->ln->get_inventory() as $list) { ?>
                 <tr>
                   <td><?= $list['nombre']; ?></td>

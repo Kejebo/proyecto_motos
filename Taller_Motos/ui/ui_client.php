@@ -5,8 +5,10 @@ class Ui_client extends Gui
 {
     var $ln;
 
-    function __construct()
+   
+    function __construct($config)
     {
+        parent::__construct($config);
         $this->ln = new ln_client();
     }
 

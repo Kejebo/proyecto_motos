@@ -9,7 +9,7 @@ $config = array(
 	'url'		=> 'index.php',
 );
 
-$ui = new GUI($config);
+$ui = new Gui($config);
 
 ?>
 

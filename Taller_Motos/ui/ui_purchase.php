@@ -5,8 +5,9 @@ class ui_purchase extends Gui
 {
     var $ln;
 
-    function __construct()
+    function __construct($config)
     {
+        parent::__construct($config);
         $this->ln = new ln_purchase();
     }
 
@@ -36,7 +37,7 @@ class ui_purchase extends Gui
                         <h5 <span><i class="fas fa-bars"></i></span> Registrar Compra</h5>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="purchases.php?action=<?= $action ?>">
+                        <form  id="form-purchase" method="POST" action="purchases.php?action=<?= $action ?>">
                             <input type="hidden" name="id" value="">
                             <div class="form-group">
                                 <label class="etiquetas">Fecha</label>
@@ -45,11 +46,11 @@ class ui_purchase extends Gui
 
                             <div class="form-group">
                                 <label class="etiquetas">Numero de factura</label>
-                                <input class="form-control" type="text" name="factura">
+                                <input class="form-control" type="text" name="factura" id="factura">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Proveedor</label>
-                                <select id="my-select" class="form-control" name="proveedor">
+                                <select class="form-control" name="proveedor" id="proveedor">
                                     <?php foreach ($this->ln->get_proveedor() as $proveedores) { ?>
                                         <option value="<?= $proveedores['id_proveedor'] ?>"><?= $proveedores['nombre'] ?></option>
                                     <?php } ?>
@@ -57,7 +58,7 @@ class ui_purchase extends Gui
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Material</label>
-                                <select id="my-select" class="form-control" name="material">
+                                <select class="form-control" name="material" id="material">
                                 <?php foreach ($this->ln->get_inventory() as $material) { ?>
                                         <option value="<?= $material['id'] ?>"><?= $material['nombre'].' '.$material['marca'].' '.
                                         $material['monto'] .$material['medida']?></option>
@@ -66,12 +67,12 @@ class ui_purchase extends Gui
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Cantidad</label>
-                                <input type="number" class="form-control" name="cantidad" id="">
+                                <input type="number" class="form-control" name="cantidad" id="cantidad">
                             </div>
 
                             <div class="form-group">
                                 <label class="etiquetas">Precio</label>
-                                <input type="number" class="form-control" name="precio" id="">
+                                <input type="number" class="form-control" name="precio" id="precio">
                             </div>
 
                             <hr>

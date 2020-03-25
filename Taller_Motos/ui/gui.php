@@ -1,7 +1,11 @@
 <?php
 class Gui
 {
-
+    var $config;
+    function __construct($config)
+    {
+        $this->config=$config;
+    }
     function get_header()
     {
 ?>
@@ -52,7 +56,7 @@ class Gui
             {
                 ?>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand">Brand</a>
+                        <a class="navbar-brand" id="modulo"><?=$this->config['titulo'];?></a>
                         <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>

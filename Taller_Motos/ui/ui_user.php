@@ -1,12 +1,14 @@
 <?php
 require_once('gui.php');
 require_once('ln/ln_user.php');
-class Ui_user extends Gui
+class ui_user extends Gui
 {
     var $ln;
 
-    function __construct()
+
+    function __construct($config)
     {
+        parent::__construct($config);
         $this->ln = new ln_user();
     }
 
@@ -17,14 +19,14 @@ class Ui_user extends Gui
 
     function get_content()
     {
-        $user=null;
-        $action='insert';
-        $boton='Registrar';
-        if(isset($_GET['action'])){
-            if($_GET['action']=='update_user'){
-                $user=$this->ln->get_user($_GET['id']);
-                $action='update';
-                $boton='Actualizar';
+        $user = null;
+        $action = 'insert';
+        $boton = 'Registrar';
+        if (isset($_GET['action'])) {
+            if ($_GET['action'] == 'update_user') {
+                $user = $this->ln->get_user($_GET['id']);
+                $action = 'update';
+                $boton = 'Actualizar';
             }
         }
 
@@ -36,18 +38,18 @@ class Ui_user extends Gui
                         <h5 <span><i class="fas fa-bars"></i></span> Registro de usuarios</h5>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="users.php?action=<?=$action?>">
-                        <input type="hidden" name="id_usuario" value="<?=$user['id_usuario']?>">
+                        <form method="POST" action="users.php?action=<?= $action ?>">
+                            <input type="hidden" name="id_usuario" value="<?= $user['id_usuario'] ?>">
                             <div class="form-group">
                                 <label class="etiquetas">Nombre Completo</label>
-                                <input class="form-control" type="text" name="nombre" value="<?=$user['nombre_completo']?>">
+                                <input class="form-control" type="text" name="nombre" value="<?= $user['nombre_completo'] ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Contraseña</label>
-                                <input type="text" class="form-control" name="clave" id="clave" value="<?=$user['clave']?>">
+                                <input type="text" class="form-control" name="clave" id="clave" value="<?= $user['clave'] ?>">
                             </div>
                             <hr>
-                            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?=$boton?></button>
+                            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
                         </form>
                     </div>
                 </div>
@@ -77,7 +79,7 @@ class Ui_user extends Gui
                                     foreach ($lista as $list) { ?>
                                         <tr>
                                             <td><?= $list['nombre_completo']; ?></td>
-                                            <td><?=$list['clave']; ?></td>
+                                            <td><?= $list['clave']; ?></td>
                                             <td><a href="users.php?action=delete&id=<?= $list['id_usuario']; ?>" class="btn btn-danger">x</a></td>
                                             <td><a href="users.php?action=update_user&id=<?= $list['id_usuario']; ?>" class="btn btn-warning">edit</a></td>
                                         </tr>
