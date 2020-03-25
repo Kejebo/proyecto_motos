@@ -31,7 +31,7 @@ class ui_purchase extends Gui
 
 ?>
         <div class=" container row">
-            <div class="col-12 col-sm-12 col-lg-3 py-3">
+            <div class="col-12 col-sm-12 col-lg-4 py-3">
                 <div class="card shadow">
                     <div class="card-header">
                         <h5 <span><i class="fas fa-bars"></i></span> Registrar Compra</h5>
@@ -41,7 +41,7 @@ class ui_purchase extends Gui
                             <input type="hidden" name="id" value="">
                             <div class="form-group">
                                 <label class="etiquetas">Fecha</label>
-                                <input class="form-control" type="date" name="fecha">
+                                <input class="form-control" type="date" name="fecha" value="<?= date("Y-m-d")?>">
                             </div>
 
                             <div class="form-group">
@@ -76,7 +76,11 @@ class ui_purchase extends Gui
                             </div>
 
                             <hr>
-                            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
+                            <div class="form-group">
+
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
+                            <button class="btn btn-success" type="submit"><i class="fas fa-file"></i>Guardar</button>
+                            </div>
                             <hr>
 
                         </form>
@@ -84,7 +88,7 @@ class ui_purchase extends Gui
                 </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-8 col-lg-9 py-3">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 py-3">
 
                 <div class="card shadow" id="purchase">
                     <div class="card-header">
@@ -99,6 +103,9 @@ class ui_purchase extends Gui
                                 <th>Total</th>
                                 <th>Eliminar</th>
                             </thead>
+                            <tbody id="detalle" class="text-center">
+
+                            </tbody>
                         </table>
 
 
