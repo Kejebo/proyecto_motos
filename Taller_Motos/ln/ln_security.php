@@ -82,8 +82,18 @@ function update_usuario($codigo,$id){
 }
 
 function cambio_contrasena($data){
+
+   if($_POST['contrasena']==$_POST['confirmarContrasena']){
+        if($this->ln_usuarios->cambio_contrasena($data)==true){
+        echo json_encode(array("result" => "actualizado"));
+        }else{
+        echo json_encode(array("result"=> "no actualizado"));
+        }
+   }else{
+        echo json_encode(array("result"=> "no iguales"));
+    }
   
- echo json_encode($this->ln_usuarios->cambio_contrasena($data));
+ 
     
    
 
@@ -107,7 +117,7 @@ function login($data){
 }
 
 function insert_usuario($data){
-      
+    
     
     if($this->ln_usuario->insert_user($data)!=false){
 

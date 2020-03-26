@@ -17,31 +17,28 @@ $ui = new gui($config);
 
 <div style="width: 500px">
 
-<div class="toast">
-  <div class="toast-header">
-    Toast Header
-  </div>
-  <div class="toast-body">
-    Some text inside the toast body
-  </div>
-</div>
-
 <h5>From de cambio de contrasena</h5>
+
+<div id="cambio_correcto">
+
+</div>
 
 <form method="post" id="formulario">
 
 <input type="hidden" value=<?=$_GET['user_id'];?> name="id" id="id">
 
-<input type="password" class="form-control" placeholder="nueva_contrasena" name="contrasena" id="contrasenaUno">
+<input type="password" class="form-control" placeholder="nueva_contrasena" name="contrasena" id="contrasenaUno" required>
 
 <hr>
 
-<input type="password" class="form-control" placeholder="verificar_contrasena" name="confirmarContrasena" id="contrasenaDos">
+<input type="password" class="form-control" placeholder="verificar_contrasena" name="confirmarContrasena" id="contrasenaDos" required>
 
+<div id="no_iguales">
 
+</div>
 <hr>
 
-<input type="submit"  id="bcambio" onclick="validacionContrasenas($('#contrasenaUno').val(),$('#contrasenaDos').val(),$('#id').val())">Cambiar</input>
+<button  id="bcambio" onclick="validacionContrasenas()">Cambiar</button>
 
 </form>
 

@@ -47,6 +47,21 @@ class conexion{
 		return $r;
 		
 	}
+
+	function executeDos($sql){
+		
+		$this->conectar();
+
+		$resultados = mysqli_query($this->conexion, $sql);
+
+		$result = mysqli_affected_rows($this->conexion);
+		
+		
+		$this->desconectar();
+		
+		return $result;
+		
+	}
 	
 	
 	
