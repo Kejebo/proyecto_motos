@@ -19,7 +19,7 @@ class db_purchase extends conexion{
         return $result;
     }
     function get_purchases(){
-        $sql = "select * from compras;";
+        $sql = "call get_compras();";
         $result = $this->get_data($sql);
             if($result){
                 return $result;

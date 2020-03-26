@@ -113,7 +113,6 @@ class Gui
             <script src="assets/js/datatables.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
             <script src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"></script>
-
         </body>
 
         </html>

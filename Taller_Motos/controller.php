@@ -10,7 +10,7 @@
     if($_POST['action']=='insert_purchase'){
        extract($_POST);
         $purchase->insert_purchase($_POST);
-       echo json_encode($compra);
+        $purchase->rediretion();
     }
 
 ?>

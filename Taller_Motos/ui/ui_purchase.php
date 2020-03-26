@@ -38,15 +38,15 @@ class ui_purchase extends Gui
                     </div>
                     <div class="card-body">
                         <form  id="form-purchase" method="POST" action="purchases.php?action=<?= $action ?>">
-                            <input type="hidden" name="id" value="0" id="id">
-                            <div class="form-group">
+                            <div class="form-group notificar">
                                 <label class="etiquetas">Fecha</label>
                                 <input class="form-control" id="fecha" type="date" name="fecha" value="<?= date("Y-m-d")?>">
+                                <input type="hidden" name="id" value="0" id="id">
                             </div>
 
                             <div class="form-group">
                                 <label class="etiquetas">Numero de factura</label>
-                                <input class="form-control" type="text" name="factura" id="factura">
+                                <input class="form-control" type="text" name="factura" id="factura" required>
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Proveedor</label>
@@ -67,12 +67,12 @@ class ui_purchase extends Gui
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Cantidad</label>
-                                <input type="number" class="form-control" name="cantidad" id="cantidad">
+                                <input type="number" class="form-control" name="cantidad" id="cantidad" required>
                             </div>
 
                             <div class="form-group">
                                 <label class="etiquetas">Precio</label>
-                                <input type="number" class="form-control" name="precio" id="precio">
+                                <input type="number" class="form-control" name="precio" id="precio" required>
                             </div>
 
                             <hr>
@@ -81,7 +81,7 @@ class ui_purchase extends Gui
                             <button class="btn btn-primary" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
                             <button class="btn btn-success" type="button" onclick="sendpurchase()"><i class="fas fa-file"></i>Guardar</button>
                             </div>
-                            <hr>
+                            <hr>    
 
                         </form>
                     </div>
@@ -129,7 +129,18 @@ class ui_purchase extends Gui
                                 </tr>
                             </thead>
                             <tbody class="text-center">
+                                <?php foreach($this->ln->get_purchases() as $list){ ?>
+                                    <tr>
+                                    <td><?=$list['fecha']?></td>
+                                    <td><?=$list['factura']?></td>
+                                    <td><?=$list['proveedor']?></td>
+                                    <td><?=$list['saldo']?></td>
+                                    <td><a href="purchases.php?action=delete&id=<?=$list['id']?>" class="btn btn-danger">x</a></td>
+                                    <td><a href="purchases.php?action=update_purchase&id=<?=$list['id']?>" class="btn btn-warning">edit</a></td>
 
+                                </tr>
+                                <?php } ?>
+                                
                             </tbody>
 
                         </table>

@@ -23,7 +23,8 @@
                         $this->rediretion();
                     break;
                     case 'delete':
-                       // $this->delete_material($_GET['id']);
+                        $this->delete_detail($_GET['id']);
+                        
                     break;
                     case 'update':
                        // $this->db->update_inventory($_POST);
@@ -46,6 +47,7 @@
        
         function delete_detail($id){
             $this->db->delete_detail($id);
+            $this->db->delete_purchase($id);
             $this->rediretion();
        }
        function get_inventory($id=null){
@@ -55,6 +57,7 @@
            return $this->proveedor->get_proveedores();
        }
        function rediretion(){
-           header('location:purchases.php');
+           header('Location: purchases.php');
+           
        }
     }
