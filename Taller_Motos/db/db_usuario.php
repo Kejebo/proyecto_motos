@@ -61,12 +61,9 @@ class db_usuario extends conexion{
 
     function update_estado_cambio_negativo($id){
 
-        $this->conectar();
         $sql = "call update_estado_cambio_negativo('$id')";
-        $result = $this->execute($sql);
-        print_r($result);
-        return $result;
-        $this->desconectar();
+        $this->execute($sql);
+      
    
     }
 
@@ -76,10 +73,13 @@ class db_usuario extends conexion{
         $this->conectar();
         $sql = "call update_codigo_contrasena('$contrasena','$id')";
         $result = $this->execute($sql);
-        $this->update_estado_cambio_negativo($id);
+       
         if($result){
-            return true;
+          $this->update_estado_cambio_negativo($id);
+          return $result;
+
         }else{
+
             return false;
         }
       

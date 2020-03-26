@@ -40,7 +40,6 @@ function action_controller(){
 
             case 'cambio_contrasena': 
             $this->cambio_contrasena($_POST);
-           
             break;
 
             case 'validar': 
@@ -51,6 +50,11 @@ function action_controller(){
         }
     }
 
+}
+
+function update_estado_cambio_negativo($id){
+
+    $this->ln_usuarios->update_estado_cambio_negativo($id);
 }
 
 
@@ -78,14 +82,11 @@ function update_usuario($codigo,$id){
 }
 
 function cambio_contrasena($data){
-    print_r($_POST['contrasena']);
-    //if(
-        $this->ln_usuarios->cambio_contrasena($data);
-        //!=true){
-       // header('Location:index.php?mcor=Cambio-Correcto');
-  //  }//else{
-       // header('Location:form_cambio.php?user_id='.$_POST['id'].'&igualdad=');
-   // }
+  
+ echo json_encode($this->ln_usuarios->cambio_contrasena($data));
+    
+   
+
 }
 
 function login($data){

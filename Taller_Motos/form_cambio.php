@@ -41,7 +41,7 @@ $ui = new gui($config);
 
 <hr>
 
-<button onclick="validacionContrasenas($('#contrasenaUno').val(),$('#contrasenaDos').val(),$('#id').val())">Cambiar</button>
+<input type="submit"  id="bcambio" onclick="validacionContrasenas($('#contrasenaUno').val(),$('#contrasenaDos').val(),$('#id').val())">Cambiar</input>
 
 </form>
 

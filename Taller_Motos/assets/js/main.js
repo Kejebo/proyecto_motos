@@ -1,10 +1,14 @@
 
 var clicks = 0;
 var monto = document.querySelector('#monto');
+const formulario = document.querySelector('#formulario');
+
+
+var valor= null;
 
 function validacionContrasenas(contrasena1,contrasena2){
   
- 
+  
             var contraUno= contrasena1;
             var contraDos= contrasena2;
 
@@ -14,8 +18,16 @@ function validacionContrasenas(contrasena1,contrasena2){
             data:  $("#formulario").serialize(),//datos que se envian a traves de ajax
             url:   'security.php?action=cambio_contrasena', //archivo que recibe la peticion
             type:  'post', //método de envio
+             datatype: 'json',
+            success: function (response){
+              let resultado =JSON.parse(response);
+              
+           alert(resultado.result);
+        
+            }
             });
-
+         
+           
             }else{
               $('.toast').toast('show');
             }
