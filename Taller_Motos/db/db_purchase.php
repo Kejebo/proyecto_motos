@@ -14,7 +14,7 @@ class db_purchase extends conexion{
     function insert_purchase($data){
         extract($data);
         
-        $sql = "call insert_compra('$proveedor','3','$factura')";
+        $sql = "call insert_compra('$proveedor','3','$factura','$fecha')";
         $result = $this->execute($sql);
         return $result;
     }
@@ -45,13 +45,11 @@ class db_purchase extends conexion{
         $this->execute($sql);
     }
     function get_last_pucharse(){
-        $sql = "select max(id_compra) as id from compras;";
+        $sql = "select * from compras
+        order by id_compra desc
+        limit 1";
         $result = $this->get_data($sql);
-            if($result){
-                return $result[0];
-            }else{
-        return false;
-            }
+        return $result[0]['id_compra'];
     }
     function insert_detail_purchase($id,$data){
         extract($data);

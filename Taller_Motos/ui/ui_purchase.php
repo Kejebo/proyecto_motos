@@ -38,10 +38,10 @@ class ui_purchase extends Gui
                     </div>
                     <div class="card-body">
                         <form  id="form-purchase" method="POST" action="purchases.php?action=<?= $action ?>">
-                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="id" value="0" id="id">
                             <div class="form-group">
                                 <label class="etiquetas">Fecha</label>
-                                <input class="form-control" type="date" name="fecha" value="<?= date("Y-m-d")?>">
+                                <input class="form-control" id="fecha" type="date" name="fecha" value="<?= date("Y-m-d")?>">
                             </div>
 
                             <div class="form-group">
@@ -79,7 +79,7 @@ class ui_purchase extends Gui
                             <div class="form-group">
 
                             <button class="btn btn-primary" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
-                            <button class="btn btn-success" type="submit"><i class="fas fa-file"></i>Guardar</button>
+                            <button class="btn btn-success" type="button" onclick="sendpurchase()"><i class="fas fa-file"></i>Guardar</button>
                             </div>
                             <hr>
 

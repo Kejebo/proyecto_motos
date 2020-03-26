@@ -33,7 +33,11 @@
         }
 
         function insert_purchase($data){
-            $this->db->insert_purchase($data);
+            extract($data);
+           $this->db->insert_purchase($datos);
+           foreach($compra as $lista){
+               $this->db->insert_detail_purchase($this->db->get_last_pucharse(),$lista);
+           }
         }
 
         function get_purchases(){
