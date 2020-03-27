@@ -38,8 +38,11 @@ $ui = new gui($config);
 </div>
 <hr>
 
-<button  id="bcambio" onclick="validacionContrasenas()">Cambiar</button>
+<button  type ="submit"  id="bcambio" >Cambiar</button>
 
 </form>
 
 </div>
+
+
+<?php $ui->get_scripts(); ?>

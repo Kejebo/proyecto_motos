@@ -24,3 +24,5 @@ $ui = new gui($config);
 	<button class="btn btn-primary">Salir</button>
 
 </form>
+
+$ui->get_scr

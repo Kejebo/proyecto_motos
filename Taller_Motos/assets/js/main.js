@@ -1,15 +1,20 @@
 
 var clicks = 0;
 var monto = document.querySelector('#monto');
-
+var formulario = document.querySelector('#formulario');
 var valor= null;
 
+
+
+window.addEventListener("load",function() {
+  formulario.addEventListener("submit",function() {
+   validacionContrasenas();
+  });
+});
+
 function validacionContrasenas(){
-
+       
            event.preventDefault();
-
-
-  
             $.ajax({
             data:  $("#formulario").serialize(),
             url:   'security.php?action=cambio_contrasena', 
@@ -55,6 +60,8 @@ function contrasena_no_actualizada_alerta(){
   $('#no_actualizada').toast('show');
   
   setTimeout(function(){ $('#no_actualizada').remove(); }, 3000);
+  document.getElementById("contrasenaUno").value = null;
+  document.getElementById("contrasenaUno").focus();
   document.getElementById("contrasenaDos").value = null;
   
   
@@ -98,12 +105,14 @@ function contrasnas_coincidencia_alerta(){
   +'</div>';
 
   $('#no_iguales').append(alerta);
- 
-  $('#coincidencia').toast({ delay: 5000 }); 
+  $('#coincidencia').toast({ delay: 3000 }); 
   $('#coincidencia').toast('show');
+  
+  setTimeout(function(){ $('#coincidencia').remove(); }, 3000);
+  document.getElementById("contrasenaDos").value = null;
+  document.getElementById("contrasenaUno").focus();
 
 }
-
 
 function cambiarojo(x) {
   x.classList.toggle("fa-eye-slash");
