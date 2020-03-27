@@ -22,6 +22,7 @@ class ui_purchase extends Gui
       
         $visibilidad='none';
         $action = 'insert';
+        $script='insert_purchase';
         $boton = 'Registrar';
         if (isset($_GET['action'])) {
             if ($_GET['action'] == 'update_purchase') {
@@ -40,7 +41,7 @@ class ui_purchase extends Gui
                         <h5 <span><i class="fas fa-bars"></i></span> Registrar Compra</h5>
                     </div>
                     <div class="card-body">
-                        <form id="form-purchase" onsubmit="insert_purchase(this)" method="POST" action="<?= $action ?>">
+                        <form id="form-purchase" method="POST" action="<?= $action ?>">
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha</label>
                                 <input class="form-control" id="fecha" type="date" name="fecha" value="<?= date("Y-m-d") ?>">
@@ -82,7 +83,7 @@ class ui_purchase extends Gui
                             <div class="form-group">
 
                                 <button class="btn btn-primary" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
-                                <button class="btn btn-success" type="button" onclick="sendpurchase()"><i class="fas fa-file"></i>Guardar</button>
+                                <button class="btn btn-success" type="button" onclick="sendpurchase('<?=$script?>')"><i class="fas fa-file"></i>Guardar</button>
                             </div>
                             <hr>
 
@@ -108,7 +109,9 @@ class ui_purchase extends Gui
                             </thead>
                             <tbody id="detalle" class="text-center">
                             
-                                <?php $id=0; foreach ($purchase as $list) { ?>
+                                <?php $id=0; 
+                                if(isset($purchase)){
+                                foreach ($purchase as $list) { ?>
                                     <tr ids="<?=$id++?>">
                                         <input type="hidden" name="detalle[]" class="lista" value='<?php print(json_encode($list))?>'>
                                         <td><?= $list['material'] ?></td>
@@ -117,7 +120,7 @@ class ui_purchase extends Gui
                                         <td><?= $list['saldo'] ?></td>
                                         <td><span class='delete_detail btn btn-danger' onclick="deletes(this)">x</span></td>
                                     </tr>
-                                <?php      } ?>
+                                <?php      } }?>
                             </tbody>
                         </table>
 

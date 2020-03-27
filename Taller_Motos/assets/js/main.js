@@ -53,7 +53,7 @@ window.addEventListener('load', () => {
     }
   });
 });
-function sendpurchase() {
+function sendpurchase(action) {
   let id = document.querySelector('#id').value;
   let factura = document.querySelector('#factura').value;
   let proveedor = document.querySelector('#proveedor').value;
@@ -64,13 +64,18 @@ function sendpurchase() {
     proveedor,
     fecha
   }
-  let action = "insert_purchase";
+
   $.ajax({
     type: "post",
     url: "controller.php",
     data: { action, datos, compra },
     success: function (response) {
       showMessage('Se realizo la compra correctamente', 'success');
+      setTimeout(() => {
+      window.location.href='purchases.php';
+    }, 3000);
+   
+   
     }
   });
   formulario.reset();
@@ -146,5 +151,5 @@ function showMessage(message, cssClass) {
   container.insertBefore(mensaje, notificacion);
   setTimeout(() => {
     document.querySelector('.alert').remove();
-  }, 5000);
+  }, 3000);
 }
