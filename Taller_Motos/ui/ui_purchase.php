@@ -30,6 +30,7 @@ class ui_purchase extends Gui
                 $action = 'update';
                 $boton = 'Actualizar';
                 $visibilidad='block';
+                $script='update_purchase';
             }
         }
 
@@ -38,14 +39,14 @@ class ui_purchase extends Gui
             <div class="col-12 col-sm-12 col-lg-4 py-3">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h5 <span><i class="fas fa-bars"></i></span> Registrar Compra</h5>
+                        <h5> <span> <i class="fas fa-bars"></i></span> Registrar Compra</h5>
                     </div>
                     <div class="card-body">
                         <form id="form-purchase" method="POST" action="<?= $action ?>">
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha</label>
                                 <input class="form-control" id="fecha" type="date" name="fecha" value="<?= date("Y-m-d") ?>">
-                                <input type="hidden" name="id" value="0" id="id">
+                                <input type="hidden" name="id" id="id">
                             </div>
 
                             <div class="form-group">
@@ -114,7 +115,7 @@ class ui_purchase extends Gui
                                 foreach ($purchase as $list) { ?>
                                     <tr ids="<?=$id++?>">
                                         <input type="hidden" name="detalle[]" class="lista" value='<?php print(json_encode($list))?>'>
-                                        <td><?= $list['material'] ?></td>
+                                        <td><?= $list['nombre_material'] ?></td>
                                         <td><?= $list['cantidad'] ?></td>
                                         <td><?= $list['precio'] ?></td>
                                         <td><?= $list['saldo'] ?></td>

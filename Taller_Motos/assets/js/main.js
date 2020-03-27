@@ -8,13 +8,10 @@ var detalle = document.querySelector('#purchase');
 window.addEventListener('load', () => {
   const pagina = document.getElementById('modulo').textContent;
     if(formulario.getAttribute('action')=='update'){
-      let i=0;
       lista.forEach(element =>{
         let aux=JSON.parse(element.value);
         compra.push(aux);
         
-        i++;
-        console.log(aux.material);
       });
     }
     formulario.addEventListener('submit', (e) => {

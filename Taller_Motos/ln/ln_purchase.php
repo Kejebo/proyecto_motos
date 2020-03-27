@@ -33,6 +33,13 @@
             }
         }
 
+        function update_purchase($data){
+            extract($data);
+            $this->db->delete_detail($datos['id']);
+            foreach($compra as $lista){
+                $this->db->insert_detail_purchase($datos['id'],$lista);
+            }            
+        }
         function insert_purchase($data){
             extract($data);
            $this->db->insert_purchase($datos);
