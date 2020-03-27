@@ -12,6 +12,8 @@ window.addEventListener("load",function() {
   });
 });
 
+
+
 function validacionContrasenas(){
        
            event.preventDefault();
@@ -107,7 +109,7 @@ function contrasnas_coincidencia_alerta(){
   $('#no_iguales').append(alerta);
   $('#coincidencia').toast({ delay: 3000 }); 
   $('#coincidencia').toast('show');
-  
+
   setTimeout(function(){ $('#coincidencia').remove(); }, 3000);
   document.getElementById("contrasenaDos").value = null;
   document.getElementById("contrasenaUno").focus();
@@ -115,7 +117,16 @@ function contrasnas_coincidencia_alerta(){
 }
 
 function cambiarojo(x) {
-  x.classList.toggle("fa-eye-slash");
+
+  var valor = x;
+
+  if(valor.type === 'string'){
+    valor = document.getElementById(x)
+    valor.classList.toggle("fa-eye-slash");
+
+  }else{
+   valor.classList.toggle("fa-eye-slash");
+}
 }
 
 function mostrar_contrasena_diferentes(){
@@ -157,20 +168,21 @@ function selec(sel) {
   add();
 }
 
-function mostrarPass() {
-  var x = document.getElementById("inputpass");
-  if (x.type === "password") {
-    x.type = "text";
-    cambiarojo(document.getElementById("font_ojo"));
+function mostrarPass(x,y) {
+  var valor = document.getElementById(x);
+  var valorDos = document.getElementById(y);
+  if (valor.type === "password") {
+    valor.type = "text";
+    cambiarojo(valorDos);
   } else {
-    x.type = "password";
-    cambiarojo(document.getElementById("font_ojo"));
+    valor.type = "password";
+    cambiarojo(valorDos);
   }
 }
 
-function ponerborde() {
-  var x = document.getElementById("grup-pass");
-  var valor = document.getElementById("inputpass");
+function ponerborde(x,y) {
+  var x = document.getElementById(x);
+  var valor = document.getElementById(y);
   if(valor.focus){
   x.style.borderColor ="#00b894";
   x.style.boxShadow = "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 184, 148, 0.6)";
@@ -179,8 +191,8 @@ function ponerborde() {
 
 }
 
-function quitarborde() {
-var x = document.getElementById("grup-pass");
+function quitarborde(y) {
+var x = document.getElementById(y);
 x.style.borderColor ="";
 x.style.boxShadow = "none";
 

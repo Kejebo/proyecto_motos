@@ -25,4 +25,3 @@ $ui = new gui($config);
 
 </form>
 
-$ui->get_scr
