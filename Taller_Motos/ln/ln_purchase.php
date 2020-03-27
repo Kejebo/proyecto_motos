@@ -44,6 +44,9 @@
         function get_purchases(){
             return $this->db->get_purchases();
         }
+        function get_purchase($id){
+            return $this->db->get_purchase($id);
+        }
        
         function delete_detail($id){
             $this->db->delete_detail($id);

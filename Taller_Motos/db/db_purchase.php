@@ -32,10 +32,10 @@ class db_purchase extends conexion{
         $this->execute($sql);
     }
     function get_purchase($id){
-        $sql = "select * from compras where id_compra='$id';";
+        $sql = "call get_compra('$id');";
         $result = $this->get_data($sql);
             if($result){
-                return $result[0];
+                return $result;
             }else{
         return false;
             }

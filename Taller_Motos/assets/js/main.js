@@ -2,13 +2,25 @@ var compra = [];
 const formulario = document.querySelector('form');
 var clicks = 0;
 var monto = document.querySelector('#monto');
+var lista=document.querySelectorAll('.lista');
+var detalle = document.querySelector('#purchase');
 
 window.addEventListener('load', () => {
   const pagina = document.getElementById('modulo').textContent;
-  const detalle = document.querySelector('#purchase');
-  formulario.addEventListener('submit', (e) => {
-
+    if(formulario.getAttribute('action')=='update'){
+      let i=0;
+      lista.forEach(element =>{
+        let aux=JSON.parse(element.value);
+        compra.push(aux);
+        
+        i++;
+        console.log(aux.material);
+      });
+    }
+    formulario.addEventListener('submit', (e) => {
+   
     if (pagina == 'Modulo Compras') {
+
       let precio = document.querySelector('#precio').value;
       let cantidad = document.querySelector('#cantidad').value;
       let material = document.querySelector('#material').value;
@@ -52,7 +64,6 @@ function sendpurchase() {
     proveedor,
     fecha
   }
-  let detalledos = document.querySelector('#purchase');
   let action = "insert_purchase";
   $.ajax({
     type: "post",
@@ -65,7 +76,7 @@ function sendpurchase() {
   formulario.reset();
   compra = [];
   add_detail_purchase(compra);
-  detalledos.style.display = 'none';
+  detalle.style.display = 'none';
 }
 
 function add_detail_purchase(lista) {
@@ -73,7 +84,7 @@ function add_detail_purchase(lista) {
   lista_compra.innerHTML = "";
   for (let i = 0; i < lista.length; i++) {
     lista_compra.innerHTML += `<tr ids=${i}>
-    <input type=hidden name=detalle[] value=${JSON.stringify(lista[i])}>
+    <input type=hidden name=detalle[] class=lista value=${JSON.stringify(lista[i])}>
     <td>${lista[i].nombre_material}</td>
     <td>${lista[i].cantidad}</td>
     <td>${lista[i].precio}</td>
