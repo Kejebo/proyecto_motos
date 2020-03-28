@@ -4,7 +4,7 @@ var clicks = 0;
 var monto = document.querySelector('#monto');
 var lista=document.querySelectorAll('.lista');
 var detalle = document.querySelector('#purchase');
-
+var saldo=0;
 $(document).ready(function(e){
   let i=0;
   recargar_compra();
@@ -20,6 +20,7 @@ $(document).ready(function(e){
       nombre_material : nombre.options[nombre.selectedIndex].textContent
       };  
       compra.push(detalles);
+      saldo+=detalles.precio*detalles.cantidad;
       $('#detalle').append(crear_fila(detalles,i++));
   });
 });
@@ -37,9 +38,19 @@ function crear_fila(detalles,i){
           '<td><span class="delete_detail btn btn-danger" onclick="deletes(this)">x</span></td>'
       '</tr>'
       detalle.style.display='block';
+      total_compra();
       return tr;
 }
+function total_compra(){
+  document.querySelector('#pie_compras').innerHTML=` <tr>
+  <td>Saldo</td>
+  <td></td>
+  <td></td>
+  <td>${saldo}</td>
+  <td></td>
+</tr>`
 
+}
 /*window.addEventListener('load', () => {
   const pagina = document.getElementById('modulo').textContent;
     if(formulario.getAttribute('action')=='update'){
@@ -99,13 +110,9 @@ function sendpurchase(action) {
     data: { action, datos, compra },
     success: function (response) {
       //showMessage('Se realizo la compra correctamente', 'success');
-     // window.location.href='purchases.php';
-     // console.log(response);
+     window.location.href='purchases.php';
     }
   });
-  formulario.reset();
-  compra = [];
-  add_detail_purchase(compra);
   detalle.style.display = 'none';
 }
 
@@ -127,6 +134,7 @@ function recargar_compra(){
       material:aux.material,
       nombre_material:aux.nombre_material
     }
+    saldo+=data.precio*data.cantidad;
     compra.push(data);
 
   });

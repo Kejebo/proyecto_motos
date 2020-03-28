@@ -67,6 +67,6 @@
            return $this->proveedor->get_proveedores();
        }
        function rediretion(){
-           
+           header("Location: purchases.php");
        }
     }

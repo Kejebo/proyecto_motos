@@ -19,18 +19,18 @@ class ui_purchase extends Gui
     function get_content()
     {
         $purchase = null;
-      
-        $visibilidad='none';
+
+        $visibilidad = 'none';
         $action = 'insert';
-        $script='insert_purchase';
+        $script = 'insert_purchase';
         $boton = 'Registrar';
         if (isset($_GET['action'])) {
             if ($_GET['action'] == 'update_purchase') {
                 $purchase = $this->ln->get_purchase($_GET['id']);
                 $action = 'update';
                 $boton = 'Actualizar';
-                $visibilidad='block';
-                $script='update_purchase';
+                $visibilidad = 'block';
+                $script = 'update_purchase';
             }
         }
 
@@ -46,12 +46,12 @@ class ui_purchase extends Gui
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha</label>
                                 <input class="form-control" id="fecha" type="date" name="fecha" value="<?= date("Y-m-d") ?>">
-                                <input type="hidden" name="id" id="id" value="<?=$purchase[0]['id']?>">
+                                <input type="hidden" name="id" id="id" value="<?= $purchase[0]['id'] ?>">
                             </div>
 
                             <div class="form-group">
                                 <label class="etiquetas">Numero de factura</label>
-                                <input class="form-control" type="text" name="factura" id="factura" required value="<?=$purchase[0]['factura']?>">
+                                <input class="form-control" type="text" name="factura" id="factura" required value="<?= $purchase[0]['factura'] ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Proveedor</label>
@@ -84,7 +84,7 @@ class ui_purchase extends Gui
                             <div class="form-group">
 
                                 <button class="btn btn-primary" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
-                                <button class="btn btn-success" type="button" onclick="sendpurchase('<?=$script?>')"><i class="fas fa-file"></i>Guardar</button>
+                                <button class="btn btn-success" type="button" onclick="sendpurchase('<?= $script ?>')"><i class="fas fa-file"></i>Guardar</button>
                             </div>
                             <hr>
 
@@ -95,7 +95,7 @@ class ui_purchase extends Gui
 
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 py-3">
 
-                <div class="card shadow" id="purchase" style="display:<?=$visibilidad?>">
+                <div class="card shadow" id="purchase" style="display:<?= $visibilidad ?>">
                     <div class="card-header">
                         <h5 class="card-title">Detalle de compra</h5>
                     </div>
@@ -109,20 +109,31 @@ class ui_purchase extends Gui
                                 <th>Eliminar</th>
                             </thead>
                             <tbody id="detalle" class="text-center">
-                            
-                                <?php $id=0; 
-                                if(isset($purchase)){
-                                foreach ($purchase as $list) { ?>
-                                    <tr ids="<?=$id++?>">
-                                        <input type="hidden" name="detalle[]" class="lista" value='<?php print(json_encode($list))?>'>
-                                        <td><?= $list['nombre_material'] ?></td>
-                                        <td><?= $list['cantidad'] ?></td>
-                                        <td><?= $list['precio'] ?></td>
-                                        <td><?= $list['saldo'] ?></td>
-                                        <td><span class='delete_detail btn btn-danger' onclick="deletes(this)">x</span></td>
-                                    </tr>
-                                <?php      } }?>
+
+                                <?php $id = 0; $saldo=0;
+                                if (isset($purchase)) {
+                                    foreach ($purchase as $list) { $saldo+=$list['cantidad']*$list['precio'];?>
+                                        <tr ids="<?= $id++ ?>">
+                                            <input type="hidden" name="detalle[]" class="lista" value='<?php print(json_encode($list)) ?>'>
+                                            <td><?= $list['nombre_material'] ?></td>
+                                            <td><?= $list['cantidad'] ?></td>
+                                            <td><?= $list['precio'] ?></td>
+                                            <td><?= $list['saldo'] ?></td>
+                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this)">x</span></td>
+                                        </tr>
+                                <?php      }
+                                } ?>
                             </tbody>
+                            <tfoot id="pie_compras"  class="bg-dark text-center text-white">
+                                <tr>
+                                    <td>Saldo</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><?=$saldo?></td>
+                                    <td></td>
+ 
+                                </tr>
+                            </tfoot>
                         </table>
 
 
