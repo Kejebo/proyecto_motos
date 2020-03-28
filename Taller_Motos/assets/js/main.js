@@ -47,21 +47,17 @@ function contrasena_no_actualizada_alerta(){
 
   var alerta = '<div class="toast" id="no_actualizada">'
   +'<div class="toast-header">'
-  +'<strong class="mr-auto text-primary">Error</strong>'
-  +'<small class="text-muted">Ahora</small>'
+  +'<strong class="mr-auto text-primary alerta"><i class="fas fa-exclamation-circle icono_alerta"></i> La contraseña no se pudo actualizar</strong>'
   +'<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>'
-  +'</div>'
-  +'<div class="toast-body">'
-  +'Las contraseña no se pudo actualizar'
   +'</div>'
   +'</div>'
   +'</div>';
 
   $('#cambio_correcto').append(alerta);
-  $('#no_actualizada').toast({ delay: 3000 });
+  $('#no_actualizada').toast({ delay: 7000 });
   $('#no_actualizada').toast('show');
   
-  setTimeout(function(){ $('#no_actualizada').remove(); }, 3000);
+  setTimeout(function(){ $('#no_actualizada').remove(); }, 7000);
   document.getElementById("contrasenaUno").value = null;
   document.getElementById("contrasenaUno").focus();
   document.getElementById("contrasenaDos").value = null;
@@ -73,13 +69,15 @@ function contrasena_actualizacion_exitosa(){
 
   var alerta =    '<div class="toast" data-autohide="false" id="actualizada">'
   +'<div class=""toast-header">'
-  +'<strong class="mr-auto text-primary">Actualizacion Exitosa</strong>'
+  +'<br>'
+  +'<strong class="mr-auto text-primary">Recuperacion Exitosa</strong>'
   +'<hr>'
-  +'<a href="index.php">Inciar Sesion</a>'
   +'</div>'
   +'<div class="toast-body">'
-  +'Su contraseña ha sido actualizada con exito'
- +'</div>'
+  +'Su contraseña ha sido Recuperada con exito'
+  +'<hr>'
+  +'<a href="index.php">Iniciar Sesion</a>'
+  +'</div>'
   +'</div>'
   +'</div>';
 
@@ -89,7 +87,16 @@ $('#actualizada').toast('show');
 document.getElementById("bcambio").disabled = true;
 document.getElementById("contrasenaUno").disabled = true;
 document.getElementById("contrasenaDos").disabled = true;
+document.getElementById("body_cambio").remove();
+removeElementsByClass("card-title");
 
+}
+
+function removeElementsByClass(className){
+  var elements = document.getElementsByClassName(className);
+  while(elements.length > 0){
+      elements[0].parentNode.removeChild(elements[0]);
+  }
 }
 
 function contrasnas_coincidencia_alerta(){

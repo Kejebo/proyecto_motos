@@ -249,8 +249,25 @@ font-weight: bold;
 
 }
 
+.boton_success{
+  background-color: #00b894 !important;
+  border-color: #00b894 !important;
+}
+
 #modal_card{
   margin-top: 0px !important;
+}
+
+#cambio_correcto{
+  text-align: -webkit-center;
+}
+
+.alerta{
+ margin-left: 26.266px;
+}
+
+.icono_alerta{
+  color: red;
 }
 
 

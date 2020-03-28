@@ -54,7 +54,7 @@ require_once('gui.php');
     <hr>
 
     <div class="iniciar_sesion_boton">
-    <button class="btn btn-primary" id="boton_inicio_sesion"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+    <button class="btn btn-primary boton_success" id="boton_inicio_sesion"><i class="fas fa-sign-in-alt"></i> Entrar</button>
     </form>
     </div>
    
