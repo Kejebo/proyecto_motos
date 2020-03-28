@@ -1,11 +1,10 @@
 var compra = [];
-const formulario = document.querySelector('form');
 var clicks = 0;
 var monto = document.querySelector('#monto');
 var lista=document.querySelectorAll('.lista');
 var detalle = document.querySelector('#purchase');
 var saldo=0;
-$(document).ready(function(e){
+window.addEventListener('load', () => {
   let i=0;
   recargar_compra();
   $('#form-purchase').submit(function(e){
@@ -51,53 +50,6 @@ function total_compra(){
 </tr>`
 
 }
-/*window.addEventListener('load', () => {
-  const pagina = document.getElementById('modulo').textContent;
-    if(formulario.getAttribute('action')=='update'){
-      lista.forEach(element =>{
-        let aux=JSON.parse(element.value);
-        let data = {
-          precio:aux.precio,
-          cantidad:aux.cantidad,
-          material:aux.material,
-          nombre_material:aux.nombre_material
-        }
-        compra.push(data);
-      });
-    }
-    formulario.addEventListener('submit', (e) => {
-   
-    if (pagina == 'Modulo Compras') {
-
-      let precio = document.querySelector('#precio').value;
-      let cantidad = document.querySelector('#cantidad').value;
-      let material = document.querySelector('#material').value;
-      let nombre = document.querySelector('#material');
-      let nombre_material = nombre.options[nombre.selectedIndex].textContent;
-      if (compra == null) {
-        compra = {
-          precio,
-          cantidad,
-          material,
-          nombre_material
-        }
-      } else {
-        let aux = {
-          precio,
-          cantidad,
-          material,
-          nombre_material
-        }
-      
-        detalle.style.display = 'block';
-        compra.push(aux)
-      }
-  
-      e.preventDefault();
-      add_detail_purchase(compra);
-    }
-  });
-});*/
 function sendpurchase(action) {
   let id = document.querySelector('#id').value;
   let factura = document.querySelector('#factura').value;

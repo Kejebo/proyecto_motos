@@ -36,7 +36,7 @@ class ui_purchase extends Gui
 
 ?>
         <div class=" container row">
-            <div class="col-12 col-sm-12 col-lg-4 py-3">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 py-3">
                 <div class="card shadow">
                     <div class="card-header">
                         <h5> <span> <i class="fas fa-bars"></i></span> Registrar Compra</h5>
