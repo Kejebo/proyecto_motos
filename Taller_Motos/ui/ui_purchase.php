@@ -46,7 +46,7 @@ class ui_purchase extends Gui
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha</label>
                                 <input class="form-control" id="fecha" type="date" name="fecha" value="<?= date("Y-m-d") ?>">
-                                <input type="hidden" name="id" id="id">
+                                <input type="hidden" name="id" id="id" value="<?=$purchase[0]['id']?>">
                             </div>
 
                             <div class="form-group">

@@ -15,5 +15,5 @@ if ($_POST['action'] == 'get_medida') {
 if ($_POST['action'] == 'update_purchase') {
     extract($_POST);
     $purchase->update_purchase($_POST);
-    
+    echo true;
 }

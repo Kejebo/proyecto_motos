@@ -5,13 +5,53 @@ var monto = document.querySelector('#monto');
 var lista=document.querySelectorAll('.lista');
 var detalle = document.querySelector('#purchase');
 
-window.addEventListener('load', () => {
+$(document).ready(function(e){
+  let i=0;
+  recargar_compra();
+  $('#form-purchase').submit(function(e){
+      e.preventDefault();
+
+      let nombre = document.querySelector('#material');
+      
+     detalles= {
+      precio : document.querySelector('#precio').value,
+      cantidad : document.querySelector('#cantidad').value,
+      material : document.querySelector('#material').value,
+      nombre_material : nombre.options[nombre.selectedIndex].textContent
+      };  
+      compra.push(detalles);
+      $('#detalle').append(crear_fila(detalles,i++));
+  });
+});
+function crear_fila(detalles,i){
+  json= JSON.stringify(detalles);
+  input="<input type='hidden' class='lista' name='detalles[]' value='"+json+"'>"
+  tr=''+
+      '<tr ids='+i+'>'+
+          input+
+          '<td>'+
+          detalles.nombre_material+'</td>'+
+          '<td>'+detalles.cantidad+'</td>'+
+          '<td>'+detalles.precio+'</td>'+
+          '<td>'+detalles.precio * detalles.cantidad+'</td>'+  
+          '<td><span class="delete_detail btn btn-danger" onclick="deletes(this)">x</span></td>'
+      '</tr>'
+      detalle.style.display='block';
+      return tr;
+}
+
+/*window.addEventListener('load', () => {
   const pagina = document.getElementById('modulo').textContent;
     if(formulario.getAttribute('action')=='update'){
       lista.forEach(element =>{
         let aux=JSON.parse(element.value);
-        compra.push(aux);
-        
+        let data = {
+          precio:aux.precio,
+          cantidad:aux.cantidad,
+          material:aux.material,
+          nombre_material:aux.nombre_material
+        }
+        compra.push(data);
       });
     }
     formulario.addEventListener('submit', (e) => {
@@ -23,7 +63,6 @@ window.addEventListener('load', () => {
       let material = document.querySelector('#material').value;
       let nombre = document.querySelector('#material');
       let nombre_material = nombre.options[nombre.selectedIndex].textContent;
-      if(precio>0 && cantidad>0){
       if (compra == null) {
         compra = {
           precio,
@@ -42,37 +81,26 @@ window.addEventListener('load', () => {
         detalle.style.display = 'block';
         compra.push(aux)
       }
-    }else{
-      showMessage('Datos Incorrectos','danger');
-    }
+  
       e.preventDefault();
       add_detail_purchase(compra);
     }
   });
-});
+});*/
 function sendpurchase(action) {
   let id = document.querySelector('#id').value;
   let factura = document.querySelector('#factura').value;
   let proveedor = document.querySelector('#proveedor').value;
   let fecha = document.querySelector('#fecha').value;
-  let datos = {
-    id,
-    factura,
-    proveedor,
-    fecha
-  }
-
+  let datos = {id,factura,proveedor,fecha}
   $.ajax({
     type: "post",
     url: "controller.php",
     data: { action, datos, compra },
     success: function (response) {
-      showMessage('Se realizo la compra correctamente', 'success');
-      setTimeout(() => {
-      window.location.href='purchases.php';
-    }, 3000);
-   
-   
+      //showMessage('Se realizo la compra correctamente', 'success');
+     // window.location.href='purchases.php';
+     // console.log(response);
     }
   });
   formulario.reset();
@@ -81,30 +109,28 @@ function sendpurchase(action) {
   detalle.style.display = 'none';
 }
 
-function add_detail_purchase(lista) {
-  let lista_compra = document.querySelector('#detalle');
-  lista_compra.innerHTML = "";
-  for (let i = 0; i < lista.length; i++) {
-    lista_compra.innerHTML += `<tr ids=${i}>
-    <input type=hidden name=detalle[] class=lista value=${JSON.stringify(lista[i])}>
-    <td>${lista[i].nombre_material}</td>
-    <td>${lista[i].cantidad}</td>
-    <td>${lista[i].precio}</td>
-    <td>${lista[i].precio * lista[i].cantidad}</td>
-    <td><span class='delete_detail btn btn-danger' onclick=deletes(this)>x</span></td>
-    </tr>`;
-  }
-}
 function deletes(elemento) {
-  let detalledos = document.querySelector('#purchase');
-
   let boton = elemento.parentElement.parentElement;
   compra.splice(boton.getAttribute('ids'), 1);
-  if (compra.length > 0) {
-    add_detail_purchase(compra);
-  } else {
-    detalledos.style.display = 'none';
+  boton.remove();
+  if(compra.length==0){
+    detalle.style.display='none';
   }
+}
+function recargar_compra(){
+  compra=[];
+  lista.forEach(element =>{
+    let aux=JSON.parse(element.value);
+    let data = {
+      precio:aux.precio,
+      cantidad:aux.cantidad,
+      material:aux.material,
+      nombre_material:aux.nombre_material
+    }
+    compra.push(data);
+
+  });
+  console.log(compra);     
 }
 function add() {
   if (clicks == 0) {
