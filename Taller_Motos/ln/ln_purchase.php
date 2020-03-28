@@ -36,6 +36,7 @@
         function update_purchase($data){
             extract($data);
             $this->db->delete_detail($datos['id']);
+            $this->db->update_purchase($datos);
             foreach($compra as $lista){
                 $this->db->insert_detail_purchase($datos['id'],$lista);
             }            

@@ -23,14 +23,17 @@ class ui_purchase extends Gui
         $visibilidad = 'none';
         $action = 'insert';
         $script = 'insert_purchase';
-        $boton = 'Registrar';
+        $fecha =  date("Y-m-d");
+        $boton='none';
         if (isset($_GET['action'])) {
             if ($_GET['action'] == 'update_purchase') {
                 $purchase = $this->ln->get_purchase($_GET['id']);
                 $action = 'update';
-                $boton = 'Actualizar';
+                $boton = 'block';
                 $visibilidad = 'block';
                 $script = 'update_purchase';
+                $fecha=$purchase[0]['fecha'];
+                
             }
         }
 
@@ -45,7 +48,7 @@ class ui_purchase extends Gui
                         <form id="form-purchase" method="POST" action="<?= $action ?>">
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha</label>
-                                <input class="form-control" id="fecha" type="date" name="fecha" value="<?= date("Y-m-d") ?>">
+                                <input class="form-control" id="fecha" type="date" name="fecha" value="<?=$fecha ?>">
                                 <input type="hidden" name="id" id="id" value="<?= $purchase[0]['id'] ?>">
                             </div>
 
@@ -61,30 +64,35 @@ class ui_purchase extends Gui
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label class="etiquetas">Material</label>
+                            <label class="etiquetas">Material</label>
+                            <div class="input-group mb-3">
                                 <select class="form-control" name="material" id="material">
                                     <?php foreach ($this->ln->get_inventory() as $material) { ?>
                                         <option value="<?= $material['id'] ?>"><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .
                                                                                     $material['monto'] . $material['medida'] ?></option>
                                     <?php } ?>
                                 </select>
+                                <div class="input-group-append">
+                                    <a href="inventary.php" class="btn btn-success"><i class="fas fa-file"></i></a>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Cantidad</label>
-                                <input type="number" class="form-control" name="cantidad" id="cantidad" required>
+                                <input type="number" class="form-control" name="cantidad" id="cantidad" required value="0" min="0">
                             </div>
 
                             <div class="form-group">
                                 <label class="etiquetas">Precio</label>
-                                <input type="number" class="form-control" name="precio" id="precio" required>
+                                <input type="number" class="form-control" name="precio" id="precio" required value="0" min="0">
                             </div>
 
                             <hr>
                             <div class="form-group">
 
-                                <button class="btn btn-primary" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
-                                <button class="btn btn-success" type="button" onclick="sendpurchase('<?= $script ?>')"><i class="fas fa-file"></i>Guardar</button>
+                                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> Registrar</button>
+                                <button id="guardar" class="btn btn-success btn-block" type="button" style="display: <?= $boton ?>" onclick="sendpurchase('<?= $script ?>')"><i class="fas fa-file"></i> Guardar</button>
+                                <a id="cancelar" href="purchases.php" class="btn btn-danger btn-block" style="display: <?= $boton ?>"><i class="fas fa-file"></i> Cancelar</a>
+
                             </div>
                             <hr>
 
@@ -110,28 +118,30 @@ class ui_purchase extends Gui
                             </thead>
                             <tbody id="detalle" class="text-center">
 
-                                <?php $id = 0; $saldo=0;
+                                <?php $id = 0;
+                                $saldo = 0;
                                 if (isset($purchase)) {
-                                    foreach ($purchase as $list) { $saldo+=$list['cantidad']*$list['precio'];?>
+                                    foreach ($purchase as $list) {
+                                        $saldo += $list['cantidad'] * $list['precio']; ?>
                                         <tr ids="<?= $id++ ?>">
                                             <input type="hidden" name="detalle[]" class="lista" value='<?php print(json_encode($list)) ?>'>
                                             <td><?= $list['nombre_material'] ?></td>
                                             <td><?= $list['cantidad'] ?></td>
                                             <td><?= $list['precio'] ?></td>
                                             <td><?= $list['saldo'] ?></td>
-                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this)">x</span></td>
+                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this)"><i class="fas fa-trash"></i></span></td>
                                         </tr>
                                 <?php      }
                                 } ?>
                             </tbody>
-                            <tfoot id="pie_compras"  class="bg-dark text-center text-white">
+                            <tfoot id="pie_compras" class="bg-dark text-center text-white">
                                 <tr>
                                     <td>Saldo</td>
                                     <td></td>
                                     <td></td>
-                                    <td><?=$saldo?></td>
+                                    <td><?= $saldo ?></td>
                                     <td></td>
- 
+
                                 </tr>
                             </tfoot>
                         </table>
@@ -163,8 +173,8 @@ class ui_purchase extends Gui
                                         <td><?= $list['factura'] ?></td>
                                         <td><?= $list['proveedor'] ?></td>
                                         <td><?= $list['saldo'] ?></td>
-                                        <td><a href="purchases.php?action=delete&id=<?= $list['id'] ?>" class="btn btn-danger">x</a></td>
-                                        <td><a href="purchases.php?action=update_purchase&id=<?= $list['id'] ?>" class="btn btn-warning">edit</a></td>
+                                        <td><a href="purchases.php?action=delete&id=<?= $list['id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                                        <td><a href="purchases.php?action=update_purchase&id=<?= $list['id'] ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
 
                                     </tr>
                                 <?php } ?>
@@ -176,6 +186,29 @@ class ui_purchase extends Gui
                 </div>
             </div>
         </div>
+                  <div class="modal fade bg-dark" id="form_marca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Agregar Marca</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label class="etiquetas">Nombre</label>
+                    <input class="form-control" type="text" name="nombre_marca">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
 <?php
     }
 }

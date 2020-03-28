@@ -42,7 +42,7 @@ class db_purchase extends conexion{
     }
     function update_purchase($data){
         extract($data);
-        $this->execute($sql);
+        $this->execute("call update_compra('$id','$proveedor','$factura','$fecha')");
     }
     function get_last_pucharse(){
         $sql = "select * from compras
