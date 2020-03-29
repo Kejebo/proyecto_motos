@@ -2,8 +2,8 @@
 var clicks = 0;
 var monto = document.querySelector('#monto');
 var formulario = document.querySelector('#formulario');
+var formulario_reenviar = document.querySelector('#formulario_reenviar');
 var valor= null;
-
 
 
 window.addEventListener("load",function() {
@@ -12,7 +12,29 @@ window.addEventListener("load",function() {
   });
 });
 
+window.addEventListener("load",function() {
+  formulario_reenviar.addEventListener("submit",function() {
+   reenviar_codigo();
+  });
+});
 
+
+
+function reenviar_codigo(){
+
+  event.preventDefault();
+  $.ajax({
+  data:  $("#formulario_reenviar").serialize(),
+  url:   'security.php?action=reenviar_correo', 
+  type:  'post', 
+  datatype: 'json',
+  success: function (response){
+    
+    alert(response);
+ 
+  }
+  });
+}
 
 function validacionContrasenas(){
        
@@ -103,12 +125,8 @@ function contrasnas_coincidencia_alerta(){
 
   var alerta = '<div class="toast" id="coincidencia">'
   +'<div class="toast-header">'
-  +'<strong class="mr-auto text-primary">Error</strong>'
-  +'<small class="text-muted">Ahora</small>'
+  +'<strong class="mr-auto text-primary alerta"><i class="fas fa-exclamation-circle icono_alerta"></i> Las contraseña no coinciden </strong>'
   +'<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>'
-  +'</div>'
-  +'<div class="toast-body">'
-  +'Las contraseñas no coinciden'
   +'</div>'
   +'</div>'
   +'</div>';

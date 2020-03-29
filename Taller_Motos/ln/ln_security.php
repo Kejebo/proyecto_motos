@@ -36,6 +36,10 @@ function action_controller(){
             $id = $this->get_usuario_cambio($_POST,$codigo);
             $this->enviar_correo($_POST,$codigo);
             header('Location:validacion.php?users_id='.$id.'&correo='.$_POST['correo_electronico_link']);
+             break;
+
+            case 'reenviar_correo':
+            $this->reenviar_correo();
             break;
 
             case 'cambio_contrasena': 
@@ -51,6 +55,7 @@ function action_controller(){
     }
 
 }
+
 
 function update_estado_cambio_negativo($id){
 
@@ -134,6 +139,17 @@ function validar_codigo($codigo,$id){
 
 }
 
+function reenviar_correo(){
+    $codigo = $this->get_codigo();
+    $this->get_usuario_cambio($_POST,$codigo);
+    if($this->enviar_correo($_POST,$codigo)!=true){
+        echo json_encode(array("result" => "false", "id_usuario" => $_POST['users_id'],"correo" => $_POST['correo_electronico_link']));
+    }else{
+        echo json_encode(array("result" => "true", "id_usuario" => $_POST['users_id'],"correo" => $_POST['correo_electronico_link']));
+    }
+}
+    
+
 function logout(){
 
     unset($_COOKIE['usuario']);
@@ -198,7 +214,6 @@ try {
     $mail->send();
    $respuesta = true;
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     $respuesta= false;
 }
 
