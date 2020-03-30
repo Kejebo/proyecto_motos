@@ -137,6 +137,19 @@ function selec(sel) {
     delete_span(document.querySelector('.medida'));
   }
 }
+function get_prices(combo) {
+  let id=combo.options[combo.selectedIndex].value;
+  let action='get_prices';
+  $.ajax({
+    type: "Post",
+    url: "controller.php",
+    data: {action,id},
+    success: function (response) {
+      let saldo=JSON.parse(response);
+      document.querySelector('#precio').value=saldo.precio;
+    }
+  });
+}
 function showMessage(message, cssClass) {
   const mensaje = document.createElement('div');
   mensaje.className = `alert alert-${cssClass} mt-4`;

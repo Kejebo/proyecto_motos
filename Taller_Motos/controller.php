@@ -4,17 +4,21 @@ require_once('ln/ln_purchase.php');
 
 $db = new db_inventory();
 $purchase = new ln_purchase();
-if ($_POST['action'] == 'get_medida') {
-    echo json_encode($db->get_category_medida($_POST['id'])[0]);
-} else
-    if ($_POST['action'] == 'insert_purchase') {
-    extract($_POST);
-    $purchase->insert_purchase($_POST);
-    echo true;
-} else
-if ($_POST['action'] == 'update_purchase') {
-    extract($_POST);
-    $purchase->update_purchase($_POST);
-    $purchase->rediretion();
-    // echo true;
+switch ($_POST['action']) {
+    case 'get_medida':
+        echo json_encode($db->get_category_medida($_POST['id'])[0]);
+        break;
+    case 'insert_purchase':
+        extract($_POST);
+        $purchase->insert_purchase($_POST);
+        echo true;
+        break;
+    case 'update_purchase':
+        extract($_POST);
+        $purchase->update_purchase($_POST);
+        $purchase->rediretion();
+        // echo true;
+        break;
+    case 'get_prices':
+        echo json_encode($db->get_sale_prices($_POST['id'])[0]);
 }

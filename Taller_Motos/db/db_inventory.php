@@ -99,4 +99,7 @@ class db_inventory extends conexion
             return $result[0];
     }
 }
+    function get_sale_prices($id){
+        return $this->get_data("select precio_venta as precio from materiales where id_material='$id'");
+    }
 }

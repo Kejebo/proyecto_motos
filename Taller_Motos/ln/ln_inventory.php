@@ -51,4 +51,7 @@
        function rediretion(){
            header('location:inventary.php');
        }
+       function get_sale_prices($id){
+           return $this->db->get_sale_prices($id);
+       }
     }
