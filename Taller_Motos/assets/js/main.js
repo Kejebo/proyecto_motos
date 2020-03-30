@@ -2,39 +2,91 @@
 var clicks = 0;
 var monto = document.querySelector('#monto');
 var formulario = document.querySelector('#formulario');
+var formulario_validar_codigo = document.querySelector('#formulario_validar_codigo');
 var formulario_reenviar = document.querySelector('#formulario_reenviar');
 var valor= null;
 
 
 window.addEventListener("load",function() {
+  if(formulario!=null){
   formulario.addEventListener("submit",function() {
    validacionContrasenas();
   });
+}
 });
 
 window.addEventListener("load",function() {
-  formulario_reenviar.addEventListener("submit",function() {
-   reenviar_codigo();
+  formulario_validar_codigo.addEventListener("submit",function() {
+   validar_codigo();
   });
 });
 
 
-
-function reenviar_codigo(){
+function validar_codigo(){
 
   event.preventDefault();
+
+  $.ajax({
+  data:  $("#formulario_validar_codigo").serialize(),
+  url:   'security.php?action=validar', 
+  type:  'post', 
+  datatype: 'json',
+  success: function (response){
+    let resultado =JSON.parse(response);
+  if(resultado.result=="false"){
+  alertar_validar_codigo();
+ }else{
+   window.location.href = "form_cambio.php?user_id=10";
+  }
+}
+
+});
+}
+
+function reenviar_codigo(){
+  animacion_enviado_codigo();
+  event.preventDefault();
+  
   $.ajax({
   data:  $("#formulario_reenviar").serialize(),
   url:   'security.php?action=reenviar_correo', 
   type:  'post', 
   datatype: 'json',
   success: function (response){
-    
-    alert(response);
- 
+  
+  let resultado = JSON.parse(response);
+  if(resultado.result=="true"){
+    restaurar_icono_reenviar();
   }
+}
   });
 }
+
+function alertar_validar_codigo(){
+
+
+    var alerta = '<div class="toast" id="no_valido">'
+    +'<div class="toast-header">'
+    +'<strong class="mr-auto text-primary alerta"><i class="fas fa-exclamation-circle icono_alerta"></i> Codigo invalido </strong>'
+    +'<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>'
+    +'</div>'
+    +'</div>'
+    +'</div>';
+  
+    $('#invalido').append(alerta);
+    $('#no_valido').toast({ delay: 3000 }); 
+    $('#no_valido').toast('show');
+    document.getElementById("boton_validar").disabled = true;
+  
+    setTimeout(function(){ $('#no_valido').remove(); }, 3000);
+    setTimeout(function(){ $('#boton_validar').prop( "disabled", false ); }, 3000);
+    document.getElementById("codigo").value = null;
+    
+  
+
+}
+
+
 
 function validacionContrasenas(){
        
@@ -45,7 +97,6 @@ function validacionContrasenas(){
             type:  'post', 
             datatype: 'json',
             success: function (response){
-              
               let resultado =JSON.parse(response);
                if(resultado.result=="actualizado"){
                 
@@ -64,6 +115,22 @@ function validacionContrasenas(){
             });
           
 }
+
+function restaurar_icono_reenviar(){
+  var boton_real = '<div id="total"><strong> <a id="boton_reenviar"  onclick="reenviar_codigo()" class = " pregunta_contrasena link"><div id="div_icono_reenviar"><i id="icono_reenviar"class="fas fa-share"></i></div> reenviar codigo</a></strong></div>'
+  $('#falso').remove();
+  $('#div_reenviar').append(boton_real);
+ 
+}
+
+
+function animacion_enviado_codigo(){
+ var boton_falso = '<div id="falso"><strong> <a id="boton_reenviar"class = " pregunta_contrasena link"><div id="div_icono_reenviar"><span  id = "animacion" class="spinner-border spinner-border-sm"></span></div> reenviar codigo</a></strong></div>'
+    $('#total').remove();
+    $("#div_reenviar").append(boton_falso);
+  
+}
+
 
 function contrasena_no_actualizada_alerta(){
 

@@ -41,8 +41,7 @@ class db_usuario extends conexion{
 
         $this->conectar();
         $sql = "call update_codigo_usuario('$codigo','$id')";
-        $result = $this->execute($sql);
-        print_r($result);
+        $result = $this->executeDos($sql);
         return $result;
         $this->desconectar();
    
@@ -50,12 +49,10 @@ class db_usuario extends conexion{
 
     function update_estado_cambio($id){
 
-        $this->conectar();
+      
         $sql = "call update_estado_cambio('$id')";
-        $result = $this->execute($sql);
-        print_r($result);
-        return $result;
-        $this->desconectar();
+        $result = $this->executeDos($sql);
+       
    
     }
 
@@ -108,7 +105,7 @@ class db_usuario extends conexion{
     function get_usuario_cambio($data,$codigo){
   
         extract($data);
-        print_r($correo_electronico_link);
+
         $cod = $codigo[0].$codigo[1].$codigo[2];
 
 

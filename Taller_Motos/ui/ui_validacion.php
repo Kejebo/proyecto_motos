@@ -21,37 +21,27 @@ require_once('gui.php');
 </div>
 <div class="card-body" id="body_cambio">
 
-<?php if(isset($_GET['mer'])){?>
-	<div class="alert alert-danger alert-dismissible fade show">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Error!</strong>Codigo no valido, Intente nuevamente.
-    </div>
-<?php } ?>
-
-<form action="security.php?action=validar" method="post" id=formulario>
-
+<div id="invalido">
+    
+</div>
+<form  method="post" id=formulario_validar_codigo>
 <input type="hidden" value=<?=$_GET['users_id'];?> name="id">
 <input type="hidden" value=<?=$_GET['correo'];?> name="correo_electronico_link">
-<input  class = "form-control" type="text" placeholder="codigo" name="codigo">
+<input  class = "form-control" type="text" placeholder="codigo" name="codigo" id="codigo">
+<div class= "container" id=div_reenviar>
+<div id="total"><strong> <a id="boton_reenviar"  onclick="reenviar_codigo()" class = " pregunta_contrasena link"><div id="div_icono_reenviar"><i id="icono_reenviar"class="fas fa-share"></i></div> reenviar codigo</a></strong></div>
+</div>
+
 <hr>
-<button class ="btn btn-primary boton_success"><i class="fas fa-check-circle"></i> Validar</button>
+<button   id= "boton_validar" type ="submit" class ="btn btn-primary boton_success"><i class="fas fa-check-circle"></i> Validar</button>
 </form>
 
-<div class= "container" id=div_reenviar>
+
 <form method="post" id="formulario_reenviar">
 <input type="hidden" value=<?=$_GET['users_id'];?> name="id">
 <input type="hidden" value=<?=$_GET['correo'];?> name="correo_electronico_link">
-<strong> <button  type="submit" class = "pregunta_contrasena"> <i class="fas fa-share"></i> reenviar codigo</button></strong>
 </div>
 </form>
-</div>
-
-
-
-
-
-
-           
             <?php
         }
 

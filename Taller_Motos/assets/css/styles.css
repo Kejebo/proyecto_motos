@@ -275,6 +275,24 @@ font-weight: bold;
   text-align: right;
 }
 
+.link{
+
+  background-color: transparent;
+  border: none;
+  color:#3498db !important;
+}
+
+.link:hover{
+  color: gray !important;
+  cursor: pointer;
+}
+
+#div_icono_reenviar{
+  display: contents;
+}
+
+
+
 
 
 

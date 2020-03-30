@@ -132,20 +132,22 @@ function insert_usuario($data){
 function validar_codigo($codigo,$id){
 
     if($this->ln_usuarios->validar_codigo($codigo,$id)!=false){
-        header('Location:form_cambio.php?user_id='.$id);
+        echo json_encode(array("result" => "true", "id_usuario" => $id));
     }else{
-        header('Location:validacion.php?users_id='.$id.'&correo='.$_POST['correo_electronico_link'].'&mer=true');
+        echo json_encode(array("result" => "false", "id_usuario" => $id));
     }
 
 }
 
 function reenviar_correo(){
     $codigo = $this->get_codigo();
+    $id = $_POST['id'];
+    $correo =  $_POST['correo_electronico_link'];
     $this->get_usuario_cambio($_POST,$codigo);
-    if($this->enviar_correo($_POST,$codigo)!=true){
-        echo json_encode(array("result" => "false", "id_usuario" => $_POST['users_id'],"correo" => $_POST['correo_electronico_link']));
+    if($this->enviar_correo($_POST,$codigo)==false){
+        echo json_encode(array("result" => "false", "id_usuario" => $id,"correo" => $correo));
     }else{
-        echo json_encode(array("result" => "true", "id_usuario" => $_POST['users_id'],"correo" => $_POST['correo_electronico_link']));
+        echo json_encode(array("result" => "true", "id_usuario" => $id, "correo" => $correo));
     }
 }
     
