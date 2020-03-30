@@ -57,6 +57,9 @@ function reenviar_codigo(){
   let resultado = JSON.parse(response);
   if(resultado.result=="true"){
     restaurar_icono_reenviar();
+  }else if(resultado.result=="codigo_activo"){
+    restaurar_icono_reenviar();
+    alert("acodigo activo");
   }
 }
   });
@@ -64,19 +67,22 @@ function reenviar_codigo(){
 
 function alertar_validar_codigo(){
 
-
     var alerta = '<div class="toast" id="no_valido">'
     +'<div class="toast-header">'
     +'<strong class="mr-auto text-primary alerta"><i class="fas fa-exclamation-circle icono_alerta"></i> Codigo invalido </strong>'
-    +'<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>'
-    +'</div>'
+    +'<button  id ="cerrar_alerta_invalido" type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>'
     +'</div>'
     +'</div>';
-  
+
     $('#invalido').append(alerta);
     $('#no_valido').toast({ delay: 3000 }); 
     $('#no_valido').toast('show');
     document.getElementById("boton_validar").disabled = true;
+    document.getElementById('cerrar_alerta_invalido').addEventListener("click", function(){
+   
+      document.getElementById("boton_validar").disabled = false;
+});
+
   
     setTimeout(function(){ $('#no_valido').remove(); }, 3000);
     setTimeout(function(){ $('#boton_validar').prop( "disabled", false ); }, 3000);

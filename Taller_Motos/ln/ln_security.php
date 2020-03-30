@@ -143,8 +143,9 @@ function reenviar_correo(){
     $codigo = $this->get_codigo();
     $id = $_POST['id'];
     $correo =  $_POST['correo_electronico_link'];
-    $this->get_usuario_cambio($_POST,$codigo);
-    if($this->enviar_correo($_POST,$codigo)==false){
+    if($this->get_usuario_cambio($_POST,$codigo)==false){
+        echo json_encode(array("result" => "codigo_activo"));
+    }else if($this->enviar_correo($_POST,$codigo)==false){
         echo json_encode(array("result" => "false", "id_usuario" => $id,"correo" => $correo));
     }else{
         echo json_encode(array("result" => "true", "id_usuario" => $id, "correo" => $correo));

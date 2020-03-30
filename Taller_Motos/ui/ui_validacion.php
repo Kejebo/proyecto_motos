@@ -18,12 +18,12 @@ require_once('gui.php');
 <div class="card-header" id="titulosCards">
 <h5 class="card-title" id="nombre_empresa">Verificacion de codigo</h5>
 <h6 class="card-title">Te hemos enviado un codigo de verificacion al correo electronico de tu cuenta Mighty Motors.</h6>
+<div class="container">
+<div id="invalido">
+</div>
+</div>
 </div>
 <div class="card-body" id="body_cambio">
-
-<div id="invalido">
-    
-</div>
 <form  method="post" id=formulario_validar_codigo>
 <input type="hidden" value=<?=$_GET['users_id'];?> name="id">
 <input type="hidden" value=<?=$_GET['correo'];?> name="correo_electronico_link">

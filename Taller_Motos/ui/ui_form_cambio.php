@@ -21,6 +21,7 @@ require_once('gui.php');
 </div>
 </div>
 <div class="card-body" id="body_cambio">
+
 <form method="post" id="formulario">
 
 <input type="hidden" value=<?=$_GET['user_id'];?> name="id" id="id">
@@ -45,19 +46,19 @@ require_once('gui.php');
     </div>
     </div>
 
-
+<div class="container">
 <div id="no_iguales">
 
 </div>
+</div>
 <hr>
-
 <button class = "btn btn-primary boton_success"  type ="submit"  id="bcambio" ><i class="fas fa-save"></i> Cambiar</button>
+<div></div>
 
 </form>
 </div>
-</div>
-         
-            <?php
+</div>   
+    <?php
         }
 
     }
