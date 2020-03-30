@@ -87,8 +87,8 @@ class ui_sales extends Gui
                             <div class="form-group">
 
                                 <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> Registrar</button>
-                                <button id="guardar" class="btn btn-success btn-block" type="button" style="display: <?= $boton ?>" onclick="sendpurchase('<?= $script ?>')"><i class="fas fa-file"></i> Guardar</button>
-                                <a id="cancelar" href="purchases.php" class="btn btn-danger btn-block" style="display: <?= $boton ?>"><i class="fas fa-file"></i> Cancelar</a>
+                                <button id="guardar" class="btn btn-success btn-block" type="button" style="display: <?= $boton ?>" onclick="sendsale('<?= $script ?>')"><i class="fas fa-file"></i> Guardar</button>
+                                <a id="cancelar" href="sales.php" class="btn btn-danger btn-block" style="display: <?= $boton ?>"><i class="fas fa-file"></i> Cancelar</a>
 
                             </div>
                             <hr>
@@ -126,12 +126,12 @@ class ui_sales extends Gui
                                             <td><?= $list['cantidad'] ?></td>
                                             <td><?= $list['precio'] ?></td>
                                             <td><?= $list['saldo'] ?></td>
-                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this)"><i class="fas fa-trash"></i></span></td>
+                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this,'venta')"><i class="fas fa-trash"></i></span></td>
                                         </tr>
                                 <?php      }
                                 } ?>
                             </tbody>
-                            <tfoot id="pie_compras" class="bg-dark text-center text-white">
+                            <tfoot id="pie" class="bg-dark text-center text-white">
                                 <tr>
                                     <td>Saldo</td>
                                     <td></td>

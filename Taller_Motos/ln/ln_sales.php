@@ -41,7 +41,7 @@
                 $this->db->insert_detail_sale($datos['id'],$lista);
             }            
         }
-        function insert_purchase($data){
+        function insert_sale($data){
             extract($data);
            $this->db->insert_sale($datos);
            foreach($venta as $lista){

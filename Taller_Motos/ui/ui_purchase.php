@@ -129,12 +129,12 @@ class ui_purchase extends Gui
                                             <td><?= $list['cantidad'] ?></td>
                                             <td><?= $list['precio'] ?></td>
                                             <td><?= $list['saldo'] ?></td>
-                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this)"><i class="fas fa-trash"></i></span></td>
+                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this,'purchase')"><i class="fas fa-trash"></i></span></td>
                                         </tr>
                                 <?php      }
                                 } ?>
                             </tbody>
-                            <tfoot id="pie_compras" class="bg-dark text-center text-white">
+                            <tfoot id="pie" class="bg-dark text-center text-white">
                                 <tr>
                                     <td>Saldo</td>
                                     <td></td>
