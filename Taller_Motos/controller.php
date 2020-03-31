@@ -4,7 +4,7 @@ require_once('ln/ln_purchase.php');
 require_once('ln/ln_sales.php');
 $inventory = new db_inventory();
 $purchase = new ln_purchase();
-$sale=new ln_sales();
+$sale = new ln_sales();
 switch ($_POST['action']) {
     case 'get_medida':
         echo json_encode($inventory->get_category_medida($_POST['id'])[0]);
@@ -19,25 +19,25 @@ switch ($_POST['action']) {
         break;
     case 'get_prices':
         echo json_encode($inventory->get_sale_prices($_POST['id'])[0]);
-    break;
+        break;
 
     case 'insert_sale':
         $sale->insert_sale($_POST);
-    break;
+        break;
 
     case 'update_sale':
         $sale->update_sale($_POST);
-    break;
+        break;
     case 'insert_marca':
         $inventory->insert_marca($_POST['nombre_marca']);
         echo json_encode($inventory->get_marcas());
-    break;
-    
+        break;
+
     case 'insert_categoria':
         $inventory->insert_categoria($_POST);
         echo json_encode($inventory->get_category());
-    break;
+        break;
 
     case 'get_saldo':
         echo json_encode($inventory->validate_sale($_POST['id'])[0]);
-    }
+}

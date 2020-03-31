@@ -118,7 +118,7 @@ function login($data){
 
     if($result){
         setcookie('usuario', $json, time() + 60*60*24*365);
-        header('Location:entrada.php');
+        header('Location:inventary.php');
 
     }else{
 
@@ -179,12 +179,12 @@ function check_access($url){
             $id=$item;
             break;
             }
-            header('Location:entrada.php');
+            header('Location:inventary.php');
         }
 
     }else{
 
-        if($url!='index.php' && $url=='entrada.php'){
+        if($url!='index.php' && $url=='inventary.php'){
 
             header('Location:index.php');
 
