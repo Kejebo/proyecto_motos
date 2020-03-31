@@ -126,7 +126,7 @@ class ui_sales extends Gui
                                             <td><?= $list['cantidad'] ?></td>
                                             <td><?= $list['precio'] ?></td>
                                             <td><?= $list['saldo'] ?></td>
-                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this,'venta')"><i class="fas fa-trash"></i></span></td>
+                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this,'sale')"><i class="fas fa-trash"></i></span></td>
                                         </tr>
                                 <?php      }
                                 } ?>

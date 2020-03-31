@@ -36,4 +36,8 @@ switch ($_POST['action']) {
     case 'insert_categoria':
         $inventory->insert_categoria($_POST);
         echo json_encode($inventory->get_category());
-}
+    break;
+
+    case 'get_saldo':
+        echo json_encode($inventory->validate_sale($_POST['id'])[0]);
+    }

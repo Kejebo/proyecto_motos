@@ -62,7 +62,7 @@ function insert_purchase(i){
       compra.push(detalles);
       saldo += detalles.precio * detalles.cantidad;
       resetear();
-      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++,'#purchase'));
+      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++,'#purchase','purchase'));
     } else {
       showMessage('Ingrese una cantidad mayor', 'danger','#form-purchase');
     }
@@ -86,13 +86,13 @@ function insert_sale(i){
       venta.push(detalles);
       saldo += detalles.precio * detalles.cantidad;
       resetear();
-      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++,'#venta'));
+      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++,'#venta','sale'));
     } else {
       showMessage('Ingrese una cantidad mayor', 'danger','#form-sale');
     }
   });
 }
-function crear_fila(detalles, i ,table) {
+function crear_fila(detalles, i ,table,action) {
   json = JSON.stringify(detalles);
   let tr=document.createElement('tr');
   tr.setAttribute('ids',i);
@@ -102,12 +102,23 @@ function crear_fila(detalles, i ,table) {
   <td>${detalles.cantidad}</td>
   <td>${detalles.precio}</td>
    <td>${detalles.precio * detalles.cantidad}</td>
-   <td><span class="delete_detail btn btn-danger" onclick=deletes(this)><i class="fas fa-trash"></i></span></td>
+   <td><span class="delete_detail btn btn-danger" onclick=deletes(this,${action})><i class="fas fa-trash"></i></span></td>
     `
     document.querySelector(table).style.display = 'block';
 
   total();
   return tr;
+}
+function validate_sale(cantidad){
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: {cantidad},
+    success: function (response) {
+      let dato=JSON.parse(response);
+      return dato.saldo>=cantidad ? true:false;     
+    }
+  });
 }
 function total() {
   document.querySelector('#pie').innerHTML = ` <tr>

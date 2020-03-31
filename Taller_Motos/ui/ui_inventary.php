@@ -191,7 +191,7 @@ class ui_inventary extends gui
                   <?php foreach ($this->ln->get_inventory() as $list) { ?>
                     <tr>
                       <td><?= $list['nombre']; ?></td>
-                      <td><?= $list['cantidad']; ?></td>
+                      <td><?= $list['saldo']; ?></td>
                       <td><?= $list['venta']; ?></td>
                       <td><?= $list['compra']; ?></td>
                       <td><a href="inventary.php?action=delete&id=<?= $list['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
