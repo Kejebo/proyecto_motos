@@ -11,7 +11,7 @@ class conexion{
 			'host' 	=> 'localhost',
 			'user' 	=> 'root',
 			'pass' 	=> '',
-			'db' 	=> 'db_tallermotos',
+			'db' 	=> 'db_mighty_motors',
 		);
 	
 	}
@@ -47,6 +47,21 @@ class conexion{
 		return $r;
 		
 	}
+
+	function executeDos($sql){
+		
+		$this->conectar();
+
+		$resultados = mysqli_query($this->conexion, $sql);
+
+		$result = mysqli_affected_rows($this->conexion);
+		
+		
+		$this->desconectar();
+		
+		return $result;
+		
+	}
 	
 	
 	
@@ -67,9 +82,6 @@ class conexion{
 		return $data;
 		
 	}
-	
-	
-	
 	
 	
 }

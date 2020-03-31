@@ -3,14 +3,14 @@
 <?php
 
 
-require_once('ui/ui_login.php');
+require_once('ui/ui_validacion.php');
 
 $config = array(
 	'titulo'	=> 'Inicio',
-	'url'		=> 'index.php',
+	'url'		=> 'validacion.php',
 );
 
-$ui = new UI_login($config);
+$ui = new UI_validacion($config);
 
 
  $ui->get_header();
