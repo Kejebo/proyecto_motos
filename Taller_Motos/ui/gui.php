@@ -10,12 +10,8 @@ class Gui
     var $estado;
 
 	
-	function __construct($config=null){
+	function __construct($config){
 		
-		$this->config = array(
-			'titulo'	=> 'Sin Título',
-			'url'		=> 'index.php',
-        );
 
         $this->ln_security = new ln_security();
 

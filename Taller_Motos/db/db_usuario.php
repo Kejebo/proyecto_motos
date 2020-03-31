@@ -68,7 +68,7 @@ class db_usuario extends conexion{
         extract($data);
       
         $this->conectar();
-        $sql = "call update_codigo_contrasena('$contrasena','$id')";
+        $sql = "call update_codigo_contrasena('$contrasenaUno','$id')";
         $result = $this->executeDos($sql);
        
         if($result>0){

@@ -32,11 +32,8 @@ function action_controller(){
             break;
 
             case 'enviar_correo':
-            $codigo = $this->get_codigo();
-            $id = $this->get_usuario_cambio($_POST,$codigo);
-            $this->enviar_correo($_POST,$codigo);
-            header('Location:validacion.php?users_id='.$id.'&correo='.$_POST['correo_electronico_link']);
-             break;
+            $this->enviar_correo_primera();
+            break;
 
             case 'reenviar_correo':
             $this->reenviar_correo();
@@ -54,6 +51,21 @@ function action_controller(){
         }
     }
 
+}
+
+
+function enviar_correo_primera(){
+    $codigo = $this->get_codigo();
+    $correo = $_POST["correo_electronico_link"];
+    $id = $this->get_usuario_cambio($_POST,$codigo);
+    if( $this->get_usuario_cambio($_POST,$codigo)==false){
+        echo json_encode(array("result" => "codigo_activo"));
+    }else if($this->enviar_correo($_POST,$codigo)==false){
+       
+        echo json_encode(array("result" => "false", "id_usuario" =>$id,"correo" => $correo));
+    }else{
+        echo json_encode(array("result" => "true", "id_usuario" =>$id, "correo" => $correo));
+    }
 }
 
 
@@ -88,7 +100,7 @@ function update_usuario($codigo,$id){
 
 function cambio_contrasena($data){
 
-   if($_POST['contrasena']==$_POST['confirmarContrasena']){
+   if($_POST['contrasenaUno']==$_POST['contrasenaDos']){
         if($this->ln_usuarios->cambio_contrasena($data)==true){
         echo json_encode(array("result" => "actualizado"));
         }else{
@@ -97,11 +109,6 @@ function cambio_contrasena($data){
    }else{
         echo json_encode(array("result"=> "no iguales"));
     }
-  
- 
-    
-   
-
 }
 
 function login($data){

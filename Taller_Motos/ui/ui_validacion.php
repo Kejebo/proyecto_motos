@@ -10,7 +10,7 @@ require_once('gui.php');
         {
             ?>
 
-<div class="row"  id="formulario_login">
+<div class="row formulario_login"  id="div_form_validacion" style="display : none">
 <div class="col-sm-4"></div>
     
 <div class="col-sm-4">
@@ -25,8 +25,6 @@ require_once('gui.php');
 </div>
 <div class="card-body" id="body_cambio">
 <form  method="post" id=formulario_validar_codigo>
-<input type="hidden" value=<?=$_GET['users_id'];?> name="id">
-<input type="hidden" value=<?=$_GET['correo'];?> name="correo_electronico_link">
 <input  class = "form-control" type="text" placeholder="codigo" name="codigo" id="codigo">
 <div class= "container" id=div_reenviar>
 <div id="total"><strong> <a id="boton_reenviar"  onclick="reenviar_codigo()" class = " pregunta_contrasena link"><div id="div_icono_reenviar"><i id="icono_reenviar"class="fas fa-share"></i></div> reenviar codigo</a></strong></div>
@@ -37,11 +35,13 @@ require_once('gui.php');
 </form>
 
 
-<form method="post" id="formulario_reenviar">
-<input type="hidden" value=<?=$_GET['users_id'];?> name="id">
-<input type="hidden" value=<?=$_GET['correo'];?> name="correo_electronico_link">
 </div>
-</form>
+
+
+</div>
+</div>
+<div class="col-sm-4"></div>
+</div>
             <?php
         }
 

@@ -9,7 +9,9 @@ require_once('gui.php');
         {
             ?>
 
-<div class="row"  id="formulario_login">
+<div>
+
+<div class="row formulario_login"  id="div_form_cambio" style="display : none">
 <div class="col-sm-4"></div>
     
 <div class="col-sm-4">
@@ -20,11 +22,9 @@ require_once('gui.php');
 <div id="cambio_correcto">
 </div>
 </div>
-<div class="card-body" id="body_cambio">
+<div class="card-body body_cambio">
 
 <form method="post" id="formulario">
-
-<input type="hidden" value=<?=$_GET['user_id'];?> name="id" id="id">
 
 <div class="input-group mb-3" id="grup_pass_uno">
 <input type="password" pattern="[A-Za-z0-9_-]{1,15}" class="form-control pass-input" placeholder="Nueva Contraseña" onblur="quitarborde('grup_pass_uno')" onclick="ponerborde('grup_pass_uno','contrasenaUno')" name="contrasena" id="contrasenaUno" required>
@@ -53,11 +53,16 @@ require_once('gui.php');
 </div>
 <hr>
 <button class = "btn btn-primary boton_success"  type ="submit"  id="bcambio" ><i class="fas fa-save"></i> Cambiar</button>
-<div></div>
 
 </form>
 </div>
 </div>   
+
+</div>
+<div class="col-sm-4"></div>
+</div>
+
+
     <?php
         }
 
