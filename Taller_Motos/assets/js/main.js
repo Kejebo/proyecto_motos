@@ -3,6 +3,7 @@ var venta=[];
 var reparacion=[];
 var clicks = 0;
 var saldo = 0;
+var valor=false;
 window.addEventListener('load', () => {
   let i = 0;
   recargar_compra();
@@ -90,6 +91,7 @@ function insert_sale(i){
     } else {
       showMessage('Ingrese una cantidad mayor', 'danger','#form-sale');
     }
+
   });
 }
 function crear_fila(detalles, i ,table,action) {
@@ -109,16 +111,19 @@ function crear_fila(detalles, i ,table,action) {
   total();
   return tr;
 }
-function validate_sale(cantidad){
+function validate_sale(id,cantidad){
+  let action='get_saldo';
+  var result='';
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: {cantidad},
+    data: {action,id},
     success: function (response) {
       let dato=JSON.parse(response);
-      return dato.saldo>=cantidad ? true:false;     
+      document.querySelector('#saldo').value=dato.saldo>=cantidad ? true:false;     
     }
   });
+  return ;
 }
 function total() {
   document.querySelector('#pie').innerHTML = ` <tr>
@@ -163,7 +168,7 @@ function sendpurchase(action) {
     data: { action, datos, compra },
     success: function (response) {
       setTimeout(() => {
-        showMessage('Se realizo la compra correctamente', 'success');
+        showMessage('Se realizo la compra correctamente', 'success','#form-purchase');
         window.location.href = 'purchases.php';
       }, 1000);
     }
