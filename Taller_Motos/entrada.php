@@ -2,14 +2,14 @@
 
 <?php
 
-require_once('ui/gui.php');
+require_once('ui/gui_login.php');
 
 $config = array(
 	'titulo'	=> 'Inicio',
 	'url'		=> 'entrada.php',
 );
 
-$ui = new gui($config);
+$ui = new Gui_login($config);
 
 ?>
 

@@ -1,8 +1,8 @@
 <?php
 
-require_once('gui.php');
+require_once('gui_login.php');
 
-    class UI_validacion extends Gui{
+    class UI_validacion extends Gui_login{
 
         
 
@@ -25,7 +25,7 @@ require_once('gui.php');
 </div>
 <div class="card-body" id="body_cambio">
 <form  method="post" id=formulario_validar_codigo>
-<input  class = "form-control" type="text" placeholder="codigo" name="codigo" id="codigo">
+<input pattern="[A-Za-z0-9_-]{1,15}" class = "form-control" type="text" placeholder="codigo" name="codigo" id="codigo">
 <div class= "container" id=div_reenviar>
 <div id="total"><strong> <a id="boton_reenviar"  onclick="reenviar_codigo()" class = " pregunta_contrasena link"><div id="div_icono_reenviar"><i id="icono_reenviar"class="fas fa-share"></i></div> reenviar codigo</a></strong></div>
 </div>

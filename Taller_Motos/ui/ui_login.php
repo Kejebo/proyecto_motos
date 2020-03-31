@@ -1,8 +1,8 @@
 <?php
 
-require_once('gui.php');
+require_once('gui_login.php');
 
-    class UI_login extends Gui{
+    class UI_login extends Gui_login{
 
         
 

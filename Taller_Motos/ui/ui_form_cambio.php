@@ -1,8 +1,8 @@
 <?php
 
-require_once('gui.php');
+require_once('gui_login.php');
 
-    class UI_form_cambio extends Gui{
+    class UI_form_cambio extends Gui_login{
 
 
         function get_content()
