@@ -10,7 +10,41 @@ window.addEventListener('load', () => {
   insert_purchase(i);
   insert_sale(i);
 });
-
+function insert_marca(){
+  let nombre_marca=document.querySelector('#nombre_marca').value
+  let action='insert_marca';
+  $.ajax({
+      type: "post",
+      url: "controller.php",
+      data: {action,nombre_marca},
+      success: function (response) {
+        let datos=JSON.parse(response);
+        document.querySelector('#marca').innerHTML='';
+        datos.forEach(element => {
+          document.querySelector('#marca').innerHTML+=`
+          <option value=${element.id_marca_material}>${element.nombre_marca}<opcion>`
+        });
+      }
+    });    
+}
+function insert_category(){
+  let nombre_categoria=document.querySelector('#nombre_categoria').value;
+  let id_medida=document.querySelector('#id_medida').value;
+  let action='insert_categoria';
+  $.ajax({
+      type: "post",
+      url: "controller.php",
+      data: {action,id_medida,nombre_categoria},
+      success: function (response) {
+        let datos=JSON.parse(response);
+        document.querySelector('#categoria').innerHTML='';
+        datos.forEach(element => {
+          document.querySelector('#categoria').innerHTML+=`
+          <option value=${element.id_categoria}>${element.nombre_categoria}<opcion>`
+        });
+      }
+    });    
+}
 function insert_purchase(i){
 
   $('#form-purchase').submit(function (e){
@@ -209,7 +243,7 @@ function delete_span(e) {
 }
 function selec(sel) {
   var opciones = sel.options[sel.selectedIndex].textContent;
-  if (opciones != "Tornillos" && opciones != "Cables") {
+  if (opciones.toLowerCase() == "aceite" || opciones.toLowerCase() == "cables" ||opciones.toLowerCase()=="combustible") {
     add();
   } else {
     delete_span(document.querySelector('.medida'));

@@ -35,7 +35,7 @@ class Ui_client extends Gui
             <div class="col-12 col-sm-12 col-lg-3">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h5 <span> <i class="fas fa-bars"></i></span> Registro de clientes</h5>
+                        <h5> <span> <i class="fas fa-bars"></i></span> Registro de clientes</h5>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="clients.php?action=<?=$action?>">
@@ -72,8 +72,8 @@ class Ui_client extends Gui
                     <div class="card-header">
                         <h5 class="card-title">Lista de Clientes</h5>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered   table-responsive" id="example">
+                    <div class="card-body table-responsive">
+                        <table class="table table-bordered" id="example">
                             <thead class="thead-dark text-center text-white">
                                 <tr>
                                     <th>Nombre</th>

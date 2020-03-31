@@ -69,8 +69,8 @@ class ui_proveedores extends gui
             <div class="card-header">
               <h5 class="card-title">Lista de Proveedores</h5>
             </div>
-            <div class="card-body">
-              <table class="table table-bordered table-responsive" id="example">
+            <div class="card-body table-responsive">
+              <table class="table table-bordered" id="example">
                 <thead class="thead-dark text-center text-white">
                   <tr>
                     <th>Nombre</th>

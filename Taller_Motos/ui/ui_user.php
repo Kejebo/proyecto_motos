@@ -35,7 +35,7 @@ class ui_user extends Gui
             <div class="col-12 col-sm-12 col-lg-4">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h5 <span><i class="fas fa-bars"></i></span> Registro de usuarios</h5>
+                        <h5> <span><i class="fas fa-bars"></i></span> Registro de usuarios</h5>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="users.php?action=<?= $action ?>">

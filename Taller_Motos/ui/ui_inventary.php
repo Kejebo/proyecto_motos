@@ -66,7 +66,7 @@ class ui_inventary extends gui
                 <label class="etiquetas">Marca</label>
 
                 <div class="input-group mb-3">
-                  <select name="marca" class="form-control">
+                  <select name="marca" class="form-control" id="marca">
                     <?php foreach ($this->ln->get_marcas() as $list) {
                       if ($material['id_marca_material'] == $list['id_marca_material']) { ?>
                         <option selected value="<?= $list['id_marca_material'] ?>"><?= $list['nombre_marca'] ?></option>
@@ -126,12 +126,12 @@ class ui_inventary extends gui
                 <div class="modal-body">
                   <div class="form-group">
                     <label class="etiquetas">Nombre</label>
-                    <input class="form-control" type="text" name="nombre_marca">
+                    <input class="form-control" type="text" id="nombre_marca" placeholder="ingrese el nombre de la marca">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Guardar</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_marca()">Guardar</button>
                 </div>
               </div>
             </div>
@@ -147,48 +147,65 @@ class ui_inventary extends gui
                 </div>
                 <div class="modal-body">
                   <div class="form-group">
-                    <input class="form-control" type="text" name="nombre_categoria" placeholder="Ingrese el nombre de la categoria">
+                    <label class="etiquetas">Nombre</label>
+                    <div class="input-group mb-3">
+                      <input class="form-control" type="text" id="nombre_categoria" placeholder="Ingrese el nombre de la categoria">
+                      <div class="input-group-append">
+                        <select name="" id="id_medida" class="form-control">
+                          <?php foreach ($this->ln->get_medidas() as $medidas) { ?>
+                            <option value="<?= $medidas['id_medida'] ?>"><?= $medidas['nombre_medida'] ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Guardar</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_category()">Guardar</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-sm-9 table-responsive">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+          <div class="card shadow">
+            <div class="card-header">
+              <h5 class="card-title">Lista de Materiales</h5>
+            </div>
+            <div class="card-body table-responsive">
+              <table class="table table-bordered" id="example">
+                <thead class="thead-dark text-center">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Venta</th>
+                    <th>Compra</th>
+                    <th>Eiminar</th>
+                    <th>Editar</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <?php foreach ($this->ln->get_inventory() as $list) { ?>
+                    <tr>
+                      <td><?= $list['nombre']; ?></td>
+                      <td><?= $list['cantidad']; ?></td>
+                      <td><?= $list['venta']; ?></td>
+                      <td><?= $list['compra']; ?></td>
+                      <td><a href="inventary.php?action=delete&id=<?= $list['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                      <td><a href="inventary.php?action=update_material&id=<?= $list['id']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
 
-          <table class="table table-bordered bg-white" id="example">
-            <thead class="thead-dark text-center">
-              <tr>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Venta</th>
-                <th>Compra</th>
-                <th>Eiminar</th>
-                <th>Editar</th>
-              </tr>
-            </thead>
-            <tbody class="text-center">
-              <?php foreach ($this->ln->get_inventory() as $list) { ?>
-                <tr>
-                  <td><?= $list['nombre']; ?></td>
-                  <td><?= $list['cantidad']; ?></td>
-                  <td><?= $list['venta']; ?></td>
-                  <td><?= $list['compra']; ?></td>
-                  <td><a href="inventary.php?action=delete&id=<?= $list['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
-                  <td><a href="inventary.php?action=update_material&id=<?= $list['id']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                    </tr>
+                  <?php } ?>
+                </tbody>
 
-                </tr>
-              <?php } ?>
-            </tbody>
-
-          </table>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
+        </div>
 
     </section>
 

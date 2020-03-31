@@ -27,6 +27,12 @@
             }
         }
 
+        function insert_marca($data){
+            $this->db->insert_marca($data);
+        }
+        function insert_categoria($data){
+            $this->db->insert_categoria($data);
+        }
 
         function get_category(){
             return $this->db->get_category();
