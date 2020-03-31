@@ -31,7 +31,7 @@ class ui_sales extends Gui
                 $action = 'update';
                 $boton = 'block';
                 $visibilidad = 'block';
-                $script = 'update_purchase';
+                $script = 'update_sale';
                 $fecha=$sale[0]['fecha'];
                 
             }
@@ -168,8 +168,8 @@ class ui_sales extends Gui
                                         <td><?= $list['fecha'] ?></td>
                                         <td><?= $list['cliente'] ?></td>
                                         <td><?= $list['saldo'] ?></td>
-                                        <td><a href="sales.php?action=delete&id=" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
-                                        <td><a href="sales.php?action=update_sale&id=" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                                        <td><a href="sales.php?action=delete&id=<?=$list['id']?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                                        <td><a href="sales.php?action=update_sale&id=<?=$list['id']?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
 
                                     </tr>
                                 <?php } ?>

@@ -5,10 +5,12 @@ var clicks = 0;
 var saldo = 0;
 window.addEventListener('load', () => {
   let i = 0;
-  recargar();
+  recargar_compra();
+  recargar_venta();
   insert_purchase(i);
   insert_sale(i);
 });
+
 function insert_purchase(i){
 
   $('#form-purchase').submit(function (e){
@@ -85,9 +87,11 @@ function total() {
 }
 function sendsale(action){
   let id = document.querySelector('#id').value;
+  alert(id);
   let cliente = document.querySelector('#cliente').value;
   let fecha = document.querySelector('#fecha').value;
   let datos = { id, cliente, fecha }
+  alert(action);
   $.ajax({
     type: "post",
     url: "controller.php",
@@ -95,7 +99,7 @@ function sendsale(action){
     success: function (response) {
       setTimeout(() => {
         showMessage('Se realizo la venta correctamente', 'success','#form-sale');
-        window.location.href = 'sales.php';
+       window.location.href = 'sales.php';
       }, 1000);
     }
   });
@@ -148,7 +152,7 @@ function resetear() {
   document.querySelector('#guardar').style.display = 'block';
   document.querySelector('#cancelar').style.display = 'block';
 }
-function recargar() {
+function recargar_compra() {
   compra = [];
   document.querySelectorAll('.lista').forEach(element => {
     let aux = JSON.parse(element.value);
@@ -160,6 +164,21 @@ function recargar() {
     }
     saldo += data.precio * data.cantidad;
     compra.push(data);
+
+  });
+}
+function recargar_venta() {
+  venta = [];
+  document.querySelectorAll('.lista').forEach(element => {
+    let aux = JSON.parse(element.value);
+    let data = {
+      precio: aux.precio,
+      cantidad: aux.cantidad,
+      material: aux.material,
+      nombre_material: aux.nombre_material
+    }
+    saldo += data.precio * data.cantidad;
+    venta.push(data);
 
   });
 }

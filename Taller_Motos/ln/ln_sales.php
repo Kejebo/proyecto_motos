@@ -19,8 +19,6 @@
             if(isset($_GET['action'])){
                 switch($_GET['action']){
                     case 'insert':
-                        $this->insert_purchase($_POST);
-                        $this->rediretion();
                     break;
                     case 'delete':
                         $this->delete_detail($_GET['id']);
@@ -68,6 +66,6 @@
            return $this->client->get_clients();
        }
        function rediretion(){
-           header("Location: purchases.php");
+           header("Location: sales.php");
        }
     }

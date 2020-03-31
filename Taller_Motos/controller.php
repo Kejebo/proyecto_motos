@@ -23,4 +23,7 @@ switch ($_POST['action']) {
     case 'insert_sale':
         $sale->insert_sale($_POST);
     break;
+    case 'update_sale':
+        $sale->update_sale($_POST);
+    break;
 }
