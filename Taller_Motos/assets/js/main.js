@@ -1,54 +1,52 @@
 var compra = [];
-var venta=[];
-var reparacion=[];
+var venta = [];
+var reparacion = [];
 var clicks = 0;
-var saldo = 0;
-var valor=false;
+var i = 0;
 window.addEventListener('load', () => {
-  let i = 0;
   recargar_compra();
   recargar_venta();
   insert_purchase(i);
-  insert_sale(i);
+  insert_sale();
 });
-function insert_marca(){
-  let nombre_marca=document.querySelector('#nombre_marca').value
-  let action='insert_marca';
+function insert_marca() {
+  let nombre_marca = document.querySelector('#nombre_marca').value
+  let action = 'insert_marca';
   $.ajax({
-      type: "post",
-      url: "controller.php",
-      data: {action,nombre_marca},
-      success: function (response) {
-        let datos=JSON.parse(response);
-        document.querySelector('#marca').innerHTML='';
-        datos.forEach(element => {
-          document.querySelector('#marca').innerHTML+=`
+    type: "post",
+    url: "controller.php",
+    data: { action, nombre_marca },
+    success: function (response) {
+      let datos = JSON.parse(response);
+      document.querySelector('#marca').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#marca').innerHTML += `
           <option value=${element.id_marca_material}>${element.nombre_marca}<opcion>`
-        });
-      }
-    });    
+      });
+    }
+  });
 }
-function insert_category(){
-  let nombre_categoria=document.querySelector('#nombre_categoria').value;
-  let id_medida=document.querySelector('#id_medida').value;
-  let action='insert_categoria';
+function insert_category() {
+  let nombre_categoria = document.querySelector('#nombre_categoria').value;
+  let id_medida = document.querySelector('#id_medida').value;
+  let action = 'insert_categoria';
   $.ajax({
-      type: "post",
-      url: "controller.php",
-      data: {action,id_medida,nombre_categoria},
-      success: function (response) {
-        let datos=JSON.parse(response);
-        document.querySelector('#categoria').innerHTML='';
-        datos.forEach(element => {
-          document.querySelector('#categoria').innerHTML+=`
+    type: "post",
+    url: "controller.php",
+    data: { action, id_medida, nombre_categoria },
+    success: function (response) {
+      let datos = JSON.parse(response);
+      document.querySelector('#categoria').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#categoria').innerHTML += `
           <option value=${element.id_categoria}>${element.nombre_categoria}<opcion>`
-        });
-      }
-    });    
+      });
+    }
+  });
 }
-function insert_purchase(i){
+function insert_purchase(i) {
 
-  $('#form-purchase').submit(function (e){
+  $('#form-purchase').submit(function (e) {
     e.preventDefault();
 
     let nombre = document.querySelector('#material');
@@ -61,20 +59,25 @@ function insert_purchase(i){
     };
     if (detalles.cantidad > 0) {
       compra.push(detalles);
-      saldo += detalles.precio * detalles.cantidad;
       resetear();
-      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++,'#purchase','purchase'));
+      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++, '#purchase', 'purchase'));
+      total_compra();
     } else {
-      showMessage('Ingrese una cantidad mayor', 'danger','#form-purchase');
+      showMessage('Ingrese una cantidad mayor', 'danger', '#form-purchase');
     }
   });
 }
- 
-function insert_sale(i){
 
-  $('#form-sale').submit(function (e){
+function insert_sale() {
+
+  $('#form-sale').submit(function (e) {
     e.preventDefault();
+    validate_sale(document.querySelector('#material').value, document.querySelector('#cantidad').value);
 
+  });
+}
+function insert_sale_data(monto) {
+  if (monto >= 0) {
     let nombre = document.querySelector('#material');
 
     detalles = {
@@ -85,47 +88,52 @@ function insert_sale(i){
     };
     if (detalles.cantidad > 0) {
       venta.push(detalles);
-      saldo += detalles.precio * detalles.cantidad;
-      resetear();
-      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++,'#venta','sale'));
-    } else {
-      showMessage('Ingrese una cantidad mayor', 'danger','#form-sale');
-    }
 
-  });
+      resetear();
+      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++, '#venta', 'sale'));
+      total_venta();
+
+    } else {
+      showMessage('Ingrese una cantidad mayor', 'danger', '#form-sale');
+    }
+  }
 }
-function crear_fila(detalles, i ,table,action) {
+function crear_fila(detalles, i, table, action) {
   json = JSON.stringify(detalles);
-  let tr=document.createElement('tr');
-  tr.setAttribute('ids',i);
+  let tr = document.createElement('tr');
+  tr.setAttribute('ids', i);
   tr.innerHTML = `
   <input type=hidden class=lista name=detalles[] value=${json}
   <td>${detalles.nombre_material}</td>
   <td>${detalles.cantidad}</td>
   <td>${detalles.precio}</td>
    <td>${detalles.precio * detalles.cantidad}</td>
-   <td><span class="delete_detail btn btn-danger" onclick=deletes(this,${action})><i class="fas fa-trash"></i></span></td>
+   <td><span class="delete_detail btn btn-danger" onclick=deletes(this,"${action}")><i class="fas fa-trash"></i></span></td>
     `
-    document.querySelector(table).style.display = 'block';
+  document.querySelector(table).style.display = 'block';
 
-  total();
   return tr;
 }
-function validate_sale(id,cantidad){
-  let action='get_saldo';
-  var result='';
+function validate_sale(id, cantidad) {
+  let action = 'get_saldo';
+  var result = '';
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: {action,id},
+    data: { action, id },
     success: function (response) {
-      let dato=JSON.parse(response);
-      document.querySelector('#saldo').value=dato.saldo>=cantidad ? true:false;     
+      let dato = JSON.parse(response);
+      insert_sale_data(dato.saldo - cantidad);
+      total_venta();
     }
   });
-  return ;
+  return;
 }
-function total() {
+function total_compra() {
+  let saldo = 0;
+  compra.forEach(element => {
+    saldo += element.cantidad * element.precio;
+  });
   document.querySelector('#pie').innerHTML = ` <tr>
   <td>Saldo</td>
   <td></td>
@@ -135,21 +143,34 @@ function total() {
 </tr>`
 
 }
-function sendsale(action){
+
+function total_venta() {
+  let saldo = 0;
+  venta.forEach(element => {
+    saldo += element.cantidad * element.precio;
+  });
+  document.querySelector('#pie').innerHTML = ` <tr>
+  <td>Saldo</td>
+  <td></td>
+  <td></td>
+  <td>${saldo}</td>
+  <td></td>
+</tr>`
+
+}
+function sendsale(action) {
   let id = document.querySelector('#id').value;
-  alert(id);
   let cliente = document.querySelector('#cliente').value;
   let fecha = document.querySelector('#fecha').value;
   let datos = { id, cliente, fecha }
-  alert(action);
   $.ajax({
     type: "post",
     url: "controller.php",
     data: { action, datos, venta },
     success: function (response) {
       setTimeout(() => {
-        showMessage('Se realizo la venta correctamente', 'success','#form-sale');
-       window.location.href = 'sales.php';
+        showMessage('Se realizo la venta correctamente', 'success', '#form-sale');
+        window.location.href = 'sales.php';
       }, 1000);
     }
   });
@@ -168,7 +189,7 @@ function sendpurchase(action) {
     data: { action, datos, compra },
     success: function (response) {
       setTimeout(() => {
-        showMessage('Se realizo la compra correctamente', 'success','#form-purchase');
+        showMessage('Se realizo la compra correctamente', 'success', '#form-purchase');
         window.location.href = 'purchases.php';
       }, 1000);
     }
@@ -176,15 +197,17 @@ function sendpurchase(action) {
   document.querySelector('#purchase').style.display = 'none';
 }
 
-function deletes(elemento,form) {
+function deletes(elemento, form) {
   let boton = elemento.parentElement.parentElement;
-  switch(form){
+  switch (form) {
     case 'purchase':
+      saldo -= compra[boton.getAttribute('ids')].cantidad * compra[boton.getAttribute('ids')].precio;
       compra.splice(boton.getAttribute('ids'), 1);
       boton.remove();
       if (compra.length == 0) {
         document.querySelector('#purchase').style.display = 'none';
       }
+      total_compra();
       break;
     case 'sale':
       venta.splice(boton.getAttribute('ids'), 1);
@@ -192,17 +215,20 @@ function deletes(elemento,form) {
       if (venta.length == 0) {
         document.querySelector('#sale').style.display = 'none';
       }
+      total_venta();
       break;
   }
 
 }
 function resetear() {
+  document.querySelector('#material').selectedIndex = 0;
   document.querySelector('#precio').value = 0;
   document.querySelector('#cantidad').value = 0;
   document.querySelector('#guardar').style.display = 'block';
   document.querySelector('#cancelar').style.display = 'block';
 }
 function recargar_compra() {
+  saldo = 0;
   compra = [];
   document.querySelectorAll('.lista').forEach(element => {
     let aux = JSON.parse(element.value);
@@ -212,10 +238,9 @@ function recargar_compra() {
       material: aux.material,
       nombre_material: aux.nombre_material
     }
-    saldo += data.precio * data.cantidad;
     compra.push(data);
-
   });
+  total_compra();
 }
 function recargar_venta() {
   venta = [];
@@ -227,10 +252,10 @@ function recargar_venta() {
       material: aux.material,
       nombre_material: aux.nombre_material
     }
-    saldo += data.precio * data.cantidad;
     venta.push(data);
 
   });
+  total_venta();
 }
 function add() {
   if (clicks == 0) {
@@ -259,7 +284,7 @@ function delete_span(e) {
 }
 function selec(sel) {
   var opciones = sel.options[sel.selectedIndex].textContent;
-  if (opciones.toLowerCase() == "aceite" || opciones.toLowerCase() == "cables" ||opciones.toLowerCase()=="combustible") {
+  if (opciones.toLowerCase() == "aceite" || opciones.toLowerCase() == "cables" || opciones.toLowerCase() == "combustible") {
     add();
   } else {
     delete_span(document.querySelector('.medida'));
@@ -268,17 +293,23 @@ function selec(sel) {
 function get_prices(combo) {
   let id = combo.options[combo.selectedIndex].value;
   let action = 'get_prices';
+  if (id>0) {
   $.ajax({
     type: "Post",
     url: "controller.php",
     data: { action, id },
     success: function (response) {
       let saldo = JSON.parse(response);
-      document.querySelector('#precio').value = saldo.precio;
+ 
+        document.querySelector('#precio').value = saldo.precio;
     }
   });
+} else {
+  document.querySelector('#precio').value = 0;
 }
-function showMessage(message, cssClass,form) {
+
+}
+function showMessage(message, cssClass, form) {
   const mensaje = document.createElement('div');
   mensaje.className = `alert alert-${cssClass} mt-4`;
   mensaje.appendChild(document.createTextNode(message));

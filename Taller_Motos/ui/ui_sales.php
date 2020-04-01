@@ -64,6 +64,7 @@ class ui_sales extends Gui
                             <label class="etiquetas">Material</label>
                             <div class="input-group mb-3">
                                 <select class="form-control" name="material" id="material" onchange="get_prices(this)">
+                                   <option value="0">Seleccione un material</option>
                                     <?php foreach ($this->ln->get_inventory() as $material) { ?>
                                         <option value="<?= $material['id'] ?>"><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .
                                                                                     $material['monto'] . $material['medida'] ?></option>
