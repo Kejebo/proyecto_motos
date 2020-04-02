@@ -3,12 +3,14 @@ var venta = [];
 var reparacion = [];
 var clicks = 0;
 var i = 0;
+
 window.addEventListener('load', () => {
   recargar_compra();
   recargar_venta();
   insert_purchase(i);
   insert_sale();
 });
+
 function insert_marca() {
   let nombre_marca = document.querySelector('#nombre_marca').value
   let action = 'insert_marca';
@@ -26,6 +28,7 @@ function insert_marca() {
     }
   });
 }
+
 function insert_category() {
   let nombre_categoria = document.querySelector('#nombre_categoria').value;
   let id_medida = document.querySelector('#id_medida').value;
@@ -44,6 +47,7 @@ function insert_category() {
     }
   });
 }
+
 function insert_purchase(i) {
 
   $('#form-purchase').submit(function (e) {

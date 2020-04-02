@@ -13,10 +13,10 @@ $config = array(
 $ui = new UI_login($config);
 
 
- $ui->get_header();
+$ui->get_header();
 
- $ui->get_content(); 
+$ui->get_content();
 
- $ui->get_footer();
+$ui->get_footer();
 
- ?>
+?>

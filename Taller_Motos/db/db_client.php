@@ -51,4 +51,3 @@ class db_client extends conexion{
         $this->execute($sql);
     }
     }
-?>

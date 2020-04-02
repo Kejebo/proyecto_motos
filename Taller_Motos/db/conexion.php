@@ -11,7 +11,7 @@ class conexion{
 			'host' 	=> 'localhost',
 			'user' 	=> 'root',
 			'pass' 	=> '',
-			'db' 	=> 'db_tallermotos',
+			'db' 	=> 'db_mighty_motors',
 		);
 	
 	}
@@ -85,5 +85,3 @@ class conexion{
 	
 	
 }
-
-?>

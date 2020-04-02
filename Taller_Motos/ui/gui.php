@@ -1,10 +1,24 @@
 <?php
+
+require_once('ln/ln_security.php');
+
 class Gui
 {
+
+    var $ln_security;
     var $config;
     function __construct($config)
     {
-        $this->config=$config;
+        $this->ln_security = new ln_security();
+
+
+        if ($config) {
+            $this->config = $config;
+        }
+
+        $this->ln_security->check_access(
+            $this->config['url']
+        );
     }
     function get_header()
     {
@@ -20,7 +34,6 @@ class Gui
             <link rel="stylesheet" href="assets/css/styles.css">
             <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
 
         </head>
 
@@ -57,7 +70,7 @@ class Gui
             {
                 ?>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" id="modulo"><?=$this->config['titulo'];?></a>
+                        <a class="navbar-brand" id="modulo"><?= $this->config['titulo']; ?></a>
                         <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>

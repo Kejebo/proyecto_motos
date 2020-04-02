@@ -16,14 +16,14 @@ $ui = new UI_completa($config);
 $ui_validacion = new UI_validacion($config);
 $ui_form_cambio = new UI_form_cambio($config);
 
- $ui->get_header();
+$ui->get_header();
 
- $ui->get_content(); 
+$ui->get_content();
 
- $ui_validacion->get_content();
+$ui_validacion->get_content();
 
- $ui_form_cambio->get_content();
+$ui_form_cambio->get_content();
 
- $ui->get_footer();
+$ui->get_footer();
 
- ?>
+?>
