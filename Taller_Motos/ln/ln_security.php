@@ -118,7 +118,7 @@ class ln_security
 
     function login($data)
     {
-
+        if($_POST['tipo_usuario']=='Administrador'){
         $result = $this->ln_usuarios->get_login($data);
         $json = json_encode($result);
 
@@ -126,11 +126,18 @@ class ln_security
             setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
             header('Location:inventary.php');
         } else {
-
             header('Location:index.php?mer=Datos Erroneos');
+        }}else if($_POST['tipo_usuario']=='Cliente'){
+            $result = $this->ln_usuarios->get_login($data);
+            $json = json_encode($result);
+            if($result) {
+            setcookie('cliente', $json, time() + 60 * 60 * 24 * 365);
+            header('Location:cliente/security?action=login_cliente.php');
+            }else{
+                header('Location:index.php?mer=Datos Erroneos');
+            }
         }
     }
-
     function insert_usuario($data)
     {
 
@@ -167,11 +174,19 @@ class ln_security
     function logout()
     {
 
-        unset($_COOKIE['usuario']);
-        setcookie('usuario', null, time() - 100);
+        if (isset($_COOKIE['usuario'])) {
 
-        header('Location:index.php');
+            unset($_COOKIE['usuario']);
+            setcookie('usuario', null, time() - 100);
+            header('Location:index.php');
+        } else if (isset($_COOKIE['cliente'])) {
+
+            unset($_COOKIE['cliente']);
+            setcookie('cliente', null, time() - 100);
+            header('Location: index.php');
+        }
     }
+    
 
     function check_access($url)
     {
@@ -185,15 +200,39 @@ class ln_security
                 break;
                 }
                 header('Location:inventary.php');
+        }} else {
+
+         if ($url != 'index.php' && $url != 'completa.php') {
+
+             header('Location:index.php');
+         }
+        }
+    }
+
+
+    function check_access_cliente($url)
+    {
+
+        if (isset($_COOKIE['cliente'])) {
+
+            if ( $url == "index.php" || $url !== 'cliente/index.php') {
+                $id = json_decode($_COOKIE['cliente']);
+                foreach ($id as $item) {
+                    $id = $item;
+                break;
+                }
+                header('Location:cliente/index.php');
             }
         } else {
 
-            if ($url != 'index.php' && $url == 'inventary.php') {
+        //  if ($url != 'index.php' || $url != 'cliente/index.php') {
 
-                header('Location:index.php');
-            }
-        }
+               //header('Location:cliente/index.php');
+           // }
+        
     }
+}
+    
 
     function get_usuario_cambio($data, $codigo)
     {
@@ -232,3 +271,4 @@ class ln_security
         return $respuesta;
     }
 }
+

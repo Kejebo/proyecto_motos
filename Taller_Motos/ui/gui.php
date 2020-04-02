@@ -19,6 +19,10 @@ class Gui
         $this->ln_security->check_access(
             $this->config['url']
         );
+
+        $this->ln_security->check_access_cliente(
+            $this->config['url']
+       );
     }
     function get_header()
     {

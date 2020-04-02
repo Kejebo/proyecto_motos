@@ -210,7 +210,7 @@ class ln_security
 
             unset($_COOKIE['cliente']);
             setcookie('cliente', null, time() - 100);
-            header('Location: ../index.php');
+            header('Location: ../security.php?action=logout');
         }
     }
 
@@ -253,7 +253,7 @@ class ln_security
 
         if (isset($_COOKIE['cliente'])) {
 
-            if ($url == "index.php") {
+            if ($url == "..index.php") {
                 $id = json_decode($_COOKIE['cliente']);
                 foreach ($id as $item) {
                     $id = $item;
@@ -265,7 +265,7 @@ class ln_security
 
             //if ($url != 'index.php' && $url != 'completa.php') {
 
-            // header('Location:../index.php');
+            header('Location:../index.php');
             //}
         }
     }
