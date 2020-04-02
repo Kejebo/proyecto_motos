@@ -18,10 +18,6 @@ class Gui_login
         if ($config) {
             $this->config = $config;
         }
-        
-        $this->ln_security->check_access(
-            $this->config['url']
-        );
 
         $this->ln_security->check_access_cliente(
             $this->config['url']

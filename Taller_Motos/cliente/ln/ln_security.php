@@ -30,6 +30,10 @@ class ln_security
                     $this->login($_POST);
                     break;
 
+                case 'login_cliente':
+                    $this->login_cliente($_POST);
+                    break;
+
                 case 'logout':
                     $this->logout();
                     break;
@@ -44,6 +48,7 @@ class ln_security
 
                 case 'cambio_contrasena':
                     $this->cambio_contrasena($_POST);
+                    $this->logout_cambio_contrasena();
                     break;
 
                 case 'validar':
@@ -119,17 +124,46 @@ class ln_security
     function login($data)
     {
 
-        $result = $this->ln_usuarios->get_login($data);
-        $json = json_encode($result);
+        if ($_POST['tipo_usuario'] == "Administrador") {
+            $result = $this->ln_usuarios->get_login($data);
+            $json = json_encode($result);
 
-        if ($result) {
-            setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-            header('Location:inventary.php');
-        } else {
+            if ($result) {
+                setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
+                header('Location:inventary.php');
+            } else {
 
-            header('Location:index.php?mer=Datos Erroneos');
+                header('Location:index.php?mer=Datos Erroneos');
+            }
+        } else if ($_POST['tipo_usuario'] == "Cliente") {
+            $result = $this->ln_usuarios->get_login($data);
+            $json = json_encode($result);
+
+            if ($result) {
+                setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
+                header('Location:index.php');
+            } else {
+
+                header('Location:index.php?mer=Datos Erroneos');
+            }
         }
     }
+
+    function login_cliente($data)
+    {
+
+            $result = $this->ln_usuarios->get_login($data);
+            $json = json_encode($result);
+
+            if ($result) {
+                setcookie('cliente', $json, time() + 60 * 60 * 24 * 365);
+                header('Location:index.php');
+            } else {
+
+                header('Location:../index.php?mer=Datos Erroneos');
+            }
+       
+        }
 
     function insert_usuario($data)
     {
@@ -167,10 +201,29 @@ class ln_security
     function logout()
     {
 
-        unset($_COOKIE['usuario']);
-        setcookie('usuario', null, time() - 100);
+        if (isset($_COOKIE['usuario'])) {
 
-        header('Location:index.php');
+            unset($_COOKIE['usuario']);
+            setcookie('usuario', null, time() - 100);
+            header('Location:index.php');
+        } else if (isset($_COOKIE['cliente'])) {
+
+            unset($_COOKIE['cliente']);
+            setcookie('cliente', null, time() - 100);
+            header('Location: ../index.php');
+        }
+    }
+
+
+    function logout_cambio_contrasena()
+    {
+        if (isset($_COOKIE['usuario'])) {
+            unset($_COOKIE['usuario']);
+            setcookie('usuario', null, time() - 100);
+        } else if (isset($_COOKIE['cliente'])) {
+            unset($_COOKIE['cliente']);
+            setcookie('cliente', null, time() - 100);
+        }
     }
 
     function check_access($url)
@@ -182,16 +235,38 @@ class ln_security
                 $id = json_decode($_COOKIE['usuario']);
                 foreach ($id as $item) {
                     $id = $item;
-                break;
+                    break;
                 }
                 header('Location:inventary.php');
             }
         } else {
 
-            if ($url != 'index.php' && $url == 'inventary.php') {
+            if ($url != 'index.php' && $url != 'completa.php') {
 
                 header('Location:index.php');
             }
+        }
+    }
+
+    function check_access_cliente($url)
+    {
+
+        if (isset($_COOKIE['cliente'])) {
+
+            if ($url == "index.php") {
+                $id = json_decode($_COOKIE['cliente']);
+                foreach ($id as $item) {
+                    $id = $item;
+                    break;
+                }
+                header('Location:index.php');
+            }
+        } else {
+
+            //if ($url != 'index.php' && $url != 'completa.php') {
+
+            // header('Location:../index.php');
+            //}
         }
     }
 
@@ -222,7 +297,7 @@ class ln_security
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'MightyMotors[CAMBIOCONTRASEÑA]';
             $mail->Body    = 'usuario : ' . $data['correo_electronico_link'] . ' ha solicitada un cambio de contrasena ' . $data['correo_electronico_link'] . 'copie el siguinte codigo:' . $codigo[0] . $codigo[1] . $codigo[2];
-         
+
             $mail->send();
             $respuesta = true;
         } catch (Exception $e) {
