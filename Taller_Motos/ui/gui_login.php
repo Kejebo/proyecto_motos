@@ -20,8 +20,8 @@ class Gui_login
         }
     
       $this->ln_security->check_access(
-            $this->config['url']
-        );
+           $this->config['url']
+     );
 
        $this->ln_security->check_access_cliente(
             $this->config['url']

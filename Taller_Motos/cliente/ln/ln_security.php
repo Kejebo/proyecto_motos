@@ -38,6 +38,10 @@ class ln_security
                     $this->logout();
                     break;
 
+                case 'logout_cambio_contrasena':
+                    $this->logout_cambio_contrasena();
+                    break;
+
                 case 'enviar_correo':
                     $this->enviar_correo_primera();
                     break;
@@ -152,18 +156,17 @@ class ln_security
     function login_cliente($data)
     {
 
-            $result = $this->ln_usuarios->get_login($data);
-            $json = json_encode($result);
+        $result = $this->ln_usuarios->get_login($data);
+        $json = json_encode($result);
 
-            if ($result) {
-                setcookie('cliente', $json, time() + 60 * 60 * 24 * 365);
-                header('Location:index.php');
-            } else {
+        if ($result) {
+            setcookie('cliente', $json, time() + 60 * 60 * 24 * 365);
+            header('Location:index.php');
+        } else {
 
-                header('Location:../index.php?mer=Datos Erroneos');
-            }
-       
+            header('Location:../index.php?mer=Datos Erroneos');
         }
+    }
 
     function insert_usuario($data)
     {
@@ -223,6 +226,7 @@ class ln_security
         } else if (isset($_COOKIE['cliente'])) {
             unset($_COOKIE['cliente']);
             setcookie('cliente', null, time() - 100);
+           // header('Location: ../index.php');
         }
     }
 
@@ -263,10 +267,10 @@ class ln_security
             }
         } else {
 
-            //if ($url != 'index.php' && $url != 'completa.php') {
+            if ($url != '..index.php' && $url != 'completa.php') {
 
-            header('Location:../index.php');
-            //}
+             header('Location:../index.php');
+            }
         }
     }
 

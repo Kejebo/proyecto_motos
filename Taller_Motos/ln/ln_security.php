@@ -30,6 +30,7 @@ class ln_security
                     $this->login($_POST);
                     break;
 
+
                 case 'logout':
                     $this->logout();
                     break;
@@ -118,23 +119,25 @@ class ln_security
 
     function login($data)
     {
-        if($_POST['tipo_usuario']=='Administrador'){
-        $result = $this->ln_usuarios->get_login($data);
-        $json = json_encode($result);
-
-        if ($result) {
-            setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-            header('Location:inventary.php');
-        } else {
-            header('Location:index.php?mer=Datos Erroneos');
-        }}else if($_POST['tipo_usuario']=='Cliente'){
+        if ($_POST['tipo_usuario'] == 'Administrador') {
             $result = $this->ln_usuarios->get_login($data);
             $json = json_encode($result);
-            if($result) {
-            setcookie('cliente', $json, time() + 60 * 60 * 24 * 365);
-            header('Location:cliente/security?action=login_cliente.php');
-            }else{
+
+            if ($result) {
+                setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
+                 header('Location:inventary.php');
+           } else {
                 header('Location:index.php?mer=Datos Erroneos');
+            }
+        }
+          if ($_POST['tipo_usuario'] == 'Cliente') {
+            $result = $this->ln_usuarios->get_login($data);
+            $json = json_encode($result);
+            if ($result) {
+                setcookie('cliente', $json, time() + 60 * 60 * 24 * 365);
+                header('Location:cliente/security?action=login_cliente.php');
+            } else {
+                 header('Location:index.php?mer=Datos Erroneos');
             }
         }
     }
@@ -183,10 +186,10 @@ class ln_security
 
             unset($_COOKIE['cliente']);
             setcookie('cliente', null, time() - 100);
-            header('Location: index.php');
+            header('Location: cliente/security.php?action=logout_cambio_contrasena');
         }
     }
-    
+
 
     function check_access($url)
     {
@@ -197,15 +200,17 @@ class ln_security
                 $id = json_decode($_COOKIE['usuario']);
                 foreach ($id as $item) {
                     $id = $item;
-                break;
+                    break;
                 }
-                header('Location:inventary.php');
-        }} else {
+               header('Location:inventary.php');
+            }
+           
+        } else {
 
-         if ($url != 'index.php' && $url != 'completa.php') {
+            //if ($url != 'index.php' && $url != 'completa.php') {
 
-             header('Location:index.php');
-         }
+        // header('Location:index.php');
+          //  }
         }
     }
 
@@ -215,24 +220,19 @@ class ln_security
 
         if (isset($_COOKIE['cliente'])) {
 
-            if ( $url == "index.php" || $url !== 'cliente/index.php') {
+            if ($url == "index.php" && $url !== 'cliente/index.php' &&  $url !== 'completa.php') {
                 $id = json_decode($_COOKIE['cliente']);
                 foreach ($id as $item) {
                     $id = $item;
-                break;
+                    break;
                 }
                 header('Location:cliente/index.php');
             }
-        } else {
-
-        //  if ($url != 'index.php' || $url != 'cliente/index.php') {
-
-               //header('Location:cliente/index.php');
-           // }
-        
+        }else if($url != 'index.php' && $url !== 'completa.php'){
+            header('Location:index.php');
+        }
     }
-}
-    
+
 
     function get_usuario_cambio($data, $codigo)
     {
@@ -261,7 +261,7 @@ class ln_security
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'MightyMotors[CAMBIOCONTRASEÑA]';
             $mail->Body    = 'usuario : ' . $data['correo_electronico_link'] . ' ha solicitada un cambio de contrasena ' . $data['correo_electronico_link'] . 'copie el siguinte codigo:' . $codigo[0] . $codigo[1] . $codigo[2];
-         
+
             $mail->send();
             $respuesta = true;
         } catch (Exception $e) {
@@ -271,4 +271,3 @@ class ln_security
         return $respuesta;
     }
 }
-
