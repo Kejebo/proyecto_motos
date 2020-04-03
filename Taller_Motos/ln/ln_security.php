@@ -125,19 +125,20 @@ class ln_security
 
             if ($result) {
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-                 header('Location:inventary.php');
-           } else {
-                header('Location:index.php?mer=Datos Erroneos');
+
+                header('Location:index.php');
+            } else {
+                // header('Location:index.php?mer=Datos Erroneos');
             }
         }
-          if ($_POST['tipo_usuario'] == 'Cliente') {
+        if ($_POST['tipo_usuario'] == 'Cliente') {
             $result = $this->ln_usuarios->get_login($data);
             $json = json_encode($result);
             if ($result) {
                 setcookie('cliente', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:cliente/security?action=login_cliente.php');
             } else {
-                 header('Location:index.php?mer=Datos Erroneos');
+                header('Location:index.php?mer=Datos Erroneos');
             }
         }
     }
@@ -190,6 +191,52 @@ class ln_security
         }
     }
 
+    function check_tipo($url){
+
+        if(isset($_COOKIE['usuario'])){
+        $data = json_decode($_COOKIE['usuario'], true); 
+        if ($data['tipo'] == 'administrador') {
+            return true;
+        }else{
+            return false;
+        }
+    }else if($url !='index.php' && $url != 'completa.php'){
+        header('Location:index.php');
+    }
+}
+
+
+
+    function check_access_admin($url)
+    {
+        $data = json_decode($_COOKIE['usuario'], true);
+        if ($url == "index.php") {
+
+                header('Location:inventary.php');
+
+            }else if($data['tipo']!='administrador'){
+
+                header('Location:cliente/index.php');
+            } 
+
+        }
+
+        function check_access_client($url)
+        {
+    
+            $data = json_decode($_COOKIE['usuario'], true);
+             if ($url == "index.php") {
+
+                header('Location:cliente/index.php');
+
+            }else if($data['tipo']!='cliente'){
+                
+                header('Location:../inventary.php');
+            } 
+
+            }
+    
+
 
     function check_access($url)
     {
@@ -202,15 +249,14 @@ class ln_security
                     $id = $item;
                     break;
                 }
-               header('Location:inventary.php');
+                header('Location:inventary.php');
             }
-           
         } else {
 
             //if ($url != 'index.php' && $url != 'completa.php') {
 
-        // header('Location:index.php');
-          //  }
+            // header('Location:index.php');
+            //  }
         }
     }
 
@@ -228,7 +274,7 @@ class ln_security
                 }
                 header('Location:cliente/index.php');
             }
-        }else if($url != 'index.php' && $url !== 'completa.php'){
+        } else if ($url != 'index.php' && $url !== 'completa.php') {
             header('Location:index.php');
         }
     }
