@@ -26,7 +26,7 @@ class ln_security
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
 
-                case 'login':
+                case 'log_in':
                     $this->login($_POST);
                     break;
 
@@ -60,6 +60,18 @@ class ln_security
                     break;
             }
         }
+    }
+
+    function check_tipo_login_cliente(){
+
+        if(isset($_COOKIE['usuario'])){
+        $data = json_decode($_COOKIE['usuario'], true); 
+        if ($data['tipo'] != 'cliente') {
+          header('Location:../inventary.php');
+            }
+        }else{
+        header('Location:../index.php');
+    }
     }
 
 
@@ -128,29 +140,11 @@ class ln_security
     function login($data)
     {
 
-        if ($_POST['tipo_usuario'] == "Administrador") {
             $result = $this->ln_usuarios->get_login($data);
             $json = json_encode($result);
-
-            if ($result) {
-                setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-                header('Location:inventary.php');
-            } else {
-
-                header('Location:index.php?mer=Datos Erroneos');
-            }
-        } else if ($_POST['tipo_usuario'] == "Cliente") {
-            $result = $this->ln_usuarios->get_login($data);
-            $json = json_encode($result);
-
-            if ($result) {
+           
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:index.php');
-            } else {
-
-                header('Location:index.php?mer=Datos Erroneos');
-            }
-        }
     }
 
     function login_cliente($data)

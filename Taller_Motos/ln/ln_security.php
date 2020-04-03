@@ -119,29 +119,23 @@ class ln_security
 
     function login($data)
     {
-        if ($_POST['tipo_usuario'] == 'Administrador') {
             $result = $this->ln_usuarios->get_login($data);
             $json = json_encode($result);
 
             if ($result) {
+                if($result[3]=="administrador"){
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-
-                header('Location:index.php');
-            } else {
-                // header('Location:index.php?mer=Datos Erroneos');
+                header('Location:inventary.php');
+            } else if($result[3]=="cliente"){
+                setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
+                header('Location:cliente/security.php?action=log_in');
             }
-        }
-        if ($_POST['tipo_usuario'] == 'Cliente') {
-            $result = $this->ln_usuarios->get_login($data);
-            $json = json_encode($result);
-            if ($result) {
-                setcookie('cliente', $json, time() + 60 * 60 * 24 * 365);
-                header('Location:cliente/security?action=login_cliente.php');
-            } else {
-                header('Location:index.php?mer=Datos Erroneos');
-            }
+        }else{
+            header('Location:index.php?mer=Datos Erroneos');
         }
     }
+    
+    
     function insert_usuario($data)
     {
 
@@ -197,28 +191,59 @@ class ln_security
         $data = json_decode($_COOKIE['usuario'], true); 
         if ($data['tipo'] == 'administrador') {
             return true;
-        }else{
+        }else if( $data['tipo'] == 'cliente'){
             return false;
         }
-    }else if($url !='index.php' && $url != 'completa.php'){
-        header('Location:index.php');
+    }else {
+   // if($url !='index.php' && $url != 'completa.php'){
+      header('Location:index.php');
+    
+}
+}
+
+function check_tipo_login(){
+
+    if(isset($_COOKIE['usuario'])){
+    $data = json_decode($_COOKIE['usuario'], true); 
+    if ($data['tipo'] == 'administrador') {
+        header('Location:inventary.php');
+    }else if( $data['tipo'] == 'cliente'){
+        header('Location:cliente/index.php');
     }
+
+}
+}
+
+
+function check_tipo_login_admin(){
+
+    if(isset($_COOKIE['usuario'])){
+    $data = json_decode($_COOKIE['usuario'], true); 
+    if ($data['tipo'] != 'administrador') {
+      header('Location:cliente/index.php');
+        }
+    }else{
+    header('Location:index.php');
+}
 }
 
 
 
     function check_access_admin($url)
+
     {
+
         $data = json_decode($_COOKIE['usuario'], true);
+
         if ($url == "index.php") {
 
-                header('Location:inventary.php');
+            header('Location:inventary.php');
 
             }else if($data['tipo']!='administrador'){
 
-                header('Location:cliente/index.php');
-            } 
+            ///header('Location:cliente/index.php');
 
+            } 
         }
 
         function check_access_client($url)
@@ -227,11 +252,11 @@ class ln_security
             $data = json_decode($_COOKIE['usuario'], true);
              if ($url == "index.php") {
 
-                header('Location:cliente/index.php');
+             //    header('Location:cliente/index.php');
 
             }else if($data['tipo']!='cliente'){
                 
-                header('Location:../inventary.php');
+                //header('Location:../inventary.php');
             } 
 
             }

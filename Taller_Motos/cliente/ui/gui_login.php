@@ -19,9 +19,7 @@ class Gui_login
             $this->config = $config;
         }
 
-     //   $this->ln_security->check_access_cliente(
-     //       $this->config['url']
-      //  );
+        $this->ln_security->check_tipo_login_cliente();
     }
 
     function get_header()
