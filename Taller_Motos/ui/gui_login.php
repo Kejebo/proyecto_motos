@@ -12,31 +12,24 @@ class Gui_login
 
     function __construct($config)
     {
-
         $this->ln_security = new ln_security();
 
         if ($config) {
             $this->config = $config;
         }
 
-        if($this->ln_security->check_tipo(($this->config['url'])){
+    if($this->ln_security->check_tipo($this->$config['url'])){
+       
+        $this->ln_security->check_access_admin($this->config['url']);
 
-           $this->ln_security->check_access_admin($this->config['url']);
+    }else if($this->ln_security->check_tipo($this->config['url'])==false){
 
-        }else if($this->ln_security->check_tipo(($this->config['url'])==false){
+        $this->ln_security->check_access_client($this->config['url']);
+   }
 
-            $this->ln_security->check_access_client($this->config['url']);
-        }
-
-  
-     // $this->ln_security->check_access(
-      //     $this->config['url']
-    // );
-
-      // $this->ln_security->check_access_cliente(
-        //    $this->config['url']
-//);
     }
+    
+    
 
     function get_header()
     {
