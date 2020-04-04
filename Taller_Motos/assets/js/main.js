@@ -4,10 +4,13 @@ var reparacion = [];
 var clicks = 0;
 var i = 0;
 window.addEventListener('load', () => {
+  const titulo=document.querySelector('#modulo').textContent;
+  if(titulo==='Modulo Compras'||titulo==='Modulo Ventas'){
   recargar_compra();
   recargar_venta();
   insert_purchase(i);
   insert_sale();
+  }
 });
 function insert_marca() {
   let nombre_marca = document.querySelector('#nombre_marca').value

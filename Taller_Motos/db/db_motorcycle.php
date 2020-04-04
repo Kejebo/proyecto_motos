@@ -5,8 +5,7 @@ require_once('conexion.php');
 
         function insert_motorcycle($data){
             extract($data);
-            $this->execute("call insert_motos('$cliente','$marca','$modelo','$transmision','$cilindraje'
-            ,'$chasis','$placa','$kilometraje','$combustible')");
+            $this->execute("call insert_motos('$cliente','$marca','$modelo','$transmision','$cilindraje','$chasis','$placa','$kilometraje','$combustible')");
         }
 
         function insert_transmision($data){
@@ -27,6 +26,26 @@ require_once('conexion.php');
         function insert_combustible($data){
             extract($data);
             $this->execute("insert into combustibles(tipo_combustible) values('$combustible)");
+        }
+        function get_motos(){
+            $sql = "call get_motos_activas";
+            $result = $this->get_data($sql);
+                if($result){
+                    return $result;
+                }else{
+            return false;
+                }
+        }
+        function update_moto($data){
+            extract($data);
+           $result= $this->execute("call update_motos('$cliente','$marca','$modelo','$transmision','$cilindraje','$chasis','$placa','$kilometraje','$combustible','$id');");
+        }
+        function get_moto($id){
+            return $this->get_data("call get_moto('$id')")[0];
+
+        }
+        function delete($id){
+            $this->execute("update motos set estado_moto=false where id_moto=$id");
         }
         function get_cilindrajes(){
             return $this->get_data('select * from cilindrajes');

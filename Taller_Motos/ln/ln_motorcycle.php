@@ -9,8 +9,29 @@
             $this->db= new db_motorcycle;
         }
 
-        function insert($data){
-
+        function action_controller(){
+            if(isset($_GET['action'])){
+                switch($_GET['action']){
+                    case 'insert':
+                        $this->insert_moto($_POST);
+                        $this->redireccion();
+                    break;
+                    case 'update':
+                        $this->update_moto($_POST);
+                     //   $this->redireccion();
+                    break;
+                    case 'delete':
+                        $this->db->delete($_GET['id']);
+                        $this->redireccion();
+                    break;
+                }
+            }
+        }
+        function insert_moto($data){
+            $this->db->insert_motorcycle($data);
+        }
+        function get_motos(){
+            return $this->db->get_motos();
         }
         function get_marcas(){
             return $this->db->get_marcas();
@@ -29,6 +50,12 @@
         }
         function get_combustible(){
             return $this->db->get_combustible();
+        }
+        function update_moto($data){
+            $this->db->update_moto($data);
+        }
+        function redireccion(){
+            header('Location: motorcycle.php');
         }
     }
 ?>
