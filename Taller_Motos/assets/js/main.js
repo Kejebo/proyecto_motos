@@ -303,7 +303,7 @@ function get_prices(combo) {
     data: { action, id },
     success: function (response) {
       let saldo = JSON.parse(response);
- 
+
         document.querySelector('#precio').value = saldo.precio;
     }
   });
@@ -323,5 +323,3 @@ function showMessage(message, cssClass, form) {
     document.querySelector('.alert').remove();
   }, 3000);
 }
-
-

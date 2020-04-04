@@ -15,7 +15,7 @@ class ui_sales extends Gui
     {
         $this->ln->action_controller();
     }
-
+    
     function get_content()
     {
         $sale = null;
@@ -33,7 +33,7 @@ class ui_sales extends Gui
                 $visibilidad = 'block';
                 $script = 'update_sale';
                 $fecha=$sale[0]['fecha'];
-                
+
             }
         }
 
@@ -52,7 +52,7 @@ class ui_sales extends Gui
                                 <input type="hidden" name="id" id="id" value="<?= $sale[0]['id'] ?>">
                             </div>
 
-                         
+
                             <div class="form-group">
                                 <label class="etiquetas">Cliente</label>
                                 <select class="form-control" name="cliente" id="cliente">
@@ -182,7 +182,7 @@ class ui_sales extends Gui
                 </div>
             </div>
         </div>
-                
+
 <?php
     }
 }
