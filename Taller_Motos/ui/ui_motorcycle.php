@@ -90,7 +90,7 @@ class ui_motorcycle extends gui
                                             } ?>
                                         </select>
                                         <div class="input-group-append">
-                                            <span class="btn btn-success">+</span>
+                                            <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_marca">+</span>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@ class ui_motorcycle extends gui
                                             } ?>
                                         </select>
                                         <div class="input-group-append">
-                                            <span class="btn btn-success">+</span>
+                                            <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_modelo">+</span>
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@ class ui_motorcycle extends gui
                                             } ?>
                                         </select>
                                         <div class="input-group-append">
-                                            <span class="btn btn-success">+</span>
+                                            <span class="btn btn-success"  type="submit" data-toggle="modal" data-target="#form_transmision">+</span>
                                         </div>
                                     </div>
                                 </div>
@@ -146,14 +146,14 @@ class ui_motorcycle extends gui
                                             } ?>
                                         </select>
                                         <div class="input-group-append">
-                                            <span class="btn btn-success">+</span>
+                                            <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_cilindraje">+</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="etiquetas">Combustible</label>
                                     <div class="input-group mb-3">
-                                        <select name="combustible" class="form-control">
+                                        <select name="combustible" id="combustible" class="form-control">
                                             <?php foreach ($this->ln->get_combustible() as $combustible) {
                                                 if ($moto['id_combustible'] == $combustible['id_combustible']) {
                                             ?>
@@ -164,7 +164,7 @@ class ui_motorcycle extends gui
                                             } ?>
                                         </select>
                                         <div class="input-group-append">
-                                            <span class="btn btn-success">+</span>
+                                            <span class="btn btn-success"  type="submit" data-toggle="modal" data-target="#form_combustible">+</span>
                                         </div>
                                     </div>
                                 </div>
@@ -220,7 +220,129 @@ class ui_motorcycle extends gui
 
         </section>
         </main>
+        <div class="modal fade bg-dark" id="form_marca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Agregar Marca</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="etiquetas">Nombre</label>
+                  <input class="form-control" type="text" id="nombre_marca" placeholder="ingrese el nombre de la marca">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_marcas_motos()">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <div class="modal fade bg-dark" id="form_transmision" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Agregar Transmision</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="etiquetas">Tipo de transmision</label>
+                  <input class="form-control" type="text" id="nombre_transmision" placeholder="ingrese el nombre de la transmision">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_transmision();">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade bg-dark" id="form_combustible" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Agregar Combustible</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="etiquetas">Nombre</label>
+                  <input class="form-control" type="text" id="nombre_combustible" placeholder="ingrese el nombre del combustible">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_combustible()">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade bg-dark" id="form_cilindraje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Agregar Cilindraje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="etiquetas">Tipo de cilindraje</label>
+                  <input class="form-control" type="text" id="nombre_cilindraje" placeholder="ingrese el tipo de cilindraje">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_cilindraje()">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade bg-dark" id="form_modelo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Agregar Modelo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="etiquetas">Nombre</label>
+                  <div class="input-group mb-3">
+                    <input class="form-control" type="text" id="nombre_modelo" placeholder="Ingrese el nombre del modelo">
+                    <div class="input-group-append">
+                      <select name="" id="ano" class="form-control">
+                        <?php for($i=1985; $i<=2050; $i++) { ?>
+                          <option value="<?= $i ?>"><?= $i ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_modelo_motos()">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
 <?php
     }

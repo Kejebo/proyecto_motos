@@ -47,6 +47,104 @@ function insert_category() {
     }
   });
 }
+
+function insert_transmision() {
+  let nombre_transmision = document.querySelector('#nombre_transmision').value
+  let action = 'insert_transmision';
+
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: {action,nombre_transmision },
+    datatype:"json",
+    success: function (response) {
+    let datos = JSON.parse(response);
+      document.querySelector('#transmision').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#transmision').innerHTML += `
+          <option value=${element.id_transmision}>${element.nombre_transmision}<opcion>`
+      });
+    }
+  });
+}
+
+function insert_marcas_motos() {
+  let nombre_marca = document.querySelector('#nombre_marca').value
+  let action = 'insert_marcas_motos';
+
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: {action,nombre_marca },
+    datatype:"json",
+    success: function (response) {
+    let datos = JSON.parse(response);
+      document.querySelector('#marca').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#marca').innerHTML += `
+          <option value=${element.id_marca_moto}>${element.nombre_marca}<opcion>`
+      });
+    }
+  });
+}
+function insert_combustible() {
+  let nombre_combustible = document.querySelector('#nombre_combustible').value
+  let action = 'insert_combustible';
+
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: {action,nombre_combustible },
+    datatype:"json",
+    success: function (response) {
+    let datos = JSON.parse(response);
+      document.querySelector('#combustible').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#combustible').innerHTML += `
+          <option value=${element.id_combustible}>${element.tipo_combustible}<opcion>`
+      });
+    }
+  });
+}
+
+function insert_cilindraje() {
+  let tamano_cilindraje = document.querySelector('#nombre_cilindraje').value
+  let action = 'insert_cilindraje';
+
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: {action,tamano_cilindraje },
+    datatype:"json",
+    success: function (response) {
+    let datos = JSON.parse(response);
+      document.querySelector('#cilindraje').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#cilindraje').innerHTML += `
+          <option value=${element.id_cilindraje}>${element.tamano_cilindraje}<opcion>`
+      });
+    }
+  });
+}
+function insert_modelo_motos() {
+  let nombre_modelo = document.querySelector('#nombre_modelo').value;
+  let ano = document.querySelector('#ano').value;
+  let action = 'insert_modelo_motos';
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: {action,nombre_modelo,ano },
+    datatype:"json",
+    success: function (response) {
+    let datos = JSON.parse(response);
+      document.querySelector('#modelo').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#modelo').innerHTML += `
+          <option value=${element.id_modelo_moto}>${element.nombre_modelo} ${element.ano}<opcion>`
+      });
+    }
+  });
+}
 function insert_purchase(i) {
 
   $('#form-purchase').submit(function (e) {

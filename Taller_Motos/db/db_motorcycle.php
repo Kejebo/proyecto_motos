@@ -9,9 +9,10 @@ require_once('conexion.php');
         }
 
         function insert_transmision($data){
-            $this->execute("call insert_transmision('$data')");
+
+            $this->execute("call insert_transmisiones('$data')");
         }
-        
+
         function insert_cilindraje($data){
             $this->execute("call insert_cilindrajes('$data')");
         }
@@ -21,11 +22,10 @@ require_once('conexion.php');
         }
         function insert_modelo($data){
             extract($data);
-            $this->execute("call insert_modelo_motos('$nombre_marca',$ano)");
+            $this->execute("call insert_modelos_motos('$nombre_modelo','$ano')");
         }
         function insert_combustible($data){
-            extract($data);
-            $this->execute("insert into combustibles(tipo_combustible) values('$combustible)");
+            $this->execute("insert into combustible(tipo_combustible) values('$data')");
         }
         function get_motos(){
             $sql = "call get_motos_activas";

@@ -24,6 +24,7 @@
                         $this->db->delete($_GET['id']);
                         $this->redireccion();
                     break;
+                  
                 }
             }
         }
