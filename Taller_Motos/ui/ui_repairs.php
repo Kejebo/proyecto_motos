@@ -22,7 +22,7 @@ class ui_repairs extends Gui
 
           </div>
           <div class="float-right">
-            <a class="btn btn-dark" href="taller.php"> + Nuevo</a>
+            <a class="btn btn-dark" href="workshop.php"> + Nuevo</a>
           </div>
         </div>
 
