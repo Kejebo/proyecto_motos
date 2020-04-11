@@ -13,6 +13,7 @@ class ln_security
 {
 
     var $ln_usuarios;
+    var $Key = "CLAVESUPERSECRETA";
 
     function __construct()
     {
@@ -55,6 +56,15 @@ class ln_security
     }
 
 
+  
+
+
+
+  function encriptar ($valor){
+    $method = 'aes-256-cbc';
+    $iv = base64_decode("C9fBxl1EWtYTL1/M8jfstw==");
+     return openssl_encrypt ($valor, $method, $this->Key, false, $iv);
+  }
     function enviar_correo_primera()
     {
         $codigo = $this->get_codigo();
@@ -130,7 +140,7 @@ class ln_security
                 header('Location:inventary.php');
             } else if($result[3]=="cliente"){
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-                header('Location:cliente/security.php?action=log_in&datos='.$_POST['correo_electronico']);
+                header('Location:cliente/security.php?action=log_in&datos='.$this->encriptar($_POST['correo_electronico']));
             
             }
         }else{

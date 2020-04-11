@@ -13,6 +13,7 @@ class ln_security
 {
 
     var $ln_usuarios;
+    var $Key = "CLAVESUPERSECRETA";
 
     function __construct()
     {
@@ -62,16 +63,17 @@ class ln_security
         }
     }
 
-    function check_tipo_login_cliente(){
+    function check_tipo_login_cliente()
+    {
 
-        if(isset($_COOKIE['usuario'])){
-        $data = json_decode($_COOKIE['usuario'], true); 
-        if ($data['tipo'] != 'cliente') {
-          header('Location:../inventary.php');
+        if (isset($_COOKIE['usuario'])) {
+            $data = json_decode($_COOKIE['usuario'], true);
+            if ($data['tipo'] != 'cliente') {
+                header('Location:../inventary.php');
             }
-        }else{
-        header('Location:../index.php');
-    }
+        } else {
+            header('Location:../index.php');
+        }
     }
 
 
@@ -128,6 +130,8 @@ class ln_security
 
         if ($_POST['contrasenaUno'] == $_POST['contrasenaDos']) {
             if ($this->ln_usuarios->cambio_contrasena($data) == true) {
+                unset($_COOKIE['usuario']);
+                setcookie('usuario', null, time() - 100);
                 echo json_encode(array("result" => "actualizado"));
             } else {
                 echo json_encode(array("result" => "no actualizado"));
@@ -137,15 +141,26 @@ class ln_security
         }
     }
 
+    function desencriptar($valor)
+    {
+        $method = 'aes-256-cbc';
+        $iv = base64_decode("C9fBxl1EWtYTL1/M8jfstw==");
+
+        $encrypted_data = base64_decode($valor);
+        return openssl_decrypt($valor, $method, $this->Key, false, $iv);
+    }
+
+
     function login()
     {
 
-          // $result = $this->ln_usuarios->get_usuario($_GET['datos']);
-          // $json = json_encode($result);
-           
-         //   setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-                
-            header('Location:index.php');
+        // $result = $this->ln_usuarios->get_usuario($_GET['datos']);
+        // $json = json_encode($result);
+
+        //   setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
+      //  print_r($this->desencriptar($_GET['datos']));
+
+        header('Location:index.php');
     }
 
     function login_cliente($data)
@@ -204,7 +219,7 @@ class ln_security
             unset($_COOKIE['usuario']);
             setcookie('usuario', null, time() - 100);
             header('Location:../security.php?action=logout');
-        } 
+        }
     }
 
 
@@ -216,7 +231,7 @@ class ln_security
         } else if (isset($_COOKIE['cliente'])) {
             unset($_COOKIE['cliente']);
             setcookie('cliente', null, time() - 100);
-           // header('Location: ../index.php');
+            // header('Location: ../index.php');
         }
     }
 
@@ -259,7 +274,7 @@ class ln_security
 
             if ($url != '..index.php' && $url != 'completa.php') {
 
-             header('Location:../index.php');
+                header('Location:../index.php');
             }
         }
     }
