@@ -108,6 +108,8 @@ class ln_security
 
         if ($_POST['contrasenaUno'] == $_POST['contrasenaDos']) {
             if ($this->ln_usuarios->cambio_contrasena($data) == true) {
+                unset($_COOKIE['usuario']);
+                setcookie('usuario', null, time() - 100);
                 echo json_encode(array("result" => "actualizado"));
             } else {
                 echo json_encode(array("result" => "no actualizado"));
@@ -201,9 +203,10 @@ class ln_security
 }
 }
 
-function check_tipo_login(){
+function check_tipo_login($url){
 
     if(isset($_COOKIE['usuario'])){
+    if($url != 'completa.php'){
     $data = json_decode($_COOKIE['usuario'], true); 
     if ($data['tipo'] == 'administrador') {
         header('Location:inventary.php');
@@ -211,7 +214,7 @@ function check_tipo_login(){
         header('Location:cliente/index.php');
     }
 
-}
+}}
 }
 
 

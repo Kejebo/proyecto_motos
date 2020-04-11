@@ -247,7 +247,7 @@ function contrasena_actualizacion_exitosa() {
     '<div class="toast-body">' +
     "Su contraseña ha sido Recuperada con exito" +
     "<hr>" +
-    '<a href="security.php?action=logout">Iniciar Sesion</a>' +
+    '<a href="index.php">Iniciar Sesion</a>' +
     "</div>" +
     "</div>" +
     "</div>";
