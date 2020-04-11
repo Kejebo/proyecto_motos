@@ -130,7 +130,8 @@ class ln_security
                 header('Location:inventary.php');
             } else if($result[3]=="cliente"){
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-                header('Location:cliente/security.php?action=log_in');
+                header('Location:cliente/security.php?action=log_in&datos='.$_POST['correo_electronico']);
+            
             }
         }else{
             header('Location:index.php?mer=Datos Erroneos');

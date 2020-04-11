@@ -122,6 +122,25 @@ class db_usuario extends conexion
         }
     }
 
+    function get_usuario($correo)
+    {
+
+        $this->conectar();
+
+        mysqli_set_charset($this->conexion, 'utf8');
+        $us = mysqli_real_escape_string($this->conexion, $correo);
+       
+        $sql = "call get_usuario_cambio('$us')";
+
+        $result = $this->get_data($sql);
+
+        if ($result) {
+            return $result[0];
+        } else {
+            return false;
+        }
+    }
+
     function validar_codigo($codigo, $id)
     {
 

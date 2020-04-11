@@ -27,7 +27,7 @@ class ln_security
             switch ($_GET['action']) {
 
                 case 'log_in':
-                    $this->login($_POST);
+                    $this->login();
                     break;
 
                 case 'login_cliente':
@@ -137,14 +137,15 @@ class ln_security
         }
     }
 
-    function login($data)
+    function login()
     {
 
-            $result = $this->ln_usuarios->get_login($data);
-            $json = json_encode($result);
+          // $result = $this->ln_usuarios->get_usuario($_GET['datos']);
+          // $json = json_encode($result);
            
-                setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-                header('Location:index.php');
+         //   setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
+                
+            header('Location:index.php');
     }
 
     function login_cliente($data)
@@ -202,13 +203,8 @@ class ln_security
 
             unset($_COOKIE['usuario']);
             setcookie('usuario', null, time() - 100);
-            header('Location:index.php');
-        } else if (isset($_COOKIE['cliente'])) {
-
-            unset($_COOKIE['cliente']);
-            setcookie('cliente', null, time() - 100);
-            header('Location: ../security.php?action=logout');
-        }
+            header('Location:../security.php?action=logout');
+        } 
     }
 
 
