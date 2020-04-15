@@ -217,7 +217,7 @@ class ln_security
 function check_tipo_login($url){
 
     if(isset($_COOKIE['usuario'])){
-    if($url != 'completa.php'){
+    if($url != 'recuperacion.php'){
     $data = json_decode($_COOKIE['usuario'], true); 
     if ($data['tipo'] == 'administrador') {
         header('Location:inventary.php');

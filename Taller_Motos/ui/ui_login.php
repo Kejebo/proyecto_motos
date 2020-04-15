@@ -58,23 +58,18 @@ class UI_login extends Gui_login
                             <div class="iniciar_sesion_boton">
                                 <button class="btn btn-primary boton_success" id="boton_inicio_sesion"><i class="fas fa-sign-in-alt"></i> Entrar</button>
                             </div>
-                           
-                
 
-               
-            
-
-             <hr>
+                            <hr>
 
 
-             <div id="contenedor_pregunta">
-                <a href="completa.php" class="pregunta_contrasena">¿Olvidaste tu contraseña?</a>
-             </div>
-             </div>
-             </div>
-             </form>
-             </div>
-                <div class="col-sm-4"></div>
+                            <div id="contenedor_pregunta">
+                                <a href="recuperacion.php" class="pregunta_contrasena">¿Olvidaste tu contraseña?</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-4"></div>
 
         </div>
 

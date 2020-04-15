@@ -2,7 +2,7 @@
 
 require_once('gui_login.php');
 
-class UI_completa extends Gui_login
+class UI_recuperacion extends Gui_login
 {
 
 
