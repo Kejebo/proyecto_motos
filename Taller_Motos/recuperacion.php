@@ -9,7 +9,7 @@ require_once('ui/ui_form_cambio.php');
 
 $config = array(
 	'titulo'	=> 'Inicio',
-	'url'		=> 'Recuperacion.php',
+	'url'		=> 'recuperacion.php',
 );
 
 $ui = new UI_recuperacion($config);
