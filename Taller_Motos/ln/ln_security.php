@@ -56,15 +56,13 @@ class ln_security
     }
 
 
-  
+    function encriptar($valor)
+    {
+        $method = 'aes-256-cbc';
+        $iv = base64_decode("C9fBxl1EWtYTL1/M8jfstw==");
+        return openssl_encrypt($valor, $method, $this->Key, false, $iv);
+    }
 
-
-
-  function encriptar ($valor){
-    $method = 'aes-256-cbc';
-    $iv = base64_decode("C9fBxl1EWtYTL1/M8jfstw==");
-     return openssl_encrypt ($valor, $method, $this->Key, false, $iv);
-  }
     function enviar_correo_primera()
     {
         $codigo = $this->get_codigo();
@@ -79,14 +77,6 @@ class ln_security
             echo json_encode(array("result" => "true", "id_usuario" => $id, "correo" => $correo));
         }
     }
-
-
-    function update_estado_cambio_negativo($id)
-    {
-
-        $this->ln_usuarios->update_estado_cambio_negativo($id);
-    }
-
 
     function generar_numero_aleatorio()
     {
@@ -106,6 +96,14 @@ class ln_security
 
         return $data;
     }
+
+
+    function update_estado_cambio_negativo($id)
+    {
+
+        $this->ln_usuarios->update_estado_cambio_negativo($id);
+    }
+
 
     function update_usuario($codigo, $id)
     {
@@ -131,30 +129,32 @@ class ln_security
 
     function login($data)
     {
-            $result = $this->ln_usuarios->get_login($data);
-            $json = json_encode($result);
+        $result = $this->ln_usuarios->get_login($data);
+        $json = json_encode($result);
 
-            if ($result) {
-                if($result[3]=="administrador"){
+        if ($result) {
+            if ($result[3] == "administrador") {
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:inventary.php');
-            } else if($result[3]=="cliente"){
+            } else if ($result[3] == "cliente") {
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-                header('Location:cliente/security.php?action=log_in&datos='.$this->encriptar($_POST['correo_electronico']));
-            
+                header('Location:cliente/security.php?action=log_in&datos=' . $this->encriptar($_POST['correo_electronico']));
             }
-        }else{
+        } else {
             header('Location:index.php?mer=Datos Erroneos');
         }
     }
-    
-    
+
     function insert_usuario($data)
     {
 
-
         if ($this->ln_usuario->insert_user($data) != false) {
         }
+    }
+
+    function get_usuario_cambio($data, $codigo)
+    {
+        return $this->ln_usuarios->get_usuario_cambio($data, $codigo);
     }
 
     function validar_codigo($codigo, $id)
@@ -198,131 +198,36 @@ class ln_security
         }
     }
 
-    function check_tipo($url){
 
-        if(isset($_COOKIE['usuario'])){
-        $data = json_decode($_COOKIE['usuario'], true); 
-        if ($data['tipo'] == 'administrador') {
-            return true;
-        }else if( $data['tipo'] == 'cliente'){
-            return false;
-        }
-    }else {
-   // if($url !='index.php' && $url != 'completa.php'){
-      header('Location:index.php');
-    
-}
-}
-
-function check_tipo_login($url){
-
-    if(isset($_COOKIE['usuario'])){
-    if($url != 'recuperacion.php'){
-    $data = json_decode($_COOKIE['usuario'], true); 
-    if ($data['tipo'] == 'administrador') {
-        header('Location:inventary.php');
-    }else if( $data['tipo'] == 'cliente'){
-        header('Location:cliente/index.php');
-    }
-
-}}
-}
-
-
-function check_tipo_login_admin(){
-
-    if(isset($_COOKIE['usuario'])){
-    $data = json_decode($_COOKIE['usuario'], true); 
-    if ($data['tipo'] != 'administrador') {
-      header('Location:cliente/index.php');
-        }
-    }else{
-    header('Location:index.php');
-}
-}
-
-
-
-    function check_access_admin($url)
-
-    {
-
-        $data = json_decode($_COOKIE['usuario'], true);
-
-        if ($url == "index.php") {
-
-            header('Location:inventary.php');
-
-            }else if($data['tipo']!='administrador'){
-
-            ///header('Location:cliente/index.php');
-
-            } 
-        }
-
-        function check_access_client($url)
-        {
-    
-            $data = json_decode($_COOKIE['usuario'], true);
-             if ($url == "index.php") {
-
-             //    header('Location:cliente/index.php');
-
-            }else if($data['tipo']!='cliente'){
-                
-                //header('Location:../inventary.php');
-            } 
-
-            }
-    
-
-
-    function check_access($url)
+    function check_tipo_login($url)
     {
 
         if (isset($_COOKIE['usuario'])) {
-
-            if ($url == "index.php") {
-                $id = json_decode($_COOKIE['usuario']);
-                foreach ($id as $item) {
-                    $id = $item;
-                    break;
+            if ($url != 'recuperacion.php') {
+                $data = json_decode($_COOKIE['usuario'], true);
+                if ($data['tipo'] == 'administrador') {
+                    header('Location:inventary.php');
+                } else if ($data['tipo'] == 'cliente') {
+                    header('Location:cliente/index.php');
                 }
-                header('Location:inventary.php');
             }
-        } else {
-
-            //if ($url != 'index.php' && $url != 'completa.php') {
-
-            // header('Location:index.php');
-            //  }
         }
     }
 
 
-    function check_access_cliente($url)
+    function check_tipo_login_admin()
     {
 
-        if (isset($_COOKIE['cliente'])) {
-
-            if ($url == "index.php" && $url !== 'cliente/index.php' &&  $url !== 'completa.php') {
-                $id = json_decode($_COOKIE['cliente']);
-                foreach ($id as $item) {
-                    $id = $item;
-                    break;
-                }
+        if (isset($_COOKIE['usuario'])) {
+            $data = json_decode($_COOKIE['usuario'], true);
+            if ($data['tipo'] != 'administrador') {
                 header('Location:cliente/index.php');
             }
-        } else if ($url != 'index.php' && $url !== 'completa.php') {
+        } else {
             header('Location:index.php');
         }
     }
 
-
-    function get_usuario_cambio($data, $codigo)
-    {
-        return $this->ln_usuarios->get_usuario_cambio($data, $codigo);
-    }
 
     function enviar_correo($data, $codigo)
     {

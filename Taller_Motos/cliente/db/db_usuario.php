@@ -129,7 +129,7 @@ class db_usuario extends conexion
 
         mysqli_set_charset($this->conexion, 'utf8');
         $us = mysqli_real_escape_string($this->conexion, $correo);
-       
+
         $sql = "call get_usuario_cambio('$us')";
 
         $result = $this->get_data($sql);

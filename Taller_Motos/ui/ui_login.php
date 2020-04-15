@@ -11,7 +11,6 @@ class UI_login extends Gui_login
     {
 ?>
 
-
         <div class="row formulario_login">
 
             <div class="col-sm-4"></div>

@@ -17,16 +17,6 @@ class Gui
         }
 
         $this->ln_security->check_tipo_login_admin();
-
-  //if($this->ln_security->check_tipo($this->$config['url'])){
-       
-   // $this->ln_security->check_access_admin($this->config['url']);
-
-   // }else if($this->ln_security->check_tipo($this->config['url'])==false){
-
-    // $this->ln_security->check_access_client($this->config['url']);
-  // }
-      
     }
     function get_header()
     {
@@ -35,6 +25,7 @@ class Gui
         <html lang="en">
 
         <head>
+            <meta name="google" content="notranslate">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Mighty motors</title>

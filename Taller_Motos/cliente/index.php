@@ -24,4 +24,3 @@ $ui = new Gui_login($config);
 	<button class="btn btn-primary">Salir</button>
 
 </form>
-
