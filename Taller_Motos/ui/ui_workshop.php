@@ -48,12 +48,7 @@ class ui_workshop extends Gui
                         <form id="form-purchase" method="POST" action="<?= $action ?>">
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha de entrada</label>
-                                <input class="form-control" id="fecha" type="date" name="fecha" value="<?=$fecha ?>">
-                                <input type="hidden" name="id" id="id" value="<?= $purchase[0]['id'] ?>">
-                            </div>
-                            <div class="form-group notificar">
-                                <label class="etiquetas">Fecha de salida</label>
-                                <input class="form-control" id="fecha" type="date" name="fecha" value="<?=$fecha ?>">
+                                <input class="form-control" id="entrada" type="date" name="entrada" value="<?=$fecha ?>">
                                 <input type="hidden" name="id" id="id" value="<?= $purchase[0]['id'] ?>">
                             </div>
 
@@ -65,27 +60,11 @@ class ui_workshop extends Gui
                                     <?php } ?>
                                 </select>
                             </div>
-                            <label class="etiquetas">Material</label>
-                            <div class="input-group mb-3">
-                                <select class="form-control" name="material" id="material">
-                                    <?php foreach ($this->ln->get_inventory() as $material) { ?>
-                                        <option value="<?= $material['id'] ?>"><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .
-                                                                                    $material['monto'] . $material['medida'] ?></option>
-                                    <?php } ?>
+                            <div class="form-group notificar">
+                                <label class="etiquetas">Moto</label>
+                                <select class="form-control" name="motos">
+                                  <option>Seleccione un cliente</option>
                                 </select>
-                                <div class="input-group-append">
-                                    <a href="inventary.php" class="btn btn-success"><i class="fas fa-file"></i></a>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="etiquetas">Cantidad</label>
-                                <input type="number" class="form-control" name="cantidad" id="cantidad" required value="0" min="0">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="etiquetas">Ajustes</label>
-                                <textarea name="ajustes" class="form-control" rows="2" cols="80" placeholder="Agregue el arrego"></textarea>
-                                <button type="button" class="btn btn-secondary">Agregar</button>
                             </div>
 
                             <hr>
@@ -105,15 +84,50 @@ class ui_workshop extends Gui
 
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 py-3">
 
-                <div class="card shadow" id="purchase">
+                <div class="card shadow" id="materials">
                     <div class="card-header">
-                        <h5 class="card-title">Detalle de compra</h5>
+                        <h5 class="card-title">Detalle de Reparacion</h5>
                     </div>
-                    <div class="card-body table-responsive">
-                        <table class="table table-bordered">
+                    <div class="card-body">
+                      <div class="bg-primary text-white card-title p-4  table-responsive" style="border-radius:20px;">
+                      <div class="clearfix p-2">
+
+                        <div class="float-left">
+                          <h5 class="ml-2">Ajustes Realizados</h5>
+
+                        </div>
+                        <div class="float-right">
+                          <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-info mr-5">Agregar</button>
+                        </div>
+                      </div>
+
+                        <table class="table table-inverse|reflow|striped|bordered|hover|sm text-center">
+                          <tbody>
+                            <tr>
+                              <td>the Bird</td>
+                              <td>@twitter</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      <br>
+                      <div class="">
+
+                      </div>
+                      <div class="clearfix">
+
+                        <div class="float-left">
+                          <h5 class="ml-2">Materiales Utilizados</h5>
+
+                        </div>
+                        <div class="float-right">
+                          <button type="button" data-toggle="modal" data-target="#modal_material" class="btn btn-info mr-5">Agregar</button>
+                        </div>
+                      </div>
+                      <br>
+                        <table class="table table-bordered" width="100%">
                             <thead class="thead-dark text-center text-white">
                                 <th>Material</th>
-                                <th>Cantidad</th>
+                                <th>Cant</th>
                                 <th>Eliminar</th>
                             </thead>
                             <tbody id="detalle" class="text-center">
@@ -125,9 +139,77 @@ class ui_workshop extends Gui
 
                     </div>
                 </div>
-
+              </div>
             </div>
+
         </div>
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog  modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione un trabajo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="etiquetas">Trabajo</label>
+                  <select class="form-control" name="trabajo">
+                    <option value="1">Cambio de Aceite</option>
+                    <option value="2">Cambio de motor</option>
+                  </select>
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Agregar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="modal_material" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog  modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione un Material</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="etiquetas">Material</label>
+                  <div class="input-group mb-3">
+                      <select class="form-control" name="material" id="material">
+                          <?php foreach ($this->ln->get_inventory() as $material) { ?>
+                              <option value="<?= $material['id'] ?>"><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .
+                                                                          $material['monto'] . $material['medida'] ?></option>
+                          <?php } ?>
+                      </select>
+                      <div class="input-group-append">
+                          <span class="btn btn-success"><i class="fas fa-file"></i></span>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="etiquetas">Cantidad</label>
+                      <input type="number" class="form-control" name="cantidad" id="cantidad" required value="0" min="0">
+                  </div>
+
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Agregar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
 
 <?php
     }

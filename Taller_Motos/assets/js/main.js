@@ -10,6 +10,9 @@ window.addEventListener('load', () => {
   recargar_venta();
   insert_purchase(i);
   insert_sale();
+}else
+  if(titulo==='Modulo Mantenimiento'){
+
   }
 });
 function insert_marca() {
