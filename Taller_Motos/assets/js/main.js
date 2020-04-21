@@ -3,6 +3,8 @@ var venta = [];
 var reparacion = [];
 var clicks = 0;
 var i = 0;
+var trabajo=[];
+var trabajo_material=[];
 window.addEventListener('load', () => {
   const titulo=document.querySelector('#modulo').textContent;
   if(titulo==='Modulo Compras'||titulo==='Modulo Ventas'){
@@ -12,9 +14,49 @@ window.addEventListener('load', () => {
   insert_sale();
 }else
   if(titulo==='Modulo Mantenimiento'){
-
+    insert_work();
   }
 });
+
+function insert_work_detail(){
+  trabajo.push(
+    {nombre:document.querySelector("#trabajo").value,
+    nombre_trabajo:document.querySelector('#trabajo').textContent,
+    precio:0}
+  );
+  let tabla=document.querySelector('#detail_work');
+  tabla.innerHTML='';
+  let aux=0;
+  trabajo.forEach(element => {
+    tabla.innerHTML+=`  <tr ids=${aux++}>
+          <td>${element.nombre_trabajo}</td>
+          <td><span class="btn btn-danger" onclick="deletes(this,'work')">X</span></td>
+        </tr>`
+  });
+
+  console.log(trabajo);
+}
+
+function insert_materialwork_detail(){
+  trabajo_material.push(
+    {id_material:document.querySelector("#material").value,
+    nombre_material:document.querySelector('#material').textContent,
+    cantidad:document.querySelector('#cant').value
+  }
+  );
+  let tabla=document.querySelector('#detail_material');
+  tabla.innerHTML='';
+  trabajo_material.forEach(element => {
+    tabla.innerHTML+=`  <tr>
+          <td>${element.nombre_material}</td>
+          <td>${element.cantidad}</td>
+          <td><span class="btn btn-danger" onclick="deletes(this,'material')">X</span></td>
+        </tr>`
+  });
+
+  console.log(trabajo);
+}
+
 function insert_marca() {
   let nombre_marca = document.querySelector('#nombre_marca').value
   let action = 'insert_marca';
@@ -180,6 +222,28 @@ function insert_sale() {
 
   });
 }
+
+function insert_work() {
+
+  $('#form_work').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+      type:'post',
+      url:'controller.php',
+      data:{
+        action:'insert_work',
+        fecha:document.querySelector('#entrada').value,
+        cliente:document.querySelector('#cliente').value,
+        moto:document.querySelector('#motos').value,
+        trabajo:trabajo,
+        material:trabajo_material
+      },
+      success: function (response) {
+        console.log(JSON.stringify(response));
+      }
+    });
+  });
+}
 function insert_sale_data(monto) {
   if (monto >= 0) {
     let nombre = document.querySelector('#material');
@@ -321,6 +385,15 @@ function deletes(elemento, form) {
       }
       total_venta();
       break;
+
+      case 'material':
+        trabajo_material.splice(boton.getAttribute('ids'), 1);
+        boton.remove();
+        break;
+        case 'work':
+          trabajo.splice(boton.getAttribute('ids'), 1);
+          boton.remove();
+          break;
   }
 
 }
@@ -393,6 +466,32 @@ function selec(sel) {
   } else {
     delete_span(document.querySelector('.medida'));
   }
+}
+
+function get_motos(combo) {
+  let id_cliente = combo.options[combo.selectedIndex].value;
+  let action = 'get_motos';
+
+  if (id_cliente>0) {
+  $.ajax({
+    type: "Post",
+    url: "controller.php",
+    data: { action, id_cliente },
+    datatype:'json',
+    success: function (response) {
+      let datos=JSON.parse(response);
+      let motos=  document.querySelector('#motos');
+      motos.innerHTML='';
+      datos.forEach(element => {
+      motos.innerHTML+=`<option value="${element.id}">${element.moto}</opcion>`
+      });
+      console.log(response);
+    }
+  });
+} else {
+  document.querySelector('#motos').innerHTML='<option value="0">Seleccione un cliente</option>';
+}
+
 }
 function get_prices(combo) {
   let id = combo.options[combo.selectedIndex].value;

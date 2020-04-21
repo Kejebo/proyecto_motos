@@ -1,11 +1,13 @@
 <?php
 require_once('gui.php');
+require_once('ln/ln_workshop.php');
 class ui_repairs extends Gui
 {
     var $ln;
 
     function __construct($config)
     {
+      $this->ln= new ln_workshop();
         parent::__construct($config);
     }
 
@@ -19,13 +21,11 @@ class ui_repairs extends Gui
         <div class="clearfix">
           <div class="float-left">
             <h5 class="card-title">Lista de Reparaciones</h5>
-
           </div>
           <div class="float-right">
             <a class="btn btn-dark" href="workshop.php"> + Nuevo</a>
           </div>
         </div>
-
       </div>
       <div class="card-body table-responsive">
         <table class="table table-bordered" id="example">
@@ -42,7 +42,20 @@ class ui_repairs extends Gui
             </tr>
           </thead>
           <tbody class="text-center">
-
+            <?php
+              foreach ($this->ln->get_repairs() as $repair) { ?>
+                <tr>
+                  <td><?=$repair['fecha']?></td>
+                  <td><?=$repair['cliente']?></td>
+                  <td><?=$repair['moto']?></td>
+                  <td><?=$repair['placa']?></td>
+                  <td><?=$repair['monto']?></td>
+                  <td><a href="workshop.php?action=update&id=<?=$repair['id']?>" class="btn btn-warning">+</a></td>
+                  <td><a href="repairs.php?action=delete&id=<?=$repair['id']?>" class="btn btn-danger">X</a></td>
+                </tr>
+                <?php
+              }
+             ?>
           </tbody>
 
         </table>

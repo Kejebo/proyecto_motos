@@ -36,6 +36,16 @@ require_once('conexion.php');
             return false;
                 }
         }
+        function get_motos_client($id)
+        {
+            $sql = "call get_motos_cliente('$id')";
+            $result = $this->get_data($sql);
+            if ($result) {
+                return $result;
+            } else {
+                return false;
+            }
+        }
         function update_moto($data){
             extract($data);
            $result= $this->execute("call update_motos('$cliente','$marca','$modelo','$transmision','$cilindraje','$chasis','$placa','$kilometraje','$combustible','$id');");

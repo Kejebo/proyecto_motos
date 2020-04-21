@@ -3,11 +3,13 @@ require_once('db/db_inventory.php');
 require_once('ln/ln_purchase.php');
 require_once('ln/ln_sales.php');
 require_once('db/db_motorcycle.php');
+require_once('db/db_workshop.php');
 
 $inventory = new db_inventory();
 $purchase = new ln_purchase();
 $sale = new ln_sales();
 $moto= new db_motorcycle();
+$work= new db_workshop();
 switch ($_POST['action']) {
     case 'get_medida':
         echo json_encode($inventory->get_category_medida($_POST['id'])[0]);
@@ -65,5 +67,16 @@ switch ($_POST['action']) {
     case 'insert_modelo_motos':
         $moto->insert_modelo($_POST);
         echo json_encode($moto->get_modelos());
+        break;
+    case 'get_motos':
+        echo json_encode($moto->get_motos_client($_POST['id_cliente']));
+        break;
+    case 'insert_work':
+        $work->insert_repair($_POST);
+        extract($_POST);
+        echo $material;
+        /*foreach (['material'] as $datos) {
+          $work->insert_material(datos,$work->get_last_id()[0]);
+        }*/
         break;
 }

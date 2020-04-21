@@ -1,5 +1,5 @@
 <?php
-require_once('ln/ln_purchase.php');
+require_once('ln/ln_workshop.php');
 require_once('gui.php');
 class ui_workshop extends Gui
 {
@@ -8,7 +8,7 @@ class ui_workshop extends Gui
     function __construct($config)
     {
         parent::__construct($config);
-        $this->ln = new ln_purchase();
+        $this->ln = new ln_workshop();
     }
 
     function action_controller()
@@ -21,17 +21,17 @@ class ui_workshop extends Gui
         $purchase = null;
 
         $visibilidad = 'none';
-        $action = 'insert';
-        $script = 'insert_purchase';
+        $action = 'insert_work';
+        $script = 'insert_work';
         $fecha =  date("Y-m-d");
         $boton='none';
         if (isset($_GET['action'])) {
-            if ($_GET['action'] == 'update_purchase') {
+            if ($_GET['action'] == 'update_work') {
                 $purchase = $this->ln->get_purchase($_GET['id']);
                 $action = 'update';
                 $boton = 'block';
                 $visibilidad = 'block';
-                $script = 'update_purchase';
+                $script = 'update_work';
                 $fecha=$purchase[0]['fecha'];
 
             }
@@ -45,7 +45,7 @@ class ui_workshop extends Gui
                         <h5> <span> <i class="fas fa-bars"></i></span> Registro de Mantenimiento</h5>
                     </div>
                     <div class="card-body">
-                        <form id="form-purchase" method="POST" action="<?= $action ?>">
+                        <form id="form_work">
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha de entrada</label>
                                 <input class="form-control" id="entrada" type="date" name="entrada" value="<?=$fecha ?>">
@@ -54,15 +54,16 @@ class ui_workshop extends Gui
 
                             <div class="form-group">
                                 <label class="etiquetas">Cliente</label>
-                                <select class="form-control" name="proveedor" id="proveedor">
-                                    <?php foreach ($this->ln->get_proveedor() as $proveedores) { ?>
-                                        <option value="<?= $proveedores['id_proveedor'] ?>"><?= $proveedores['nombre'] ?></option>
+                                <select class="form-control" name="cliente" id="cliente" onchange="get_motos(this)">
+                                    <option value="0">Seleccione un cliente</option>
+                                    <?php foreach ($this->ln->db->get_clients() as $clientes) { ?>
+                                        <option value="<?= $clientes['id_cliente'] ?>"><?= $clientes['nombre_cliente'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
                             <div class="form-group notificar">
                                 <label class="etiquetas">Moto</label>
-                                <select class="form-control" name="motos">
+                                <select class="form-control" name="motos" id="motos">
                                   <option>Seleccione un cliente</option>
                                 </select>
                             </div>
@@ -93,7 +94,7 @@ class ui_workshop extends Gui
                       <div class="clearfix p-2">
 
                         <div class="float-left">
-                          <h5 class="ml-2">Ajustes Realizados</h5>
+                          <h5 class="ml-2">Ajustes  Realizados</h5>
 
                         </div>
                         <div class="float-right">
@@ -102,11 +103,12 @@ class ui_workshop extends Gui
                       </div>
 
                         <table class="table table-inverse|reflow|striped|bordered|hover|sm text-center">
-                          <tbody>
-                            <tr>
-                              <td>the Bird</td>
-                              <td>@twitter</td>
-                            </tr>
+                          <thead class="thead-dark text-center text-white">
+                              <th>Trabajo</th>
+                              <th>Eliminar</th>
+                          </thead>
+                          <tbody id="detail_work" style="background-color:white">
+
                           </tbody>
                         </table>
                       <br>
@@ -130,7 +132,7 @@ class ui_workshop extends Gui
                                 <th>Cant</th>
                                 <th>Eliminar</th>
                             </thead>
-                            <tbody id="detalle" class="text-center">
+                            <tbody id="detail_material" class="text-center bg-white">
 
 
                             </tbody>
@@ -155,16 +157,19 @@ class ui_workshop extends Gui
               <div class="modal-body">
                 <div class="form-group">
                   <label class="etiquetas">Trabajo</label>
-                  <select class="form-control" name="trabajo">
-                    <option value="1">Cambio de Aceite</option>
-                    <option value="2">Cambio de motor</option>
+                  <select class="form-control" name="trabajo" id="trabajo">
+                    <?php
+                      foreach ($this->ln->db->get_works() as $trabajos) {?>
+                        <option value="<?=$trabajos['id_trabajo']?>"><?=$trabajos['nombre_trabajo']?></option>
+                    <?php } ?>
+
                   </select>
 
                 </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Agregar</button>
+                <button type="button" class="btn btn-primary" onclick="insert_work_detail()">Agregar</button>
               </div>
             </div>
           </div>
@@ -184,7 +189,7 @@ class ui_workshop extends Gui
                   <label class="etiquetas">Material</label>
                   <div class="input-group mb-3">
                       <select class="form-control" name="material" id="material">
-                          <?php foreach ($this->ln->get_inventory() as $material) { ?>
+                          <?php foreach ($this->ln->db->get_inventory() as $material) { ?>
                               <option value="<?= $material['id'] ?>"><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .
                                                                           $material['monto'] . $material['medida'] ?></option>
                           <?php } ?>
@@ -195,7 +200,7 @@ class ui_workshop extends Gui
                   </div>
                   <div class="form-group">
                       <label class="etiquetas">Cantidad</label>
-                      <input type="number" class="form-control" name="cantidad" id="cantidad" required value="0" min="0">
+                      <input type="number" class="form-control" name="cantidad" id="cant" required value="0" min="0">
                   </div>
 
 
@@ -203,7 +208,7 @@ class ui_workshop extends Gui
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Agregar</button>
+                <button type="button" class="btn btn-primary" onclick="insert_materialwork_detail()">Agregar</button>
               </div>
             </div>
           </div>
