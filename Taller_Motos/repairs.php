@@ -6,6 +6,7 @@ $config = array(
 );
 
 $ui= new ui_repairs($config);
+$ui->ln->action_controller();
 $ui->get_header();
 $ui->get_sidebar();
 $ui->get_nabvar();

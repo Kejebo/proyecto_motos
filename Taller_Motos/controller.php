@@ -74,9 +74,11 @@ switch ($_POST['action']) {
     case 'insert_work':
         $work->insert_repair($_POST);
         extract($_POST);
-        echo $material;
-        /*foreach (['material'] as $datos) {
-          $work->insert_material(datos,$work->get_last_id()[0]);
-        }*/
+        foreach ($material as $datos) {
+          $work->insert_material($datos,$work->get_last_id());
+        }
+        foreach ($trabajo as $works) {
+          $work->insert_work_detail($works,$work->get_last_id());
+        }
         break;
 }

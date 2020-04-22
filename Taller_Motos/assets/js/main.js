@@ -20,7 +20,7 @@ window.addEventListener('load', () => {
 
 function insert_work_detail(){
   trabajo.push(
-    {nombre:document.querySelector("#trabajo").value,
+    {id_trabajo:document.querySelector("#trabajo").value,
     nombre_trabajo:document.querySelector('#trabajo').textContent,
     precio:0}
   );
@@ -238,8 +238,10 @@ function insert_work() {
         trabajo:trabajo,
         material:trabajo_material
       },
+      datatype:'json',
       success: function (response) {
-        console.log(JSON.stringify(response));
+        alert('Se ha ingresado correctamente los datos');
+          window.location.href='repairs.php';
       }
     });
   });

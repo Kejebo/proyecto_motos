@@ -18,7 +18,7 @@ class ui_workshop extends Gui
 
     function get_content()
     {
-        $purchase = null;
+        $work = null;
 
         $visibilidad = 'none';
         $action = 'insert_work';
@@ -26,13 +26,13 @@ class ui_workshop extends Gui
         $fecha =  date("Y-m-d");
         $boton='none';
         if (isset($_GET['action'])) {
-            if ($_GET['action'] == 'update_work') {
-                $purchase = $this->ln->get_purchase($_GET['id']);
+            if ($_GET['action'] == 'update') {
+                $work = $this->ln->get_repair($_GET['id']);
                 $action = 'update';
                 $boton = 'block';
                 $visibilidad = 'block';
                 $script = 'update_work';
-                $fecha=$purchase[0]['fecha'];
+                $fecha=$work['fecha'];
 
             }
         }
@@ -49,22 +49,33 @@ class ui_workshop extends Gui
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha de entrada</label>
                                 <input class="form-control" id="entrada" type="date" name="entrada" value="<?=$fecha ?>">
-                                <input type="hidden" name="id" id="id" value="<?= $purchase[0]['id'] ?>">
+                                <input type="hidden" name="id" id="id" value="<?= $work['id'] ?>">
                             </div>
 
                             <div class="form-group">
                                 <label class="etiquetas">Cliente</label>
                                 <select class="form-control" name="cliente" id="cliente" onchange="get_motos(this)">
                                     <option value="0">Seleccione un cliente</option>
-                                    <?php foreach ($this->ln->db->get_clients() as $clientes) { ?>
-                                        <option value="<?= $clientes['id_cliente'] ?>"><?= $clientes['nombre_cliente'] ?></option>
-                                    <?php } ?>
+                                    <?php foreach ($this->ln->db->get_clients() as $clientes) { print_r($work);
+                                        if ($work['id_cliente']==$clientes['id_cliente']) {?>
+                                          <option selected value="<?= $clientes['id_cliente'] ?>"><?= $clientes['nombre_cliente'] ?></option>
+                                          <?php
+                                        }else { ?>
+                                      <option value="<?= $clientes['id_cliente'] ?>"><?= $clientes['nombre_cliente'] ?></option>
+                                    <?php }
+                                  }?>
                                 </select>
                             </div>
                             <div class="form-group notificar">
                                 <label class="etiquetas">Moto</label>
                                 <select class="form-control" name="motos" id="motos">
-                                  <option>Seleccione un cliente</option>
+                                  <?php
+                                    if ($work!=null) { ?>
+                                        <option selected value="<?= $work['id_moto'] ?>"><?= $work['moto'] ?></option>
+                                    <?php }else{ ?>
+                                      <option>Seleccione un cliente</option>
+                                    <?php }
+                                   ?>
                                 </select>
                             </div>
 
@@ -108,6 +119,18 @@ class ui_workshop extends Gui
                               <th>Eliminar</th>
                           </thead>
                           <tbody id="detail_work" style="background-color:white">
+                            <?php
+                            $j=0;
+                            if($this->ln->db->get_work_details($_GET['id'])){
+                              forEach($this->ln->db->get_work_details($_GET['id']) as $works){
+                                ?>
+                                <tr ids="<?=$j++?>">
+                                  <td><?=$works['trabajo']?></td>
+                                  <td><span class="btn btn-danger" onclick="deletes('this',work)">X</span></td>
+                                </tr>
+                            <?php  }
+                            }
+                         ?>
 
                           </tbody>
                         </table>
@@ -133,7 +156,19 @@ class ui_workshop extends Gui
                                 <th>Eliminar</th>
                             </thead>
                             <tbody id="detail_material" class="text-center bg-white">
-
+                              <?php
+                                  $i=0;
+                                  if($this->ln->db->get_repair_details($_GET['id'])){
+                                    forEach($this->ln->db->get_repair_details($_GET['id']) as $material){
+                                      ?>
+                                      <tr ids="<?=$i++?>">
+                                        <td><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .$material['monto'] . $material['medida']?></td>
+                                        <td><?=$material['cant']?></td>
+                                        <td><span class="btn btn-danger" onclick="deletes('this',material)">X</span></td>
+                                      </tr>
+                                  <?php  }
+                                  }
+                               ?>
 
                             </tbody>
                           </table>

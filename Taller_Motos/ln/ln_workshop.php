@@ -12,11 +12,19 @@
         function action_controller(){
             if(isset($_GET['action'])){
                 switch($_GET['action']){
-                    }
+                  case 'delete':
+                    $this->delete($_GET['id']);
+                    break;
+                  }
             }
         }
 
-        
+        function delete($id){
+          $this->db->delete_work($id);
+        }
+        function get_repair($id){
+          return $this->db->get_repair($id);
+        }
         function get_repairs(){
           return $this->db->get_repairs();
         }
