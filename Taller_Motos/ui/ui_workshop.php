@@ -96,8 +96,18 @@ class ui_workshop extends Gui
 
                 <div class="card shadow" id="materials">
                     <div class="card-header">
-                        <h5 class="card-title">Detalle de Reparacion</h5>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <h5 class="card-title">Lista de Reparaciones</h5>
+                        </div>
+                        <div class="float-right">
+
+                          <span class="btn btn-dark" type="submit" data-toggle="modal" data-target="#finalizar">Finalizar Trabajo</span>
                     </div>
+                  </div>
+                </div>
+
+
                     <div class="card-body">
                       <div class="bg-primary text-white card-title p-4  table-responsive" style="border-radius:20px;">
                       <div class="clearfix p-2">
@@ -250,6 +260,42 @@ class ui_workshop extends Gui
         </div>
 
 
+        <div class="modal fade bg-dark" id="finalizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog  modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Datos de Entrega</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="etiquetas">Fecha de entrega</label>
+                  <input class="form-control" type="date" id="entrega" required>
+                </div>
+                <div class="form-group">
+                  <label class="etiquetas">Kilometraje Actual</label>
+                  <input class="form-control" type="number" id="k_actual" required>
+                </div>
+                <div class="form-group">
+                  <label class="etiquetas">Proximo Kilometraje</label>
+                  <input class="form-control" type="number" id="k_proximo">
+                </div>
+                <div class="form-group">
+                  <label class="etiquetas">Precio</label>
+                  <input class="form-control" type="number" id="precio" required>
+                </div>
+                <div class="form-group">
+                  <label class="etiquetas">Observaciones</label>
+                  <textarea name="descripcion" class="form-control" rows="4"></textarea>
+                </div>
+                <hr>
+                <button type="submit" class="btn btn-success btn-block">Enviar</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
 <?php
     }

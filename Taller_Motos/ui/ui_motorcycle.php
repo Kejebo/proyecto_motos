@@ -99,6 +99,8 @@ class ui_motorcycle extends gui
 
         </section>
         </main>
+    
+
         <div class="modal fade bg-dark" id="form_marca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
