@@ -16,7 +16,6 @@ switch ($_POST['action']) {
         break;
     case 'insert_purchase':
         $purchase->insert_purchase($_POST);
-        echo true;
         break;
     case 'update_purchase':
         $purchase->update_purchase($_POST);

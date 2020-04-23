@@ -15,6 +15,8 @@ window.addEventListener('load', () => {
 }else
   if(titulo==='Modulo Mantenimiento'){
     insert_work();
+    recargar_trabajo();
+    recargar_materiales();
   }
 });
 
@@ -231,7 +233,7 @@ function insert_work() {
       type:'post',
       url:'controller.php',
       data:{
-        action:'insert_work',
+        action:document.querySelector('#form_work').getAttribute('action'),
         fecha:document.querySelector('#entrada').value,
         cliente:document.querySelector('#cliente').value,
         moto:document.querySelector('#motos').value,
@@ -405,6 +407,31 @@ function resetear() {
   document.querySelector('#cantidad').value = 0;
   document.querySelector('#guardar').style.display = 'block';
   document.querySelector('#cancelar').style.display = 'block';
+}
+function recargar_trabajo() {
+  saldo = 0;
+  trabajo = [];
+  document.querySelectorAll('.trabajos').forEach(element => {
+    let aux = JSON.parse(element.value);
+    let data = {
+      id_trabajo: aux.id,
+      nombre_trabajo: aux.trabajo
+    }
+    trabajo.push(data);
+  });
+  console.log(trabajo);
+}
+function recargar_materiales() {
+  trabajo_material = [];
+  document.querySelectorAll('.materiales').forEach(element => {
+    let aux = JSON.parse(element.value);
+    let data = {
+      id_material: aux.material,
+      nombre_material: aux.nombre+' '+aux.marca+' ' +aux.monto+' '+aux.medida,
+      cantidad:aux.cant
+    }
+    trabajo_material.push(data);
+  });
 }
 function recargar_compra() {
   saldo = 0;

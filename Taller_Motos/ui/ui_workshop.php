@@ -45,7 +45,7 @@ class ui_workshop extends Gui
                         <h5> <span> <i class="fas fa-bars"></i></span> Registro de Mantenimiento</h5>
                     </div>
                     <div class="card-body">
-                        <form id="form_work">
+                        <form id="form_work" action="<?=$action?>">
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha de entrada</label>
                                 <input class="form-control" id="entrada" type="date" name="entrada" value="<?=$fecha ?>">
@@ -83,7 +83,6 @@ class ui_workshop extends Gui
                             <div class="form-group">
 
                                 <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> Registrar</button>
-                                <button id="guardar" class="btn btn-success btn-block" type="button" style="display: <?= $boton ?>" onclick="sendpurchase('<?= $script ?>')"><i class="fas fa-file"></i> Guardar</button>
                                 <a id="cancelar" href="purchases.php" class="btn btn-danger btn-block" style="display: <?= $boton ?>"><i class="fas fa-file"></i> Cancelar</a>
 
                             </div>
@@ -125,8 +124,9 @@ class ui_workshop extends Gui
                               forEach($this->ln->db->get_work_details($_GET['id']) as $works){
                                 ?>
                                 <tr ids="<?=$j++?>">
+                                  <input type="hidden" class="trabajos" value='<?=json_encode($works);?>'>
                                   <td><?=$works['trabajo']?></td>
-                                  <td><span class="btn btn-danger" onclick="deletes('this',work)">X</span></td>
+                                  <td><span class="btn btn-danger" onclick="deletes(this,'work')">X</span></td>
                                 </tr>
                             <?php  }
                             }
@@ -162,9 +162,10 @@ class ui_workshop extends Gui
                                     forEach($this->ln->db->get_repair_details($_GET['id']) as $material){
                                       ?>
                                       <tr ids="<?=$i++?>">
+                                        <input type="hidden" name="" class="materiales" value='<?=json_encode($material)?>'>
                                         <td><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .$material['monto'] . $material['medida']?></td>
                                         <td><?=$material['cant']?></td>
-                                        <td><span class="btn btn-danger" onclick="deletes('this',material)">X</span></td>
+                                        <td><span class="btn btn-danger" onclick="deletes(this,'material')">X</span></td>
                                       </tr>
                                   <?php  }
                                   }
