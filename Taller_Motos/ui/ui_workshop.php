@@ -22,18 +22,17 @@ class ui_workshop extends Gui
 
         $visibilidad = 'none';
         $action = 'insert_work';
-        $script = 'insert_work';
         $fecha =  date("Y-m-d");
+        $titulo="Registrar";
         $boton='none';
         if (isset($_GET['action'])) {
             if ($_GET['action'] == 'update') {
                 $work = $this->ln->get_repair($_GET['id']);
-                $action = 'update';
+                $action = 'update_work';
                 $boton = 'block';
                 $visibilidad = 'block';
-                $script = 'update_work';
                 $fecha=$work['fecha'];
-
+                $titulo='Actualizar';
             }
         }
 
@@ -49,7 +48,7 @@ class ui_workshop extends Gui
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha de entrada</label>
                                 <input class="form-control" id="entrada" type="date" name="entrada" value="<?=$fecha ?>">
-                                <input type="hidden" name="id" id="id" value="<?= $work['id'] ?>">
+                                <input type="hidden" id="id" value="<?= $work['id'] ?>">
                             </div>
 
                             <div class="form-group">
@@ -82,7 +81,7 @@ class ui_workshop extends Gui
                             <hr>
                             <div class="form-group">
 
-                                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> Registrar</button>
+                                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?=$titulo?></button>
                                 <a id="cancelar" href="purchases.php" class="btn btn-danger btn-block" style="display: <?= $boton ?>"><i class="fas fa-file"></i> Cancelar</a>
 
                             </div>
@@ -120,8 +119,9 @@ class ui_workshop extends Gui
                           <tbody id="detail_work" style="background-color:white">
                             <?php
                             $j=0;
-                            if($this->ln->db->get_work_details($_GET['id'])){
+                            if(isset($_GET['id'])){
                               forEach($this->ln->db->get_work_details($_GET['id']) as $works){
+
                                 ?>
                                 <tr ids="<?=$j++?>">
                                   <input type="hidden" class="trabajos" value='<?=json_encode($works);?>'>
@@ -158,7 +158,7 @@ class ui_workshop extends Gui
                             <tbody id="detail_material" class="text-center bg-white">
                               <?php
                                   $i=0;
-                                  if($this->ln->db->get_repair_details($_GET['id'])){
+                                  if(isset($_GET['id'])){
                                     forEach($this->ln->db->get_repair_details($_GET['id']) as $material){
                                       ?>
                                       <tr ids="<?=$i++?>">
@@ -193,12 +193,11 @@ class ui_workshop extends Gui
               <div class="modal-body">
                 <div class="form-group">
                   <label class="etiquetas">Trabajo</label>
-                  <select class="form-control" name="trabajo" id="trabajo">
+                  <select class="form-control" id="trabajo">
                     <?php
-                      foreach ($this->ln->db->get_works() as $trabajos) {?>
-                        <option value="<?=$trabajos['id_trabajo']?>"><?=$trabajos['nombre_trabajo']?></option>
+                      foreach ($this->ln->db->get_works() as $trabajos) { ?>
+                        <option value="<?=$trabajos['id_trabajo']?>"><?= $trabajos['nombre_trabajo'] ?></option>
                     <?php } ?>
-
                   </select>
 
                 </div>

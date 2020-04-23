@@ -13,6 +13,7 @@ class db_workshop extends conexion{
 
     function insert_work_detail($data,$id){
       extract($data);
+
       $this->execute("insert into detalle_trabajo(id_reparacion,id_trabajo) values('$id','$id_trabajo')");
     }
 

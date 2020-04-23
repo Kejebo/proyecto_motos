@@ -15,15 +15,17 @@ window.addEventListener('load', () => {
 }else
   if(titulo==='Modulo Mantenimiento'){
     insert_work();
-    recargar_trabajo();
-    recargar_materiales();
+  recargar_trabajo();
+  recargar_materiales();
   }
 });
 
 function insert_work_detail(){
+  let seleccion=document.querySelector("#trabajo");
+
   trabajo.push(
-    {id_trabajo:document.querySelector("#trabajo").value,
-    nombre_trabajo:document.querySelector('#trabajo').textContent,
+    {id_trabajo:seleccion.value,
+    nombre_trabajo:seleccion.options[seleccion.selectedIndex].textContent,
     precio:0}
   );
   let tabla=document.querySelector('#detail_work');
@@ -35,14 +37,13 @@ function insert_work_detail(){
           <td><span class="btn btn-danger" onclick="deletes(this,'work')">X</span></td>
         </tr>`
   });
-
-  console.log(trabajo);
 }
 
 function insert_materialwork_detail(){
+  let seleccion=document.querySelector('#material');
   trabajo_material.push(
-    {id_material:document.querySelector("#material").value,
-    nombre_material:document.querySelector('#material').textContent,
+    {id_material:seleccion.value,
+    nombre_material:  seleccion.options[seleccion.selectedIndex].textContent,
     cantidad:document.querySelector('#cant').value
   }
   );
@@ -56,7 +57,6 @@ function insert_materialwork_detail(){
         </tr>`
   });
 
-  console.log(trabajo);
 }
 
 function insert_marca() {
@@ -229,10 +229,12 @@ function insert_work() {
 
   $('#form_work').submit(function (e) {
     e.preventDefault();
+
     $.ajax({
       type:'post',
       url:'controller.php',
       data:{
+        id:document.querySelector('#id').value,
         action:document.querySelector('#form_work').getAttribute('action'),
         fecha:document.querySelector('#entrada').value,
         cliente:document.querySelector('#cliente').value,
@@ -242,7 +244,7 @@ function insert_work() {
       },
       datatype:'json',
       success: function (response) {
-        alert('Se ha ingresado correctamente los datos');
+
           window.location.href='repairs.php';
       }
     });
@@ -409,7 +411,6 @@ function resetear() {
   document.querySelector('#cancelar').style.display = 'block';
 }
 function recargar_trabajo() {
-  saldo = 0;
   trabajo = [];
   document.querySelectorAll('.trabajos').forEach(element => {
     let aux = JSON.parse(element.value);
@@ -419,7 +420,6 @@ function recargar_trabajo() {
     }
     trabajo.push(data);
   });
-  console.log(trabajo);
 }
 function recargar_materiales() {
   trabajo_material = [];
@@ -430,6 +430,7 @@ function recargar_materiales() {
       nombre_material: aux.nombre+' '+aux.marca+' ' +aux.monto+' '+aux.medida,
       cantidad:aux.cant
     }
+
     trabajo_material.push(data);
   });
 }

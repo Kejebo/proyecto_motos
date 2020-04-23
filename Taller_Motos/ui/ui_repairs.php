@@ -23,7 +23,20 @@ class ui_repairs extends Gui
             <h5 class="card-title">Lista de Reparaciones</h5>
           </div>
           <div class="float-right">
+            <div class="btn-group" role="group" aria-label="First group">
+
             <a class="btn btn-dark" href="workshop.php"> + Nuevo</a>
+            <div class="btn-group ml-2" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Exportar
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <a class="dropdown-item" href="#">PDF</a>
+                  <a class="dropdown-item" href="#">EXCEL</a>
+                </div>
+              </div>
+          </div>
+
           </div>
         </div>
       </div>
@@ -31,11 +44,12 @@ class ui_repairs extends Gui
         <table class="table table-bordered" id="example">
           <thead class="thead-dark text-center text-white">
             <tr>
-              <th>Fecha</th>
+              <th>Fecha Entrada</th>
               <th>Cliente</th>
               <th>Moto</th>
               <th>Placa</th>
               <th>Precio</th>
+              <th>Info</th>
               <th>Editar</th>
               <th>Eliminar</th>
 
@@ -50,6 +64,7 @@ class ui_repairs extends Gui
                   <td><?=$repair['moto']?></td>
                   <td><?=$repair['placa']?></td>
                   <td><?=$repair['monto']?></td>
+                  <td><button class="btn btn-info"><i class="far fa-eye"></i></button></td>
                   <td><a href="workshop.php?action=update&id=<?=$repair['id']?>" class="btn btn-warning">+</a></td>
                   <td><a href="repairs.php?action=delete&id=<?=$repair['id']?>" class="btn btn-danger">X</a></td>
                 </tr>

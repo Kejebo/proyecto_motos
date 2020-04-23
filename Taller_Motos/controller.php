@@ -80,4 +80,17 @@ switch ($_POST['action']) {
           $work->insert_work_detail($works,$work->get_last_id());
         }
         break;
+      case 'update_work':
+        extract($_POST);
+        $work->delete_works($id);
+        $work->delete_materialwork($id);
+
+        foreach ($material as $datos) {
+        $work->insert_material($datos,$id);
+        }
+        echo json_encode($trabajo);
+        foreach ($trabajo as $works) {
+        $work->insert_work_detail($works,$id);
+        }
+        break;
 }
