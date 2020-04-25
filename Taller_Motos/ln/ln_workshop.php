@@ -15,6 +15,10 @@
                   case 'delete':
                     $this->delete($_GET['id']);
                     break;
+                    case 'insert':
+                      $this->insert($_POST);
+                      header('Location: repairs.php');
+                    break;
                   }
             }
         }
@@ -27,6 +31,9 @@
         }
         function get_repairs(){
           return $this->db->get_repairs();
+        }
+        function insert($data){
+          $this->db->close_work($data);
         }
         function get_works(){
           return $this->db->get_works();

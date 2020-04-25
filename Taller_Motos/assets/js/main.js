@@ -239,13 +239,16 @@ function insert_work() {
         fecha:document.querySelector('#entrada').value,
         cliente:document.querySelector('#cliente').value,
         moto:document.querySelector('#motos').value,
+        kilometraje:document.querySelector('#kilometraje').value,
         trabajo:trabajo,
         material:trabajo_material
       },
       datatype:'json',
       success: function (response) {
-
-          window.location.href='repairs.php';
+        console.log(response);
+        let datos=JSON.parse(response);
+        window.location.href=datos.id;
+        document.querySelector('#cancelar').style.display = 'block';
       }
     });
   });
@@ -500,6 +503,7 @@ function selec(sel) {
 
 function get_motos(combo) {
   let id_cliente = combo.options[combo.selectedIndex].value;
+  console.log(id_cliente);
   let action = 'get_motos';
 
   if (id_cliente>0) {

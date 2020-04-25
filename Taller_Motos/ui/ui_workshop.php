@@ -77,12 +77,15 @@ class ui_workshop extends Gui
                                    ?>
                                 </select>
                             </div>
-
+                            <div class="form-group">
+                              <label>Kilometraje</label>
+                              <input class="form-control" type="number" id="kilometraje" name="kilometraje" value="<?=$work['kilometraje']?>" required>
+                            </div>
                             <hr>
                             <div class="form-group">
 
                                 <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?=$titulo?></button>
-                                <a id="cancelar" href="purchases.php" class="btn btn-danger btn-block" style="display: <?= $boton ?>"><i class="fas fa-file"></i> Cancelar</a>
+                                <a id="cancelar" href="workshop.php" class="btn btn-primary btn-block" style="display: <?= $boton ?>"><i class="fas fa-file"></i> Nuevo</a>
 
                             </div>
                             <hr>
@@ -102,7 +105,7 @@ class ui_workshop extends Gui
                         </div>
                         <div class="float-right">
 
-                          <span class="btn btn-dark" type="submit" data-toggle="modal" data-target="#finalizar">Finalizar Trabajo</span>
+                          <span style='display:<?=$boton?>' class="btn btn-dark" type="submit" data-toggle="modal" data-target="#finalizar">Finalizar Trabajo</span>
                     </div>
                   </div>
                 </div>
@@ -201,6 +204,7 @@ class ui_workshop extends Gui
                 </button>
               </div>
               <div class="modal-body">
+
                 <div class="form-group">
                   <label class="etiquetas">Trabajo</label>
                   <select class="form-control" id="trabajo">
@@ -270,21 +274,25 @@ class ui_workshop extends Gui
                 </button>
               </div>
               <div class="modal-body">
+                <form action="repairs.php?action=insert" method="post">
+                  <input type="hidden" name="id_moto" value="<?=$work['id_moto']?>">
+
+                <input type="hidden" name="id" value="<?=$_GET['id']?>">
                 <div class="form-group">
                   <label class="etiquetas">Fecha de entrega</label>
-                  <input class="form-control" type="date" id="entrega" required>
+                  <input class="form-control" type="date" name="entrega" required>
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Kilometraje Actual</label>
-                  <input class="form-control" type="number" id="k_actual" required>
+                  <input class="form-control" type="number" name="k_actual" required>
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Proximo Kilometraje</label>
-                  <input class="form-control" type="number" id="k_proximo">
+                  <input class="form-control" type="number" name="k_proximo">
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Precio</label>
-                  <input class="form-control" type="number" id="precio" required>
+                  <input class="form-control" type="number" name="precio" required>
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Observaciones</label>
@@ -292,6 +300,7 @@ class ui_workshop extends Gui
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-success btn-block">Enviar</button>
+              </form>
               </div>
             </div>
           </div>

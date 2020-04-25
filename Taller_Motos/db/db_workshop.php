@@ -61,14 +61,22 @@ class db_workshop extends conexion{
 
   function insert_repair($data){
     extract($data);
-    $this->execute("insert into reparaciones(id_moto,fecha_entrada) values('$moto','$fecha')");
+    $this->execute("insert into reparaciones(id_moto,fecha_entrada,kilometraje_entrada) values('$moto','$fecha',$kilometraje)");
+    $this->execute("update motos set kilometraje='$kilometraje' where id_moto='$moto';");
   }
   function insert_material($data,$id){
     extract($data);
     $this->execute("insert into detalle_reparacion(id_reparacion,id_material,cantidad) values('$id','$id_material','$cantidad')");
+
   }
 
-
+  function close_work($data){
+    extract($data);
+    $this->execute("update reparaciones set fecha_salida='$entrega', descripcion='$descripcion'
+    ,precio='$precio',kilometraje_salida='$k_actual'
+    where id_reparacion='$id';");
+    $this->execute("update motos set kilometraje='$k_actual', nuevo_kilometraje='$k_proximo' where id_moto='$id_moto'");
+  }
   function get_last_id(){
     return $this->get_data("select max(id_reparacion) as id from reparaciones")[0]['id'];
   }

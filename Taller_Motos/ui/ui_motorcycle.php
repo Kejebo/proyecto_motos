@@ -99,7 +99,7 @@ class ui_motorcycle extends gui
 
         </section>
         </main>
-    
+
 
         <div class="modal fade bg-dark" id="form_marca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -226,7 +226,7 @@ class ui_motorcycle extends gui
           </div>
         </div>
 
-        <div class="modal fade bg-dark" id="inventario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal bg-dark" id="inventario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
           <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
               <div class="modal-header">

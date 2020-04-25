@@ -73,12 +73,19 @@ switch ($_POST['action']) {
     case 'insert_work':
         $work->insert_repair($_POST);
         extract($_POST);
+        if (isset($material)) {
         foreach ($material as $datos) {
           $work->insert_material($datos,$work->get_last_id());
         }
+      }
+        if (isset($trabajo)) {
         foreach ($trabajo as $works) {
           $work->insert_work_detail($works,$work->get_last_id());
         }
+      }
+        $reparacion=$work->get_last_id();
+      echo json_encode(array("id" => "workshop.php?action=update&id=$reparacion" ));
+
         break;
       case 'update_work':
         extract($_POST);
@@ -88,9 +95,11 @@ switch ($_POST['action']) {
         foreach ($material as $datos) {
         $work->insert_material($datos,$id);
         }
-        echo json_encode($trabajo);
+
         foreach ($trabajo as $works) {
         $work->insert_work_detail($works,$id);
         }
+        echo json_encode(array("id" => "workshop.php?action=update&id=$id" ));
+
         break;
 }
