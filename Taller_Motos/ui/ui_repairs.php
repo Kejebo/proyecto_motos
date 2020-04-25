@@ -49,7 +49,7 @@ class ui_repairs extends Gui
               <th>Moto</th>
               <th>Placa</th>
               <th>Precio</th>
-              <th>Info</th>
+              <th>Estado</th>
               <th>Editar</th>
               <th>Eliminar</th>
 

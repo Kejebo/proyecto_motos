@@ -89,8 +89,8 @@ class ui_proveedores extends gui
                       <td><?= $list['cedula_juridica']; ?></td>
                       <td><?= $list['telefono']; ?></td>
                       <td><?= $list['correo']; ?></td>
-                      <td><a href="proveedores.php?action=delete&id=<?= $list['id_proveedor']; ?>" class="btn btn-danger">x</a></td>
-                      <td><a href="proveedores.php?action=update_proveedor&id=<?= $list['id_proveedor']; ?>" class="btn btn-warning">edit</a></td>
+                      <td><a href="proveedores.php?action=delete&id=<?= $list['id_proveedor']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                      <td><a href="proveedores.php?action=update_proveedor&id=<?= $list['id_proveedor']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                     </tr>
                   <?php } ?>
                 </tbody>

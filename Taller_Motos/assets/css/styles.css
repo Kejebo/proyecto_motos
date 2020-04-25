@@ -100,7 +100,7 @@ footer {
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: 500px) and (min-width: 300px) {
+@media screen and (max-width: 700px) and (min-width: 100px) {
   .sidebar {
     display: none;
   }

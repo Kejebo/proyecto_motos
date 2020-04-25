@@ -18,13 +18,13 @@
                     break;
                     case 'update':
                         $this->update_moto($_POST);
-                     //   $this->redireccion();
+                        $this->redireccion();
                     break;
                     case 'delete':
                         $this->db->delete($_GET['id']);
                         $this->redireccion();
                     break;
-                  
+
                 }
             }
         }

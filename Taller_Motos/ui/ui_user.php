@@ -55,7 +55,7 @@ class ui_user extends Gui
                 </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8 py-3">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="card shadow">
                     <div class="card-header">
                         <h5 class="card-title">Lista de Usuarios</h5>
@@ -80,8 +80,8 @@ class ui_user extends Gui
                                         <tr>
                                             <td><?= $list['nombre_completo']; ?></td>
                                             <td><?= $list['clave']; ?></td>
-                                            <td><a href="users.php?action=delete&id=<?= $list['id_usuario']; ?>" class="btn btn-danger">x</a></td>
-                                            <td><a href="users.php?action=update_user&id=<?= $list['id_usuario']; ?>" class="btn btn-warning">edit</a></td>
+                                            <td><a href="users.php?action=delete&id=<?= $list['id_usuario']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="users.php?action=update_user&id=<?= $list['id_usuario']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                                         </tr>
                                 <?php }
                                 } ?>

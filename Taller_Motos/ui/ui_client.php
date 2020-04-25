@@ -5,7 +5,7 @@ class Ui_client extends Gui
 {
     var $ln;
 
-   
+
     function __construct($config)
     {
         parent::__construct($config);
@@ -96,8 +96,8 @@ class Ui_client extends Gui
                                             <td><?= $list['cedula_juridica']; ?></td>
                                             <td><?= $list['telefono']; ?></td>
                                             <td><?= $list['correo']; ?></td>
-                                            <td><a href="clients.php?action=delete&id=<?= $list['id_cliente']; ?>" class="btn btn-danger">x</a></td>
-                                            <td><a href="clients.php?action=update_client&id=<?= $list['id_cliente']; ?>" class="btn btn-warning">edit</a></td>
+                                            <td><a href="clients.php?action=delete&id=<?= $list['id_cliente']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="clients.php?action=update_client&id=<?= $list['id_cliente']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                                         </tr>
                                 <?php }
                                 } ?>
