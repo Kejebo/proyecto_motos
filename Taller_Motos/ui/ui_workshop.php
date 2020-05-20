@@ -194,8 +194,100 @@ class ui_workshop extends Gui
             </div>
 
         </div>
-    
 
+        <div class="modal fade bg-dark" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog  modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Agregar Trabajo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <select id="trabajo" class="form-control">
+                    <?php foreach ($this->ln->db->get_works() as $trabajo){ ?>
+                      <option value="<?=$trabajo['id_trabajo']?>"><?=$trabajo['nombre_trabajo']?></option>
+                    <?php }?>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_work_detail();">Agregar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade bg-dark" id="modal_material" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Agregar Material</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <select class="form-control" id="material">
+                    <?php foreach ($this->ln->db->get_inventory() as $material){ ?>
+                      <option value="<?= $material['id'] ?>"><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .
+                                                                  $material['monto'] . $material['medida'] ?></option>
+                    <?php } ?>
+                  </select>
+                  <input type="number" id="cant" value="">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_materialwork_detail()">Agregar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade bg-dark" id="finalizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Finalizar Trabajo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="repairs.php?action=insert" method="post">
+                  <input type="hidden" name="id" value="<?=$_GET['id']?>">
+                  <input type="hidden" name="id_moto" value="<?=$work['id_moto']?>">
+                <div class="form-group">
+                  <label>Fecha de Entrega</label>
+                  <input type="date" class="form-control" name="entrega">
+                </div>
+                <div class="form-group">
+                  <label>Kilometraje de Salida</label>
+                  <input type="number" class="form-control" name="k_actual">
+                </div>
+                <div class="form-group">
+                  <label>Proximo Kilometraje</label>
+                  <input type="number" class="form-control" name="k_proximo">
+                </div>
+                <div class="form-group">
+                  <label>Precio</label>
+                  <input type="number" class="form-control" name="precio">
+                </div>
+                <div class="form-group">
+                  <label>Observacion</label>
+                  <textarea name="descripcion" rows="2" cols="80" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Guardar</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
 <?php
     }
 }
