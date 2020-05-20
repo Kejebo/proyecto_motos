@@ -46,7 +46,6 @@
            $this->db->insert_purchase($data);
            extract($data);
            foreach($detalles as $lista){
-             print_r(gettype($lista));
              $list=json_decode($lista,true);
              $this->db->insert_detail_purchase($this->db->get_last_pucharse(),$list);
            }

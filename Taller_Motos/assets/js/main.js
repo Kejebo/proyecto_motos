@@ -385,9 +385,6 @@ function deletes(elemento, form) {
     case 'sale':
       venta.splice(boton.getAttribute('ids'), 1);
       boton.remove();
-      if (venta.length == 0) {
-        document.querySelector('#sale').style.display = 'none';
-      }
       total_venta();
       break;
 
