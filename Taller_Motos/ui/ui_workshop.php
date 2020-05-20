@@ -37,6 +37,7 @@ class ui_workshop extends Gui
         }
 
 ?>
+<form id="form_work" action="workshop.php?action=<?=$action?>">
         <div class=" container row">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 py-3">
                 <div class="card shadow">
@@ -44,7 +45,6 @@ class ui_workshop extends Gui
                         <h5> <span> <i class="fas fa-bars"></i></span> Registro de Mantenimiento</h5>
                     </div>
                     <div class="card-body">
-                        <form id="form_work" action="<?=$action?>">
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha de entrada</label>
                                 <input class="form-control" id="entrada" type="date" name="entrada" value="<?=$fecha ?>">
@@ -90,7 +90,6 @@ class ui_workshop extends Gui
                             </div>
                             <hr>
 
-                        </form>
                     </div>
                 </div>
             </div>
@@ -137,7 +136,7 @@ class ui_workshop extends Gui
 
                                 ?>
                                 <tr ids="<?=$j++?>">
-                                  <input type="hidden" class="trabajos" value='<?=json_encode($works);?>'>
+                                  <input type="hidden" class="trabajos" name="trabajos[]" value='<?=json_encode($works);?>'>
                                   <td><?=$works['trabajo']?></td>
                                   <td><span class="btn btn-danger" onclick="deletes(this,'work')">X</span></td>
                                 </tr>
@@ -194,6 +193,7 @@ class ui_workshop extends Gui
             </div>
 
         </div>
+      </form>
 
         <div class="modal fade bg-dark" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
           <div class="modal-dialog  modal-sm" role="document">

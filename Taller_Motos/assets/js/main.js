@@ -48,6 +48,7 @@ function insert_materialwork_detail(){
   }
   );
   let tabla=document.querySelector('#detail_material');
+  
   tabla.innerHTML='';
   trabajo_material.forEach(element => {
     tabla.innerHTML+=`  <tr>
