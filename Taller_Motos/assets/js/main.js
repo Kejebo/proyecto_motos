@@ -194,7 +194,7 @@ function insert_modelo_motos() {
 }
 function insert_purchase(i) {
 
-  $('#form-purchase').submit(function (e) {
+  $('#form-purchase').click(function (e) {
     e.preventDefault();
 
     let nombre = document.querySelector('#material');
@@ -203,7 +203,7 @@ function insert_purchase(i) {
       precio: document.querySelector('#precio').value,
       cantidad: document.querySelector('#cantidad').value,
       material: document.querySelector('#material').value,
-      nombre_material: nombre.options[nombre.selectedIndex].textContent
+      nombre_material: nombre.options[nombre.selectedIndex].textContent.trim()
     };
     if (detalles.cantidad > 0) {
       compra.push(detalles);
@@ -280,14 +280,13 @@ function crear_fila(detalles, i, table, action) {
   let tr = document.createElement('tr');
   tr.setAttribute('ids', i);
   tr.innerHTML = `
-  <input type=hidden class=lista name=detalles[] value=${json}
+  <input type=hidden class=lista name=detalles[] value='${json}'>
   <td>${detalles.nombre_material}</td>
   <td>${detalles.cantidad}</td>
   <td>${detalles.precio}</td>
    <td>${detalles.precio * detalles.cantidad}</td>
    <td><span class="delete_detail btn btn-danger" onclick=deletes(this,"${action}")><i class="fas fa-trash"></i></span></td>
     `
-  document.querySelector(table).style.display = 'block';
 
   return tr;
 }
@@ -381,9 +380,6 @@ function deletes(elemento, form) {
       saldo -= compra[boton.getAttribute('ids')].cantidad * compra[boton.getAttribute('ids')].precio;
       compra.splice(boton.getAttribute('ids'), 1);
       boton.remove();
-      if (compra.length == 0) {
-        document.querySelector('#purchase').style.display = 'none';
-      }
       total_compra();
       break;
     case 'sale':
@@ -410,7 +406,6 @@ function resetear() {
   document.querySelector('#material').selectedIndex = 0;
   document.querySelector('#precio').value = 0;
   document.querySelector('#cantidad').value = 0;
-  document.querySelector('#guardar').style.display = 'block';
   document.querySelector('#cancelar').style.display = 'block';
 }
 function recargar_trabajo() {

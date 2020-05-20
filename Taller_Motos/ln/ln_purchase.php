@@ -19,33 +19,36 @@
             if(isset($_GET['action'])){
                 switch($_GET['action']){
                     case 'insert':
-                        $this->insert_purchase($_POST);
+                      print_r($this->insert_purchase($_POST));
                         $this->rediretion();
                     break;
                     case 'delete':
                         $this->delete_detail($_GET['id']);
-                        
+
                     break;
                     case 'update':
-                       // $this->db->update_inventory($_POST);
-                        $this->rediretion();
+                    $this->update_purchase($_POST);
+                      $this->rediretion();
                 }
             }
         }
 
         function update_purchase($data){
             extract($data);
-            $this->db->delete_detail($datos['id']);
-            $this->db->update_purchase($datos);
-            foreach($compra as $lista){
-                $this->db->insert_detail_purchase($datos['id'],$lista);
-            }            
+            $this->db->delete_detail($id);
+            $this->db->update_purchase($data);
+            foreach($detalles as $lista){
+              $list=json_decode($lista,true);
+                $this->db->insert_detail_purchase($id,$list);
+            }
         }
         function insert_purchase($data){
-            extract($data);
-           $this->db->insert_purchase($datos);
-           foreach($compra as $lista){
-               $this->db->insert_detail_purchase($this->db->get_last_pucharse(),$lista);
+           $this->db->insert_purchase($data);
+           extract($data);
+           foreach($detalles as $lista){
+             print_r(gettype($lista));
+             $list=json_decode($lista,true);
+             $this->db->insert_detail_purchase($this->db->get_last_pucharse(),$list);
            }
         }
 
@@ -55,7 +58,7 @@
         function get_purchase($id){
             return $this->db->get_purchase($id);
         }
-       
+
         function delete_detail($id){
             $this->db->delete_detail($id);
             $this->db->delete_purchase($id);
