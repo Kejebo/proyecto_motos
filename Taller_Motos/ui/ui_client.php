@@ -24,7 +24,7 @@ class Ui_client extends Gui
         $boton='Registrar';
         if(isset($_GET['action'])){
             if($_GET['action']=='update_client'){
-                //$client=$this->ln->get_client($_GET['id']);
+                $client=$this->ln->get_client($_GET['id']);
                 $action='update';
                 $boton='Actualizar';
             }
