@@ -334,11 +334,11 @@ function total_compra() {
     saldo += element.cantidad * element.precio;
   });
   document.querySelector('#pie').innerHTML = ` < tr >
-    <td>Saldo</td>
-    <td></td>
-    <td></td>
-    <td>${saldo}</td>
-    <td></td>
+  <th>Saldo</th>
+  <th></th>
+  <th></th>
+  <th>${saldo}</td>
+  <th></th>
 </tr > `
 
 }
