@@ -124,14 +124,14 @@ class ui_purchase extends Gui
                                 <?php      }
                                 } ?>
                             </tbody>
-                         
                             <tfoot id="pie" class="bg-dark text-center text-white">
                                 <tr>
-                                    <th>Saldo</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th><?= $saldo ?></th>
-                                    <th></th>
+                                    <td>Saldo</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><?= $saldo ?></td>
+                                    <td></td>
+
                                 </tr>
                             </tfoot>
                         </table>
