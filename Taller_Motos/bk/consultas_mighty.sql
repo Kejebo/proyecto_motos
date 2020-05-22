@@ -1,5 +1,4 @@
 use db_tallerMotos;
-    drop procedure get_inventario;
 delimiter //
 	create procedure get_inventario()
 	begin

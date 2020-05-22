@@ -22,7 +22,7 @@ class ui_material extends gui
     if (isset($_GET['action'])) {
       if ($_GET['action'] == 'update_material') {
 
-        $material = $this->ln->get_material($_GET['id']);
+      //  $material = $this->ln->get_material($_GET['id']);
 
         $action = 'update';
         $boton = 'Actualizar';
@@ -43,7 +43,7 @@ class ui_material extends gui
                 <input type="hidden" name="id" value="<?= $material['id_material'] ?>">
                 <div class="form-group">
                   <label class="etiquetas">Nombre</label>
-                  <input class="form-control" type="text" name="nombre" value="<?= $material['nombre'] ?>">
+                  <input class="form-control" type="text" name="nombre" value="<?= $material['id_material'] ?>">
                 </div>
 
                 <label class="etiquetas">Categoria</label>

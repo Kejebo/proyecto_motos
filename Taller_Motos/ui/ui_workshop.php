@@ -174,7 +174,7 @@ class ui_workshop extends Gui
                                     forEach($this->ln->db->get_repair_details($_GET['id']) as $material){
                                       ?>
                                       <tr ids="<?=$i++?>">
-                                        <input type="hidden" name="" class="materiales" value='<?=json_encode($material)?>'>
+                                        <input type="hidden" name="materiales[]" class="materiales" value='<?=json_encode($material)?>'>
                                         <td><?= $material['nombre'] . ' ' . $material['marca'] . ' ' .$material['monto'] . $material['medida']?></td>
                                         <td><?=$material['cant']?></td>
                                         <td><span class="btn btn-danger" onclick="deletes(this,'material')">X</span></td>

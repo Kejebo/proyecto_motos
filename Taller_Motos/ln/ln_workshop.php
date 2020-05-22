@@ -19,10 +19,32 @@
                       $this->insert($_POST);
                       header('Location: repairs.php');
                     break;
+                    case 'insert_work':
+                      
+                    break;
                   }
             }
         }
 
+        function insert_work($data){
+          print_r($data);
+          /*          $this->db->insert_repair($data);
+          
+          extract($data);
+          $ultima=$this->db->get_last_id();
+          if (isset($materiales)) {
+          foreach ($materiales as $datos) {
+            $this->db->insert_material($datos,$ultima);
+          }
+        }
+          if (isset($trabajos)) {
+          foreach ($trabajos as $works) {
+            $this->db->insert_work_detail($works,$ultima);
+          }
+        }
+      
+  */
+        }
         function delete($id){
           $this->db->delete_work($id);
         }

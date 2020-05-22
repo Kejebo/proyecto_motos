@@ -3,60 +3,82 @@ var venta = [];
 var reparacion = [];
 var clicks = 0;
 var i = 0;
-var trabajo=[];
-var trabajo_material=[];
+var j = 0;
+var trabajo = [];
+var trabajo_material = [];
 window.addEventListener('load', () => {
-  const titulo=document.querySelector('#modulo').textContent;
-  if(titulo==='Modulo Compras'||titulo==='Modulo Ventas'){
-  recargar_compra();
-  recargar_venta();
-  insert_purchase(i);
-  insert_sale();
-}else
-  if(titulo==='Modulo Mantenimiento'){
-    insert_work();
-  recargar_trabajo();
-  recargar_materiales();
-  }
+  const titulo = document.querySelector('#modulo').textContent;
+  if (titulo === 'Modulo Compras' || titulo === 'Modulo Ventas') {
+    recargar_compra();
+    recargar_venta();
+    insert_purchase(i);
+    insert_sale();
+  } else
+    if (titulo === 'Modulo Mantenimiento') {
+      insert_work();
+      recargar_trabajo();
+      recargar_materiales();
+    }
 });
 
-function insert_work_detail(){
-  let seleccion=document.querySelector("#trabajo");
+function crear_fila(detalles, i, table, action) {
+  json = JSON.stringify(detalles);
+  let tr = document.createElement('tr');
+  tr.setAttribute('ids', i);
+  tr.innerHTML = `
+  <input type=hidden class=lista name=detalles[] value='${json}'>
+  <td>${detalles.nombre_material}</td>
+  <td>${detalles.cantidad}</td>
+  <td>${detalles.precio}</td>
+   <td>${detalles.precio * detalles.cantidad}</td>
+   <td><span class="delete_detail btn btn-danger" onclick=deletes(this,"${action}")><i class="fas fa-trash"></i></span></td>
+    `
 
-  trabajo.push(
-    {id_trabajo:seleccion.value,
-    nombre_trabajo:seleccion.options[seleccion.selectedIndex].textContent,
-    precio:0}
-  );
-  let tabla=document.querySelector('#detail_work');
-  tabla.innerHTML='';
-  let aux=0;
-  trabajo.forEach(element => {
-    tabla.innerHTML+=`  <tr ids=${aux++}>
-          <td>${element.nombre_trabajo}</td>
-          <td><span class="btn btn-danger" onclick="deletes(this,'work')">X</span></td>
-        </tr>`
-  });
+  return tr;
 }
 
-function insert_materialwork_detail(){
-  let seleccion=document.querySelector('#material');
-  trabajo_material.push(
-    {id_material:seleccion.value,
-    nombre_material:  seleccion.options[seleccion.selectedIndex].textContent,
-    cantidad:document.querySelector('#cant').value
+function insert_work_detail() {
+  let seleccion = document.querySelector("#trabajo");
+  let trabajo_realizado = {
+    id_trabajo: seleccion.value,
+    nombre_trabajo: seleccion.options[seleccion.selectedIndex].textContent,
+    precio: 0
+  };
+  trabajo.push(trabajo_realizado);
+
+  let tabla = document.querySelector('#detail_work');
+  json = JSON.stringify(trabajo_realizado);
+  let tr = document.createElement('tr');
+  tr.setAttribute('ids', i);
+  tr.innerHTML = `
+    <input type=hidden class=lista name=trabajos[] value='${json}'>
+          <td>${trabajo_realizado.nombre_trabajo}</td>
+          <td><span class="btn btn-danger" onclick="deletes(this,'work')">X</span></td>
+        `
+  tabla.appendChild(tr);
+  i++;
+}
+
+function insert_materialwork_detail() {
+  let seleccion = document.querySelector('#material');
+  let material_usado = {
+    id_material: seleccion.value,
+    nombre_material: seleccion.options[seleccion.selectedIndex].textContent,
+    cantidad: document.querySelector('#cant').value
   }
-  );
-  let tabla=document.querySelector('#detail_material');
-  
-  tabla.innerHTML='';
-  trabajo_material.forEach(element => {
-    tabla.innerHTML+=`  <tr>
-          <td>${element.nombre_material}</td>
-          <td>${element.cantidad}</td>
-          <td><span class="btn btn-danger" onclick="deletes(this,'material')">X</span></td>
-        </tr>`
-  });
+  trabajo_material.push(material_usado);
+  let tabla = document.querySelector('#detail_material');
+
+  json = JSON.stringify(material_usado);
+  let tr = document.createElement('tr');
+  tr.setAttribute('ids', j);
+  tr.innerHTML = `
+    <input type=hidden class=lista name=materiales[] value='${json}'>
+    <td>${material_usado.nombre_material}</td>
+    <td>${material_usado.cantidad}</td>
+    <td><span class="btn btn-danger" onclick="deletes(this,'material')">X</span></td> `
+  tabla.appendChild(tr);
+  j++;
 
 }
 
@@ -72,7 +94,7 @@ function insert_marca() {
       document.querySelector('#marca').innerHTML = '';
       datos.forEach(element => {
         document.querySelector('#marca').innerHTML += `
-          <option value=${element.id_marca_material}>${element.nombre_marca}<opcion>`
+    < option value = ${ element.id_marca_material}> ${element.nombre_marca} <opcion>`
       });
     }
   });
@@ -103,10 +125,10 @@ function insert_transmision() {
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: {action,nombre_transmision },
-    datatype:"json",
+    data: { action, nombre_transmision },
+    datatype: "json",
     success: function (response) {
-    let datos = JSON.parse(response);
+      let datos = JSON.parse(response);
       document.querySelector('#transmision').innerHTML = '';
       datos.forEach(element => {
         document.querySelector('#transmision').innerHTML += `
@@ -123,10 +145,10 @@ function insert_marcas_motos() {
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: {action,nombre_marca },
-    datatype:"json",
+    data: { action, nombre_marca },
+    datatype: "json",
     success: function (response) {
-    let datos = JSON.parse(response);
+      let datos = JSON.parse(response);
       document.querySelector('#marca').innerHTML = '';
       datos.forEach(element => {
         document.querySelector('#marca').innerHTML += `
@@ -142,10 +164,10 @@ function insert_combustible() {
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: {action,nombre_combustible },
-    datatype:"json",
+    data: { action, nombre_combustible },
+    datatype: "json",
     success: function (response) {
-    let datos = JSON.parse(response);
+      let datos = JSON.parse(response);
       document.querySelector('#combustible').innerHTML = '';
       datos.forEach(element => {
         document.querySelector('#combustible').innerHTML += `
@@ -162,10 +184,10 @@ function insert_cilindraje() {
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: {action,tamano_cilindraje },
-    datatype:"json",
+    data: { action, tamano_cilindraje },
+    datatype: "json",
     success: function (response) {
-    let datos = JSON.parse(response);
+      let datos = JSON.parse(response);
       document.querySelector('#cilindraje').innerHTML = '';
       datos.forEach(element => {
         document.querySelector('#cilindraje').innerHTML += `
@@ -181,10 +203,10 @@ function insert_modelo_motos() {
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: {action,nombre_modelo,ano },
-    datatype:"json",
+    data: { action, nombre_modelo, ano },
+    datatype: "json",
     success: function (response) {
-    let datos = JSON.parse(response);
+      let datos = JSON.parse(response);
       document.querySelector('#modelo').innerHTML = '';
       datos.forEach(element => {
         document.querySelector('#modelo').innerHTML += `
@@ -232,23 +254,23 @@ function insert_work() {
     e.preventDefault();
 
     $.ajax({
-      type:'post',
-      url:'controller.php',
-      data:{
-        id:document.querySelector('#id').value,
-        action:document.querySelector('#form_work').getAttribute('action'),
-        fecha:document.querySelector('#entrada').value,
-        cliente:document.querySelector('#cliente').value,
-        moto:document.querySelector('#motos').value,
-        kilometraje:document.querySelector('#kilometraje').value,
-        trabajo:trabajo,
-        material:trabajo_material
+      type: 'post',
+      url: 'controller.php',
+      data: {
+        id: document.querySelector('#id').value,
+        action: document.querySelector('#form_work').getAttribute('action'),
+        fecha: document.querySelector('#entrada').value,
+        cliente: document.querySelector('#cliente').value,
+        moto: document.querySelector('#motos').value,
+        kilometraje: document.querySelector('#kilometraje').value,
+        trabajo: trabajo,
+        material: trabajo_material
       },
-      datatype:'json',
+      datatype: 'json',
       success: function (response) {
         console.log(response);
-        let datos=JSON.parse(response);
-        window.location.href=datos.id;
+        let datos = JSON.parse(response);
+        window.location.href = datos.id;
         document.querySelector('#cancelar').style.display = 'block';
       }
     });
@@ -281,13 +303,13 @@ function crear_fila(detalles, i, table, action) {
   let tr = document.createElement('tr');
   tr.setAttribute('ids', i);
   tr.innerHTML = `
-  <input type=hidden class=lista name=detalles[] value='${json}'>
+  <input type=hidden class=lista name=detalles[{json}'>
   <td>${detalles.nombre_material}</td>
-  <td>${detalles.cantidad}</td>
-  <td>${detalles.precio}</td>
-   <td>${detalles.precio * detalles.cantidad}</td>
-   <td><span class="delete_detail btn btn-danger" onclick=deletes(this,"${action}")><i class="fas fa-trash"></i></span></td>
-    `
+      <td>${detalles.cantidad}</td>
+      <td>${detalles.precio}</td>
+      <td>${detalles.precio * detalles.cantidad}</td>
+      <td><span class="delete_detail btn btn-danger" onclick=deletes({action}")><i class="fas fa-trash"></i></span></td>
+  `
 
   return tr;
 }
@@ -311,13 +333,13 @@ function total_compra() {
   compra.forEach(element => {
     saldo += element.cantidad * element.precio;
   });
-  document.querySelector('#pie').innerHTML = ` <tr>
-  <td>Saldo</td>
-  <td></td>
-  <td></td>
-  <td>${saldo}</td>
-  <td></td>
-</tr>`
+  document.querySelector('#pie').innerHTML = ` < tr >
+    <td>Saldo</td>
+    <td></td>
+    <td></td>
+    <td>${saldo}</td>
+    <td></td>
+</tr > `
 
 }
 
@@ -326,13 +348,13 @@ function total_venta() {
   venta.forEach(element => {
     saldo += element.cantidad * element.precio;
   });
-  document.querySelector('#pie').innerHTML = ` <tr>
-  <td>Saldo</td>
-  <td></td>
-  <td></td>
-  <td>${saldo}</td>
-  <td></td>
-</tr>`
+  document.querySelector('#pie').innerHTML = ` < tr >
+    <td>Saldo</td>
+    <td></td>
+    <td></td>
+    <td>${saldo}</td>
+    <td></td>
+</tr > `
 
 }
 function sendsale(action) {
@@ -389,14 +411,14 @@ function deletes(elemento, form) {
       total_venta();
       break;
 
-      case 'material':
-        trabajo_material.splice(boton.getAttribute('ids'), 1);
-        boton.remove();
-        break;
-        case 'work':
-          trabajo.splice(boton.getAttribute('ids'), 1);
-          boton.remove();
-          break;
+    case 'material':
+      trabajo_material.splice(boton.getAttribute('ids'), 1);
+      boton.remove();
+      break;
+    case 'work':
+      trabajo.splice(boton.getAttribute('ids'), 1);
+      boton.remove();
+      break;
   }
 
 }
@@ -423,8 +445,8 @@ function recargar_materiales() {
     let aux = JSON.parse(element.value);
     let data = {
       id_material: aux.material,
-      nombre_material: aux.nombre+' '+aux.marca+' ' +aux.monto+' '+aux.medida,
-      cantidad:aux.cant
+      nombre_material: aux.nombre + ' ' + aux.marca + ' ' + aux.monto + ' ' + aux.medida,
+      cantidad: aux.cant
     }
 
     trabajo_material.push(data);
@@ -496,52 +518,50 @@ function selec(sel) {
 
 function get_motos(combo) {
   let id_cliente = combo.options[combo.selectedIndex].value;
-  console.log(id_cliente);
   let action = 'get_motos';
-
-  if (id_cliente>0) {
-  $.ajax({
-    type: "Post",
-    url: "controller.php",
-    data: { action, id_cliente },
-    datatype:'json',
-    success: function (response) {
-      let datos=JSON.parse(response);
-      let motos=  document.querySelector('#motos');
-      motos.innerHTML='';
-      datos.forEach(element => {
-      motos.innerHTML+=`<option value="${element.id}">${element.moto}</opcion>`
-      });
-      console.log(response);
-    }
-  });
-} else {
-  document.querySelector('#motos').innerHTML='<option value="0">Seleccione un cliente</option>';
-}
+  if (id_cliente > 0) {
+    $.ajax({
+      type: "Post",
+      url: "controller.php",
+      data: { action, id_cliente },
+      datatype: 'json',
+      success: function (response) {
+        let datos = JSON.parse(response);
+        let motos = document.querySelector('#motos');
+        motos.innerHTML = '';
+        datos.forEach(element => {
+          motos.innerHTML += `< option value = "${element.id}" > ${element.moto}</opcion > `
+        });
+        console.log(response);
+      }
+    });
+  } else {
+    document.querySelector('#motos').innerHTML = '<option value="0">Seleccione un cliente</option>';
+  }
 
 }
 function get_prices(combo) {
   let id = combo.options[combo.selectedIndex].value;
   let action = 'get_prices';
-  if (id>0) {
-  $.ajax({
-    type: "Post",
-    url: "controller.php",
-    data: { action, id },
-    success: function (response) {
-      let saldo = JSON.parse(response);
+  if (id > 0) {
+    $.ajax({
+      type: "Post",
+      url: "controller.php",
+      data: { action, id },
+      success: function (response) {
+        let saldo = JSON.parse(response);
 
         document.querySelector('#precio').value = saldo.precio;
-    }
-  });
-} else {
-  document.querySelector('#precio').value = 0;
-}
+      }
+    });
+  } else {
+    document.querySelector('#precio').value = 0;
+  }
 
 }
 function showMessage(message, cssClass, form) {
   const mensaje = document.createElement('div');
-  mensaje.className = `alert alert-${cssClass} mt-4`;
+  mensaje.className = `alert alert - ${cssClass} mt - 4`;
   mensaje.appendChild(document.createTextNode(message));
   const container = document.querySelector(form);
   const notificacion = document.querySelector('.notificar');
