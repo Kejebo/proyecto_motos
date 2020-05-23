@@ -14,6 +14,7 @@ class ln_security
 
     var $ln_usuarios;
     var $Key = "CLAVESUPERSECRETA";
+    var $error;
 
     function __construct()
     {
@@ -63,6 +64,7 @@ class ln_security
         return openssl_encrypt($valor, $method, $this->Key, false, $iv);
     }
 
+
     function enviar_correo_primera()
     {
         $codigo = $this->get_codigo();
@@ -71,10 +73,9 @@ class ln_security
         if ($this->get_usuario_cambio($_POST, $codigo) == false) {
             echo json_encode(array("result" => "codigo_activo"));
         } else if ($this->enviar_correo($_POST, $codigo) == false) {
-
-            echo json_encode(array("result" => "false", "id_usuario" => $id, "correo" => $correo));
+          echo json_encode(array("resultDos" => "false", "result" => $this->error, "id_usuario" => $id, "correo" => $correo));
         } else {
-            echo json_encode(array("result" => "true", "id_usuario" => $id, "correo" => $correo));
+          echo json_encode(array("result" => "true", "id_usuario" => $id, "correo" => $correo));
         }
     }
 
@@ -245,16 +246,17 @@ class ln_security
             $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
             $mail->Port       = 587;                                    // TCP port to connect to
 
-            $mail->setFrom('wrdkillvibe@gmail.com', 'VirtualLibrery');
+            $mail->setFrom('wrdkillvibe@gmail.com', 'Taller Motos');
             $mail->addAddress($data['correo_electronico_link']);     // Add a recipient
 
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'MightyMotors[CAMBIOCONTRASEÑA]';
+            $mail->Subject = 'MightyMotors[CAMBIO CONTRASEÑA]';
             $mail->Body    = 'usuario : ' . $data['correo_electronico_link'] . ' ha solicitada un cambio de contrasena ' . $data['correo_electronico_link'] . 'copie el siguinte codigo:' . $codigo[0] . $codigo[1] . $codigo[2];
 
             $mail->send();
             $respuesta = true;
         } catch (Exception $e) {
+            $this->error = $e->getMessage();
             $respuesta = false;
         }
 

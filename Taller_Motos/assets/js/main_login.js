@@ -61,23 +61,25 @@ function validar_codigo() {
 function enviar_correo() {
   animacion_enviado_codigo_primero();
   event.preventDefault();
-
+ 
   $.ajax({
     data: $("#formulario_enviar_correo").serialize(),
     url: "security.php?action=enviar_correo",
     type: "post",
     datatype: "json",
     success: function(response) {
-      let resultado = JSON.parse(response);
+     let resultado = JSON.parse(response);
       if (resultado.result == "true") {
-        correo_electronico_link = resultado.correo;
-        id = resultado.id_usuario;
+     correo_electronico_link = resultado.correo;
+      id = resultado.id_usuario;
         document.querySelector("#div_form_completa").style.display = "none";
-        document.getElementById("div_form_validacion").style.display = null;
-      } else if (resultado.result == "codigo_activo") {
-        restaurar_icono_enviar();
-        alertar_validar_codigo_activo();
-      }
+       document.getElementById("div_form_validacion").style.display = null;
+     } else if (resultado.result == "codigo_activo") {
+    restaurar_icono_enviar();
+    alertar_validar_codigo_activo();
+    }else if (resultado.resultDos == "false"){
+      alert("Problemas con el Proveedor de Correos")
+   }
     }
   });
 }
@@ -203,8 +205,9 @@ function animacion_enviado_codigo() {
 function animacion_enviado_codigo_primero() {
   $("#boton_enviar_primera").remove();
   var boton_falso =
-    '<button id = "boton_enviar_falso" type="submit" class="btn btn-primary disabled boton_success"> <span class="spinner-border spinner-border-sm"></span> enviando correo</button>';
+    '<button id = "boton_enviar_falso" class="btn btn-primary disabled boton_success"> <span class="spinner-border spinner-border-sm"></span> enviando correo</button>';
   $("#enviar_correo_boton").append(boton_falso);
+  
 }
 
 function restaurar_icono_enviar() {
