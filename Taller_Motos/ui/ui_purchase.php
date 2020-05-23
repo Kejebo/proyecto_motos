@@ -125,14 +125,7 @@ class ui_purchase extends Gui
                                 } ?>
                             </tbody>
                             <tfoot id="pie" class="bg-dark text-center text-white">
-                                <tr>
-                                    <td>Saldo</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><?= $saldo ?></td>
-                                    <td></td>
-
-                                </tr>
+                               
                             </tfoot>
                         </table>
 

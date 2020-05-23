@@ -333,13 +333,7 @@ function total_compra() {
   compra.forEach(element => {
     saldo += element.cantidad * element.precio;
   });
-  document.querySelector('#pie').innerHTML = ` < tr >
-    <td>Saldo</td>
-    <td></td>
-    <td></td>
-    <td>${saldo}</td>
-    <td></td>
-</tr > `
+
 
 }
 
