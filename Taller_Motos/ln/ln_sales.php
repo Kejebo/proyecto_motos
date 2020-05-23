@@ -19,31 +19,37 @@
             if(isset($_GET['action'])){
                 switch($_GET['action']){
                     case 'insert':
+                    $this->insert_sale($_POST);
+                    $this->rediretion();
+
                     break;
                     case 'delete':
                         $this->delete_detail($_GET['id']);
-                        
+
                     break;
                     case 'update':
-                       // $this->db->update_inventory($_POST);
+                       $this->update_sale($_POST);
                         $this->rediretion();
                 }
             }
         }
 
         function update_sale($data){
+
             extract($data);
-            $this->db->delete_detail($datos['id']);
-            $this->db->update_sale($datos);
-            foreach($venta as $lista){
-                $this->db->insert_detail_sale($datos['id'],$lista);
-            }            
+            $this->db->delete_detail($id);
+            $this->db->update_sale($data);
+            foreach($detalles as $lista){
+              $list=json_decode($lista,true);
+                $this->db->insert_detail_sale($id, $list);
+            }
         }
         function insert_sale($data){
             extract($data);
-           $this->db->insert_sale($datos);
-           foreach($venta as $lista){
-               $this->db->insert_detail_sale($this->db->get_last_sale(),$lista);
+           $this->db->insert_sale($data);
+           foreach($detalles as $lista){
+             $list=json_decode($lista,true);
+               $this->db->insert_detail_sale($this->db->get_last_sale(),$list);
            }
         }
 
@@ -53,7 +59,7 @@
         function get_sale($id){
             return $this->db->get_sale($id);
         }
-       
+
         function delete_detail($id){
             $this->db->delete_detail($id);
             $this->db->delete_sale($id);

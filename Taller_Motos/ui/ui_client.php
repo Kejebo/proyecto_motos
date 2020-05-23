@@ -5,7 +5,7 @@ class Ui_client extends Gui
 {
     var $ln;
 
-   
+
     function __construct($config)
     {
         parent::__construct($config);
@@ -39,22 +39,22 @@ class Ui_client extends Gui
                     </div>
                     <div class="card-body">
                         <form method="POST" action="clients.php?action=<?=$action?>">
-                        <input type="hidden" name="id_cliente" value="<?=$client['id_cliente']?>">
+                        <input type="hidden" name="id_cliente" value="<?=($client!= null) ? $client['id_cliente'] :''?>">
                             <div class="form-group">
                                 <label class="etiquetas">Nombre Completo</label>
-                                <input class="form-control" type="text" name="nombre" value="<?=$client['nombre_cliente']?>">
+                                <input class="form-control" type="text" name="nombre" value="<?=($client!= null) ? $client['nombre_cliente']:''?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Telefono</label>
-                                <input class="form-control" type="text" name="telefono" value="<?=$client['telefono']?>">
+                                <input class="form-control" type="text" name="telefono" value="<?=($client!= null) ? $client['telefono']:''?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Correo</label>
-                                <input class="form-control" type="text" name="correo" value="<?=$client['correo']?>">
+                                <input class="form-control" type="text" name="correo" value="<?=($client!= null) ? $client['correo']:''?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Cedula Juridica</label>
-                                <input class="form-control" type="text" name="cedula" value="<?=$client['cedula_juridica']?>">
+                                <input class="form-control" type="text" name="cedula" value="<?=($client!= null) ? $client['cedula_juridica']:''?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Contraseña</label>
@@ -96,8 +96,8 @@ class Ui_client extends Gui
                                             <td><?= $list['cedula_juridica']; ?></td>
                                             <td><?= $list['telefono']; ?></td>
                                             <td><?= $list['correo']; ?></td>
-                                            <td><a href="clients.php?action=delete&id=<?= $list['id_cliente']; ?>" class="btn btn-danger">x</a></td>
-                                            <td><a href="clients.php?action=update_client&id=<?= $list['id_cliente']; ?>" class="btn btn-warning">edit</a></td>
+                                            <td><a href="clients.php?action=delete&id=<?= $list['id_cliente']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="clients.php?action=update_client&id=<?= $list['id_cliente']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                                         </tr>
                                 <?php }
                                 } ?>

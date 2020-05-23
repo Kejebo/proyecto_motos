@@ -7,13 +7,13 @@ class db_purchase extends conexion{
 
     function __construct()
     {
-      parent::__construct();  
+      parent::__construct();
     }
 
 
     function insert_purchase($data){
         extract($data);
-        
+
         $sql = "call insert_compra('$proveedor','3','$factura','$fecha')";
         $result = $this->execute($sql);
         return $result;
@@ -40,6 +40,15 @@ class db_purchase extends conexion{
         return false;
             }
     }
+    function get_detail_purchase($id){
+        $sql = "call get_detalle_compra('$id');";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
     function update_purchase($data){
         extract($data);
         $this->execute("call update_compra('$id','$proveedor','$factura','$fecha')");
@@ -57,6 +66,6 @@ class db_purchase extends conexion{
     }
     function delete_detail($id){
         $this->execute("delete from compras_materiales where id_compra='$id'");
-    }   
+    }
     }
 ?>

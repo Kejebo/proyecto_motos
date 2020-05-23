@@ -43,22 +43,22 @@ class ui_proveedores extends gui
 
                 <div class="form-group">
                   <label class="etiquetas">Nombre Completo</label>
-                  <input class="form-control" type="text" name="nombre" value="<?= $proveedor['nombre'] ?>">
+                  <input class="form-control" type="text" name="nombre" value="<?=($proveedor!= null) ? $proveedor['nombre']:''?>">
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Telefono</label>
-                  <input class="form-control" type="text" name="telefono" value="<?= $proveedor['telefono'] ?>">
+                  <input class="form-control" type="text" name="telefono" value="<?=($proveedor!= null) ? $proveedor['telefono']:'' ?>">
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Correo</label>
-                  <input class="form-control" type="text" name="correo" value="<?= $proveedor['correo'] ?>">
+                  <input class="form-control" type="text" name="correo" value="<?=($proveedor!= null) ? $proveedor['correo']:'' ?>">
                 </div>
                 <div class="form-group">
                   <label class="etiquetas">Cedula Juridica</label>
-                  <input class="form-control" type="text" name="cedula" value="<?= $proveedor['cedula_juridica'] ?>">
+                  <input class="form-control" type="text" name="cedula" value="<?=($proveedor!= null) ? $proveedor['cedula_juridica']:''?>">
                 </div>
                 <hr>
-                <button class="btn btn-primary btn-block " type="submit"><?= $boton ?></button>
+                <button disabled class="btn btn-primary btn-block " type="submit"><?= $boton ?></button>
               </form>
             </div>
           </div>
@@ -89,8 +89,8 @@ class ui_proveedores extends gui
                       <td><?= $list['cedula_juridica']; ?></td>
                       <td><?= $list['telefono']; ?></td>
                       <td><?= $list['correo']; ?></td>
-                      <td><a href="proveedores.php?action=delete&id=<?= $list['id_proveedor']; ?>" class="btn btn-danger">x</a></td>
-                      <td><a href="proveedores.php?action=update_proveedor&id=<?= $list['id_proveedor']; ?>" class="btn btn-warning">edit</a></td>
+                      <td><a href="proveedores.php?action=delete&id=<?= $list['id_proveedor']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                      <td><a href="proveedores.php?action=update_proveedor&id=<?= $list['id_proveedor']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                     </tr>
                   <?php } ?>
                 </tbody>

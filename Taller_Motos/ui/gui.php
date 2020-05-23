@@ -51,10 +51,11 @@ class Gui
                     </div>
                     <ul>
                         <li><a href="inventary.php"><i class="fas fa-boxes"></i> Inventario</a></li>
-                        <li><a href="#"><i class="fas fa-tools"></i> Reparacion</a></li>
+                        <li><a href="repairs.php"><i class="fas fa-tools"></i> Reparacion</a></li>
                         <li><a href="purchases.php"><i class="fas fa-shopping-cart"></i> Compras</a></li>
                         <li><a href="sales.php"><i class="fas fa-cash-register"></i> Ventas</a></li>
                         <li><a href="clients.php"><i class="fas fa-users"></i> Clientes</a></li>
+                        <li><a href="motorcycle.php"><i class="fas fa-tools"></i> Motos</a></li>
                         <li><a href="proveedores.php"><i class="fas fa-user-tie"></i> Proveedores</a></li>
                         <li><a href="users.php"><i class="far fa-address-book"></i> Usuarios</a></li>
                         <li><a href="reportes.php"><i class="fas fa-user-cog"></i> Ajustes</a></li>
@@ -81,7 +82,7 @@ class Gui
                                     <a class="nav-link" href="inventary.php">Inventario</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#"></i> Reparacion</a>
+                                    <a class="nav-link" href="repairs.php"></i> Reparacion</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="purchases.php">Compras</a>
@@ -89,6 +90,10 @@ class Gui
                                 <li class="nav-item">
                                     <a class="nav-link" href="sales.php">Ventas</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="motorcycle.php"></i> Motos</a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="clients.php">Clientes</a>
                                 </li>
@@ -126,6 +131,7 @@ class Gui
             <script src="assets/js/datatables.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
             <script src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"></script>
+
         </body>
 
         </html>

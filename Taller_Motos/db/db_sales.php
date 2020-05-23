@@ -7,13 +7,13 @@ class db_sales extends conexion{
 
     function __construct()
     {
-      parent::__construct();  
+      parent::__construct();
     }
 
 
     function insert_sale($data){
         extract($data);
-        
+
         $sql = "call insert_venta('$cliente','3','$fecha')";
         $result = $this->execute($sql);
         return $result;
@@ -40,6 +40,15 @@ class db_sales extends conexion{
         return false;
             }
     }
+    function get_detail_sale($id){
+        $sql = "call get_detalle_venta('$id');";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
     function update_sale($data){
         extract($data);
         $this->execute("call update_venta('$id','$cliente','$fecha')");
@@ -57,6 +66,6 @@ class db_sales extends conexion{
     }
     function delete_detail($id){
         $this->execute("delete from ventas_materiales where id_venta='$id'");
-    }   
+    }
     }
 ?>
