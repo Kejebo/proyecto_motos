@@ -39,14 +39,14 @@ class ui_user extends Gui
                     </div>
                     <div class="card-body">
                         <form method="POST" action="users.php?action=<?= $action ?>">
-                            <input type="hidden" name="id_usuario" value="<?= $user['id_usuario'] ?>">
+                            <input type="hidden" name="id_usuario" value="<?=( $user!= null) ?  $user['id_usuario']:'' ?>">
                             <div class="form-group">
                                 <label class="etiquetas">Nombre Completo</label>
-                                <input class="form-control" type="text" name="nombre" value="<?= $user['nombre_completo'] ?>">
+                                <input class="form-control" type="text" name="nombre" value="<?=( $user!= null) ?  $user['nombre_completo']:'' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Contraseña</label>
-                                <input type="text" class="form-control" name="clave" id="clave" value="<?= $user['clave'] ?>">
+                                <input type="text" class="form-control" name="clave" id="clave" value="<?=( $user!= null) ?  $user['clave']:'' ?>">
                             </div>
                             <hr>
                             <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>

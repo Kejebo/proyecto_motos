@@ -61,10 +61,11 @@ class db_workshop extends conexion{
 
   function insert_repair($data){
     extract($data);
-    $this->execute("insert into reparaciones(id_moto,fecha_entrada,kilometraje_entrada) values('$moto','$fecha',$kilometraje)");
-    $this->execute("update motos set kilometraje='$kilometraje' where id_moto='$moto';");
+    $this->execute("insert into reparaciones(id_moto,fecha_entrada,kilometraje_entrada) values('$motos','$entrada',$kilometraje)");
+    $this->execute("update motos set kilometraje='$kilometraje' where id_moto='$motos';");
   }
   function insert_material($data,$id){
+    print_r($id);
     extract($data);
     $this->execute("insert into detalle_reparacion(id_reparacion,id_material,cantidad) values('$id','$id_material','$cantidad')");
 

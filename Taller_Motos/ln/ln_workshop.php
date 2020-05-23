@@ -20,31 +20,52 @@
                       header('Location: repairs.php');
                     break;
                     case 'insert_work':
-                      
+                      $this->insert_work($_POST);
+                    break;
+
+                    case 'update_work':
+                      $this->update_work($_POST);
                     break;
                   }
             }
         }
 
         function insert_work($data){
-          print_r($data);
-          /*          $this->db->insert_repair($data);
+          $this->db->insert_repair($data);
           
           extract($data);
           $ultima=$this->db->get_last_id();
           if (isset($materiales)) {
           foreach ($materiales as $datos) {
-            $this->db->insert_material($datos,$ultima);
+            $this->db->insert_material(json_decode($datos,true),$ultima);
           }
         }
           if (isset($trabajos)) {
           foreach ($trabajos as $works) {
-            $this->db->insert_work_detail($works,$ultima);
+            $this->db->insert_work_detail(json_decode($works,true),$ultima);
           }
         }
-      
-  */
         }
+
+
+        function update_work($data){
+
+          extract($data);
+          $this->db->delete_works($id);
+          $this->db->delete_materialwork($id);
+          if (isset($materiales)) {
+            foreach ($materiales as $datos) {
+              $this->db->insert_material(json_decode($datos,true),$id);
+            }
+          }
+            if (isset($trabajos)) {
+            foreach ($trabajos as $works) {
+              $this->db->insert_work_detail(json_decode($works,true),$id);
+            }
+          }
+          }
+
+        
         function delete($id){
           $this->db->delete_work($id);
         }

@@ -119,7 +119,7 @@ class ui_sale extends Gui
                                 <?php      }
                                 } ?>
                             </tbody>
-                            <tfoot id="pie" class="bg-dark text-center text-white">
+                            <tfoot id="pie_venta" class="bg-dark text-center text-white">
                                 <tr>
                                     <td>Saldo</td>
                                     <td></td>

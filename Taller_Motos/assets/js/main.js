@@ -333,7 +333,13 @@ function total_compra() {
   compra.forEach(element => {
     saldo += element.cantidad * element.precio;
   });
-
+  document.querySelector('#pie').innerHTML =`<tr>
+    <td>Saldo</td>
+    <td></td>
+    <td></td>
+    <td>${saldo}</td>
+    <td></td>
+</tr > `
 
 }
 
@@ -342,7 +348,7 @@ function total_venta() {
   venta.forEach(element => {
     saldo += element.cantidad * element.precio;
   });
-  document.querySelector('#pie').innerHTML = ` < tr >
+  document.querySelector('#pie_venta').innerHTML = ` <tr>
     <td>Saldo</td>
     <td></td>
     <td></td>
@@ -524,9 +530,9 @@ function get_motos(combo) {
         let motos = document.querySelector('#motos');
         motos.innerHTML = '';
         datos.forEach(element => {
-          motos.innerHTML += `< option value = "${element.id}" > ${element.moto}</opcion > `
+          console.log(element.id);
+          motos.innerHTML += `<option value ="${element.id}">${element.moto}</opcion> `
         });
-        console.log(response);
       }
     });
   } else {

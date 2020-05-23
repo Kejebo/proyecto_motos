@@ -64,8 +64,8 @@ class ui_repairs extends Gui
                   <td><?=$repair['moto']?></td>
                   <td><?=$repair['placa']?></td>
                   <td><?=$repair['monto']?></td>
-                  <td><button class="btn btn-info"><i class="far fa-eye"></i></button></td>
-                  <td><a href="workshop.php?action=update&id=<?=$repair['id']?>" class="btn btn-warning">+</a></td>
+                  <td><button disabled  class="btn btn-info"><i class="far fa-eye"></i></button></td>
+                  <td><a  href="workshop.php?action=update&id=<?=$repair['id']?>" class="btn btn-warning">+</a></td>
                   <td><a href="repairs.php?action=delete&id=<?=$repair['id']?>" class="btn btn-danger">X</a></td>
                 </tr>
                 <?php

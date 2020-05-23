@@ -37,7 +37,7 @@ class ui_workshop extends Gui
         }
 
 ?>
-<form id="form_work" action="workshop.php?action=<?=$action?>">
+<form action="workshop.php?action=<?=$action?>" method="post">
         <div class=" container row">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 py-3">
                 <div class="card shadow">
@@ -48,7 +48,7 @@ class ui_workshop extends Gui
                             <div class="form-group notificar">
                                 <label class="etiquetas">Fecha de entrada</label>
                                 <input class="form-control" id="entrada" type="date" name="entrada" value="<?=$fecha ?>">
-                                <input type="hidden" id="id" value="<?= $work['id'] ?>">
+                                <input type="hidden" id="id" name="id" value="<?= $work['id'] ?>">
                             </div>
 
                             <div class="form-group">
@@ -104,7 +104,7 @@ class ui_workshop extends Gui
                         </div>
                         <div class="float-right">
 
-                          <span style='display:<?=$boton?>' class="btn btn-dark" type="submit" data-toggle="modal" data-target="#finalizar">Finalizar Trabajo</span>
+                          <span style='display:<?=$boton?>'  class="btn btn-dark" type="submit" data-toggle="modal" data-target="#finalizar">Finalizar Trabajo</span>
                     </div>
                   </div>
                 </div>
