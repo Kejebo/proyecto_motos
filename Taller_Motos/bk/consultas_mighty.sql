@@ -87,12 +87,11 @@ delimiter ;
     order by t.id_trabajo desc;
 	end //
     delimiter ;
-
-	delimiter //
+    delimiter //
     create procedure get_reparacion(id int)
     begin
-	select r.id_reparacion as id, fecha_entrada as fecha,clientes.nombre_cliente as cliente, clientes.id_cliente as id_cliente,concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
-    m.numero_placa as placa, r.precio as monto, m.id_moto as id_moto, r.kilometraje_entrada as kilometraje from  reparaciones r 
+	select *, clientes.nombre_cliente as cliente, clientes.id_cliente as id_cliente,concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    m.numero_placa as placa from  reparaciones r 
     inner join motos m on r.id_moto=m.id_moto
     inner join clientes on clientes.id_cliente = m.id_cliente
     inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join

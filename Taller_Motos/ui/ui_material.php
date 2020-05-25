@@ -42,7 +42,7 @@ class ui_material extends gui
             <div class="card-body">
                 <input type="hidden" name="id" value="<?= $material['id_material'] ?>">
                 <div class="form-group">
-                  <label class="etiquetas">Nombre</label>
+                  <label class="etiquetas">Nombre de Material</label>
                   <input class="form-control" type="text" name="nombre" value="<?=(isset($_GET['id']) ? $material['nombre']:'')?>">
                 </div>
 
@@ -81,7 +81,7 @@ class ui_material extends gui
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="etiquetas">Cantidad inicial</label>
+                  <label class="etiquetas">Cantidad Inicial del Material</label>
                   <input class="form-control" type="number" name="cantidad" value="<?= $material['cantidad_inicial'] ?>">
                 </div>
 
@@ -158,7 +158,7 @@ class ui_material extends gui
 
               </div>
               <div class="form-group presentacion">
-                <label class="etiquetas">Cantidad minima</label>
+                <label class="etiquetas">Cantidad Minima del Material</label>
                 <input class="form-control" type="number" name="cant_minima" value="<?= $material['cantidad_minima'] ?>">
               </div>
 

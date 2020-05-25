@@ -49,7 +49,7 @@ class ui_user extends Gui
                                 <input type="text" class="form-control" name="clave" id="clave" value="<?=( $user!= null) ?  $user['clave']:'' ?>">
                             </div>
                             <hr>
-                            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
+                            <button class="btn btn-primary btn-block" disabled type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
                         </form>
                     </div>
                 </div>
