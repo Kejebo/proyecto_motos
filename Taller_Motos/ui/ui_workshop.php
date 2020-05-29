@@ -38,7 +38,7 @@ class ui_workshop extends Gui
     <nav aria-label="Page breadcrumb">
       <ol class="breadcrumb opciones">
         <li class="breadcrumb-item active" aria-current="page"><a href="repairs.php">Inicio</a></li>
-        <li class="active"><a href="workshop.php">Informacion</a></li>
+        <li class="active"><a href="workshop.php?id=<?= $_GET['id'] ?>">Informacion</a></li>
         <?php if (isset($_GET['id'])) { ?>
           <li><a href="detail_repair.php?id=<?= $_GET['id'] ?>">Detalle de Reparacion</a></li>
         <?php } ?>
