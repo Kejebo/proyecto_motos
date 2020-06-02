@@ -174,10 +174,10 @@ class PDF extends FPDF
         }
         // Línea de cierre
 
-        $this->Cell($w[0], 6, utf8_encode('Saldo'), 1, 0, 'C', true);
+        $this->Cell($w[0], 6, utf8_encode('Saldo'), 1, 0, 'C', $fill);
         $this->Cell($w[1], 6, '', 1, 0, 'C', $fill);
         $this->Cell($w[2], 6, '', 1, 0, 'C', $fill);
-        $this->Cell($w[3], 6, number_format($acum), 1, 0, 'C', true);
+        $this->Cell($w[3], 6, number_format($acum), 1, 0, 'C', $fill);
 
         $this->Cell(array_sum($w), 0, '', 'T');
     }
