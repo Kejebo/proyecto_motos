@@ -205,7 +205,7 @@ function animacion_enviado_codigo() {
 function animacion_enviado_codigo_primero() {
   $("#boton_enviar_primera").remove();
   var boton_falso =
-    '<button id = "boton_enviar_falso" class="btn btn-primary disabled boton_success"> <span class="spinner-border spinner-border-sm"></span> enviando correo</button>';
+    '<button id = "boton_enviar_falso" disabled class="btn btn-primary  boton_success"> <span class="spinner-border spinner-border-sm"></span> enviando correo</button>';
   $("#enviar_correo_boton").append(boton_falso);
   
 }
