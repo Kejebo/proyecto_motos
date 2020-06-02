@@ -46,7 +46,7 @@ class ui_workshop extends Gui
     </nav>
     <form action="workshop.php?action=<?= $action ?>" method="post">
       <div class=" container row">
-        <div class="col-12 col-sm-6 col-md-6 col-lg-6 py-3">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 py-3">
           <div class="card shadow">
             <div class="card-header">
               <h5> <span> <i class="fas fa-bars"></i></span> Registro de Mantenimiento</h5>
@@ -107,7 +107,7 @@ class ui_workshop extends Gui
           </div>
         </div>
 
-        <div class="col-12 col-sm-6 col-md-8 col-lg-6 py-3">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 py-3">
 
           <div class="card">
             <div class="card-header bg-primary">

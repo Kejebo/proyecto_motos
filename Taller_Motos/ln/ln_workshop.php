@@ -75,6 +75,7 @@ class ln_workshop
         $this->db->insert_work_detail(json_decode($works, true), $id);
       }
     }
+    
   }
   function update_work($data)
   {

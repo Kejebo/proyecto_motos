@@ -19,10 +19,7 @@ class ui_purchase extends Gui
     function get_content()
     {
         $purchase = null;
-
-        $visibilidad = 'none';
         $action = 'insert';
-        $script = 'insert_purchase';
         $fecha =  date("Y-m-d");
         $boton='none';
         if (isset($_GET['action'])) {
@@ -30,8 +27,7 @@ class ui_purchase extends Gui
                 $purchase = $this->ln->get_purchase($_GET['id']);
                 $action = 'update';
                 $boton = 'block';
-                $visibilidad = 'block';
-                $script = 'update_purchase';
+
                 $fecha=$purchase[0]['fecha'];
 
             }

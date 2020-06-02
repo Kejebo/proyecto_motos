@@ -34,7 +34,7 @@ class ui_detail_repair extends Gui
         <form action="workshop.php?action=insert_detail" method="post">
             <input type="hidden" name="id" value="<?=$_GET['id']?>">
             <div class="container row">
-                <div class="col-12 col-sm-6 col-md-6 col-lg-6 py-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 py-3">
                     <div class="card shadow">
                         <div class="card-header bg-primary text-white">
                             <div class="clearfix">
@@ -75,7 +75,7 @@ class ui_detail_repair extends Gui
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-8 col-lg-6 py-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 py-3">
                     <div class="card shadow">
                         <div class="card-header">
                             <div class="clearfix">
