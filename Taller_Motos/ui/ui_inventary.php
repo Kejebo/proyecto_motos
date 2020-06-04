@@ -19,7 +19,7 @@ class ui_inventary extends gui
 
 ?>
     <div class="container row">
-      <div class="col-12 col-sm-12 col-md-12 col-lg-12 py-3">
+      <div  class="col-12 col-sm-12 col-md-12 col-lg-12 py-3 contenido_modulos">
         <div class="card shadow">
           <div class="card-header">
             <div class="clearfix">
