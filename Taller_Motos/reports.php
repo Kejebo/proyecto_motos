@@ -249,7 +249,7 @@ switch ($_GET['data']) {
             $pdf->SetTitle('Lista de Compras');
             $pdf->SetAuthor('Taller de motos');
             $pdf->AddPage();
-            $pdf->encabezado_personal('Detalle de Compra', $db->get_purchase($_GET['id']),'Compra');
+            $pdf->encabezado_personal('Detalle de Compra', $db->get_purchase($_GET['id']),'Compras');
             $pdf->get_detalle_compra_venta($header, $db->get_detail_purchase($_GET['id']));
         } else {
             $header = array('Fecha', '#Factura', 'Proveedor', 'Saldo');
