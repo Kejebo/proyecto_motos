@@ -46,7 +46,7 @@ class Gui
                         <li><a href="motorcycle.php"><i class="fas fa-tools"></i> Motos</a></li>
                         <li><a href="proveedores.php"><i class="fas fa-user-tie"></i> Proveedores</a></li>
                         <li><a href="users.php"><i class="far fa-address-book"></i> Usuarios</a></li>
-                        <li><a href="reportes.php"><i class="fas fa-user-cog"></i> Reportes</a></li>
+                        <li><a href="admin.php"><i class="fas fa-user-cog"></i> Empresa</a></li>
                     </ul>
 
                 </div>
@@ -93,6 +93,9 @@ class Gui
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="reportes.php">Reportes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="admin.php">Empresa</a>
                                 </li>
 
                             </ul>

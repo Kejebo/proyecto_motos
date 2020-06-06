@@ -47,36 +47,36 @@ class PDF extends FPDF
 
         $this->Cell(150);
         $this->Cell(30, 10, date('d/m/Y'), 0, 0, 'C');
-        $this->Ln(10);
+        $this->Ln(5);
         $this->Cell(30, 10, "Empresa:", 0, 0, 'L');
-        $this->Ln(10);
+        $this->Ln(5);
         $this->Cell(30, 10, "Cedula Juridica:", 0, 0, 'L');
-        $this->Ln(10);
+        $this->Ln(5);
         $this->Cell(30, 10, "Telefono:", 0, 0, 'L');
-        $this->Ln(10);
+        $this->Ln(5);
         $this->Cell(30, 10, "Direccion:", 0, 0, 'L');
 
-        $this->Ln(15);
+        $this->Ln(10);
         $this->Cell(80);
-        $this->SetFont('Arial', 'B', 15);
+        $this->SetFont('Arial', 'B', 12);
 
         // Título
         $this->Cell(30, 10, $titulo, 0, 0, 'C');
         // Salto de línea
-        $this->Ln(15);
+        $this->Ln(10);
         if ($opcion == 'Compras') {
-            $this->SetFont('Arial', 'I', 12);
+            $this->SetFont('Arial', 'I', 11);
             $this->Cell(30, 10, utf8_encode("#Factura: " . $data[0]['factura']), 0, 0, 'L');
-            $this->LN(10);
+            $this->LN(5);
             $this->Cell(30, 10, utf8_encode("Proveedor: " . $data[0]['proveedor']), 0, 0, 'L');
-            $this->LN(10);
+            $this->LN(5);
         } else {
             $this->SetFont('Arial', 'I', 12);
             $this->Cell(30, 10, utf8_encode("Cliente: " . $data[0]['cliente']), 0, 0, 'L');
-            $this->LN(10);
+            $this->LN(5);
         }
         $this->Cell(30, 10, "Fecha: " . $data[0]['fecha'], 0, 0, 'L');
-        $this->LN(20);
+        $this->LN(15);
     }
 
     function ImprovedTable($header, $data)
