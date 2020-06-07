@@ -8,7 +8,7 @@ var formulario_enviar = document.querySelector("#formulario_enviar_correo");
 var valor = null;
 var id = null;
 var correo_electronico_link = null;
-
+  
 window.addEventListener("load", function() {
   if (formulario != null) {
     formulario.addEventListener("submit", function() {
@@ -347,3 +347,4 @@ function quitarborde(y) {
   x.style.borderColor = "";
   x.style.boxShadow = "none";
 }
+

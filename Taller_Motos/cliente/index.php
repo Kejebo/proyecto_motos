@@ -3,6 +3,7 @@
 <?php
 
 require_once('ui/gui_login.php');
+require_once('ui/ui_cliente.php');
 
 $config = array(
 	'titulo'	=> 'Inicio',
@@ -10,6 +11,7 @@ $config = array(
 );
 
 $ui = new Gui_login($config);
+$uic = new UI_Cliente($config);
 
 ?>
 
@@ -18,9 +20,7 @@ $ui = new Gui_login($config);
 
 <h5>Autorizado</h5>
 
+<?php $uic->get_content(); ?>
 
-<form action="security.php?action=logout" method="post">
 
-	<button class="btn btn-primary">Salir</button>
-
-</form>
+<?php $ui->get_footer(); ?>
