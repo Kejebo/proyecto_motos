@@ -246,12 +246,12 @@ class ln_security
             $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
             $mail->Port       = 587;                                    // TCP port to connect to
 
-            $mail->setFrom('wrdkillvibe@gmail.com', 'Taller Motos');
+            $mail->setFrom('wrdkillvibe@gmail.com', 'Taller Migthy Motors');
             $mail->addAddress($data['correo_electronico_link']);     // Add a recipient
 
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'MightyMotors[CAMBIO CONTRASEÑA]';
-            $mail->Body    = 'usuario : ' . $data['correo_electronico_link'] . ' ha solicitada un cambio de contrasena ' . $data['correo_electronico_link'] . 'copie el siguinte codigo:' . $codigo[0] . $codigo[1] . $codigo[2];
+            $mail->Subject = 'MightyMotors[CODIGO DE SEGURIDAD]';
+            $mail->Body    = 'Usuario : ' . $data['correo_electronico_link'] . ' ha solicitada una recuperacion de contraseña '. 'copie el siguiente codigo de seguridad: ' . $codigo[0] . $codigo[1] . $codigo[2];
 
             $mail->send();
             $respuesta = true;
