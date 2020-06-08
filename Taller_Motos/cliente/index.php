@@ -4,6 +4,7 @@
 
 require_once('ui/gui_login.php');
 require_once('ui/ui_cliente.php');
+require_once('ui/ui_motos.php');
 
 $config = array(
 	'titulo'	=> 'Inicio',
@@ -11,16 +12,32 @@ $config = array(
 );
 
 $ui = new Gui_login($config);
-$uic = new UI_Cliente($config);
+$ui_cliente = new UI_Cliente($config);
+$ui_motos = new UI_Motos($config);
 
 ?>
 
 <!-- HEADER -->
 <?php $ui->get_header(); ?>
+<?php $ui->get_menu(); ?>
 
-<h5>Autorizado</h5>
 
-<?php $uic->get_content(); ?>
+<?php
+		
+        if (isset($_GET['pagina'])) {
+            switch ($_GET['pagina']) {
 
+				case 'motos':
+					
+				 $ui_motos->get_content(); 
+				 
+                break;
+            }
+        }else{
+
+			$ui_cliente->get_content();
+		}
+?>
 
 <?php $ui->get_footer(); ?>
+
