@@ -1095,7 +1095,8 @@ body {
   }
 
   #cuerpo_card{
-height: 450px;
+  padding: 0px;
+  height: 469px;
   }
 
   ::-webkit-scrollbar {
@@ -1115,4 +1116,13 @@ height: 450px;
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
+  }
+
+  #tables{
+    text-align: center;
+    margin-bottom: 0px;
+  }
+
+  #columna_lista_motos{
+   padding-left: 0px;
   }

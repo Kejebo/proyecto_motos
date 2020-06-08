@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#example').DataTable({
+    $('#tables').DataTable({
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
