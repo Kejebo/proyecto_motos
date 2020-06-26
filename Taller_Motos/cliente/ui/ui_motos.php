@@ -7,6 +7,7 @@ class UI_Motos extends Gui_login
 
     function get_content(){
 ?>
+
 <main id="main">
 <!-- ======= Motos Section ======= -->
 <section id="services" class="services">
@@ -21,13 +22,18 @@ class UI_Motos extends Gui_login
         <div class="col-sm-12 col-md-6 col-lg-4" id="columna_lista_motos">
   
         <div class="card shadow mt-4">
-        <div class="scroll_area">
+      
           <div class="card-body" id="cuerpo_card">
           
-          <table class="table table-hover" id="tables">
+          <table id="tables" rol class="display">
+          <thead>
+          <tr role="row" class="odd parent">
+            <th>Motos</th>
+          </tr>
+        </thead>
+
           <tbody>
-          
-          <tr>
+            <tr>
           <td>Moto #1</td>
           </tr>
           <tr>
@@ -69,7 +75,7 @@ class UI_Motos extends Gui_login
          
           </div>
           </div>
-          </div>
+          
 
           </div>
 

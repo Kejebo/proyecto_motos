@@ -24,6 +24,7 @@ class Gui_login
 
     function get_header()
     {
+      
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -40,8 +41,15 @@ class Gui_login
             <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-            
+            <link rel="stylesheet" href="../cliente/assets/css/jquery.dataTables.min.css">
+            <script src="../cliente/assets/js/jquery.dataTables.min.js"></script>
+            <script src="../cliente/assets/js/datatables.js"></script>
           </head>
+
+
+    </script>
+           
+       
 <?php 
     }
         function get_menu()
@@ -52,6 +60,7 @@ class Gui_login
         <body>
             
   <header id="header">
+    
     <div class="d-flex flex-column">
 
       <div class="profile">
@@ -82,6 +91,8 @@ class Gui_login
       <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
 
     </div>
+
+    
   </header><!-- End Header -->
   
   <?php
@@ -92,9 +103,8 @@ class Gui_login
     {
         ?>
 
-            <script src="assets/js/datatables.js"></script>
             <script src="assets/js/main_login.js"></script>
-            
+            <link rel="stylesheet" href="jquery.dataTables.min.css">
            
         </body>
 

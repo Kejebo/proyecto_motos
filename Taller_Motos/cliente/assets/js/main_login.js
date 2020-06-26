@@ -4,6 +4,7 @@ var formulario_validar_codigo = document.querySelector(
   "#formulario_validar_codigo"
 );
 
+
 var formulario_enviar = document.querySelector("#formulario_enviar_correo");
 var valor = null;
 var id = null;
