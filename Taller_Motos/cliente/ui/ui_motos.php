@@ -21,7 +21,7 @@ class UI_Motos extends Gui_login
         <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-4" id="columna_lista_motos">
   
-        <div class="card shadow mt-4">
+        <div class="card shadow mt-4" id="card_lista_motos">
       
           <div class="card-body" id="cuerpo_card">
           
