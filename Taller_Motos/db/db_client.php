@@ -54,7 +54,8 @@ class db_client extends conexion{
         $this->execute($sql);
     }
     function get_client($id){
-        $sql = "select * from clientes where id_cliente='$id';";
+        extract($id);
+        $sql = "select * from clientes where correo='$correo_electronico';";
         $result = $this->get_data($sql);
             if($result){
                 return $result[0];

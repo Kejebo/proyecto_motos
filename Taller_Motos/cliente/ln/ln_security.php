@@ -80,6 +80,10 @@ class ln_security
 
             unset($_COOKIE['usuario']);
             setcookie('usuario', null, time() - 100);
+
+            unset($_COOKIE['cliente']);
+            setcookie('cliente', null, time() - 100);
+            
             header('Location:../security.php?action=logout');
         }
     }

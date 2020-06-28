@@ -6,9 +6,14 @@ require_once('ln/ln_motorcycle.php');
 class UI_Motos extends Gui_login
 {
   var $ln;
+  var $id_usuario;
 
   function __construct()
   {
+    if (isset($_COOKIE['cliente'])) {
+      $data = json_decode($_COOKIE['cliente'], true);
+      $this->id_usuario = $data['id_cliente'];
+    }
       $this->ln = new ln_motorcycle();
   }
 
@@ -73,7 +78,7 @@ class UI_Motos extends Gui_login
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    <?php foreach ($this->ln->get_motos_client("7") as $motos) { ?>
+                                    <?php foreach ($this->ln->get_motos_client($this->id_usuario) as $motos) { ?>
                                         <tr>
                                             <td><?= $motos['moto'] ?></td>
                                             <td><?= $motos['placa'] ?></td>

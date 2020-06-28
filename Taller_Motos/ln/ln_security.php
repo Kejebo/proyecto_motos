@@ -8,11 +8,13 @@ require_once('assets/phpmailer/PHPMailer.php');
 require_once('assets/phpmailer/SMTP.php');
 
 require_once('ln_usuarios.php');
+require_once('ln_client.php');
 
 class ln_security
 {
 
     var $ln_usuarios;
+    var $ln_clientes;
     var $Key = "CLAVESUPERSECRETA";
     var $error;
 
@@ -20,6 +22,7 @@ class ln_security
     {
 
         $this->ln_usuarios = new ln_usuarios();
+        $this->ln_clientes = new ln_client();
     }
 
     function action_controller()
@@ -119,6 +122,8 @@ class ln_security
             if ($this->ln_usuarios->cambio_contrasena($data) == true) {
                 unset($_COOKIE['usuario']);
                 setcookie('usuario', null, time() - 100);
+                unset($_COOKIE['cliente']);
+                setcookie('cliente', null, time() - 100);
                 echo json_encode(array("result" => "actualizado"));
             } else {
                 echo json_encode(array("result" => "no actualizado"));
@@ -138,6 +143,9 @@ class ln_security
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:inventary.php');
             } else if ($result[3] == "cliente") {
+                $result_Cliente = $this->ln_clientes->get_client($data);
+                $json_cliente = json_encode($result_Cliente);
+                setcookie('cliente', $json_cliente, time() + 60 * 60 * 24 * 365);
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:cliente/security.php?action=log_in&datos=' . $this->encriptar($_POST['correo_electronico']));
             }
@@ -187,10 +195,17 @@ class ln_security
     {
 
         if (isset($_COOKIE['usuario'])) {
-
+            if (isset($_COOKIE['cliente'])) {
             unset($_COOKIE['usuario']);
             setcookie('usuario', null, time() - 100);
+            unset($_COOKIE['cliente']);
+            setcookie('cliente', null, time() - 100);
             header('Location:index.php');
+            }else{
+                unset($_COOKIE['usuario']);
+                setcookie('usuario', null, time() - 100);  
+                header('Location:index.php');
+            }
         } else if (isset($_COOKIE['cliente'])) {
 
             unset($_COOKIE['cliente']);

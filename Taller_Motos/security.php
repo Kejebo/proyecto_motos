@@ -2,5 +2,5 @@
 
 require_once('ln/ln_security.php');
 
-$ln = new ln_motorcycle();
+$ln = new ln_security();
 $ln->action_controller();
