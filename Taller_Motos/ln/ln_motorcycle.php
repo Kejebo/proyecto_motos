@@ -34,6 +34,9 @@
         function get_motos(){
             return $this->db->get_motos();
         }
+        function get_motos_client($id){
+            return $this->db->get_motos_client($id);
+        }
         function get_marcas(){
             return $this->db->get_marcas();
         }
@@ -43,6 +46,7 @@
         function get_clientes(){
             return $this->db->get_clientes();
         }
+        
         function get_transmision(){
             return $this->db->get_transmisiones();
         }
