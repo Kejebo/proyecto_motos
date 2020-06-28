@@ -31,9 +31,9 @@ class ln_usuarios
 
         return $this->db->get_usuario($correo);
     }
-    
 
-    
+
+
 
     function get_login($data)
     {

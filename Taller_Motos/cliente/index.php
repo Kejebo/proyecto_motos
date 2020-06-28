@@ -5,6 +5,7 @@
 require_once('ui/gui_login.php');
 require_once('ui/ui_cliente.php');
 require_once('ui/ui_motos.php');
+require_once('ui/ui_reparaciones.php');
 
 $config = array(
 	'titulo'	=> 'Inicio',
@@ -14,6 +15,7 @@ $config = array(
 $ui = new Gui_login($config);
 $ui_cliente = new UI_Cliente($config);
 $ui_motos = new UI_Motos($config);
+$ui_reparaciones = new UI_Reparaciones($config);
 
 ?>
 
@@ -31,8 +33,14 @@ $ui_motos = new UI_Motos($config);
 					
 				 $ui_motos->get_content(); 
 				 
-                break;
-            }
+				break;
+				
+				case 'reparaciones':
+					
+				$ui_reparaciones->get_content(); 
+				
+			   break;
+		   }
         }else{
 
 			$ui_cliente->get_content();

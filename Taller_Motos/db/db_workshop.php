@@ -90,6 +90,16 @@ class db_workshop extends conexion{
     return false;
         }
 }
+
+function get_reparacion_moto($id){
+  $sql = "call get_reparacion_moto('$id');";
+  $result = $this->get_data($sql);
+      if($result){
+          return $result;
+      }else{
+  return false;
+      }
+}
     function get_clients(){
         $sql = "select * from clientes;";
         $result = $this->get_data($sql);

@@ -83,7 +83,7 @@ class ln_security
 
             unset($_COOKIE['cliente']);
             setcookie('cliente', null, time() - 100);
-            
+
             header('Location:../security.php?action=logout');
         }
     }
