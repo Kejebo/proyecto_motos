@@ -13,7 +13,7 @@ class conexion
 			'host' 	=> 'localhost',
 			'user' 	=> 'root',
 			'pass' 	=> '',
-			'db' 	=> 'db_mighty_motors.v2',
+			'db' 	=> 'db_mighty_motors',
 		);
 	}
 

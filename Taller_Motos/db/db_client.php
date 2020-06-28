@@ -1,25 +1,44 @@
 <?php
 
 require_once('conexion.php');
+require_once('db_usuario.php');
 
 class db_client extends conexion{
 
 
+    var $db_usuario;
+
     function __construct()
     {
+      $this->db_usuario = new db_usuario();
       parent::__construct();  
     }
 
-
     function insert_client($data){
         extract($data);
-        
+
+        $array = array(
+            'nombre' => $nombre,
+            'correo' => $correo,
+            'tipo' => 'cliente',
+            'clave' => $clave
+        );
+      
+        $this->conectar();
         $sql = "call insert_clientes('$cedula','$nombre','$correo','$telefono','$clave')";
-        $result = $this->execute($sql);
-        return $result;
+        $result = $this->executeDos($sql);
+        
+        if ($result > 0) {
+
+            $this->db_usuario->insert_usuario($array);
+            return true;
+        } else {
+
+            return false;
+        }
+        $this->desconectar();
     }
 
-    
 
     function get_clients(){
         $sql = "select * from clientes;";
