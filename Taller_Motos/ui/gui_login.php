@@ -17,7 +17,7 @@ class Gui_login
         if ($config) {
             $this->config = $config;
         }
-
+        
         $this->ln_security->check_tipo_login($this->config['url']);
 
     }

@@ -15,8 +15,17 @@ class Gui
         if ($config) {
             $this->config = $config;
         }
-
-        $this->ln_security->check_tipo_login_admin();
+        if (isset($_COOKIE['usuario'])) {
+            $data = json_decode($_COOKIE['usuario'], true);
+           if ($data['tipo'] == 'tecnico') {
+              $this->ln_security->check_tipo_login_tecnico($this->config['url']);
+           }else{
+               $this->ln_security->check_tipo_login_admin($this->config['url']);
+           }
+       }else{
+        $this->ln_security->check_tipo_login_admin($this->config['url']);
+       }
+       
     }
     function get_header()
     {

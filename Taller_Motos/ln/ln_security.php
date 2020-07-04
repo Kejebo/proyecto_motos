@@ -139,7 +139,7 @@ class ln_security
         $json = json_encode($result);
 
         if ($result) {
-            if ($result[3] == "administrador") {
+            if ($result[3] != "cliente") {
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:inventary.php');
             } else if ($result[3] == "cliente") {
@@ -221,7 +221,7 @@ class ln_security
         if (isset($_COOKIE['usuario'])) {
             if ($url != 'recuperacion.php') {
                 $data = json_decode($_COOKIE['usuario'], true);
-                if ($data['tipo'] == 'administrador') {
+                if ($data['tipo'] == 'administrador' || $data['tipo'] == 'tecnico') {
                     header('Location:inventary.php');
                 } else if ($data['tipo'] == 'cliente') {
                     header('Location:cliente/index.php');
@@ -230,13 +230,19 @@ class ln_security
         }
     }
 
-
+    function check_tipo_login_tecnico($url)
+    {
+            if ($url == 'recuperacion.php' || $url == 'users.php' || $url == 'proveedores.php' ) {
+                    header('Location:inventary.php');
+                }
+            }
+        
     function check_tipo_login_admin()
     {
 
         if (isset($_COOKIE['usuario'])) {
             $data = json_decode($_COOKIE['usuario'], true);
-            if ($data['tipo'] != 'administrador') {
+            if ($data['tipo'] == 'cliente' ) {
                 header('Location:cliente/index.php');
             }
         } else {
