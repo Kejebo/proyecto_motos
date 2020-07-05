@@ -45,7 +45,6 @@ class db_client extends conexion{
     }
     function update_client($data){
         extract($data);
-        echo $id_cliente;
         $sql="update clientes c set c.nombre_cliente='$nombre', c.cedula_juridica='$cedula', c.telefono='$telefono', c.correo='$correo' 
         ,c.clave='$clave' where c.id_cliente='$id_cliente';";
         $this->execute($sql);

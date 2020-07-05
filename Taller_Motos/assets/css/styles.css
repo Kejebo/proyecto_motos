@@ -6,11 +6,32 @@
   text-decoration: none;
 }
 
-
+tbody tr td{
+ vertical-align: middle !important;
+}
 body {
   background-color: #f8f9fa;
 }
-
+.breadcrumb{
+  background-color: #594f8d !important;
+}
+.opciones li{
+  margin-left: 10px !important;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.opciones a{
+  text-decoration: none;
+  list-style: none;
+  color:  white;
+  padding: 10px;
+}
+.opciones a:hover{
+  color: white;
+  text-decoration: none;
+  background-color: teal;
+  border-radius: 20px;
+}
 .card-header {
   background-color: #007bff !important;
   color: white;
@@ -24,13 +45,24 @@ body {
 }
 
 .wrapper .sidebar {
+  overflow: auto;
   width: 200px;
   height: 100%;
   background: black;
   padding: 30px 0px;
   position: fixed;
 }
+.wrapper .sidebar::-webkit-scrollbar{
+  background-color: white;
+  width: 7px;
+  border-radius: 4px;
+  
+}
 
+.wrapper .sidebar::-webkit-scrollbar-thumb{
+  background-color: lightgray;
+
+}
 .wrapper .sidebar div {
   color: #fff;
   text-transform: uppercase;

@@ -16,6 +16,12 @@ class ui_user extends Gui
     {
         $this->ln->action_controller();
     }
+    function getTypes(){
+        $data= array('Administrador'=>'Administrador',
+'Tecnico'=>'Tecnico',
+'Cliente' =>'Cliente');
+return $data;
+    }
 
     function get_content()
     {
@@ -48,8 +54,16 @@ class ui_user extends Gui
                                 <label class="etiquetas">Contraseña</label>
                                 <input type="text" class="form-control" name="clave" id="clave" value="<?=( $user!= null) ?  $user['clave']:'' ?>">
                             </div>
+                            <div class="form-group">
+                                <label class="etiquetas">Tipo</label>
+                                <select class="form-control" name="tipo">
+                                 <?php foreach($this->getTypes() as $data){ ?>      
+                                    <option value="<?=$data?>"><?=$data?></option>
+                                 <?php }?>
+                                </select>
+                            </div>
                             <hr>
-                            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
+                            <button class="btn btn-primary btn-block"  type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
                         </form>
                     </div>
                 </div>
@@ -65,7 +79,7 @@ class ui_user extends Gui
                             <thead class="thead-dark text-center text-white">
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Clave</th>
+                                    <th>Rol</th>
                                     <th>Eliminar</th>
                                     <th>Editar</th>
 
@@ -79,7 +93,7 @@ class ui_user extends Gui
                                     foreach ($lista as $list) { ?>
                                         <tr>
                                             <td><?= $list['nombre_completo']; ?></td>
-                                            <td><?= $list['clave']; ?></td>
+                                            <td><?= $list['tipo']; ?></td>
                                             <td><a href="users.php?action=delete&id=<?= $list['id_usuario']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                             <td><a href="users.php?action=update_user&id=<?= $list['id_usuario']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                                         </tr>

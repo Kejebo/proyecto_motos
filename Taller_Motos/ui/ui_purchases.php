@@ -36,7 +36,7 @@ class ui_purchases extends Gui
                   Exportar
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" href="#">PDF</a>
+                  <a class="dropdown-item" href="reports.php?data=Compra">PDF</a>
                   <a class="dropdown-item" href="#">EXCEL</a>
                 </div>
               </div>
@@ -55,6 +55,7 @@ class ui_purchases extends Gui
                             <th>Total</th>
                             <th>Eliminar</th>
                             <th>Editar</th>
+                            <th>Exportar</th>
 
                         </tr>
                     </thead>
@@ -67,6 +68,7 @@ class ui_purchases extends Gui
                                 <td><?= $list['saldo'] ?></td>
                                 <td><a href="purchases.php?action=delete&id=<?= $list['id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                 <td><a href="purchase.php?action=update_purchase&id=<?= $list['id'] ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                                <td><a href="reports.php?data=Compra&id=<?= $list['id'] ?>" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
 
                             </tr>
                         <?php } ?>

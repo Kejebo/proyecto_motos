@@ -139,7 +139,7 @@ class ui_sale extends Gui
         </div>
       </form>
 
-  <div class="modal fade bg-dark" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -178,7 +178,7 @@ class ui_sale extends Gui
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="form-purchase" >Agregar</button>
+        <button type="button" class="btn btn-primary" id="form-sale" onclick="insert_sale_data()">Agregar</button>
       </div>
     </div>
   </div>

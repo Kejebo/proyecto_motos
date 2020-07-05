@@ -8,21 +8,25 @@ var trabajo = [];
 var trabajo_material = [];
 window.addEventListener('load', () => {
   const titulo = document.querySelector('#modulo').textContent;
-  if (titulo === 'Modulo Compras' || titulo === 'Modulo Ventas') {
-    recargar_compra();
-    recargar_venta();
-    insert_purchase(i);
-    insert_sale();
-  } else
-    if (titulo === 'Modulo Mantenimiento') {
-      insert_work();
+  switch (titulo) {
+    case 'Modulo Compras':
+      recargar_compra();
+      insert_purchase(i);
+      break;
+    case 'Modulo Ventas':
+      recargar_venta();
+      break;
+    case 'Modulo Mantenimiento':
+    //  insert_work();
       recargar_trabajo();
       recargar_materiales();
-    }
+      break;
+  }
 });
 
 function crear_fila(detalles, i, table, action) {
   json = JSON.stringify(detalles);
+  console.log("vdfbs");
   let tr = document.createElement('tr');
   tr.setAttribute('ids', i);
   tr.innerHTML = `
@@ -51,7 +55,7 @@ function insert_work_detail() {
   let tr = document.createElement('tr');
   tr.setAttribute('ids', i);
   tr.innerHTML = `
-    <input type=hidden class=lista name=trabajos[] value='${json}'>
+    <input type=hidden class=trabajo name=trabajos[] value='${json}'>
           <td>${trabajo_realizado.nombre_trabajo}</td>
           <td><span class="btn btn-danger" onclick="deletes(this,'work')">X</span></td>
         `
@@ -73,7 +77,7 @@ function insert_materialwork_detail() {
   let tr = document.createElement('tr');
   tr.setAttribute('ids', j);
   tr.innerHTML = `
-    <input type=hidden class=lista name=materiales[] value='${json}'>
+    <input type=hidden class=materiakes name=materiales[] value='${json}'>
     <td>${material_usado.nombre_material}</td>
     <td>${material_usado.cantidad}</td>
     <td><span class="btn btn-danger" onclick="deletes(this,'material')">X</span></td> `
@@ -242,7 +246,7 @@ function insert_purchase(i) {
 
 function insert_sale() {
 
-  $('#form-sale').submit(function (e) {
+  $('#form-sale').click(function (e) {
     e.preventDefault();
     validate_sale(document.querySelector('#material').value, document.querySelector('#cantidad').value);
 
@@ -277,8 +281,7 @@ function insert_work() {
     });
   });
 }
-function insert_sale_data(monto) {
-  if (monto >= 0) {
+function insert_sale_data() {
     let nombre = document.querySelector('#material');
 
     detalles = {
@@ -287,54 +290,25 @@ function insert_sale_data(monto) {
       material: document.querySelector('#material').value,
       nombre_material: nombre.options[nombre.selectedIndex].textContent
     };
-    if (detalles.cantidad > 0) {
       venta.push(detalles);
 
       resetear();
       document.querySelector('#detalle').appendChild(crear_fila(detalles, i++, '#venta', 'sale'));
       total_venta();
 
-    } else {
-      showMessage('Ingrese una cantidad mayor', 'danger', '#form-sale');
-    }
-  }
-}
-function crear_fila(detalles, i, table, action) {
-  json = JSON.stringify(detalles);
-  let tr = document.createElement('tr');
-  tr.setAttribute('ids', i);
-  tr.innerHTML = `
-  <input type=hidden class=lista name=detalles[{json}'>
-  <td>${detalles.nombre_material}</td>
-      <td>${detalles.cantidad}</td>
-      <td>${detalles.precio}</td>
-      <td>${detalles.precio * detalles.cantidad}</td>
-      <td><span class="delete_detail btn btn-danger" onclick=deletes({action}")><i class="fas fa-trash"></i></span></td>
-  `
 
-  return tr;
 }
+
 function validate_sale(id, cantidad) {
-  let action = 'get_saldo';
-  var result = '';
-  $.ajax({
-    type: "post",
-    url: "controller.php",
-    data: { action, id },
-    success: function (response) {
-      let dato = JSON.parse(response);
-      insert_sale_data(dato.saldo - cantidad);
+      insert_sale_data(cantidad);
       total_venta();
     }
-  });
-  return;
-}
 function total_compra() {
   let saldo = 0;
   compra.forEach(element => {
     saldo += element.cantidad * element.precio;
   });
-  document.querySelector('#pie').innerHTML =`<tr>
+  document.querySelector('#pie').innerHTML = `<tr>
     <td>Saldo</td>
     <td></td>
     <td></td>
@@ -471,6 +445,7 @@ function recargar_compra() {
 function recargar_venta() {
   venta = [];
   document.querySelectorAll('.lista').forEach(element => {
+    i++;
     let aux = JSON.parse(element.value);
     let data = {
       precio: aux.precio,

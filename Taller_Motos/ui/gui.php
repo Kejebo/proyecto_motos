@@ -17,6 +17,7 @@ class Gui
         }
 
         $this->ln_security->check_tipo_login_admin();
+        $this->config = $config;
     }
     function get_header()
     {
@@ -56,9 +57,10 @@ class Gui
                         <li><a href="sales.php"><i class="fas fa-cash-register"></i> Ventas</a></li>
                         <li><a href="clients.php"><i class="fas fa-users"></i> Clientes</a></li>
                         <li><a href="motorcycle.php"><i class="fas fa-tools"></i> Motos</a></li>
+                        <li><a href="works.php"><i class="fas fa-tools"></i> Servicios</a></li>
                         <li><a href="proveedores.php"><i class="fas fa-user-tie"></i> Proveedores</a></li>
                         <li><a href="users.php"><i class="far fa-address-book"></i> Usuarios</a></li>
-                        <li><a href="reportes.php"><i class="fas fa-user-cog"></i> Ajustes</a></li>
+                        <li><a href="admin.php"><i class="fas fa-user-cog"></i> Empresa</a></li>
                     </ul>
 
                 </div>
@@ -93,6 +95,9 @@ class Gui
                                 <li class="nav-item">
                                     <a class="nav-link" href="motorcycle.php"></i> Motos</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="services.php"></i> Servicios</a>
+                                </li>
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="clients.php">Clientes</a>
@@ -104,7 +109,10 @@ class Gui
                                     <a class="nav-link" href="users.php">Usuarios</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="reportes.php">Ajustes</a>
+                                    <a class="nav-link" href="reportes.php">Reportes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="admin.php">Empresa</a>
                                 </li>
 
                             </ul>
