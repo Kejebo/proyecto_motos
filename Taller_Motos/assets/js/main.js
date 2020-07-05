@@ -86,6 +86,28 @@ function insert_materialwork_detail() {
 
 }
 
+function insert_cliente() {
+  let nombre = document.querySelector('#nombre_cliente').value;
+  let cedula = document.querySelector('#cedula').value;
+  let telefono=document.querySelector('#telefono').value;
+  let correo= document.querySelector('#correo').value;
+  let clave=document.querySelector('#clave').value;
+  let action='insert_cliente';
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: {action, nombre,cedula,telefono,correo,clave},
+    success: function (response) {
+      let datos = JSON.parse(response);
+      document.querySelector('#cliente').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#cliente').innerHTML += `
+          <option value=${element.id_cliente}>${element.cedula} / ${element.nombre_cliente}<opcion>`
+      });
+    }
+  });
+}
+
 function insert_marca() {
   let nombre_marca = document.querySelector('#nombre_marca').value
   let action = 'insert_marca';

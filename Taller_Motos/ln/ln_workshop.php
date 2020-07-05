@@ -20,7 +20,10 @@ class ln_workshop
           $this->insert($_POST);
           header('Location: repairs.php');
           break;
-
+          case 'insert_detail':
+            $this->update_work($_POST);
+            header('Location: repairs.php');
+            break;
         case 'insert_work':
           $this->insert_work($_POST);
           header('Location: workshop.php?action=update&id=' . $this->db->get_last_id());

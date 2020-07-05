@@ -1,6 +1,6 @@
 <?php
 require_once('gui.php');
-require_once('ln/ln_user.php');
+require_once('ln/ln_usuarios.php');
 class ui_user extends Gui
 {
     var $ln;
@@ -9,18 +9,21 @@ class ui_user extends Gui
     function __construct($config)
     {
         parent::__construct($config);
-        $this->ln = new ln_user();
+        $this->ln = new ln_usuarios();
     }
 
     function action_controller()
     {
         $this->ln->action_controller();
     }
-    function getTypes(){
-        $data= array('Administrador'=>'Administrador',
-'Tecnico'=>'Tecnico',
-'Cliente' =>'Cliente');
-return $data;
+    function getTypes()
+    {
+        $data = array(
+            'Administrador' => 'Administrador',
+            'Tecnico' => 'Tecnico',
+            'Cliente' => 'Cliente'
+        );
+        return $data;
     }
 
     function get_content()
@@ -30,7 +33,7 @@ return $data;
         $boton = 'Registrar';
         if (isset($_GET['action'])) {
             if ($_GET['action'] == 'update_user') {
-                $user = $this->ln->get_user($_GET['id']);
+                $user = $this->ln->get_usuario($_GET['id']);
                 $action = 'update';
                 $boton = 'Actualizar';
             }
@@ -45,25 +48,29 @@ return $data;
                     </div>
                     <div class="card-body">
                         <form method="POST" action="users.php?action=<?= $action ?>">
-                            <input type="hidden" name="id_usuario" value="<?=( $user!= null) ?  $user['id_usuario']:'' ?>">
+                            <input type="hidden" name="id_usuario" value="<?= ($user != null) ?  $user['id_usuario'] : '' ?>">
                             <div class="form-group">
                                 <label class="etiquetas">Nombre Completo</label>
-                                <input class="form-control" type="text" name="nombre" value="<?=( $user!= null) ?  $user['nombre_completo']:'' ?>">
+                                <input class="form-control" type="text" name="nombre" value="<?= ($user != null) ?  $user['nombre_completo'] : '' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Contraseña</label>
-                                <input type="text" class="form-control" name="clave" id="clave" value="<?=( $user!= null) ?  $user['clave']:'' ?>">
+                                <input type="text" class="form-control" name="clave" id="clave" value="<?= ($user != null) ?  $user['clave'] : '' ?>">
+                            </div>
+                            <div class="form-group">
+                                <label class="etiquetas">Correo</label>
+                                <input type="email" class="form-control" name="correo"  value="<?= ($user != null) ?  $user['clave'] : '' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Tipo</label>
                                 <select class="form-control" name="tipo">
-                                 <?php foreach($this->getTypes() as $data){ ?>      
-                                    <option value="<?=$data?>"><?=$data?></option>
-                                 <?php }?>
+                                    <?php foreach ($this->getTypes() as $data) { ?>
+                                        <option value="<?= $data ?>"><?= $data ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <hr>
-                            <button class="btn btn-primary btn-block"  type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
+                            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
                         </form>
                     </div>
                 </div>
@@ -87,18 +94,7 @@ return $data;
                             </thead>
                             <tbody class="text-center">
 
-                                <?php
-                                $lista = $this->ln->get_users();
-                                if ($lista) {
-                                    foreach ($lista as $list) { ?>
-                                        <tr>
-                                            <td><?= $list['nombre_completo']; ?></td>
-                                            <td><?= $list['tipo']; ?></td>
-                                            <td><a href="users.php?action=delete&id=<?= $list['id_usuario']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
-                                            <td><a href="users.php?action=update_user&id=<?= $list['id_usuario']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
-                                        </tr>
-                                <?php }
-                                } ?>
+                             
                             </tbody>
 
                         </table>

@@ -21,9 +21,9 @@ class db_usuario extends conexion
         mysqli_set_charset($this->conexion, 'utf8');
         $us = mysqli_real_escape_string($this->conexion, $correo_electronico);
         $pass = mysqli_real_escape_string($this->conexion, $contrasena);
-        $admin = mysqli_real_escape_string($this->conexion, $tipo_usuario);
+       // $admin = mysqli_real_escape_string($this->conexion, $tipo_usuario);
 
-        $sql = "call get_usuario('$us','$pass','$admin')";
+        $sql = "call get_usuario('$us','$pass')";
 
         $result = $this->get_data($sql);
 

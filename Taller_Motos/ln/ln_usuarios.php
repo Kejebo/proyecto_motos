@@ -14,6 +14,18 @@ class ln_usuarios
         $this->db = new db_usuario();
     }
 
+    function action_controller(){
+        if(isset($_GET['action'])){
+            switch($_GET['action']){
+                case 'insert':
+                    $this->insert_user($_POST);
+                    header('Location: users.php');
+
+                break;
+                
+        }
+    }
+}
     function insert_user($data)
     {
 

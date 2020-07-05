@@ -17,7 +17,7 @@ class Gui
         }
         if (isset($_COOKIE['usuario'])) {
             $data = json_decode($_COOKIE['usuario'], true);
-           if ($data['tipo'] == 'tecnico') {
+           if ($data['tipo'] == 'Tecnico') {
               $this->ln_security->check_tipo_login_tecnico($this->config['url']);
            }else{
                $this->ln_security->check_tipo_login_admin($this->config['url']);
@@ -136,11 +136,7 @@ class Gui
             function get_footer()
             {
                 ?>
-                    <footer>
-                        <div class="container">
-                            <p>Derechos Reservados <strong>Gesy</strong></p>
-                        </div>
-                    </footer>
+                 
                 </div>
             </div>
             <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
