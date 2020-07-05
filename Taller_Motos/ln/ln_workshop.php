@@ -1,5 +1,4 @@
 <?php
-include 'db/db_client.php';
 require_once('db/db_workshop.php');
 
 class ln_workshop
@@ -31,17 +30,12 @@ class ln_workshop
           $this->db->insert_work($_POST);
           header('Location: works.php');
           break;
-
-
-        case 'insert_detail':
-          $this->insert_detail($_POST);
-          header('Location: repairs.php');
+        case 'insert_work':
+          $this->insert_work($_POST);
           break;
 
         case 'update_work':
           $this->update_work($_POST);
-          header('Location: repairs.php');
-
           break;
       }
     }
@@ -65,10 +59,10 @@ class ln_workshop
     }
   }
 
-  function insert_detail($data)
+  function update_work($data)
   {
-    extract($data);
 
+    extract($data);
     $this->db->delete_works($id);
     $this->db->delete_materialwork($id);
     if (isset($materiales)) {
@@ -83,11 +77,6 @@ class ln_workshop
     }
   }
 
-  function update_work($data)
-  {
-    $this->db->update_work($data);
-  }
-
 
   function delete($id)
   {
@@ -100,6 +89,16 @@ class ln_workshop
   function get_repairs()
   {
     return $this->db->get_repairs();
+  }
+
+  function get_reparacion_moto($id)
+  {
+    $data = $this->db->get_reparacion_moto($id);
+    if ($data != false) {
+      return $data;
+    } else {
+      return array();
+    }
   }
   function insert($data)
   {

@@ -15,9 +15,17 @@ class Gui
         if ($config) {
             $this->config = $config;
         }
-
-        $this->ln_security->check_tipo_login_admin();
-        $this->config = $config;
+        if (isset($_COOKIE['usuario'])) {
+            $data = json_decode($_COOKIE['usuario'], true);
+           if ($data['tipo'] == 'tecnico') {
+              $this->ln_security->check_tipo_login_tecnico($this->config['url']);
+           }else{
+               $this->ln_security->check_tipo_login_admin($this->config['url']);
+           }
+       }else{
+        $this->ln_security->check_tipo_login_admin($this->config['url']);
+       }
+       
     }
     function get_header()
     {
@@ -73,8 +81,13 @@ class Gui
                 ?>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <a class="navbar-brand" id="modulo"><?= $this->config['titulo']; ?></a>
+                        <div class="container-fluid" id="cerrar_sesion_contenedor">
+                        <form action="security.php?action=logout" method="post">
+                        <button class="btn btn-success" id="boton_cerrar_sesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</button>
+                        </form>
+                        </div>
                         <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                         </button>
 
                         <div id="my-nav" class="collapse navbar-collapse">

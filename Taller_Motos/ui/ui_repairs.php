@@ -11,19 +11,19 @@ class ui_repairs extends Gui
     parent::__construct($config);
   }
 
-  function get_content()
-  {
-?>
-    <div class="container row">
-      <div class="col-12 col-sm-12 col-md-12 col-lg-12 py-3">
-        <div class="card shadow">
-          <div class="card-header">
-            <div class="clearfix">
-              <div class="float-left">
-                <h5 class="card-title">Lista de Reparaciones</h5>
-              </div>
-              <div class="float-right">
-                <div class="btn-group" role="group" aria-label="First group">
+    function get_content()
+    {
+      ?>
+<div class="container row">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 py-3 contenido_modulos">
+    <div class="card shadow">
+      <div class="card-header">
+        <div class="clearfix">
+          <div class="float-left">
+            <h5 class="card-title">Lista de Reparaciones</h5>
+          </div>
+          <div class="float-right">
+            <div class="btn-group" role="group" aria-label="First group">
 
                   <a class="btn btn-dark" href="workshop.php"> + Nuevo</a>
                   <div class="btn-group ml-2" role="group">

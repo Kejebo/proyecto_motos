@@ -8,11 +8,13 @@ require_once('assets/phpmailer/PHPMailer.php');
 require_once('assets/phpmailer/SMTP.php');
 
 require_once('ln_usuarios.php');
+require_once('ln_client.php');
 
 class ln_security
 {
 
     var $ln_usuarios;
+    var $ln_clientes;
     var $Key = "CLAVESUPERSECRETA";
     var $error;
 
@@ -20,6 +22,7 @@ class ln_security
     {
 
         $this->ln_usuarios = new ln_usuarios();
+        $this->ln_clientes = new ln_client();
     }
 
     function action_controller()
@@ -119,6 +122,8 @@ class ln_security
             if ($this->ln_usuarios->cambio_contrasena($data) == true) {
                 unset($_COOKIE['usuario']);
                 setcookie('usuario', null, time() - 100);
+                unset($_COOKIE['cliente']);
+                setcookie('cliente', null, time() - 100);
                 echo json_encode(array("result" => "actualizado"));
             } else {
                 echo json_encode(array("result" => "no actualizado"));
@@ -134,10 +139,13 @@ class ln_security
         $json = json_encode($result);
 
         if ($result) {
-            if ($result[3] == "administrador") {
+            if ($result[3] != "cliente") {
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:inventary.php');
             } else if ($result[3] == "cliente") {
+                $result_Cliente = $this->ln_clientes->get_client($data);
+                $json_cliente = json_encode($result_Cliente);
+                setcookie('cliente', $json_cliente, time() + 60 * 60 * 24 * 365);
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:cliente/security.php?action=log_in&datos=' . $this->encriptar($_POST['correo_electronico']));
             }
@@ -187,10 +195,17 @@ class ln_security
     {
 
         if (isset($_COOKIE['usuario'])) {
-
+            if (isset($_COOKIE['cliente'])) {
             unset($_COOKIE['usuario']);
             setcookie('usuario', null, time() - 100);
+            unset($_COOKIE['cliente']);
+            setcookie('cliente', null, time() - 100);
             header('Location:index.php');
+            }else{
+                unset($_COOKIE['usuario']);
+                setcookie('usuario', null, time() - 100);  
+                header('Location:index.php');
+            }
         } else if (isset($_COOKIE['cliente'])) {
 
             unset($_COOKIE['cliente']);
@@ -206,7 +221,7 @@ class ln_security
         if (isset($_COOKIE['usuario'])) {
             if ($url != 'recuperacion.php') {
                 $data = json_decode($_COOKIE['usuario'], true);
-                if ($data['tipo'] == 'administrador') {
+                if ($data['tipo'] == 'administrador' || $data['tipo'] == 'tecnico') {
                     header('Location:inventary.php');
                 } else if ($data['tipo'] == 'cliente') {
                     header('Location:cliente/index.php');
@@ -215,13 +230,19 @@ class ln_security
         }
     }
 
-
+    function check_tipo_login_tecnico($url)
+    {
+            if ($url == 'recuperacion.php' || $url == 'users.php' || $url == 'proveedores.php' ) {
+                    header('Location:inventary.php');
+                }
+            }
+        
     function check_tipo_login_admin()
     {
 
         if (isset($_COOKIE['usuario'])) {
             $data = json_decode($_COOKIE['usuario'], true);
-            if ($data['tipo'] != 'administrador') {
+            if ($data['tipo'] == 'cliente' ) {
                 header('Location:cliente/index.php');
             }
         } else {
@@ -246,12 +267,12 @@ class ln_security
             $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
             $mail->Port       = 587;                                    // TCP port to connect to
 
-            $mail->setFrom('wrdkillvibe@gmail.com', 'Taller Motos');
+            $mail->setFrom('wrdkillvibe@gmail.com', 'Taller Migthy Motors');
             $mail->addAddress($data['correo_electronico_link']);     // Add a recipient
 
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'MightyMotors[CAMBIO CONTRASEÑA]';
-            $mail->Body    = 'usuario : ' . $data['correo_electronico_link'] . ' ha solicitada un cambio de contrasena ' . $data['correo_electronico_link'] . 'copie el siguinte codigo:' . $codigo[0] . $codigo[1] . $codigo[2];
+            $mail->Subject = 'MightyMotors[CODIGO DE SEGURIDAD]';
+            $mail->Body    = 'Usuario : ' . $data['correo_electronico_link'] . ' ha solicitada una recuperacion de contraseña '. 'copie el siguiente codigo de seguridad: ' . $codigo[0] . $codigo[1] . $codigo[2];
 
             $mail->send();
             $respuesta = true;

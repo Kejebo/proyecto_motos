@@ -3,6 +3,9 @@
 <?php
 
 require_once('ui/gui_login.php');
+require_once('ui/ui_cliente.php');
+require_once('ui/ui_motos.php');
+require_once('ui/ui_reparaciones.php');
 
 $config = array(
 	'titulo'	=> 'Inicio',
@@ -10,17 +13,39 @@ $config = array(
 );
 
 $ui = new Gui_login($config);
+$ui_cliente = new UI_Cliente($config);
+$ui_motos = new UI_Motos($config);
+$ui_reparaciones = new UI_Reparaciones($config);
 
 ?>
 
 <!-- HEADER -->
 <?php $ui->get_header(); ?>
+<?php $ui->get_menu(); ?>
 
-<h5>Autorizado</h5>
 
+<?php
+		
+        if (isset($_GET['pagina'])) {
+            switch ($_GET['pagina']) {
 
-<form action="security.php?action=logout" method="post">
+				case 'motos':
+					
+				 $ui_motos->get_content(); 
+				 
+				break;
+				
+				case 'reparaciones':
+					
+				$ui_reparaciones->get_content(); 
+				
+			   break;
+		   }
+        }else{
 
-	<button class="btn btn-primary">Salir</button>
+			$ui_cliente->get_content();
+		}
+?>
 
-</form>
+<?php $ui->get_footer(); ?>
+
