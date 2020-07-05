@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
       recargar_venta();
       break;
     case 'Modulo Mantenimiento':
-      insert_work();
+    //  insert_work();
       recargar_trabajo();
       recargar_materiales();
       break;
@@ -77,7 +77,7 @@ function insert_materialwork_detail() {
   let tr = document.createElement('tr');
   tr.setAttribute('ids', j);
   tr.innerHTML = `
-    <input type=hidden class=materuakes name=materiales[] value='${json}'>
+    <input type=hidden class=materiakes name=materiales[] value='${json}'>
     <td>${material_usado.nombre_material}</td>
     <td>${material_usado.cantidad}</td>
     <td><span class="btn btn-danger" onclick="deletes(this,'material')">X</span></td> `

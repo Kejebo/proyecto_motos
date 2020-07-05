@@ -27,6 +27,12 @@ class ln_workshop
           header('Location: workshop.php?action=update&id=' . $this->db->get_last_id());
           break;
 
+        case 'insert_trabajo':
+          $this->db->insert_work($_POST);
+          header('Location: works.php');
+          break;
+
+
         case 'insert_detail':
           $this->insert_detail($_POST);
           header('Location: repairs.php');
@@ -75,13 +81,11 @@ class ln_workshop
         $this->db->insert_work_detail(json_decode($works, true), $id);
       }
     }
-    
   }
+
   function update_work($data)
   {
-
     $this->db->update_work($data);
-    /*  */
   }
 
 

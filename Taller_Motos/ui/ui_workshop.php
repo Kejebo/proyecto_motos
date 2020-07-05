@@ -28,7 +28,6 @@ class ui_workshop extends Gui
       if ($_GET['action'] == 'update') {
         $work = $this->ln->get_repair($_GET['id']);
         $action = 'update_work';
-        $boton = 'block';
         $fecha = $work['fecha_entrada'];
         $titulo = 'Actualizar';
       }

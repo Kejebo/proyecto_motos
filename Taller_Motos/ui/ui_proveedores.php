@@ -58,7 +58,7 @@ class ui_proveedores extends gui
                   <input class="form-control" type="text" name="cedula" value="<?=($proveedor!= null) ? $proveedor['cedula_juridica']:''?>">
                 </div>
                 <hr>
-                <button disabled class="btn btn-primary btn-block " type="submit"><?= $boton ?></button>
+                <button  class="btn btn-primary btn-block " type="submit"><?= $boton ?></button>
               </form>
             </div>
           </div>

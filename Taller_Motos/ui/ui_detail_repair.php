@@ -31,7 +31,7 @@ class ui_detail_repair extends Gui
             </ol>
         </nav>
         
-        <form action="workshop.php?action=insert_detail" method="post">
+        <form action="detail_repair.php?action=insert_detail" method="post">
             <input type="hidden" name="id" value="<?=$_GET['id']?>">
             <div class="container row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 py-3">
@@ -63,7 +63,7 @@ class ui_detail_repair extends Gui
                                     ?>
                                             <tr ids="<?= $j++ ?>">
                                                 <input type="hidden" class="trabajos" name="trabajos[]" value='<?= json_encode($works); ?>'>
-                                                <td><?= $works['trabajo'] ?></td>
+                                                <td><?= $works['nombre_trabajo'] ?></td>
                                                 <td><span class="btn btn-danger" onclick="deletes(this,'work')">X</span></td>
                                             </tr>
                                     <?php  }

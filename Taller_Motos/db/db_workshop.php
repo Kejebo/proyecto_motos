@@ -17,6 +17,10 @@ class db_workshop extends conexion{
       $this->execute("insert into detalle_trabajo(id_reparacion,id_trabajo) values('$id','$id_trabajo')");
     }
 
+    function insert_work($data){
+      extract($data);
+      $this->execute("insert into trabajos(nombre_trabajo) values('$nombre');");
+    }
     function delete_work($id){
       $this->delete_works($id);
       $this->delete_materialwork($id);

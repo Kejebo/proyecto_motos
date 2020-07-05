@@ -137,10 +137,10 @@ class ui_purchase extends Gui
 
             </div>
         </div>
-                  <div class="modal fade bg-dark" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-success text-white">
                   <h5 class="modal-title">Agregar Material</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

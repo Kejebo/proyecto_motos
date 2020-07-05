@@ -35,35 +35,38 @@ class ui_material extends gui
         <h6> <span><i class="fas fa-bars"></i></span> Registro de Inventario</h6>
       </div>
       <form method="post" action="materials.php?action=<?= $action ?>">
-      <div class="row">
-        <div class="col-lg-6 col-sm-12 col-12">
-          <div class="card shadow">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12 col-12">
+            <div class="card shadow">
 
-            <div class="card-body">
+              <div class="card-body">
                 <input type="hidden" name="id" value="<?= $material['id_material'] ?>">
-                <div class="form-group">
-                  <label class="etiquetas">Nombre de Material</label>
-                  <input class="form-control" type="text" name="nombre" value="<?=(isset($_GET['id']) ? $material['nombre']:'')?>">
-                </div>
-
-                <label class="etiquetas">Categoria</label>
-                <div class="input-group mb-3">
-                  <select name="categoria" id="categoria" class="form-control" onchange="selec(this)">
-                    <?php foreach ($this->ln->get_category() as $lista) {
-                      if ($material['id_categoria'] == $lista['id_categoria']) {
-                    ?>
-                        <option selected value="<?= $lista['id_categoria'] ?>"><?= $lista['nombre_categoria'] ?></option>
-                      <?php } else { ?>
-                        <option value="<?= $lista['id_categoria'] ?>"><?= $lista['nombre_categoria'] ?></option>
-                    <?php }
-                    } ?>
-                  </select>
-                  <div class="input-group-append">
-                    <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_categoria">+</span>
+                <div class="row">
+                  <div class="form-group  col-sm-6">
+                    <label class="etiquetas">Nombre de Material</label>
+                    <input class="form-control" type="text" name="nombre" value="<?= (isset($_GET['id']) ? $material['nombre'] : '') ?>">
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="etiquetas">Categoria</label>
+                    <div class="input-group mb-3">
+                      <select name="categoria" id="categoria" class="form-control" onchange="selec(this)">
+                        <?php foreach ($this->ln->get_category() as $lista) {
+                          if ($material['id_categoria'] == $lista['id_categoria']) {
+                        ?>
+                            <option selected value="<?= $lista['id_categoria'] ?>"><?= $lista['nombre_categoria'] ?></option>
+                          <?php } else { ?>
+                            <option value="<?= $lista['id_categoria'] ?>"><?= $lista['nombre_categoria'] ?></option>
+                        <?php }
+                        } ?>
+                      </select>
+                      <div class="input-group-append">
+                        <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_categoria">+</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-
+                <div class="row">
+                <div class="col-sm-6">
                 <label class="etiquetas">Marca</label>
 
                 <div class="input-group mb-3">
@@ -80,102 +83,101 @@ class ui_material extends gui
                     <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_marca">+</span>
                   </div>
                 </div>
-                <div class="form-group">
+                </div>
+                <div class="form-group col-sm-6">
                   <label class="etiquetas">Cantidad Inicial del Material</label>
                   <input class="form-control" type="number" name="cantidad" value="<?= $material['cantidad_inicial'] ?>">
                 </div>
+                </div>
 
-
-            </div>
-          </div>
-          <div class="modal fade bg-dark" id="form_marca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Agregar Marca</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label class="etiquetas">Nombre</label>
-                    <input class="form-control" type="text" id="nombre_marca" placeholder="ingrese el nombre de la marca">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_marca()">Guardar</button>
-                </div>
               </div>
             </div>
-          </div>
-          <div class="modal fade" id="form_categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Agregar Categoria</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label class="etiquetas">Nombre</label>
-                    <div class="input-group mb-3">
-                      <input class="form-control" type="text" id="nombre_categoria" placeholder="Ingrese el nombre de la categoria">
-                      <div class="input-group-append">
-                        <select name="" id="id_medida" class="form-control">
-                          <?php foreach ($this->ln->get_medidas() as $medidas) { ?>
-                            <option value="<?= $medidas['id_medida'] ?>"><?= $medidas['nombre_medida'] ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
+            <div class="modal fade" id="form_marca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title">Agregar Marca</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label class="etiquetas">Nombre</label>
+                      <input class="form-control" type="text" id="nombre_marca" placeholder="ingrese el nombre de la marca">
                     </div>
-
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_marca()">Guardar</button>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insert_category()">Guardar</button>
+              </div>
+            </div>
+            <div class="modal fade" id="form_categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title">Agregar Categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label class="etiquetas">Nombre</label>
+                      <div class="input-group mb-3">
+                        <input class="form-control" type="text" id="nombre_categoria" placeholder="Ingrese el nombre de la categoria">
+                        <div class="input-group-append">
+                          <select name="" id="id_medida" class="form-control">
+                            <?php foreach ($this->ln->get_medidas() as $medidas) { ?>
+                              <option value="<?= $medidas['id_medida'] ?>"><?= $medidas['nombre_medida'] ?></option>
+                            <?php } ?>
+                          </select>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" onclick="insert_category()">Guardar</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="col-12 col-sm-12 col-lg-6">
-          <div class="card shadow">
-            <div class="card-body">
-              <div class="form-group" id="monto" style="display: none">
-                <label class="etiquetas">Presentacion</label>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" name="presentacion" value="0">
-                  <div class="input-group-append">
-                    <span class="input-group-text medida">Unid</span>
+          <div class="col-12 col-sm-12 col-lg-6">
+            <div class="card shadow">
+              <div class="card-body">
+                <div class="form-group" id="monto" style="display: none">
+                  <label class="etiquetas">Presentacion</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="presentacion" value="0">
+                    <div class="input-group-append">
+                      <span class="input-group-text medida">Unid</span>
+                    </div>
                   </div>
+
+                </div>
+                <div class="form-group presentacion">
+                  <label class="etiquetas">Cantidad Minima del Material</label>
+                  <input class="form-control" type="number" name="cant_minima" value="<?= $material['cantidad_minima'] ?>">
                 </div>
 
-              </div>
-              <div class="form-group presentacion">
-                <label class="etiquetas">Cantidad Minima del Material</label>
-                <input class="form-control" type="number" name="cant_minima" value="<?= $material['cantidad_minima'] ?>">
-              </div>
+                <div class="form-group">
+                  <label class="etiquetas">Precio de Compra</label>
+                  <input class="form-control" type="number" name="precio_compra" value="<?= $material['precio_compra'] ?>">
+                </div>
+                <div class="form-group">
+                  <label class="etiquetas">Precio de Venta</label>
+                  <input class="form-control" type="number" name="precio_venta" value="<?= $material['precio_venta'] ?>">
+                </div>
 
-              <div class="form-group">
-                <label class="etiquetas">Precio de Compra</label>
-                <input class="form-control" type="number" name="precio_compra" value="<?= $material['precio_compra'] ?>">
+                <hr>
+                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
               </div>
-              <div class="form-group">
-                <label class="etiquetas">Precio de Venta</label>
-                <input class="form-control" type="number" name="precio_venta" value="<?= $material['precio_venta'] ?>">
-              </div>
-
-              <hr>
-              <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
             </div>
           </div>
-        </div>
         </div>
       </form>
 

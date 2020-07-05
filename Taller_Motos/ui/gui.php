@@ -4,7 +4,7 @@ class Gui
     var $config;
     function __construct($config)
     {
-        $this->config=$config;
+        $this->config = $config;
     }
     function get_header()
     {
@@ -44,6 +44,7 @@ class Gui
                         <li><a href="sales.php"><i class="fas fa-cash-register"></i> Ventas</a></li>
                         <li><a href="clients.php"><i class="fas fa-users"></i> Clientes</a></li>
                         <li><a href="motorcycle.php"><i class="fas fa-tools"></i> Motos</a></li>
+                        <li><a href="works.php"><i class="fas fa-tools"></i> Servicios</a></li>
                         <li><a href="proveedores.php"><i class="fas fa-user-tie"></i> Proveedores</a></li>
                         <li><a href="users.php"><i class="far fa-address-book"></i> Usuarios</a></li>
                         <li><a href="admin.php"><i class="fas fa-user-cog"></i> Empresa</a></li>
@@ -58,7 +59,7 @@ class Gui
             {
                 ?>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" id="modulo"><?=$this->config['titulo'];?></a>
+                        <a class="navbar-brand" id="modulo"><?= $this->config['titulo']; ?></a>
                         <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -80,6 +81,9 @@ class Gui
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="motorcycle.php"></i> Motos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="services.php"></i> Servicios</a>
                                 </li>
 
                                 <li class="nav-item">
