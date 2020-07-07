@@ -92,7 +92,7 @@ class UI_Reparaciones extends Gui_login
                           <td><?= $repair['moto'] ?></td>
                           <td><?= $repair['placa'] ?></td>
                           <td><?= $repair['monto'] ?></td>
-                          <td><a href="index.php?pagina=reparaciones&moto=<" class="btn btn-info"><i class="far fa-eye"></i></a></td>
+                          <td><a href="index.php?pagina=detalle_reparacion&reparacion=<?= $repair['id'] ?>" class="btn btn-info"><i class="far fa-eye"></i></a></td>
                         </tr>
                       <?php
                       }
