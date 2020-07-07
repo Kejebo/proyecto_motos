@@ -32,7 +32,7 @@ class db_admin extends conexion{
     
 
     function get_admin(){
-        $sql = "select * from clientes;";
+        $sql = "select * from empresa;";
         $result = $this->get_data($sql);
             if($result){
                 return $result[0];

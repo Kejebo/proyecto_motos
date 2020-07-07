@@ -36,7 +36,7 @@ class ui_purchases extends Gui
                   Exportar
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" href="reports.php?data=Compra">PDF</a>
+                  <a class="dropdown-item" target="blank" href="pdf.php?data=Compras">PDF</a>
                   <a class="dropdown-item" href="#">EXCEL</a>
                 </div>
               </div>
