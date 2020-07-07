@@ -13,7 +13,6 @@ function get_inventory()
         <h2>Lista de Materiales</h2>
     </div>
     <br>
-    <br>
     <table style="width: 100%; text-align:center;" align="center">
         <thead>
             <tr style="background-color: black;">
