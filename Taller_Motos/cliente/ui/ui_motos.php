@@ -81,7 +81,7 @@ class UI_Motos extends Gui_login
                             <td><?= $motos['moto'] ?></td>
                             <td><?= $motos['placa'] ?></td>
                             <td><?= $motos['transmision'] ?></td>
-                            <td><?= number_format($motos['nuevo_kilometraje'])?> KM</td>
+                            <td><?= number_format($motos['nuevo_kilometraje']) ?> KM</td>
                             <td><a href="index.php?pagina=reparaciones&moto=<?= $motos['placa']; ?>" class="btn btn-info"><i class="far fa-eye"></i></a></td>
                           </tr>
                         <?php  } ?>

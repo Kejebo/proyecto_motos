@@ -27,33 +27,32 @@ $ui_detalles_reparacion = new UI_Detalles_Reparacion($config);
 
 
 <?php
-		
-        if (isset($_GET['pagina'])) {
-            switch ($_GET['pagina']) {
 
-				case 'motos':
-					
-				 $ui_motos->get_content(); 
-				 
-				break;
-				
-				case 'reparaciones':
-					
-				$ui_reparaciones->get_content(); 
-				
-			   break;
+if (isset($_GET['pagina'])) {
+	switch ($_GET['pagina']) {
 
-			   case 'detalle_reparacion':
-					
-				$ui_detalles_reparacion->get_content(); 
-				
-			   break;
-		   }
-        }else{
+		case 'motos':
 
-			$ui_cliente->get_content();
-		}
+			$ui_motos->get_content();
+
+			break;
+
+		case 'reparaciones':
+
+			$ui_reparaciones->get_content();
+
+			break;
+
+		case 'detalle_reparacion':
+
+			$ui_detalles_reparacion->get_content();
+
+			break;
+	}
+} else {
+
+	$ui_cliente->get_content();
+}
 ?>
 
 <?php $ui->get_footer(); ?>
-

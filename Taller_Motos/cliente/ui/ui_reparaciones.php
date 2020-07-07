@@ -56,19 +56,19 @@ class UI_Reparaciones extends Gui_login
                     <div class="float-left">
                       <h5 class="card-title"">Lista de Reparaciones</h5>
                     </div>
-                    <div class="float-right">
-                      <div class="btn-group" role="group" aria-label="First group">
+                    <div class=" float-right">
+                        <div class="btn-group" role="group" aria-label="First group">
 
-                        <div class="btn-group ml-2" role="group">
-                          <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Exportar
-                          </button>
-                          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" href="#">PDF</a>
-                            <a class="dropdown-item" href="#">EXCEL</a>
+                          <div class="btn-group ml-2" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Exportar
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                              <a class="dropdown-item" href="#">PDF</a>
+                              <a class="dropdown-item" href="#">EXCEL</a>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
                     </div>
                   </div>
