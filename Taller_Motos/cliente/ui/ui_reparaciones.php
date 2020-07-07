@@ -51,10 +51,10 @@ class UI_Reparaciones extends Gui_login
           <div class="container row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 py-3 contenido_modulos">
               <div class="card shadow">
-                <div class="card-header">
+                <div class="card-header bg-primary text-white">
                   <div class="clearfix">
                     <div class="float-left">
-                      <h5 class="card-title" style="color: black;">Lista de Reparaciones</h5>
+                      <h5 class="card-title"">Lista de Reparaciones</h5>
                     </div>
                     <div class="float-right">
                       <div class="btn-group" role="group" aria-label="First group">
@@ -91,7 +91,7 @@ class UI_Reparaciones extends Gui_login
                           <td><?= $repair['fecha'] ?></td>
                           <td><?= $repair['moto'] ?></td>
                           <td><?= $repair['placa'] ?></td>
-                          <td><?= $repair['monto'] ?></td>
+                          <td>₡ <?= number_format($repair['monto']) ?></td>
                           <td><a href="index.php?pagina=detalle_reparacion&reparacion=<?= $repair['id'] ?>" class="btn btn-info"><i class="far fa-eye"></i></a></td>
                         </tr>
                       <?php

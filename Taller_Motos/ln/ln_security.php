@@ -143,7 +143,7 @@ class ln_security
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
                 header('Location:inventary.php');
             } else if ($result[3] == "cliente") {
-                $result_Cliente = $this->ln_clientes->get_client($data);
+                $result_Cliente = $this->ln_clientes->get_client_correo($data);
                 $json_cliente = json_encode($result_Cliente);
                 setcookie('cliente', $json_cliente, time() + 60 * 60 * 24 * 365);
                 setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);

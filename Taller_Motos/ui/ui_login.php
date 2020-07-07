@@ -13,9 +13,9 @@ class UI_login extends Gui_login
 
         <div class="row formulario_login">
 
-            <div class="col-sm-4"></div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 py-3"></div>
 
-            <div class="col-sm-4">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 py-3">
                 <form action="security.php?action=login" method="post">
                     <div class="card shadow mt-4">
                         <div class="card-header" id="titulosCards">
@@ -62,7 +62,7 @@ class UI_login extends Gui_login
                     </div>
                 </form>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 py-3"></div>
 
         </div>
 

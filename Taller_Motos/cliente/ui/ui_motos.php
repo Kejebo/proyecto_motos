@@ -40,10 +40,10 @@ class UI_Motos extends Gui_login
 
               <div class="col-12 col-sm-12 col-md-12 col-lg-12 py-3">
                 <div class="card shadow ">
-                  <div class="card-header">
+                  <div class="card-header bg-primary text-white">
                     <div class="clearfix">
                       <div class="float-left">
-                        <h5 style="color:black">Lista de Motos</h5>
+                        <h5>Lista de Motos</h5>
                       </div>
                       <div class="float-right">
                         <div class="btn-group" role="group" aria-label="First group">
@@ -71,7 +71,7 @@ class UI_Motos extends Gui_login
                           <th>Moto</th>
                           <th>Placa</th>
                           <th>Transmision</th>
-                          <th>Kilometraje</th>
+                          <th>Proxima Cita</th>
                           <th>Ver</th>
                         </tr>
                       </thead>
@@ -81,7 +81,7 @@ class UI_Motos extends Gui_login
                             <td><?= $motos['moto'] ?></td>
                             <td><?= $motos['placa'] ?></td>
                             <td><?= $motos['transmision'] ?></td>
-                            <td><?= $motos['kilometraje'] ?></td>
+                            <td><?= number_format($motos['nuevo_kilometraje'])?> KM</td>
                             <td><a href="index.php?pagina=reparaciones&moto=<?= $motos['placa']; ?>" class="btn btn-info"><i class="far fa-eye"></i></a></td>
                           </tr>
                         <?php  } ?>

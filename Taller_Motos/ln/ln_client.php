@@ -45,6 +45,9 @@
         function get_clients(){
             return $this->db->get_clients();
         }
+        function get_client_correo($id){
+            return $this->db->get_client_correo($id);
+        }
         function get_client($id){
            return $this->db->get_client($id);
         }
