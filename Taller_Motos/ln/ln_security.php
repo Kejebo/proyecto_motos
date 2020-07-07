@@ -146,8 +146,7 @@ class ln_security
                 $result_Cliente = $this->ln_clientes->get_client($data);
                 $json_cliente = json_encode($result_Cliente);
                 setcookie('cliente', $json_cliente, time() + 60 * 60 * 24 * 365);
-                setcookie('usuario', $json, time() + 60 * 60 * 24 * 365);
-                header('Location:cliente/security.php?action=log_in&datos=' . $this->encriptar($_POST['correo_electronico']));
+                header('Location:cliente/security.php?action=log_in&datos='.$this->encriptar($_POST['correo_electronico']));
             }
         } else {
             header('Location:index.php?mer=Datos Erroneos');
