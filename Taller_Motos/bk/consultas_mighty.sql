@@ -1,5 +1,20 @@
 use db_tallerMotos;
 delimiter //
+create procedure get_motos_cliente(id int)
+begin
+	select clientes.nombre_cliente as cliente, concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    combus.tipo_combustible as gasolina, motos.numero_placa as placa, cilindrajes.tamano_cilindraje as cilindraje, motos.id_moto as id,
+    motos.kilometraje as kilometraje, transmisiones.nombre_transmision as transmision from  motos 
+    inner join clientes on clientes.id_cliente = motos.id_cliente
+    inner join marcas_motos ma on ma.id_marca_moto = motos.id_marca_moto inner join
+    modelos_motos mm on mm.id_modelo_moto = motos.id_modelo_moto inner join
+    transmisiones on transmisiones.id_transmision = motos.id_transmision inner join
+    cilindrajes on cilindrajes.id_cilindraje = motos.id_cilindraje inner join
+    combustible combus on combus.id_combustible = motos.id_combustible where estado_moto = true and motos.id_cliente=id
+    order by motos.id_moto asc;
+    end //
+delimiter ;
+delimiter //
 	create procedure get_inventario()
 	begin
         select  m.precio_venta as venta, m.precio_compra as compra,m.id_material as id, m.nombre as nombre, me.nombre_medida as medida,m.cantidad_inicial as cantidad,m.cantidad_inicial*m.presentacion as total 
@@ -112,21 +127,7 @@ begin
     end //
 delimiter ;
 
-delimiter //
-create procedure get_motos_cliente(id int)
-begin
-	select clientes.nombre_cliente as cliente, concat(motos.numero_placa,' ',ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
-    combus.tipo_combustible as gasolina, motos.numero_placa as placa, motos.id_moto as id,
-    motos.kilometraje as kilometraje, transmisiones.nombre_transmision as transmision from  motos 
-    inner join clientes on clientes.id_cliente = motos.id_cliente
-    inner join marcas_motos ma on ma.id_marca_moto = motos.id_marca_moto inner join
-    modelos_motos mm on mm.id_modelo_moto = motos.id_modelo_moto inner join
-    transmisiones on transmisiones.id_transmision = motos.id_transmision inner join
-    cilindrajes on cilindrajes.id_cilindraje = motos.id_cilindraje inner join
-    combustible combus on combus.id_combustible = motos.id_combustible where estado_moto = true and motos.id_cliente=id
-    order by motos.id_moto asc;
-    end //
-delimiter ;
+
 delimiter // 
  create procedure delete_detalle_reparacion(id int)
 	begin

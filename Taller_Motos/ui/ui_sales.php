@@ -67,7 +67,7 @@ class ui_sales extends Gui
                                         <td><?= $list['saldo'] ?></td>
                                         <td><a href="sale.php?action=delete&id=<?=$list['id']?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                         <td><a href="sale.php?action=update_sale&id=<?=$list['id']?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
-                                        <td><a href="reports.php?data=Ventas&id=<?= $list['id'] ?>" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                                        <td><a href="pdf.php?data=Venta&id=<?= $list['id'] ?>" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
 
                                     </tr>
                                 <?php } ?>

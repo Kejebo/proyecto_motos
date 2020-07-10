@@ -17,15 +17,14 @@ class Gui
         }
         if (isset($_COOKIE['usuario'])) {
             $data = json_decode($_COOKIE['usuario'], true);
-           if ($data['tipo'] == 'Tecnico') {
-              $this->ln_security->check_tipo_login_tecnico($this->config['url']);
-           }else{
-               $this->ln_security->check_tipo_login_admin($this->config['url']);
-           }
-       }else{
-        $this->ln_security->check_tipo_login_admin($this->config['url']);
-       }
-       
+            if ($data['tipo'] == 'Tecnico') {
+                $this->ln_security->check_tipo_login_tecnico($this->config['url']);
+            } else {
+                $this->ln_security->check_tipo_login_admin($this->config['url']);
+            }
+        } else {
+            $this->ln_security->check_tipo_login_admin($this->config['url']);
+        }
     }
     function get_header()
     {
@@ -63,6 +62,8 @@ class Gui
                         <li><a href="repairs.php"><i class="fas fa-tools"></i> Reparacion</a></li>
                         <li><a href="purchases.php"><i class="fas fa-shopping-cart"></i> Compras</a></li>
                         <li><a href="sales.php"><i class="fas fa-cash-register"></i> Ventas</a></li>
+                        <li><a href="reports.php"><i class="fas fa-cash-register"></i> Reportes</a>
+                        </li>
                         <li><a href="clients.php"><i class="fas fa-users"></i> Clientes</a></li>
                         <li><a href="motorcycle.php"><i class="fas fa-tools"></i> Motos</a></li>
                         <li><a href="works.php"><i class="fas fa-tools"></i> Servicios</a></li>
@@ -82,12 +83,12 @@ class Gui
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <a class="navbar-brand" id="modulo"><?= $this->config['titulo']; ?></a>
                         <div class="container-fluid" id="cerrar_sesion_contenedor">
-                        <form action="security.php?action=logout" method="post">
-                        <button class="btn btn-success" id="boton_cerrar_sesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</button>
-                        </form>
+                            <form action="security.php?action=logout" method="post">
+                                <button class="btn btn-success" id="boton_cerrar_sesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</button>
+                            </form>
                         </div>
                         <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
                         </button>
 
                         <div id="my-nav" class="collapse navbar-collapse">
@@ -136,13 +137,14 @@ class Gui
             function get_footer()
             {
                 ?>
-                 
+
                 </div>
             </div>
             <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
             <script src="assets/js/main.js"></script>
+            <script src="assets/js/reports.js"></script>
             <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
             <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
             <script src="assets/js/datatables.js"></script>

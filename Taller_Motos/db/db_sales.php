@@ -27,6 +27,24 @@ class db_sales extends conexion{
         return false;
             }
     }
+    function get_sales_diario($fecha){
+        $sql = "call get_ventas_diarias('$fecha')";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
+    function get_sales_mensual($fecha){
+        $sql = "call get_ventas_mensual('$fecha')";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
     function delete_sale($id){
         $sql= "delete from ventas where id_venta='$id'";
         $this->execute($sql);
