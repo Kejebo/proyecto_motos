@@ -15,57 +15,50 @@ function selec_report(sel) {
     let pdf = document.querySelector('#pdf');
     switch (opciones) {
         case 'Inventario':
-            document.querySelector('#report').setAttribute('action', '#');
             consultar.disabled = true;
-
-            pdf.setAttribute('href', 'pdf.php?data=Inventory');
+            update_action('Inventory');
             break;
 
         case 'Clientes':
-            document.querySelector('#report').setAttribute('action', '#');
+            update_action('Clients');
             consultar.disabled = true;
-            pdf.setAttribute('href', 'pdf.php?data=Clients');
+            update_action('Clients');
             break;
 
         case 'Motos de Cliente':
-            document.querySelector('#report').setAttribute('action', '#');
+            update_action('Motos_cliente');
             consultar.disabled = true;
             cliente.style.display = "block";
             break;
 
         case 'Proveedores':
-            document.querySelector('#report').setAttribute('action', '#');
+            update_action('Venta_Proveedor');
             consultar.disabled = true;
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
             break;
         case 'Ventas General':
-            document.querySelector('#report').setAttribute('action', '#');
             consultar.disabled = true;
-            pdf.setAttribute('href', 'pdf.php?data=Ventas');
+            update_action('Venta_General');
             break;
         case 'Ventas Diaria':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
-            pdf.setAttribute('href', '#');
+            update_action('Venta_Diaria');
             break;
 
         case 'Ventas Mensuales':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
-            pdf.setAttribute('href', '#');
+            update_action('Venta_Mensuales');
             break;
         case 'Ventas Anuales':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "number");
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
             dia.value = '2020';
-            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_Anual&year=' + document.getElementById('fecha').value);
+            update_action('Venta_Anual');
             break;
         case 'Ventas Periodica':
-            document.querySelector('#report').setAttribute('action', '#');
+            update_action('Venta_Periodica');
             inicio.style.display = "block";
             final.style.display = "block";
 
@@ -78,14 +71,12 @@ function selec_report(sel) {
         case 'Compras Diaria':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
-            pdf.setAttribute('href', '#');
             break;
 
         case 'Compras Mensuales':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
-            pdf.setAttribute('href', '#');
             break;
         case 'Compras Anuales':
             document.querySelector('#report').setAttribute('action', '#');
@@ -94,27 +85,23 @@ function selec_report(sel) {
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
             dia.value = '2020';
-            pdf.setAttribute('href', '#');
             break;
         case 'Compras Periodica':
             document.querySelector('#report').setAttribute('action', '#');
             inicio.style.display = "block";
             final.style.display = "block";
-            pdf.setAttribute('href', '#');
-
             break;
 
         case 'Reparaciones Diaria':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
-            pdf.setAttribute('href', '#');
             break;
 
         case 'Reparaciones Mensuales':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
-            pdf.setAttribute('href', '#');
+
             break;
         case 'Reparaciones Anuales':
             document.querySelector('#report').setAttribute('action', '#');
@@ -123,13 +110,11 @@ function selec_report(sel) {
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
             dia.value = '2020';
-            pdf.setAttribute('href', '#');
             break;
         case 'Reparaciones Periodica':
             document.querySelector('#report').setAttribute('action', '#');
             inicio.style.display = "block";
             final.style.display = "block";
-            pdf.setAttribute('href', '#');
             break;
         default:
 
@@ -147,7 +132,7 @@ function get_Fecha(dia) {
     var opciones = sel.options[sel.selectedIndex].textContent;
 
     switch (opciones) {
-         case 'Ventas Diaria':
+        case 'Ventas Diaria':
             document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_diaria&dia=' + dia.value);
             break;
         case 'Ventas Mensuales':
@@ -169,5 +154,9 @@ function get_Fecha(dia) {
             break;
 
     }
+}
 
+function update_action(action) {
+    document.querySelector('#report').setAttribute('action', 'reports.php?action=' + action);
+    document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=' + action);
 }
