@@ -27,6 +27,35 @@ class db_purchase extends conexion{
         return false;
             }
     }
+
+    function get_purchases_diario($fecha){
+        $sql = "call get_compra_diaria('$fecha')";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
+    function get_purchases_mensual($fecha){
+        $sql = "call get_compra_mensual('$fecha')";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
+
+    function get_purchases_anual($fecha){
+        $sql = "call get_compra_anual('$fecha')";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
     function delete_purchase($id){
         $sql= "delete from compras where id_compra='$id'";
         $this->execute($sql);

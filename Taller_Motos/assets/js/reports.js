@@ -38,18 +38,22 @@ function selec_report(sel) {
             consultar.disabled = true;
             pdf.setAttribute('href', 'pdf.php?data=Proveedor');
             break;
-
+        case 'Ventas General':
+            document.querySelector('#report').setAttribute('action', '#');
+            consultar.disabled = true;
+            pdf.setAttribute('href', 'pdf.php?data=Ventas');
+            break;
         case 'Ventas Diaria':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
 
         case 'Ventas Mensuales':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
         case 'Ventas Anuales':
             document.querySelector('#report').setAttribute('action', '#');
@@ -58,27 +62,30 @@ function selec_report(sel) {
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
             dia.value = '2020';
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_Anual&year=' + document.getElementById('fecha').value);
             break;
         case 'Ventas Periodica':
             document.querySelector('#report').setAttribute('action', '#');
             inicio.style.display = "block";
             final.style.display = "block";
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
 
             break;
-
+        case 'Compras General':
+            document.querySelector('#report').setAttribute('action', '#');
+            consultar.disabled = true;
+            pdf.setAttribute('href', 'pdf.php?data=Compras');
+            break;
         case 'Compras Diaria':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
 
         case 'Compras Mensuales':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
         case 'Compras Anuales':
             document.querySelector('#report').setAttribute('action', '#');
@@ -87,27 +94,27 @@ function selec_report(sel) {
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
             dia.value = '2020';
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
         case 'Compras Periodica':
             document.querySelector('#report').setAttribute('action', '#');
             inicio.style.display = "block";
             final.style.display = "block";
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
 
             break;
 
         case 'Reparaciones Diaria':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
 
         case 'Reparaciones Mensuales':
             document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
         case 'Reparaciones Anuales':
             document.querySelector('#report').setAttribute('action', '#');
@@ -116,13 +123,13 @@ function selec_report(sel) {
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
             dia.value = '2020';
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
         case 'Reparaciones Periodica':
             document.querySelector('#report').setAttribute('action', '#');
             inicio.style.display = "block";
             final.style.display = "block";
-            pdf.setAttribute('href', 'pdf.php?data=Proveedor');
+            pdf.setAttribute('href', '#');
             break;
         default:
 
@@ -136,22 +143,31 @@ function get_client_motorcycle(cliente) {
 }
 
 function get_Fecha(dia) {
-    let sel=document.getElementById('tipo');
-    console.log(sel);
+    let sel = document.getElementById('tipo');
     var opciones = sel.options[sel.selectedIndex].textContent;
 
-    switch(opciones){
-
-        case 'Ventas Diaria':
-            document.querySelector('#report').setAttribute('action', '#');
+    switch (opciones) {
+         case 'Ventas Diaria':
             document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_diaria&dia=' + dia.value);
             break;
-
         case 'Ventas Mensuales':
-            document.querySelector('#report').setAttribute('action', '#');
-            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_Mensual&dia=' + dia.value+"-01");
-
+            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_Mensual&dia=' + dia.value + "-01");
             break;
+        case 'Ventas Anuales':
+            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_Anual&year=' + dia.value);
+            break;
+        case 'Compras Diaria':
+            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Compra_diaria&dia=' + dia.value);
+            break;
+
+        case 'Compras Mensuales':
+            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Compra_Mensual&dia=' + dia.value + "-01");
+            break;
+
+        case 'Compras Anuales':
+            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Compra_Anual&year=' + dia.value);
+            break;
+
     }
 
 }

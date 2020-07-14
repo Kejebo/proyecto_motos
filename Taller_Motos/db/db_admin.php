@@ -40,6 +40,10 @@ class db_admin extends conexion{
         return false;
             }
     }
+
+    function get_month($dia){
+        return $this->get_data("call get_mes('$dia')")[0];
+    }
     function update_admin($data){
         extract($data);
         $sql="update empresa e set e.nombre='$nombre', e.cedula_juridica='$cedula', e.telefono='$telefono', e.correo='$correo' 
