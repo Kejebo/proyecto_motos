@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 require_once('assets/phpmailer/Exception.php');
 require_once('assets/phpmailer/PHPMailer.php');
 require_once('assets/phpmailer/SMTP.php');
-require_once('aseets/phpmailer/VerifyEmail.class.php');
+require_once('aseets/phpmailer/VerifyEmail.php');
 require_once('ln_usuarios.php');
 
 class ln_security
@@ -134,9 +134,7 @@ function enviar_correo_consultando($emisor, $tema,$nombre, $mensaje)
        
         $respuesta = false;
         $mail = new PHPMailer(true);
-      if(validar_correo($emisor)){
-
-      
+      if($this->validar_correo($emisor)){
         try {
             $mail->SMTPDebug = 0;                                       // Enable verbose debug output
             $mail->isSMTP();                                            // Set mailer to use SMTP
