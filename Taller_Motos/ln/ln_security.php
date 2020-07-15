@@ -82,7 +82,7 @@ class ln_security
         }
     }
 
-   
+
 
     function generar_numero_aleatorio()
     {
@@ -285,6 +285,4 @@ class ln_security
 
         return $respuesta;
     }
-
-    
 }

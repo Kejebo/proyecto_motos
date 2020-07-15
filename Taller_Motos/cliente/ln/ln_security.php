@@ -14,11 +14,11 @@ class ln_security
 
     var $ln_usuarios;
     var $Key = "CLAVESUPERSECRETA";
-    
+
 
     function __construct()
     {
-       
+
         $this->ln_usuarios = new ln_usuarios();
     }
 
@@ -96,40 +96,38 @@ class ln_security
     }
 
 
-function enviar_correo_consulta()
-{
- 
-    $tema = $_POST["tema"];
-    $emisor = $_POST["emisor"];
-    $mensaje = $_POST["mensaje"];
-    $nombre = $_POST["nombre"];
-    if ($this->enviar_correo_consultando($emisor, $tema, $nombre, $mensaje) == false) {
-        echo json_encode(array("result" => false));
-    } else {
-        echo json_encode(array("result" => true));
-    }
-}
-
-function is_valid_email($str)
-{
-  echo($str);
-    if(checkdnsrr($str,"MX")) {
-    return true;
-    } else {
-    return false;
-   
-}
-
-}
-
-
-
-function enviar_correo_consultando($emisor, $tema,$nombre, $mensaje)
+    function enviar_correo_consulta()
     {
-       
+
+        $tema = $_POST["tema"];
+        $emisor = $_POST["emisor"];
+        $mensaje = $_POST["mensaje"];
+        $nombre = $_POST["nombre"];
+        if ($this->enviar_correo_consultando($emisor, $tema, $nombre, $mensaje) == false) {
+            echo json_encode(array("result" => false));
+        } else {
+            echo json_encode(array("result" => true));
+        }
+    }
+
+    function is_valid_email($str)
+    {
+        echo ($str);
+        if (checkdnsrr($str, "MX")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+    function enviar_correo_consultando($emisor, $tema, $nombre, $mensaje)
+    {
+
         $respuesta = false;
         $mail = new PHPMailer(true);
-     
+
         try {
             $mail->SMTPDebug = 0;                                       // Enable verbose debug output
             $mail->isSMTP();                                            // Set mailer to use SMTP
@@ -145,16 +143,15 @@ function enviar_correo_consultando($emisor, $tema,$nombre, $mensaje)
 
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = $tema;
-            $mail->Body    = $mensaje. "<br />". 'Usuario: '. $emisor."<br />".'Nombre: '. $nombre;
+            $mail->Body    = $mensaje . "<br />" . 'Usuario: ' . $emisor . "<br />" . 'Nombre: ' . $nombre;
 
             $mail->send();
             $respuesta = true;
         } catch (Exception $e) {
             $this->error = $e->getMessage();
             $respuesta = false;
-           
         }
 
-    return $respuesta;
+        return $respuesta;
     }
 }
