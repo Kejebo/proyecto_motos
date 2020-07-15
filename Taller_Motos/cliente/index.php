@@ -19,7 +19,7 @@ $ui_cliente = new UI_Cliente($config);
 $ui_motos = new UI_Motos($config);
 $ui_reparaciones = new UI_Reparaciones($config);
 $ui_detalles_reparacion = new UI_Detalles_Reparacion($config);
-$ui_contacto = new UI_Contacto();
+$ui_contacto = new UI_Contacto($config);
 
 ?>
 

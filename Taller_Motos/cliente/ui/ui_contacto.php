@@ -57,35 +57,33 @@ class UI_Contacto extends Gui_login
             </div>
 
             <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <form id="formulario_enviar_correo_consulta" method="post">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="name"> Tu Nombre</label>
-                    <input type="text" value=<?= $this->nombre_usuario ?> name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <input type="text" value=<?= $this->nombre_usuario ?> name="nombre" class="form-control" id="nombre" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                     <div class="validate"></div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="name"> Tu Correo</label>
-                    <input type="email" value=<?= $this->correo_usuario ?> class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />
+                    <input type="emisor" value=<?= $this->correo_usuario ?> class="form-control" name="emisor" id="emisor" data-rule="email" data-msg="Please enter a valid email" />
                     <div class="validate"></div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="name">Tema</label>
-                  <input type="text" class="form-control" name="subject" id="subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                  <input type="text" class="form-control" name="tema" id="tema" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
                   <div class="validate"></div>
                 </div>
                 <div class="form-group">
                   <label for="name">Mensaje</label>
-                  <textarea class="form-control" name="message" rows="10" data-rule="required" data-msg="Please write something for us"></textarea>
+                  <textarea class="form-control" name="mensaje" id="mensaje" rows="10" data-rule="required" data-msg="Please write something for us"></textarea>
                   <div class="validate"></div>
                 </div>
-                <div class="mb-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
+                <div id="div_correo_no_enviado"></div>
+                <div id="enviar_correo_boton">
+                  <button id="boton_enviar_consulta" type="submit" class="btn btn-primary boton_success"><i id="icono_reenviar" class="fas fa-share"></i> enviar correo</button>
                 </div>
-                <div class="text-center"><button type="submit">Enviar Mensaje</button></div>
               </form>
             </div>
 
