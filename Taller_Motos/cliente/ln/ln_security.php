@@ -7,7 +7,6 @@ use PHPMailer\PHPMailer\Exception;
 require_once('assets/phpmailer/Exception.php');
 require_once('assets/phpmailer/PHPMailer.php');
 require_once('assets/phpmailer/SMTP.php');
-require_once('aseets/phpmailer/VerifyEmail.php');
 require_once('ln_usuarios.php');
 
 class ln_security
@@ -15,11 +14,11 @@ class ln_security
 
     var $ln_usuarios;
     var $Key = "CLAVESUPERSECRETA";
-    var $mail;
+    
 
     function __construct()
     {
-        $this->mail = new VerifyEmail();
+       
         $this->ln_usuarios = new ln_usuarios();
     }
 
@@ -111,30 +110,26 @@ function enviar_correo_consulta()
     }
 }
 
-
-
-function validar_correo($correo){
-
-    $this->mail->setStreamTimeoutWait(20);
-    $this->mail->Debug= TRUE; 
-    $this->mail->Debugoutput= 'html';
-     $this->mail->setEmailFrom('from@email.com'); 
-
-    if($this->mail->check($correo)){ 
-       return true;
-    }else if(verifyEmail::validate($correo)){ 
-      false; 
-    }else{ 
-     false; 
-  } 
+function is_valid_email($str)
+{
+  echo($str);
+    if(checkdnsrr($str,"MX")) {
+    return true;
+    } else {
+    return false;
+   
 }
+
+}
+
+
 
 function enviar_correo_consultando($emisor, $tema,$nombre, $mensaje)
     {
        
         $respuesta = false;
         $mail = new PHPMailer(true);
-      if($this->validar_correo($emisor)){
+     
         try {
             $mail->SMTPDebug = 0;                                       // Enable verbose debug output
             $mail->isSMTP();                                            // Set mailer to use SMTP
@@ -150,21 +145,16 @@ function enviar_correo_consultando($emisor, $tema,$nombre, $mensaje)
 
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = $tema;
-            $mail->Body    = 'hola';
+            $mail->Body    = $mensaje. "<br />". 'Usuario: '. $emisor."<br />".'Nombre: '. $nombre;
 
             $mail->send();
             $respuesta = true;
         } catch (Exception $e) {
             $this->error = $e->getMessage();
             $respuesta = false;
+           
         }
-    }else{
-        return $respuesta;
-    }
 
-    
+    return $respuesta;
     }
 }
-
-
-?>

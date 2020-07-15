@@ -1,43 +1,43 @@
-
 var formulario = document.querySelector("#formulario");
 var formulario_validar_codigo = document.querySelector(
   "#formulario_validar_codigo"
 );
 
-
 var formulario_enviar = document.querySelector("#formulario_enviar_correo");
-var formulario_enviar_consulta = document.querySelector("#formulario_enviar_correo_consulta");
+var formulario_enviar_consulta = document.querySelector(
+  "#formulario_enviar_correo_consulta"
+);
 var valor = null;
 var id = null;
 var correo_electronico_link = null;
 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   if (formulario != null) {
-    formulario.addEventListener("submit", function() {
+    formulario.addEventListener("submit", function () {
       validacionContrasenas();
     });
   }
 });
 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   if (formulario != null) {
-    formulario_validar_codigo.addEventListener("submit", function() {
+    formulario_validar_codigo.addEventListener("submit", function () {
       validar_codigo();
     });
   }
 });
 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   if (formulario != null) {
-    formulario_enviar.addEventListener("submit", function() {
+    formulario_enviar.addEventListener("submit", function () {
       enviar_correo();
     });
   }
 });
 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   if (formulario_enviar_consulta != null) {
-    formulario_enviar_consulta.addEventListener("submit", function() {
+    formulario_enviar_consulta.addEventListener("submit", function () {
       enviar_correo_consulta();
     });
   }
@@ -51,12 +51,12 @@ function validar_codigo() {
     data: {
       codigo: codigo,
       correo_electronico_link: correo_electronico_link,
-      id: id
+      id: id,
     },
     url: "security.php?action=validar",
     type: "post",
     datatype: "json",
-    success: function(response) {
+    success: function (response) {
       let resultado = JSON.parse(response);
       if (resultado.result == "false") {
         alertar_validar_codigo();
@@ -64,7 +64,7 @@ function validar_codigo() {
         document.querySelector("#div_form_validacion").style.display = "none";
         document.getElementById("div_form_cambio").style.display = null;
       }
-    }
+    },
   });
 }
 
@@ -77,7 +77,7 @@ function enviar_correo() {
     url: "security.php?action=enviar_correo",
     type: "post",
     datatype: "json",
-    success: function(response) {
+    success: function (response) {
       let resultado = JSON.parse(response);
       if (resultado.result == "true") {
         correo_electronico_link = resultado.correo;
@@ -88,7 +88,7 @@ function enviar_correo() {
         restaurar_icono_enviar();
         alertar_validar_codigo_activo();
       }
-    }
+    },
   });
 }
 
@@ -101,16 +101,19 @@ function enviar_correo_consulta() {
     url: "security.php?action=enviar_correo_consulta",
     type: "post",
     datatype: "json",
-    success: function(response) {
+    success: function (response) {
       let resultado = JSON.parse(response);
       if (resultado.result == true) {
-      
         restaurar_icono_enviar_consulta();
+        document.getElementById("nombre").value = "";
+        document.getElementById("emisor").value = "";
+        document.getElementById("tema").value = "";
+        document.getElementById("mensaje").value = "";
       } else if (resultado.result == false) {
-      restaurar_icono_enviar_consulta();
-      alertar_validar_envio_consulta();
+        restaurar_icono_enviar_consulta();
+        //alertar_validar_envio_consulta();
       }
-    }
+    },
   });
 }
 
@@ -123,14 +126,14 @@ function reenviar_codigo() {
     url: "security.php?action=reenviar_correo",
     type: "post",
     datatype: "json",
-    success: function(response) {
+    success: function (response) {
       let resultado = JSON.parse(response);
       if (resultado.result == "true") {
         restaurar_icono_reenviar();
       } else if (resultado.result == "codigo_activo") {
         restaurar_icono_reenviar();
       }
-    }
+    },
   });
 }
 
@@ -149,14 +152,14 @@ function alertar_validar_codigo() {
   document.getElementById("boton_validar").disabled = true;
   document
     .getElementById("cerrar_alerta_invalido")
-    .addEventListener("click", function() {
+    .addEventListener("click", function () {
       document.getElementById("boton_validar").disabled = false;
     });
 
-  setTimeout(function() {
+  setTimeout(function () {
     $("#no_valido").remove();
   }, 3000);
-  setTimeout(function() {
+  setTimeout(function () {
     $("#boton_validar").prop("disabled", false);
   }, 3000);
   document.getElementById("codigo").value = null;
@@ -177,14 +180,14 @@ function alertar_validar_codigo_activo() {
   document.getElementById("boton_enviar_primera").disabled = true;
   document
     .getElementById("cerrar_alerta_activo")
-    .addEventListener("click", function() {
+    .addEventListener("click", function () {
       document.getElementById("boton_enviar_primera").disabled = false;
     });
 
-  setTimeout(function() {
+  setTimeout(function () {
     $("#activo_alerta").remove();
   }, 2000);
-  setTimeout(function() {
+  setTimeout(function () {
     $("#boton_enviar_primera").prop("disabled", false);
   }, 2000);
   document.getElementById("correo_enviar_primera").value = null;
@@ -200,12 +203,12 @@ function validacionContrasenas() {
       id: id,
       correo_electronico_link: correo_electronico_link,
       contrasenaUno: contrasenaUno,
-      contrasenaDos: contrasenaDos
+      contrasenaDos: contrasenaDos,
     },
     url: "security.php?action=cambio_contrasena",
     type: "post",
     datatype: "json",
-    success: function(response) {
+    success: function (response) {
       let resultado = JSON.parse(response);
       if (resultado.result == "actualizado") {
         contrasena_actualizacion_exitosa();
@@ -214,7 +217,7 @@ function validacionContrasenas() {
       } else if (resultado.result == "no actualizado") {
         contrasena_no_actualizada_alerta();
       }
-    }
+    },
   });
 }
 
@@ -233,18 +236,18 @@ function alertar_validar_envio_consulta() {
   document.getElementById("boton_enviar_primera").disabled = true;
   document
     .getElementById("cerrar_alerta_activo")
-    .addEventListener("click", function() {
+    .addEventListener("click", function () {
       document.getElementById("boton_enviar_primera").disabled = false;
     });
 
-  setTimeout(function() {
+  setTimeout(function () {
     $("#activo_alerta").remove();
   }, 2000);
-  setTimeout(function() {
+  setTimeout(function () {
     $("#boton_enviar_primera").prop("disabled", false);
   }, 2000);
- // document.getElementById("correo_enviar_primera").value = null;
- // document.getElementById("correo_enviar_primera").focus;
+  // document.getElementById("correo_enviar_primera").value = null;
+  // document.getElementById("correo_enviar_primera").focus;
 }
 
 function validacionContrasenas() {
@@ -256,12 +259,12 @@ function validacionContrasenas() {
       id: id,
       correo_electronico_link: correo_electronico_link,
       contrasenaUno: contrasenaUno,
-      contrasenaDos: contrasenaDos
+      contrasenaDos: contrasenaDos,
     },
     url: "security.php?action=cambio_contrasena",
     type: "post",
     datatype: "json",
-    success: function(response) {
+    success: function (response) {
       let resultado = JSON.parse(response);
       if (resultado.result == "actualizado") {
         contrasena_actualizacion_exitosa();
@@ -270,7 +273,7 @@ function validacionContrasenas() {
       } else if (resultado.result == "no actualizado") {
         contrasena_no_actualizada_alerta();
       }
-    }
+    },
   });
 }
 
@@ -298,8 +301,9 @@ function animacion_enviado_codigo_primero() {
 function animacion_enviar_consulta() {
   $("#boton_enviar_consulta").remove();
   var boton_falso =
-    '<button id = "boton_enviar_falso" type="submit" class="btn btn-primary disabled boton_success"> <span class="spinner-border spinner-border-sm"></span> enviando correo</button>';
+    '<button " id = "boton_enviar_falso" type="submit" class="btn btn-primary disabled boton_success"> <span class="spinner-border spinner-border-sm"></span> enviando correo</button>';
   $("#enviar_correo_boton").append(boton_falso);
+  document.getElementById("boton_enviar_falso").disabled = true;
 }
 
 function restaurar_icono_enviar() {
@@ -330,7 +334,7 @@ function contrasena_no_actualizada_alerta() {
   $("#no_actualizada").toast({ delay: 7000 });
   $("#no_actualizada").toast("show");
 
-  setTimeout(function() {
+  setTimeout(function () {
     $("#no_actualizada").remove();
   }, 7000);
   document.getElementById("contrasenaUno").value = null;
@@ -385,7 +389,7 @@ function contrasenas_coincidencia_alerta() {
   $("#coincidencia").toast({ delay: 3000 });
   $("#coincidencia").toast("show");
 
-  setTimeout(function() {
+  setTimeout(function () {
     $("#coincidencia").remove();
   }, 3000);
   document.getElementById("contrasenaDos").value = null;
