@@ -1,10 +1,10 @@
 <?php
-require_once('db/db_inventory.php');
+//require_once('db/db_inventory.php');
 require_once('db/db_client.php');
 require_once('db/db_motorcycle.php');
-require_once('db/db_proveedor.php');
-require_once('db/db_purchase.php');
-require_once('db/db_sales.php');
+//require_once('db/db_proveedor.php');
+//require_once('db/db_purchase.php');
+//require_once('db/db_sales.php');
 function get_inventory()
 {
     $db = new db_inventory();

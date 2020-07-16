@@ -33,6 +33,7 @@ class UI_Motos extends Gui_login
 
           <div class="section-title">
             <h2>Motos</h2>
+            <input type="hidden" id="id" id_usuario=<?=$this->id_usuario?>>
 
           </div>
           <section class="container py-3" style="color: #04ADBF;">
@@ -48,16 +49,8 @@ class UI_Motos extends Gui_login
                       <div class="float-right">
                         <div class="btn-group" role="group" aria-label="First group">
 
-
-                          <div class="btn-group ml-2" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Exportar
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                              <a class="dropdown-item" href="#">PDF</a>
-                              <a class="dropdown-item" href="#">EXCEL</a>
-                              <span id="pdf" target="blank" class="btn btn-info"><i class="fas fa-file"></i> Generar PDF</span>
-                            </div>
+                          <div class="btn-group ml-2" role="group">         
+                              <span style="background-color: #212431;"id="pdf" target="blank" class="btn btn-info"><i class="fas fa-file"></i> Generar PDF</span>
                           </div>
                         </div>
 

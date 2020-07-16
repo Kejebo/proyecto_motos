@@ -128,7 +128,7 @@ $admin = $admin->get_admin();
     ?>
 </page>
 <?php
-require_once(__DIR__ . "./vendor/autoload.php");
+require_once("../vendor/autoload.php");
 
 use Spipu\Html2Pdf\Html2Pdf;
 

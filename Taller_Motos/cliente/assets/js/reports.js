@@ -128,170 +128,19 @@ function get_client_motorcycle(cliente) {
 }
 
 function get_pdf() {
-    //alert('hola');
-   // var opciones = sel.options[sel.selectedIndex].textContent;
     //let dia = document.getElementById('dia');
     switch ('Motos de Cliente') {
-        case 'Inventario':
-            Inventario('inventario');
-            break;
-
-        case 'Clientes':
-            window.open('pdf.php?data=Clients', '_blank');
-            break;
-
+       
         case 'Motos de Cliente':
             motos('motos_cliente');
             break;
-
-        case 'Proveedores':
-            window.open('pdf.php?data=Venta_Proveedor', '_blank');
-            break;
-        case 'Ventas General':
-            window.open('pdf.php?data=Venta_General', '_blank');
-            break;
-        case 'Ventas Diaria':
-            Ventas_pdf(dia.value, 'venta_diaria');
-            break;
-        case 'Ventas Mensuales':
-            Ventas_pdf(dia.value + '-01', 'venta_mensual');
-            break;
-        case 'Ventas Anuales':
-            Ventas_pdf(dia.value, 'venta_anual');
-            break;
-
-        case 'Ventas Periodica':
-            Ventas_periodo_pdf(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'venta_periodo');
-            break;
-        case 'Compras Diaria':
-            Compras_pdf(dia.value, 'compra_diaria');
-            break;
-
-        case 'Compras Mensuales':
-            Compras_pdf(dia.value, 'compra_mensual');
-            break;
-
-        case 'Compras Anuales':
-            Compras_pdf(dia.value, 'compra_anual');
-            break;
-        case 'Compras Periodica':
-            compras_periodo_pdf(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'compra_periodo');
-            break;
     }
-}
-
-function get_consulta() {
-    let sel = document.getElementById('tipo');
-    var opciones = sel.options[sel.selectedIndex].textContent;
-    let dia = document.getElementById('dia');
-    switch (opciones) {
-        case 'Inventario':
-
-        case 'Motos de Cliente':
-            motos_consulta('motos_cliente');
-            break;
-
-        case 'Ventas Diaria':
-            ventas_consulta(dia.value, 'venta_diaria');
-            break;
-        case 'Ventas Mensuales':
-            ventas_consulta(dia.value + '-01', 'venta_mensual');
-            break;
-        case 'Ventas Anuales':
-            ventas_consulta(dia.value, 'venta_anual');
-            break;
-        case 'Ventas Periodica':
-            ventas_consulta_periodo(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'venta_periodo');
-            break;
-        case 'Compras Diaria':
-            compras_consulta(dia.value, 'compra_diaria');
-            break;
-
-        case 'Compras Mensuales':
-            compras_consulta(dia.value + '-01', 'compra_mensual');
-            break;
-
-        case 'Compras Anuales':
-            compras_consulta(dia.value, 'compra_anual');
-            break;
-        case 'Compras Periodica':
-            compras_consulta_periodo(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'compra_periodo');
-            break;
-    }
-}
-
-function update_action(action) {
-    document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=' + action);
-}
-
-function Ventas_pdf(dia, action) {
-    $.ajax({
-        type: "post",
-        url: "controller.php",
-        data: { dia, action },
-        dataType: "json",
-        success: function (response) {
-            if (response != false) {
-                window.open('pdf.php?data=' + action + '&dia=' + dia, '_blank');
-            } else {
-                alert('No hay registros de ventas');
-            }
-        }
-    });
-}
-
-function Ventas_periodo_pdf(inicio, final, action) {
-    $.ajax({
-        type: "post",
-        url: "controller.php",
-        data: { inicio, final, action },
-        dataType: "json",
-        success: function (response) {
-            if (response != false) {
-                window.open('pdf.php?data=' + action + '&inicio=' + inicio + '&final=' + final, '_blank');
-            } else {
-                alert('No hay registros de ventas');
-            }
-        }
-    });
-}
-
-function compras_periodo_pdf(inicio, final, action) {
-    $.ajax({
-        type: "post",
-        url: "controller.php",
-        data: { inicio,final, action },
-        dataType: "json",
-        success: function (response) {
-            if (response != false) {
-                window.open('pdf.php?data=' + action + '&inicio=' + inicio + '&final=' + final, '_blank');
-            } else {
-                alert('No hay registros de compras');
-            }
-        }
-    });
-}
-
-function Compras_pdf(dia, action) {
-    $.ajax({
-        type: "post",
-        url: "controller.php",
-        data: { dia, action },
-        dataType: "json",
-        success: function (response) {
-            if (response != false) {
-                window.open('pdf.php?data=' + action + '&dia=' + dia, '_blank');
-            } else {
-                alert('No hay registros de Compras');
-            }
-        }
-    });
 }
 
 function motos(action) {
     //let sel = document.getElementById('clientes');
     //let id = sel.options[sel.selectedIndex].value;
-var id = 7;
+    let id = document.getElementById('id').getAttribute('id_usuario');
     $.ajax({
         type: "post",
         url: "controller.php",
@@ -299,7 +148,7 @@ var id = 7;
         dataType: "json",
         success: function (response) {
             if (response != false) {
-                window.open('pdf.php?data=Motos_cliente&id=7', '_blank');
+                window.open('pdf.php?data=Motos_cliente&id='+ id,'_blank');
             } else {
                 alert('No tiene motos registradas');
             }

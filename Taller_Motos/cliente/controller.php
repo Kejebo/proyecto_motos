@@ -1,16 +1,16 @@
 <?php
-require_once('db/db_inventory.php');
-require_once('ln/ln_purchase.php');
-require_once('ln/ln_sales.php');
+//require_once('db/db_inventory.php');
+//require_once('ln/ln_purchase.php');
+//require_once('ln/ln_sales.php');
 require_once('db/db_motorcycle.php');
 require_once('db/db_workshop.php');
-require_once('db/db_client.php');
-$inventory = new db_inventory();
-$purchase = new ln_purchase();
-$sale = new ln_sales();
+//require_once('db/db_client.php');
+//$inventory = new db_inventory();
+//$purchase = new ln_purchase();
+//$sale = new ln_sales();
 $moto = new db_motorcycle();
 $work = new db_workshop();
-$client = new db_client();
+//$client = new db_client();
 switch ($_POST['action']) {
     case 'get_medida':
         echo json_encode($inventory->get_category_medida($_POST['id'])[0]);

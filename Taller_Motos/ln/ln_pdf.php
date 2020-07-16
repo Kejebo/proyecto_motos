@@ -97,7 +97,7 @@ function get_client_motorcycle()
                 <th style="text-align: center;    width: 34%">Moto</th>
                 <th style="text-align: center;    width: 20%">Cilindraje</th>
                 <th style="text-align: center;    width: 18%">Kilometraje</th>
-                <th style="text-align: center;    width: 18%">Proximo Kilometraje</th>
+                <th style="text-align: center;    width: 18%">Proxima Cita</th>
 
 
             </tr>
