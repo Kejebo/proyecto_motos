@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2020 a las 07:42:53
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.3
+-- Tiempo de generación: 07-07-2020 a las 20:18:49
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -78,8 +77,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_cilindrajes_inactivos` ()  begi
 	select * from cilindrajes where estado_cilindraje = false;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_cliente` (`id` INT)  begin
-select * from clientes where id_cliente=id;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_cliente` (`id` VARCHAR(50))  begin
+select * from clientes where correo=id;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_clientes` ()  begin
@@ -133,9 +132,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_detalle_compra` (`id` INT)  beg
 
 		end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_detalle_reparacion` (`id` INT)  begin
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_detalle_reparacion` (IN `id` INT)  begin
 	select m.nombre as nombre, me.nombre_medida as medida,m.cantidad_inicial as cantidad,m.cantidad_inicial*m.presentacion as total 
-		,COALESCE(m.presentacion,0) as monto, mm.nombre_marca as marca, d.cantidad as cant, m.id_material as material from detalle_reparacion d 
+		,COALESCE(m.presentacion,0) as monto, mm.nombre_marca as marca, d.cantidad as cant, m.id_material as id_material from detalle_reparacion d 
     inner join materiales m on m.id_material=d.id_material
      inner join marcas_materiales mm on mm.id_marca_material=m.id_marca_material
 		inner join categorias_material cm on cm.id_categoria=m.id_categoria
@@ -144,8 +143,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_detalle_reparacion` (`id` INT) 
     order by m.id_material desc;
 	end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_detalle_trabajo` (`id` INT)  begin
-	select t.nombre_trabajo as trabajo, t.id_trabajo as id from detalle_trabajo d 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_detalle_trabajo` (IN `id` INT)  begin
+	select t.nombre_trabajo as nombre_trabajo, t.id_trabajo as id_trabajo from detalle_trabajo d 
 	inner join trabajos t on t.id_trabajo=d.id_trabajo
     where d.id_reparacion=id
     order by t.id_trabajo desc;
@@ -301,9 +300,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_motos_inactivas` ()  begin
     categorias_motos on categorias_motos.id_categoria_moto = motos.id_categoria_moto where estado_moto = false;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparacion` (`id` INT)  begin
-	select r.id_reparacion as id, fecha_entrada as fecha,clientes.nombre_cliente as cliente, clientes.id_cliente as id_cliente,concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
-    m.numero_placa as placa, r.precio as monto, m.id_moto as id_moto, r.kilometraje_entrada as kilometraje from  reparaciones r 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparacion` (IN `id` INT)  begin
+	select r.id_reparacion as id, fecha_entrada as fecha_entrada,clientes.nombre_cliente as cliente, clientes.id_cliente as id_cliente,concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    m.numero_placa as placa, r.precio as monto, m.id_moto as id_moto, r.kilometraje_entrada as kilometraje_entrada from  reparaciones r 
     inner join motos m on r.id_moto=m.id_moto
     inner join clientes on clientes.id_cliente = m.id_cliente
     inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
@@ -312,12 +311,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparacion` (`id` INT)  begin
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparaciones` ()  begin
 	select r.id_reparacion as id, fecha_entrada as fecha,clientes.nombre_cliente as cliente, concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
-    m.numero_placa as placa, r.precio as monto from  reparaciones r 
+    m.numero_placa as placa, r.precio as monto, r.estado as estado from  reparaciones r 
     inner join motos m on r.id_moto=m.id_moto
     inner join clientes on clientes.id_cliente = m.id_cliente
     inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
     modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto
     order by r.id_reparacion asc;
+    end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparacion_moto` (`placa_moto` INT)  begin
+	select r.id_reparacion as id, fecha_entrada as fecha,clientes.nombre_cliente as cliente, clientes.id_cliente as id_cliente,concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    m.numero_placa as placa, r.precio as monto, m.id_moto as id_moto, r.kilometraje_entrada as kilometraje from  reparaciones r 
+    inner join motos m on r.id_moto=m.id_moto
+    inner join clientes on clientes.id_cliente = m.id_cliente
+    inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
+    modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto where m.numero_placa = placa_moto; 
     end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_saldo` (`id` INT)  begin
@@ -356,15 +364,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_transmisiones_inactivas` ()  be
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ultimo_cliente` ()  begin
-select * from clientes order by id_usuario desc limit 1;
+select * from clientes order by id_cliente desc limit 1;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ultimo_usuario` ()  begin
 select * from usuarios order by id_usuario desc limit 1;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_usuario` (`correo` VARCHAR(100), `pass` VARCHAR(30), `tipo_usuario` VARCHAR(20))  begin
-select * from usuarios where correo_electronico = correo and clave = pass and tipo = tipo_usuario and estado = 1;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_usuario` (IN `correo` VARCHAR(100), IN `pass` VARCHAR(30))  begin
+select * from usuarios where correo_electronico = correo and clave = pass  and estado = 1;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_usuario_cambio` (`correo` VARCHAR(100))  begin
@@ -595,7 +603,7 @@ CREATE TABLE `categorias_material` (
   `id_categoria` int(11) NOT NULL,
   `id_medida` int(11) DEFAULT NULL,
   `nombre_categoria` varchar(30) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT '1'
+  `estado` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -616,7 +624,7 @@ INSERT INTO `categorias_material` (`id_categoria`, `id_medida`, `nombre_categori
 CREATE TABLE `cilindrajes` (
   `id_cilindraje` int(11) NOT NULL,
   `tamano_cilindraje` int(11) DEFAULT NULL,
-  `estado_cilindraje` tinyint(1) DEFAULT '1'
+  `estado_cilindraje` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -641,7 +649,7 @@ CREATE TABLE `clientes` (
   `correo` varchar(50) DEFAULT NULL,
   `telefono` varchar(15) DEFAULT NULL,
   `clave` varchar(20) NOT NULL,
-  `estado_cliente` tinyint(1) DEFAULT '1'
+  `estado_cliente` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -649,8 +657,10 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `cedula_juridica`, `nombre_cliente`, `correo`, `telefono`, `clave`, `estado_cliente`) VALUES
-(2, '702380402', 'Kendrick Jenkins', 'kenjen041@gmail.com', ' 8359-51-76', '1234', 1),
-(3, '20393818', 'Jose', 'rOW@GMAIL.COM', '27587676', '1234', 1);
+(2, '702380402', 'Kendrick Jenkins', 'kenjen041@gmail.com', ' 8359-51-76', '23', 1),
+(3, '20393818', 'Jose', 'rOW@GMAIL.COM', '27587676', '1234', 1),
+(7, '123', 'Juan', 'juancito', '25252', '123', 1),
+(12, '20393818', 'Jani', 'J@gmail.com', '83595176', '123', 1);
 
 -- --------------------------------------------------------
 
@@ -741,9 +751,10 @@ INSERT INTO `compras_materiales` (`id_compra`, `id_material`, `cantidad`, `preci
 (56, 7, 10, 2000),
 (57, 6, 10, 1000),
 (55, 7, 10, 10000),
+(59, 7, 7, 6000),
 (58, 7, 18, 100),
 (58, 6, 11, 200),
-(59, 7, 7, 6000);
+(58, 6, 5, 1000);
 
 -- --------------------------------------------------------
 
@@ -754,20 +765,19 @@ INSERT INTO `compras_materiales` (`id_compra`, `id_material`, `cantidad`, `preci
 CREATE TABLE `detalle_reparacion` (
   `id_reparacion` int(11) DEFAULT NULL,
   `id_material` int(11) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL
+  `cantidad` int(11) DEFAULT NULL,
+  `presentacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `detalle_reparacion`
 --
 
-INSERT INTO `detalle_reparacion` (`id_reparacion`, `id_material`, `cantidad`) VALUES
-(36, 7, 9),
-(37, 6, 15),
-(38, 6, 11),
-(22, 7, 8),
-(22, 7, 8),
-(22, 7, 8);
+INSERT INTO `detalle_reparacion` (`id_reparacion`, `id_material`, `cantidad`, `presentacion`) VALUES
+(37, 6, 15, 0),
+(39, 7, 0, 0),
+(36, 7, 12, 0),
+(35, 6, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -785,12 +795,37 @@ CREATE TABLE `detalle_trabajo` (
 --
 
 INSERT INTO `detalle_trabajo` (`id_reparacion`, `id_trabajo`) VALUES
-(36, 1),
 (37, 1),
-(38, 2),
-(35, 1),
-(35, 1),
+(39, 2),
+(36, 1),
+(36, 3),
+(39, 1),
+(39, 1),
+(39, 1),
 (35, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `empresa`
+--
+
+CREATE TABLE `empresa` (
+  `id_empresa` int(11) NOT NULL,
+  `nombre` varchar(40) DEFAULT NULL,
+  `logo` text DEFAULT NULL,
+  `correo` varchar(30) DEFAULT NULL,
+  `direccion` text DEFAULT NULL,
+  `cedula_juridica` varchar(30) DEFAULT NULL,
+  `telefono` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `empresa`
+--
+
+INSERT INTO `empresa` (`id_empresa`, `nombre`, `logo`, `correo`, `direccion`, `cedula_juridica`, `telefono`) VALUES
+(1, 'Migthy motors', 'assets/logo/497pati.jpg', 'mannolo@gmail.com', 'B° San Rafael', '20393818', '83595176');
 
 -- --------------------------------------------------------
 
@@ -801,7 +836,7 @@ INSERT INTO `detalle_trabajo` (`id_reparacion`, `id_trabajo`) VALUES
 CREATE TABLE `marcas_materiales` (
   `id_marca_material` int(11) NOT NULL,
   `nombre_marca` varchar(40) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT '1'
+  `estado` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -826,7 +861,7 @@ INSERT INTO `marcas_materiales` (`id_marca_material`, `nombre_marca`, `estado`) 
 CREATE TABLE `marcas_motos` (
   `id_marca_moto` int(11) NOT NULL,
   `nombre_marca` varchar(25) DEFAULT NULL,
-  `estado_marca_moto` tinyint(1) DEFAULT '1'
+  `estado_marca_moto` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -859,7 +894,7 @@ CREATE TABLE `marcas_motos_categorias_motos` (
 CREATE TABLE `marcas_repuestos` (
   `id_marca_repuestos` int(11) NOT NULL,
   `nombre_marca_repuesto` varchar(25) DEFAULT NULL,
-  `estado_marca_repuesto` tinyint(1) DEFAULT '1'
+  `estado_marca_repuesto` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -878,7 +913,7 @@ CREATE TABLE `materiales` (
   `precio_compra` int(11) DEFAULT NULL,
   `precio_venta` int(11) DEFAULT NULL,
   `cantidad_minima` int(11) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT '1'
+  `estado` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -902,7 +937,7 @@ INSERT INTO `materiales` (`id_material`, `id_categoria`, `nombre`, `id_marca_mat
 CREATE TABLE `medidas` (
   `id_medida` int(11) NOT NULL,
   `nombre_medida` varchar(50) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT '1'
+  `estado` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -923,7 +958,7 @@ CREATE TABLE `modelos_motos` (
   `id_modelo_moto` int(11) NOT NULL,
   `nombre_modelo` varchar(50) DEFAULT NULL,
   `ano` int(11) NOT NULL,
-  `estado_modelo_moto` tinyint(1) DEFAULT '1'
+  `estado_modelo_moto` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -951,10 +986,10 @@ CREATE TABLE `motos` (
   `id_combustible` int(11) NOT NULL,
   `numero_chasis` varchar(17) DEFAULT NULL,
   `numero_placa` varchar(10) DEFAULT NULL,
-  `imagen_moto` text,
+  `imagen_moto` text DEFAULT NULL,
   `kilometraje` int(11) DEFAULT NULL,
-  `nuevo_kilometraje` int(11) NOT NULL DEFAULT '0',
-  `estado_moto` tinyint(1) DEFAULT '1'
+  `nuevo_kilometraje` int(11) NOT NULL DEFAULT 0,
+  `estado_moto` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -962,11 +997,13 @@ CREATE TABLE `motos` (
 --
 
 INSERT INTO `motos` (`id_moto`, `id_cliente`, `id_marca_moto`, `id_modelo_moto`, `id_transmision`, `id_cilindraje`, `id_combustible`, `numero_chasis`, `numero_placa`, `imagen_moto`, `kilometraje`, `nuevo_kilometraje`, `estado_moto`) VALUES
-(1, 2, 1, 2, 1, 2, 2, '96987', '4657687', NULL, 15, 11020, 1),
+(1, 2, 1, 2, 1, 2, 2, '96987', '4657687', NULL, 0, 0, 1),
 (2, 2, 2, 2, 1, 1, 2, '4151', '31131', NULL, 16000, 17000, 1),
 (3, 3, 3, 1, 3, 2, 1, '7908', '3029245', NULL, 22, 32, 1),
 (4, 3, 4, 1, 1, 3, 2, '4151', '200019', NULL, 20, 0, 1),
-(5, 2, 4, 3, 2, 3, 4, '0790', '09768574', NULL, 200, 0, 1);
+(5, 2, 4, 3, 2, 3, 4, '0790', '09768574', NULL, 200, 0, 1),
+(6, 7, 1, 1, 2, 3, 1, '123', '8585', NULL, 11500, 15000, 1),
+(7, 7, 2, 2, 1, 1, 2, '0022', '6954', NULL, 2000, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -980,7 +1017,7 @@ CREATE TABLE `proveedores` (
   `telefono` varchar(15) DEFAULT NULL,
   `correo` varchar(30) DEFAULT NULL,
   `cedula_juridica` varchar(20) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT '1'
+  `estado` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1006,22 +1043,24 @@ CREATE TABLE `reparaciones` (
   `id_usuario` int(11) DEFAULT NULL,
   `fecha_entrada` date DEFAULT NULL,
   `fecha_salida` date DEFAULT NULL,
-  `descripcion` text,
+  `descripcion` text DEFAULT NULL,
   `precio` int(11) DEFAULT NULL,
   `kilometraje_entrada` varchar(15) NOT NULL,
-  `kilometraje_salida` varchar(15) NOT NULL
+  `kilometraje_salida` varchar(15) NOT NULL,
+  `estado` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `reparaciones`
 --
 
-INSERT INTO `reparaciones` (`id_reparacion`, `id_moto`, `id_usuario`, `fecha_entrada`, `fecha_salida`, `descripcion`, `precio`, `kilometraje_entrada`, `kilometraje_salida`) VALUES
-(22, 1, NULL, '2020-04-22', '2020-04-25', 'Rayos Quebrados', 30000, '10020', '10020'),
-(35, 2, NULL, '2020-04-25', '2020-04-25', 'Discos Quemados', 25000, '15698', '16000'),
-(36, 3, NULL, '2020-04-25', '2020-04-26', 'Nada', 2000, '2500', '2501'),
-(37, 3, NULL, '2020-04-25', '2020-04-26', 'DaÃ±os de discos', 40000, '5000', '40000'),
-(38, 3, NULL, '2020-05-15', '2020-05-16', 'Radiador taqueado', 300000, '20', '22');
+INSERT INTO `reparaciones` (`id_reparacion`, `id_moto`, `id_usuario`, `fecha_entrada`, `fecha_salida`, `descripcion`, `precio`, `kilometraje_entrada`, `kilometraje_salida`, `estado`) VALUES
+(22, 1, NULL, '2020-04-22', '2020-04-25', 'Rayos Quebrados', 30000, '10020', '10020', 'Espera'),
+(35, 2, NULL, '2020-04-25', '0000-00-00', '', 0, '15698', '', 'Finalizado'),
+(36, 3, NULL, '2020-04-25', '2020-04-26', 'Nada', 2000, '2500', '2501', 'Finalizado'),
+(37, 3, NULL, '2020-04-25', '2020-04-26', 'DaÃ±os de discos', 40000, '5000', '40000', 'Finalizado'),
+(38, 3, NULL, '2020-05-15', '2020-05-16', 'Radiador taqueado', 300000, '20', '22', 'Espera'),
+(39, 6, NULL, '2020-06-28', '2020-06-29', '', 3000, '10000', '11500', 'Espera');
 
 -- --------------------------------------------------------
 
@@ -1041,7 +1080,8 @@ CREATE TABLE `trabajos` (
 
 INSERT INTO `trabajos` (`id_trabajo`, `nombre_trabajo`, `precio`) VALUES
 (1, 'Cambio Aceite', 5000),
-(2, 'Cambio de Luces', 10000);
+(2, 'Cambio de Luces', 10000),
+(3, 'Cambio de Motor', NULL);
 
 -- --------------------------------------------------------
 
@@ -1052,7 +1092,7 @@ INSERT INTO `trabajos` (`id_trabajo`, `nombre_trabajo`, `precio`) VALUES
 CREATE TABLE `transmisiones` (
   `id_transmision` int(11) NOT NULL,
   `nombre_transmision` varchar(10) DEFAULT NULL,
-  `estado_transmision` tinyint(1) DEFAULT '1'
+  `estado_transmision` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1077,7 +1117,7 @@ CREATE TABLE `usuarios` (
   `correo_electronico` varchar(100) NOT NULL,
   `tipo` varchar(20) DEFAULT NULL,
   `clave` varchar(30) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT '1',
+  `estado` tinyint(1) DEFAULT 1,
   `codigo_cambio` varchar(100) NOT NULL,
   `estado_cambio` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1088,7 +1128,11 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre_completo`, `correo_electronico`, `tipo`, `clave`, `estado`, `codigo_cambio`, `estado_cambio`) VALUES
 (3, 'Culi', '0', NULL, 'Zoidse', 1, '', ''),
-(4, 'Pedro', 'wrdkillvibe@gmail.com', 'administrador', '12345', 1, '', '0');
+(4, 'Pedro', 'wrdkillvibe@gmail.com', 'administrador', '147', 1, '', '0'),
+(8, 'Juan', 'juancito', 'cliente', '123', 1, '', ''),
+(12, 'Kendrick', 'kenjen041@gmail.com', 'cliente', '123', 1, '', ''),
+(16, 'Plantitac', 'mannolo@gmail.com', 'Tecnico', '123', 1, '', ''),
+(17, 'Jani', 'J@gmail.com', 'cliente', '123', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -1130,9 +1174,9 @@ CREATE TABLE `ventas_materiales` (
 --
 
 INSERT INTO `ventas_materiales` (`id_venta`, `id_material`, `cantidad`, `precio`) VALUES
-(3, 6, 8, 5000),
 (5, 8, 8, 5000),
-(4, 6, 10, 5000);
+(4, 6, 10, 5000),
+(3, 7, 4, 2200);
 
 --
 -- Índices para tablas volcadas
@@ -1155,7 +1199,8 @@ ALTER TABLE `cilindrajes`
 -- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id_cliente`);
+  ADD PRIMARY KEY (`id_cliente`),
+  ADD UNIQUE KEY `correo` (`correo`);
 
 --
 -- Indices de la tabla `combustible`
@@ -1191,6 +1236,12 @@ ALTER TABLE `detalle_reparacion`
 ALTER TABLE `detalle_trabajo`
   ADD KEY `id_reparacion` (`id_reparacion`),
   ADD KEY `id_trabajo` (`id_trabajo`);
+
+--
+-- Indices de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`id_empresa`);
 
 --
 -- Indices de la tabla `marcas_materiales`
@@ -1317,7 +1368,7 @@ ALTER TABLE `cilindrajes`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `combustible`
@@ -1330,6 +1381,12 @@ ALTER TABLE `combustible`
 --
 ALTER TABLE `compras`
   MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+
+--
+-- AUTO_INCREMENT de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas_materiales`
@@ -1371,7 +1428,7 @@ ALTER TABLE `modelos_motos`
 -- AUTO_INCREMENT de la tabla `motos`
 --
 ALTER TABLE `motos`
-  MODIFY `id_moto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_moto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -1383,13 +1440,13 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `reparaciones`
 --
 ALTER TABLE `reparaciones`
-  MODIFY `id_reparacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_reparacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `trabajos`
 --
 ALTER TABLE `trabajos`
-  MODIFY `id_trabajo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_trabajo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `transmisiones`
@@ -1401,7 +1458,7 @@ ALTER TABLE `transmisiones`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`

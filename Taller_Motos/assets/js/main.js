@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
       recargar_venta();
       break;
     case 'Modulo Mantenimiento':
-    //  insert_work();
+      //  insert_work();
       recargar_trabajo();
       recargar_materiales();
       break;
@@ -89,14 +89,14 @@ function insert_materialwork_detail() {
 function insert_cliente() {
   let nombre = document.querySelector('#nombre_cliente').value;
   let cedula = document.querySelector('#cedula').value;
-  let telefono=document.querySelector('#telefono').value;
-  let correo= document.querySelector('#correo').value;
-  let clave=document.querySelector('#clave').value;
-  let action='insert_cliente';
+  let telefono = document.querySelector('#telefono').value;
+  let correo = document.querySelector('#correo').value;
+  let clave = document.querySelector('#clave').value;
+  let action = 'insert_cliente';
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: {action, nombre,cedula,telefono,correo,clave},
+    data: { action, nombre, cedula, telefono, correo, clave },
     success: function (response) {
       let datos = JSON.parse(response);
       document.querySelector('#cliente').innerHTML = '';
@@ -304,27 +304,27 @@ function insert_work() {
   });
 }
 function insert_sale_data() {
-    let nombre = document.querySelector('#material');
+  let nombre = document.querySelector('#material');
 
-    detalles = {
-      precio: document.querySelector('#precio').value,
-      cantidad: document.querySelector('#cantidad').value,
-      material: document.querySelector('#material').value,
-      nombre_material: nombre.options[nombre.selectedIndex].textContent
-    };
-      venta.push(detalles);
+  detalles = {
+    precio: document.querySelector('#precio').value,
+    cantidad: document.querySelector('#cantidad').value,
+    material: document.querySelector('#material').value,
+    nombre_material: nombre.options[nombre.selectedIndex].textContent
+  };
+  venta.push(detalles);
 
-      resetear();
-      document.querySelector('#detalle').appendChild(crear_fila(detalles, i++, '#venta', 'sale'));
-      total_venta();
+  resetear();
+  document.querySelector('#detalle').appendChild(crear_fila(detalles, i++, '#venta', 'sale'));
+  total_venta();
 
 
 }
 
 function validate_sale(id, cantidad) {
-      insert_sale_data(cantidad);
-      total_venta();
-    }
+  insert_sale_data(cantidad);
+  total_venta();
+}
 function total_compra() {
   let saldo = 0;
   compra.forEach(element => {

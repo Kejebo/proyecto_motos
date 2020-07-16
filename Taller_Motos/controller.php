@@ -20,7 +20,6 @@ switch ($_POST['action']) {
         break;
     case 'update_purchase':
         $purchase->update_purchase($_POST);
-        // echo true;
         break;
     case 'get_prices':
         echo json_encode($inventory->get_sale_prices($_POST['id'])[0]);
@@ -69,20 +68,43 @@ switch ($_POST['action']) {
     case 'get_motos':
         echo json_encode($moto->get_motos_client($_POST['id_cliente']));
         break;
-
-    case 'update_work':
-        extract($_POST);
-        $work->delete_works($id);
-        $work->delete_materialwork($id);
-
-        foreach ($material as $datos) {
-            $work->insert_material($datos, $id);
-        }
-
-        foreach ($trabajo as $works) {
-            $work->insert_work_detail($works, $id);
-        }
-        echo json_encode(array("id" => "workshop.php?action=update&id=$id"));
-
+    case 'venta_mensual':
+        echo json_encode($sale->db->get_sales_mensual($_POST['dia']));
+        break;
+    case 'venta_diaria':
+        echo json_encode($sale->db->get_sales_diario($_POST['dia']));
+        break;
+    case 'venta_anual':
+        echo json_encode($sale->db->get_sales_anual($_POST['dia']));
+        break;
+    case 'venta_general':
+        echo json_encode($sale->db->get_sales());
+        break;
+    case 'venta_periodo':
+        echo json_encode($sale->db->get_sales_periodo($_POST['inicio'], $_POST['final']));
+        break;
+    case 'compra_mensual':
+        echo json_encode($purchase->db->get_purchases_mensual($_POST['dia']));
+        break;
+    case 'compra_diaria':
+        echo json_encode($purchase->db->get_purchases_diario($_POST['dia']));
+        break;
+    case 'compra_anual':
+        echo json_encode($purchase->db->get_purchases_anual($_POST['dia']));
+        break;
+    case 'compra_general':
+        echo json_encode($purchase->db->get_purchases());
+        break;
+    case 'compra_periodo':
+        echo json_encode($purchase->db->get_purcharses_periodo($_POST['inicio'], $_POST['final']));
+        break;
+    case 'inventario':
+        echo json_encode($inventory->get_inventory());
+        break;
+    case 'clientes':
+        echo json_encode($client->get_clients());
+        break;
+    case 'motos_cliente':
+        echo json_encode($moto->get_motos_client($_POST['id']));
         break;
 }
