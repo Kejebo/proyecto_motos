@@ -97,8 +97,7 @@ function get_client_motorcycle()
                 <th style="text-align: center;    width: 34%">Moto</th>
                 <th style="text-align: center;    width: 20%">Cilindraje</th>
                 <th style="text-align: center;    width: 18%">Kilometraje</th>
-                <th style="text-align: center;    width: 18%">Proxima Cita</th>
-
+                <th style="text-align: center;    width: 18%">Proxima a Cita</th>
 
             </tr>
         </thead>
@@ -109,8 +108,8 @@ function get_client_motorcycle()
                     <td><?= $list['placa']; ?></td>
                     <td><?= $list['moto']; ?></td>
                     <td><?= $list['cilindraje']; ?></td>
-                    <td><?= $list['kilometraje']; ?></td>
-                    <td><?= $list['nuevo_kilometraje']; ?></td>
+                    <td><?= number_format($list['kilometraje']); ?> Km</td>
+                    <td><?= number_format($list['nuevo_kilometraje']); ?> Km</td>
 
                 </tr>
             <?php } ?>

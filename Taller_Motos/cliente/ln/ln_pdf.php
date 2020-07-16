@@ -86,7 +86,7 @@ function get_client_motorcycle()
     $client = new db_client();
 ?>
     <div id="titulo">
-        <h2>Lista de Motos del <?= $client->get_client($_GET['id'])['nombre_cliente'] ?></h2>
+        <h2>Lista de Motos de <?= $client->get_client($_GET['id'])['correo'] ?></h2>
     </div>
     <br>
     <br>
@@ -97,7 +97,7 @@ function get_client_motorcycle()
                 <th style="text-align: center;    width: 34%">Moto</th>
                 <th style="text-align: center;    width: 20%">Cilindraje</th>
                 <th style="text-align: center;    width: 18%">Kilometraje</th>
-                <th style="text-align: center;    width: 18%">Proximo Kilometraje</th>
+                <th style="text-align: center;    width: 18%">Proxima Cita a</th>
 
 
             </tr>
@@ -107,10 +107,10 @@ function get_client_motorcycle()
 
                 <tr>
                     <td><?= $list['placa']; ?></td>
-                    <td><?= $list['moto']; ?></td>
-                    <td><?= $list['cilindraje']; ?></td>
-                    <td><?= $list['kilometraje']; ?></td>
-                    <td><?= $list['nuevo_kilometraje']; ?></td>
+                    <td><?= $list['moto']; ?> </td>
+                    <td><?= $list['cilindraje']; ?> cc</td>
+                    <td><?= number_format($list['kilometraje']);?> Km</td>
+                    <td><?= number_format($list['nuevo_kilometraje']);?> Km</td>
 
                 </tr>
             <?php } ?>
