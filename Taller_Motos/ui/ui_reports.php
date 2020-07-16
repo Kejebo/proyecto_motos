@@ -50,13 +50,13 @@ class ui_report extends Gui
             <div class="col-sm-12">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h5> <span> <i class="fas fa-bars"></i></span> Registrar Venta</h5>
+                        <h5> <span> <i class="fas fa-bars"></i></span> Registro</h5>
                     </div>
                     <div class="card-body">
-                        <form method="POST" id="report" action="sale.php?action=">
+                        <div onsubmit="return false">
 
                             <div class="row">
-                                <div class="form-group col-sm-4">
+                                <div class="form-group col-sm-6 col-md-4 col-lg-4">
                                     <label>Tipo de Consulta</label>
                                     <select class="form-control" name="consultas" id="tipo" onchange="selec_report(this)">
                                         <?php
@@ -67,7 +67,7 @@ class ui_report extends Gui
                                         ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-4" id="cliente" style="display: none;">
+                                <div class="form-group col-sm-6 col-md-4 col-lg-4" id="cliente" style="display: none;">
                                     <label>Clientes</label>
                                     <select class="form-control" id="clientes" onchange="get_client_motorcycle(this)">
                                         <?php
@@ -78,33 +78,33 @@ class ui_report extends Gui
                                         <?php } ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-4" id="fecha" style="display: none;">
+                                <div class="form-group col-sm-6 col-md-4 col-lg-4" id="fecha" style="display: none;">
                                     <label for="my-select">Fecha</label>
                                     <input type="date" name="fecha" id="dia" class="form-control" required>
                                 </div>
-                                <div class="col-sm-4 form-group" id="inicio" style="display: none;">
+                                <div class="col-sm-6 col-md-4 col-lg-4 form-group" id="inicio" style="display: none;">
                                     <label for="my-select">Fecha Inicio</label>
                                     <input type="date" name="inicio" class="form-control" required> </div>
-                                <div class="form-group col-sm-4" id="final" style="display: none;">
+                                <div class="form-group col-sm-6 col-md-4 col-lg-4" id="final" style="display: none;">
                                     <label for="my-select">Fecha Final</label>
                                     <input type="date" class="form-control" required> </div>
                             </div>
                             <div class="form-group ml-3">
-                                <button class="btn btn-primary" type="submit" id="consultar"><i class="fas fa-file"></i> Consultar</button>
+                                <button class="btn btn-primary" type="submit" id="consultar" onclick="get_consulta()"><i class="fas fa-file"></i> Consultar</button>
                                 <span id="pdf" target="blank" class="btn btn-info"><i class="fas fa-file"></i> Generar PDF</span>
                             </div>
 
 
-                        </form>
+                        </div>
                     </div>
 
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="card shadow">
-                    <div class="card-body">
-                        <table class="table table-light">
-                            <thead>
+                    <div class="card-body table-responsive">
+                        <table class="table table-light" id="example">
+                            <thead id="encabezado">
                                 <th>Fecha</th>
                                 <th>Cliente</th>
                                 <th>Total</th>
@@ -112,13 +112,7 @@ class ui_report extends Gui
                                 <th>Editar</th>
                                 <th>Exportar</th>
                             </thead>
-                            <tbody>
-                                <?php
-
-                                ?>
-                                <tr>
-                                    <td></td>
-                                </tr>
+                            <tbody id="cuerpo">
                             </tbody>
                         </table>
                     </div>

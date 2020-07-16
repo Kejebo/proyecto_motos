@@ -20,7 +20,6 @@ switch ($_POST['action']) {
         break;
     case 'update_purchase':
         $purchase->update_purchase($_POST);
-        // echo true;
         break;
     case 'get_prices':
         echo json_encode($inventory->get_sale_prices($_POST['id'])[0]);
@@ -98,5 +97,8 @@ switch ($_POST['action']) {
         break;
     case 'clientes':
         echo json_encode($client->get_clients());
+        break;
+    case 'motos_cliente':
+        echo json_encode($moto->get_motos_client($_POST['id']));
         break;
 }

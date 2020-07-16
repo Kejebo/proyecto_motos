@@ -35,7 +35,6 @@ function selec_report(sel) {
 
         case 'Motos de Cliente':
             update_action('Motos_cliente');
-            consultar.disabled = true;
             cliente.style.display = "block";
             break;
 
@@ -72,22 +71,18 @@ function selec_report(sel) {
 
             break;
         case 'Compras General':
-            document.querySelector('#report').setAttribute('action', '#');
             consultar.disabled = true;
             pdf.setAttribute('href', 'pdf.php?data=Compras');
             break;
         case 'Compras Diaria':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             break;
 
         case 'Compras Mensuales':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
             break;
         case 'Compras Anuales':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "number");
             dia.setAttribute("min", "2020");
@@ -95,18 +90,15 @@ function selec_report(sel) {
             dia.value = '2020';
             break;
         case 'Compras Periodica':
-            document.querySelector('#report').setAttribute('action', '#');
             inicio.style.display = "block";
             final.style.display = "block";
             break;
 
         case 'Reparaciones Diaria':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             break;
 
         case 'Reparaciones Mensuales':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
 
@@ -141,18 +133,15 @@ function get_pdf() {
     let dia = document.getElementById('dia');
     switch (opciones) {
         case 'Inventario':
-        Inventario('inventario');
-        break;
+            Inventario('inventario');
+            break;
 
         case 'Clientes':
             window.open('pdf.php?data=Clients', '_blank');
             break;
 
         case 'Motos de Cliente':
-            let sel = document.getElementById('clientes');
-            var opciones = sel.options[sel.selectedIndex].value;
-
-            window.open('pdf.php?data=Motos_cliente&id=' + opciones, '_blank');
+            motos('motos_cliente');
             break;
 
         case 'Proveedores':
@@ -185,8 +174,42 @@ function get_pdf() {
     }
 }
 
+function get_consulta() {
+    let sel = document.getElementById('tipo');
+    var opciones = sel.options[sel.selectedIndex].textContent;
+    let dia = document.getElementById('dia');
+    switch (opciones) {
+        case 'Inventario':
+
+        case 'Motos de Cliente':
+            motos_consulta('motos_cliente');
+            break;
+
+        case 'Ventas Diaria':
+            ventas_consulta(dia.value, 'venta_diaria');
+            break;
+        case 'Ventas Mensuales':
+            ventas_consulta(dia.value + '-01', 'venta_mensual');
+            break;
+        case 'Ventas Anuales':
+            ventas_consulta(dia.value, 'venta_anual');
+            break;
+        case 'Compras Diaria':
+            compras_consulta(dia.value, 'compra_diaria');
+            break;
+
+        case 'Compras Mensuales':
+            compras_consulta(dia.value+'-01', 'compra_mensual');
+            break;
+
+        case 'Compras Anuales':
+            compras_consulta(dia.value, 'compra_anual');
+            break;
+
+    }
+}
+
 function update_action(action) {
-    document.querySelector('#report').setAttribute('action', 'reports.php?action=' + action);
     document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=' + action);
 }
 
@@ -223,17 +246,125 @@ function Compras_pdf(dia, action) {
     });
 }
 
-function Inventario(action) {
+function motos(action) {
+    let sel = document.getElementById('clientes');
+    let id = sel.options[sel.selectedIndex].value;
+
     $.ajax({
         type: "post",
         url: "controller.php",
-        data: {action },
+        data: { action, id },
         dataType: "json",
         success: function (response) {
             if (response != false) {
-                window.open('pdf.php?data=' + action, '_blank');
+                window.open('pdf.php?data=Motos_cliente&id=' + id, '_blank');
+            } else {
+                alert('No tiene motos registradas');
             }
         }
     });
 }
+function motos_consulta(action) {
+    let sel = document.getElementById('clientes');
+    let id = sel.options[sel.selectedIndex].value;
+
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action, id },
+        dataType: "json",
+        success: function (response) {
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                document.getElementById('encabezado').innerHTML = `<th>#Placa</th>
+                <th>Moto</th>
+                <th>Kilometraje</th>
+                <th>Eliminar</th>
+                <th>Editar</th>
+                <th>Exportar</th>`;
+               
+                if (response != false) {
+                    response.forEach(list => {
+                        tabla.innerHTML += `  <tr>
+                        <td>${list.placa}</td>
+                        <td>${list.moto}</td>
+                        <td>${list.kilometraje}</td>
+                        <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                        <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                        <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                    </tr>`
+                    });
+            }
+        }
+    }
+    });
+}
+
+function ventas_consulta(dia, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action, dia },
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('encabezado').innerHTML = `<th>Fecha</th>
+            <th>Cliente</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+            <th>Editar</th>
+            <th>Exportar</th>`
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                response.forEach(list => {
+                    tabla.innerHTML += `  <tr>
+                    <td>${list.fecha}</td>
+                    <td>${list.cliente}</td>
+                    <td>${list['saldo']}</td>
+                    <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                    <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                </tr>`
+                });
+
+            }
+        }
+    });
+}
+
+function compras_consulta(dia, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action, dia },
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('encabezado').innerHTML = `<th>Fecha</th>
+            <th>#Factura</th>
+            <th>Proveedor</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+            <th>Editar</th>
+            <th>Exportar</th>`
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                response.forEach(list => {
+                    tabla.innerHTML += `  <tr>
+                    <td>${list.fecha}</td>
+                    <td>${list.factura}</td>
+                    <td>${list.proveedor}</td>
+                    <td>${list.saldo}</td>
+                    <td><a href="purchases.php?action=delete&id=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                    <td><a href="purchase.php?action=update_purchase&id=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="pdf.php?data=Compra&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                </tr>`
+                });
+
+            }
+        }
+    });
+}
+
 
