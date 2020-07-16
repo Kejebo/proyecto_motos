@@ -405,7 +405,7 @@ function get_sales_anual()
 
 ?>
     <div id="titulo">
-        <h2>Lista de Ventas del Año <?= $_GET['year'] ?></h2>
+        <h2>Lista de Ventas del Año <?= $_GET['dia'] ?></h2>
     </div>
     <br>
     <br>
@@ -419,7 +419,7 @@ function get_sales_anual()
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($db->get_sales_anual($_GET['year']) as $list) { ?>
+            <?php foreach ($db->get_sales_anual($_GET['dia']) as $list) { ?>
 
                 <tr>
                     <td><?= $list['fecha']; ?></td>

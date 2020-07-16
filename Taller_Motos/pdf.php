@@ -74,7 +74,7 @@ $admin = $admin->get_admin();
     <?php
     if (isset($_GET['data'])) {
         switch ($_GET['data']) {
-            case 'Inventory':
+            case 'inventario':
                 get_inventory();
                 break;
             case 'Clients':
@@ -83,7 +83,7 @@ $admin = $admin->get_admin();
             case 'Motos_cliente':
                 get_client_motorcycle();
                 break;
-            case 'Compras':
+            case 'compras':
                 get_purcharses();
                 break;
             case 'Compra':
@@ -92,26 +92,26 @@ $admin = $admin->get_admin();
             case 'Ventas':
                 get_sales();
                 break;
-            case 'Venta':
+            case 'venta':
                 get_sale();
                 break;
-            case 'Venta_diaria':
+            case 'venta_diaria':
                 get_sales_daily();
                 break;
-            case 'Venta_Mensual':
+            case 'venta_mensual':
                 get_sales_mensual($mes);
                 break;
-            case 'Venta_Anual':
+            case 'venta_anual':
                 get_sales_anual();
                 break;
 
-            case 'Compra_diaria':
+            case 'compra_diaria':
                 get_purcharses_dialy();
                 break;
-            case 'Compra_Mensual':
+            case 'compra_mensual':
                 get_purcharses_mensual($mes);
                 break;
-            case 'Compra_Anual':
+            case 'compra_anual':
                 get_purcharses_anual();
                 break;
             case 'Proveedor':

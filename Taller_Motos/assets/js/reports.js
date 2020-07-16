@@ -1,3 +1,10 @@
+
+window.addEventListener('load', () => {
+    document.getElementById('pdf').addEventListener('click', () => {
+        get_pdf();
+    });
+});
+
 function selec_report(sel) {
     var opciones = sel.options[sel.selectedIndex].textContent;
     let cliente = document.querySelector("#cliente");
@@ -16,6 +23,7 @@ function selec_report(sel) {
     switch (opciones) {
         case 'Inventario':
             consultar.disabled = true;
+
             update_action('Inventory');
             break;
 
@@ -127,30 +135,51 @@ function get_client_motorcycle(cliente) {
 
 }
 
-function get_Fecha(dia) {
+function get_pdf() {
     let sel = document.getElementById('tipo');
     var opciones = sel.options[sel.selectedIndex].textContent;
-
+    let dia = document.getElementById('dia');
     switch (opciones) {
+        case 'Inventario':
+        Inventario('inventario');
+        break;
+
+        case 'Clientes':
+            window.open('pdf.php?data=Clients', '_blank');
+            break;
+
+        case 'Motos de Cliente':
+            let sel = document.getElementById('clientes');
+            var opciones = sel.options[sel.selectedIndex].value;
+
+            window.open('pdf.php?data=Motos_cliente&id=' + opciones, '_blank');
+            break;
+
+        case 'Proveedores':
+            window.open('pdf.php?data=Venta_Proveedor', '_blank');
+            break;
+        case 'Ventas General':
+            window.open('pdf.php?data=Venta_General', '_blank');
+            break;
         case 'Ventas Diaria':
-            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_diaria&dia=' + dia.value);
+            Ventas_pdf(dia.value, 'venta_diaria');
             break;
         case 'Ventas Mensuales':
-            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_Mensual&dia=' + dia.value + "-01");
+            Ventas_pdf(dia.value + '-01', 'venta_mensual');
             break;
         case 'Ventas Anuales':
-            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Venta_Anual&year=' + dia.value);
+            Ventas_pdf(dia.value, 'venta_anual');
             break;
         case 'Compras Diaria':
-            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Compra_diaria&dia=' + dia.value);
+            Compras_pdf(dia.value, 'compra_diaria');
             break;
 
         case 'Compras Mensuales':
-            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Compra_Mensual&dia=' + dia.value + "-01");
+            Compras_pdf(dia.value, 'compra_mensual');
             break;
 
         case 'Compras Anuales':
-            document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=Compra_Anual&year=' + dia.value);
+            Compras_pdf(dia.value, 'compra_anual');
             break;
 
     }
@@ -160,3 +189,51 @@ function update_action(action) {
     document.querySelector('#report').setAttribute('action', 'reports.php?action=' + action);
     document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=' + action);
 }
+
+function Ventas_pdf(dia, action) {
+    console.log(action);
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { dia, action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action + '&dia=' + dia, '_blank');
+            } else {
+                alert('No hay registros de ventas');
+            }
+        }
+    });
+}
+
+function Compras_pdf(dia, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { dia, action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action + '&dia=' + dia, '_blank');
+            } else {
+                alert('No hay registros de Compras');
+            }
+        }
+    });
+}
+
+function Inventario(action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: {action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action, '_blank');
+            }
+        }
+    });
+}
+

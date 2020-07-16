@@ -46,14 +46,15 @@ class ui_report extends Gui
     {
 
 ?>
-        <form method="POST" id="report" action="sale.php?action=">
-            <div class=" container row">
-                <div class="col-sm-12">
-                    <div class="card shadow">
-                        <div class="card-header">
-                            <h5> <span> <i class="fas fa-bars"></i></span> Registrar Venta</h5>
-                        </div>
-                        <div class="card-body">
+        <div class=" container row">
+            <div class="col-sm-12">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5> <span> <i class="fas fa-bars"></i></span> Registrar Venta</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" id="report" action="sale.php?action=">
+
                             <div class="row">
                                 <div class="form-group col-sm-4">
                                     <label>Tipo de Consulta</label>
@@ -68,7 +69,7 @@ class ui_report extends Gui
                                 </div>
                                 <div class="form-group col-sm-4" id="cliente" style="display: none;">
                                     <label>Clientes</label>
-                                    <select class="form-control" name="cliente" onchange="get_client_motorcycle(this)">
+                                    <select class="form-control" id="clientes" onchange="get_client_motorcycle(this)">
                                         <?php
                                         $this->db = new ln_client();
                                         foreach ($this->db->get_clients() as $clients) { ?>
@@ -79,7 +80,7 @@ class ui_report extends Gui
                                 </div>
                                 <div class="form-group col-sm-4" id="fecha" style="display: none;">
                                     <label for="my-select">Fecha</label>
-                                    <input type="date" name="fecha" id="dia" class="form-control" required onchange="get_Fecha(this)">
+                                    <input type="date" name="fecha" id="dia" class="form-control" required>
                                 </div>
                                 <div class="col-sm-4 form-group" id="inicio" style="display: none;">
                                     <label for="my-select">Fecha Inicio</label>
@@ -90,37 +91,39 @@ class ui_report extends Gui
                             </div>
                             <div class="form-group ml-3">
                                 <button class="btn btn-primary" type="submit" id="consultar"><i class="fas fa-file"></i> Consultar</button>
-                                <a id="pdf" href="pdf.php?data=Inventario" target="blank" class="btn btn-info"><i class="fas fa-file"></i> Generar PDF</a>
+                                <span id="pdf" target="blank" class="btn btn-info"><i class="fas fa-file"></i> Generar PDF</span>
                             </div>
 
-                        </div>
 
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <table class="table table-light">
+                            <thead>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Total</th>
+                                <th>Eliminar</th>
+                                <th>Editar</th>
+                                <th>Exportar</th>
+                            </thead>
+                            <tbody>
+                                <?php
+
+                                ?>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-            </div>
-        </form>
-        <br>
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-light">
-                    <thead>
-                        <th>Fecha</th>
-                        <th>Cliente</th>
-                        <th>Total</th>
-                        <th>Eliminar</th>
-                        <th>Editar</th>
-                        <th>Exportar</th>
-                    </thead>
-                    <tbody>
-                        <?php
-
-                        ?>
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 <?php
