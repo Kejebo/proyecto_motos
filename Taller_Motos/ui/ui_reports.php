@@ -46,7 +46,9 @@ class ui_report extends Gui
     {
 
 ?>
-        <div class=" container row">
+        <div class=" container">
+            <div class="row">
+                
             <div class="col-sm-12">
                 <div class="card shadow">
                     <div class="card-header">
@@ -84,10 +86,10 @@ class ui_report extends Gui
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-4 form-group" id="inicio" style="display: none;">
                                     <label for="my-select">Fecha Inicio</label>
-                                    <input type="date" name="inicio" class="form-control" required> </div>
+                                    <input type="date" id="fecha_inicio" class="form-control" required> </div>
                                 <div class="form-group col-sm-6 col-md-4 col-lg-4" id="final" style="display: none;">
                                     <label for="my-select">Fecha Final</label>
-                                    <input type="date" class="form-control" required> </div>
+                                    <input type="date"  id="fecha_final" class="form-control" required> </div>
                             </div>
                             <div class="form-group ml-3">
                                 <button class="btn btn-primary" type="submit" id="consultar" onclick="get_consulta()"><i class="fas fa-file"></i> Consultar</button>
@@ -120,6 +122,8 @@ class ui_report extends Gui
 
             </div>
         </div>
+        </div>
+
 <?php
     }
 }

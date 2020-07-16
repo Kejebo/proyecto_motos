@@ -56,6 +56,15 @@ class db_purchase extends conexion{
         return false;
             }
     }
+    function get_purcharses_periodo($inicio,$final){
+        $sql = "call get_compras_periodo('$inicio','$final')";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
     function delete_purchase($id){
         $sql= "delete from compras where id_compra='$id'";
         $this->execute($sql);

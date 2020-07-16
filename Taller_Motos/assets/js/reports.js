@@ -159,6 +159,10 @@ function get_pdf() {
         case 'Ventas Anuales':
             Ventas_pdf(dia.value, 'venta_anual');
             break;
+
+        case 'Ventas Periodica':
+            Ventas_periodo_pdf(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'venta_periodo');
+            break;
         case 'Compras Diaria':
             Compras_pdf(dia.value, 'compra_diaria');
             break;
@@ -170,7 +174,9 @@ function get_pdf() {
         case 'Compras Anuales':
             Compras_pdf(dia.value, 'compra_anual');
             break;
-
+        case 'Compras Periodica':
+            compras_periodo_pdf(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'compra_periodo');
+            break;
     }
 }
 
@@ -194,18 +200,23 @@ function get_consulta() {
         case 'Ventas Anuales':
             ventas_consulta(dia.value, 'venta_anual');
             break;
+        case 'Ventas Periodica':
+            ventas_consulta_periodo(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'venta_periodo');
+            break;
         case 'Compras Diaria':
             compras_consulta(dia.value, 'compra_diaria');
             break;
 
         case 'Compras Mensuales':
-            compras_consulta(dia.value+'-01', 'compra_mensual');
+            compras_consulta(dia.value + '-01', 'compra_mensual');
             break;
 
         case 'Compras Anuales':
             compras_consulta(dia.value, 'compra_anual');
             break;
-
+        case 'Compras Periodica':
+            compras_consulta_periodo(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'compra_periodo');
+            break;
     }
 }
 
@@ -214,7 +225,6 @@ function update_action(action) {
 }
 
 function Ventas_pdf(dia, action) {
-    console.log(action);
     $.ajax({
         type: "post",
         url: "controller.php",
@@ -225,6 +235,38 @@ function Ventas_pdf(dia, action) {
                 window.open('pdf.php?data=' + action + '&dia=' + dia, '_blank');
             } else {
                 alert('No hay registros de ventas');
+            }
+        }
+    });
+}
+
+function Ventas_periodo_pdf(inicio, final, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { inicio, final, action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action + '&inicio=' + inicio + '&final=' + final, '_blank');
+            } else {
+                alert('No hay registros de ventas');
+            }
+        }
+    });
+}
+
+function compras_periodo_pdf(inicio, final, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { inicio,final, action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action + '&inicio=' + inicio + '&final=' + final, '_blank');
+            } else {
+                alert('No hay registros de compras');
             }
         }
     });
@@ -283,7 +325,7 @@ function motos_consulta(action) {
                 <th>Eliminar</th>
                 <th>Editar</th>
                 <th>Exportar</th>`;
-               
+
                 if (response != false) {
                     response.forEach(list => {
                         tabla.innerHTML += `  <tr>
@@ -295,9 +337,11 @@ function motos_consulta(action) {
                         <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                     </tr>`
                     });
+                }
+            } else {
+                alert('No tiene motos registrada de momento');
             }
         }
-    }
     });
 }
 
@@ -328,6 +372,41 @@ function ventas_consulta(dia, action) {
                 </tr>`
                 });
 
+            } else {
+                alert('No se generaron ventas la fecha solicitada')
+            }
+        }
+    });
+}
+function ventas_consulta_periodo(inicio, final, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { inicio, final, action },
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('encabezado').innerHTML = `<th>Fecha</th>
+            <th>Cliente</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+            <th>Editar</th>
+            <th>Exportar</th>`
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                response.forEach(list => {
+                    tabla.innerHTML += `  <tr>
+                    <td>${list.fecha}</td>
+                    <td>${list.cliente}</td>
+                    <td>${list['saldo']}</td>
+                    <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                    <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                </tr>`
+                });
+
+            } else {
+                alert('No hay registro de ventas');
             }
         }
     });
@@ -338,6 +417,41 @@ function compras_consulta(dia, action) {
         type: "post",
         url: "controller.php",
         data: { action, dia },
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('encabezado').innerHTML = `<th>Fecha</th>
+            <th>#Factura</th>
+            <th>Proveedor</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+            <th>Editar</th>
+            <th>Exportar</th>`
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                response.forEach(list => {
+                    tabla.innerHTML += `  <tr>
+                    <td>${list.fecha}</td>
+                    <td>${list.factura}</td>
+                    <td>${list.proveedor}</td>
+                    <td>${list.saldo}</td>
+                    <td><a href="purchases.php?action=delete&id=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                    <td><a href="purchase.php?action=update_purchase&id=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="pdf.php?data=Compra&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                </tr>`
+                });
+
+            }else{
+                alert('No hay compras registradas')
+            }
+        }
+    });
+}
+function compras_consulta_periodo(inicio, final, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action, inicio, final },
         dataType: "json",
         success: function (response) {
             document.getElementById('encabezado').innerHTML = `<th>Fecha</th>

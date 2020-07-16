@@ -225,13 +225,47 @@ function get_purcharses_dialy()
 <?php
 }
 
+function get_purcharses_periodo()
+{
+    $db = new db_purchase();
+
+?>
+    <div id="titulo">
+        <h2>Lista de Compras desde <?=$_GET['inicio'].' hasta '.$_GET['final']?></h2>
+    </div>
+    <br>
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 35%">#Factura</th>
+                <th style="text-align: center;    width: 35%">Proveedor</th>
+                <th style="text-align: center;    width: 30%">Total</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($db->get_purcharses_periodo($_GET['inicio'], $_GET['final']) as $list) { ?>
+
+                <tr>
+                    <td><?= $list['factura']; ?></td>
+                    <td><?= $list['proveedor']; ?></td>
+                    <td><?= number_format($list['saldo']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+<?php
+}
+
 function get_purcharses_mensual($mes)
 {
     $db = new db_purchase();
 
 ?>
     <div id="titulo">
-        <h2>Lista de Compras <?= ucfirst($mes['mes'])?></h2>
+        <h2>Lista de Compras <?= ucfirst($mes['mes']) ?></h2>
     </div>
     <br>
     <br>
@@ -365,13 +399,47 @@ function get_sales_daily()
 <?php
 }
 
+function get_sales_periodo()
+{
+    $db = new db_sales();
+
+?>
+    <div id="titulo">
+        <h2>Lista de Ventas desde <?=$_GET['inicio'].' hasta '.$_GET['final']?> </h2>
+    </div>
+    <br>
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 20%">Fecha</th>
+                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 20%">Total</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($db->get_sales_periodo($_GET['inicio'], $_GET['final']) as $list) { ?>
+
+                <tr>
+                    <td><?= $list['fecha']; ?></td>
+                    <td><?= $list['cliente']; ?></td>
+                    <td><?= number_format($list['saldo']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+<?php
+}
+
 function get_sales_mensual($mes)
 {
     $db = new db_sales();
 
 ?>
     <div id="titulo">
-        <h2>Lista de Ventas de <?= ucfirst($mes['mes'])?></h2>
+        <h2>Lista de Ventas de <?= ucfirst($mes['mes']) ?></h2>
     </div>
     <br>
     <br>

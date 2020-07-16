@@ -46,6 +46,16 @@ class db_sales extends conexion{
             }
     }
 
+    function get_sales_periodo($inicio,$final){
+        $sql = "call get_ventas_periodo('$inicio','$final')";
+        $result = $this->get_data($sql);
+            if($result){
+                return $result;
+            }else{
+        return false;
+            }
+    }
+
     function get_sales_anual($fecha){
         $sql = "call get_ventas_anual('$fecha')";
         $result = $this->get_data($sql);

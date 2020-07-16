@@ -80,6 +80,9 @@ switch ($_POST['action']) {
     case 'venta_general':
         echo json_encode($sale->db->get_sales());
         break;
+    case 'venta_periodo':
+        echo json_encode($sale->db->get_sales_periodo($_POST['inicio'], $_POST['final']));
+        break;
     case 'compra_mensual':
         echo json_encode($purchase->db->get_purchases_mensual($_POST['dia']));
         break;
@@ -91,6 +94,9 @@ switch ($_POST['action']) {
         break;
     case 'compra_general':
         echo json_encode($purchase->db->get_purchases());
+        break;
+    case 'compra_periodo':
+        echo json_encode($purchase->db->get_purcharses_periodo($_POST['inicio'], $_POST['final']));
         break;
     case 'inventario':
         echo json_encode($inventory->get_inventory());

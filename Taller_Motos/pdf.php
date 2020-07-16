@@ -3,8 +3,8 @@ include 'ln/ln_pdf.php';
 require_once('db/db_admin.php');
 
 $admin = new db_admin();
-if(isset($_GET['dia'])){
-$mes=$admin->get_month($_GET['dia']);
+if (isset($_GET['dia'])) {
+    $mes = $admin->get_month($_GET['dia']);
 }
 $admin = $admin->get_admin();
 ?>
@@ -98,6 +98,9 @@ $admin = $admin->get_admin();
             case 'venta_diaria':
                 get_sales_daily();
                 break;
+            case 'venta_periodo':
+                get_sales_periodo();
+                break;
             case 'venta_mensual':
                 get_sales_mensual($mes);
                 break;
@@ -113,6 +116,9 @@ $admin = $admin->get_admin();
                 break;
             case 'compra_anual':
                 get_purcharses_anual();
+                break;
+            case 'compra_periodo':
+                get_purcharses_periodo();
                 break;
             case 'Proveedor':
                 get_proveedor();
