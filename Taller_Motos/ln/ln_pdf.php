@@ -86,7 +86,7 @@ function get_client_motorcycle()
     $client = new db_client();
 ?>
     <div id="titulo">
-        <h2>Lista de Motos del <?= $client->get_client($_GET['id'])['nombre_cliente'] ?></h2>
+        <h2>Lista de Motos del <?= $client->get_client($_GET['id'])['correo'] ?></h2>
     </div>
     <br>
     <br>
