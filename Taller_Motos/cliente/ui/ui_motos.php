@@ -56,6 +56,7 @@ class UI_Motos extends Gui_login
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                               <a class="dropdown-item" href="#">PDF</a>
                               <a class="dropdown-item" href="#">EXCEL</a>
+                              <span id="pdf" target="blank" class="btn btn-info"><i class="fas fa-file"></i> Generar PDF</span>
                             </div>
                           </div>
                         </div>

@@ -49,6 +49,7 @@ class Gui_login
       <link rel="stylesheet" href="../cliente/assets/css/jquery.dataTables.min.css">
       <script src="../cliente/assets/js/jquery.dataTables.min.js"></script>
       <script src="../cliente/assets/js/datatables.js"></script>
+      <script src="assets/js/reports.js"></script>
     </head>
 
 
@@ -110,6 +111,7 @@ class Gui_login
 
       <script src="assets/js/main_login.js"></script>
       <link rel="stylesheet" href="jquery.dataTables.min.css">
+      <script src="assets/js/reports.js"></script>
 
     </body>
 
