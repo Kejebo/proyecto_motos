@@ -3,10 +3,10 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+
 require_once('assets/phpmailer/Exception.php');
 require_once('assets/phpmailer/PHPMailer.php');
 require_once('assets/phpmailer/SMTP.php');
-
 require_once('ln_usuarios.php');
 
 class ln_security
@@ -14,6 +14,7 @@ class ln_security
 
     var $ln_usuarios;
     var $Key = "CLAVESUPERSECRETA";
+
 
     function __construct()
     {
@@ -34,9 +35,15 @@ class ln_security
                 case 'logout':
                     $this->logout();
                     break;
+
+                case 'enviar_correo_consulta':
+                    $this->enviar_correo_consulta();
+                    break;
             }
         }
     }
+
+
 
     function check_tipo_login_cliente()
     {
@@ -86,5 +93,65 @@ class ln_security
 
             header('Location:../security.php?action=logout');
         }
+    }
+
+
+    function enviar_correo_consulta()
+    {
+
+        $tema = $_POST["tema"];
+        $emisor = $_POST["emisor"];
+        $mensaje = $_POST["mensaje"];
+        $nombre = $_POST["nombre"];
+        if ($this->enviar_correo_consultando($emisor, $tema, $nombre, $mensaje) == false) {
+            echo json_encode(array("result" => false));
+        } else {
+            echo json_encode(array("result" => true));
+        }
+    }
+
+    function is_valid_email($str)
+    {
+        echo ($str);
+        if (checkdnsrr($str, "MX")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+    function enviar_correo_consultando($emisor, $tema, $nombre, $mensaje)
+    {
+
+        $respuesta = false;
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->SMTPDebug = 0;                                       // Enable verbose debug output
+            $mail->isSMTP();                                            // Set mailer to use SMTP
+            $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'wrdkillvibe@gmail.com';                     // SMTP username
+            $mail->Password   = 's.Zuniga29';                               // SMTP password
+            $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+            $mail->Port       = 587;                                    // TCP port to connect to
+
+            $mail->setFrom('wrdkillvibe@gmail.com', 'Taller Migthy Motors');
+            $mail->addAddress('wrdkillvibe@gmail.com');     // Add a recipient
+
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = $tema;
+            $mail->Body    = $mensaje . "<br />" . 'Usuario: ' . $emisor . "<br />" . 'Nombre: ' . $nombre;
+
+            $mail->send();
+            $respuesta = true;
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+            $respuesta = false;
+        }
+
+        return $respuesta;
     }
 }

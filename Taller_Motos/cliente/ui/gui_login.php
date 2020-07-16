@@ -8,6 +8,7 @@ class Gui_login
 
   var $ln_security;
   var $estado;
+  var $nombre_cliente;
 
 
   function __construct($config)
@@ -20,8 +21,12 @@ class Gui_login
     }
 
     $this->ln_security->check_tipo_login_cliente();
-  }
 
+    if (isset($_COOKIE['cliente'])) {
+      $data = json_decode($_COOKIE['cliente'], true);
+      $this->nombre_cliente = $data['nombre_cliente'];
+    }
+  }
   function get_header()
   {
 
@@ -65,11 +70,11 @@ class Gui_login
 
           <div class="profile">
             <img src="assets/img/usuario_icon.png" alt="" class="img-fluid rounded-circle">
-            <h1 class="text-light"><a href="index.html">Cliente</a></h1>
+            <h1 class="text-light"><a href="index.html"><?= $this->nombre_cliente ?></a></h1>
             <div class="social-links mt-3 text-center">
               <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
               <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="fab fa-whatsapp"></i></i></a>
+              <a href="https://api.whatsapp.com/send?phone=0050688303820&text=Hola, Soy <?= $this->nombre_cliente ?>" target="_blank" class="google-plus"><i class="fab fa-whatsapp"></i></i></a>
               <a href="#" class="linkedin"><i class="fab fa-youtube"></i></a>
               <span>|</span>
               <a href="#" title="Salir">
@@ -84,8 +89,8 @@ class Gui_login
           <nav class="nav-menu">
             <ul>
               <li><a href="index.php?pagina=motos"><i class="fas fa-motorcycle"></i> <span>Mis Motos</span></a></li>
-              <li><a href="#about"><i class="fas fa-chart-bar"></i> <span>Reportes</span></a></li>
-              <li><a href="#about"><i class="fas fa-address-book"></i><span>Contacto</span></a></li>
+              <!--<li><a href="#about"><i class="fas fa-chart-bar"></i> <span>Reportes</span></a></li>-->
+              <li><a href="index.php?pagina=contacto"><i class="fas fa-address-book"></i><span>Contacto</span></a></li>
             </ul>
           </nav><!-- .nav-menu -->
           <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>

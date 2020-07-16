@@ -1134,6 +1134,11 @@ body {
   #card_lista_motos{
     margin-top: 10px !important;
   }
+
+  #row_detalles_reparacion{
+    margin-right: 0px;
+    margin-left: 0px;
+  }
   
   
   
