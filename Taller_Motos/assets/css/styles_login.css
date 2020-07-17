@@ -151,6 +151,8 @@ table{
     color: #000 !important;
     padding-bottom: 20px;
     padding-top: 20px;
+    background-size: cover;
+    background-position: center;
   }
 
 #ojos{

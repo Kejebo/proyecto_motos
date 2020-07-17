@@ -1,11 +1,17 @@
 <?php
 
 require_once('gui_login.php');
-
+require_once('db/db_admin.php');
 class UI_login extends Gui_login
 {
-
-
+    var $admin;
+    var $data;
+    function __construct(){
+    $this->admin = new db_admin();
+    $this->data = $this->admin->get_admin();
+    
+        
+    }
 
     function get_content()
     {
@@ -18,7 +24,8 @@ class UI_login extends Gui_login
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 py-3">
                 <form action="security.php?action=login" method="post">
                     <div class="card shadow mt-4">
-                        <div class="card-header" id="titulosCards">
+                   
+                        <div class="card-header" id="titulosCards" style="background-image: url('<?=$this->data['logo']?>')">
                             <h6 class="card-title" id="nombre_empresa">Taller Migthy Motors</h6>
                             <h5 class="card-title">Bienvenidos</h5>
 
