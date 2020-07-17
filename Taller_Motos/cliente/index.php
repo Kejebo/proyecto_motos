@@ -60,7 +60,7 @@ if (isset($_GET['pagina'])) {
 	}
 } else {
 
-	$ui_cliente->get_content();
+	$ui_motos->get_content();
 }
 ?>
 

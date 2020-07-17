@@ -63,10 +63,6 @@ class UI_Reparaciones extends Gui_login
                             <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Exportar
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                              <a class="dropdown-item" href="#">PDF</a>
-                              <a class="dropdown-item" href="#">EXCEL</a>
-                            </div>
                           </div>
                         </div>
 
@@ -74,7 +70,7 @@ class UI_Reparaciones extends Gui_login
                   </div>
                 </div>
                 <div class="card-body table-responsive">
-                  <table class="table table-bordered" id="example">
+                  <table class="table table-bordered" id="Motos">
                     <thead class="thead-dark text-center text-white">
                       <tr>
                         <th>Fecha Entrada</th>

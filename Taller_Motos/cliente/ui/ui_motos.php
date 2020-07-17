@@ -59,7 +59,7 @@ class UI_Motos extends Gui_login
 
                   </div>
                   <div class="card-body table-responsive">
-                    <table class="table table-bordered" id="example">
+                    <table class="table table-bordered" id="Motos">
                       <thead class="thead-dark text-center text-white">
                         <tr>
                           <th>Moto</th>

@@ -74,9 +74,9 @@ class Gui_login
             <h1 class="text-light"><a href="index.html"><?= $this->nombre_cliente ?></a></h1>
             <div class="social-links mt-3 text-center">
               <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+              <!--<a href="#" class="instagram"><i class="fab fa-instagram"></i></a>-->
               <a href="https://api.whatsapp.com/send?phone=0050688303820&text=Hola, Soy <?= $this->nombre_cliente ?>" target="_blank" class="google-plus"><i class="fab fa-whatsapp"></i></i></a>
-              <a href="#" class="linkedin"><i class="fab fa-youtube"></i></a>
+              <!--<a href="#" class="linkedin"><i class="fab fa-youtube"></i></a>-->
               <span>|</span>
               <a href="#" title="Salir">
                 <form action="security.php?action=logout" method="post">
@@ -112,6 +112,15 @@ class Gui_login
       <script src="assets/js/main_login.js"></script>
       <link rel="stylesheet" href="jquery.dataTables.min.css">
       <script src="assets/js/reports.js"></script>
+      <script src="assets/js/datatable_motos.js"></script>
+      <script src="assets/js/datatable_buttons.js"></script>
+      <script src="assets/js/datatable_buttons_boot.js"></script>
+      <script src="assets/js/jszip.min.js"></script>
+      <script src="assets/js/pdfmake.min.js"></script>
+      <script src="assets/js/vfs_fonts.js"></script>
+      <script src="assets/js/buttons.html5.min.js"></script>
+      <script src="assets/js/buttons.print.min.js"></script>
+      <script src="assets/js/buttons.colVis.min.js"></script>
 
     </body>
 
