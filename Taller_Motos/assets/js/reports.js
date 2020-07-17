@@ -5,6 +5,12 @@ window.addEventListener('load', () => {
     });
 });
 
+window.addEventListener('load', () => {
+    document.getElementById('excel').addEventListener('click', () => {
+        get_excel();
+    });
+});
+
 function selec_report(sel) {
     var opciones = sel.options[sel.selectedIndex].textContent;
     let cliente = document.querySelector("#cliente");
@@ -22,42 +28,49 @@ function selec_report(sel) {
     let pdf = document.querySelector('#pdf');
     switch (opciones) {
         case 'Inventario':
-            consultar.disabled = true;
-
+            consultar.disabled = false;
+            document.getElementById('excel').hidden=false;
             update_action('Inventory');
             break;
 
         case 'Clientes':
             update_action('Clients');
             consultar.disabled = true;
+            document.getElementById('excel').hidden=true;
             update_action('Clients');
             break;
 
         case 'Motos de Cliente':
             update_action('Motos_cliente');
             cliente.style.display = "block";
+            document.getElementById('excel').hidden=true;
             break;
 
         case 'Proveedores':
             update_action('Venta_Proveedor');
             consultar.disabled = true;
+            document.getElementById('excel').hidden=true;
             break;
         case 'Ventas General':
             consultar.disabled = true;
+            document.getElementById('excel').hidden=true;
             update_action('Venta_General');
             break;
         case 'Ventas Diaria':
             fecha.style.display = "block";
+            document.getElementById('excel').hidden=true;
             update_action('Venta_Diaria');
             break;
 
         case 'Ventas Mensuales':
             fecha.style.display = "block";
+            document.getElementById('excel').hidden=true;
             dia.setAttribute("type", "month");
             update_action('Venta_Mensuales');
             break;
         case 'Ventas Anuales':
             fecha.style.display = "block";
+            document.getElementById('excel').hidden=true;
             dia.setAttribute("type", "number");
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
@@ -66,20 +79,24 @@ function selec_report(sel) {
             break;
         case 'Ventas Periodica':
             update_action('Venta_Periodica');
+            document.getElementById('excel').hidden=true;
             inicio.style.display = "block";
             final.style.display = "block";
 
             break;
         case 'Compras General':
             consultar.disabled = true;
+            document.getElementById('excel').hidden=true;
             pdf.setAttribute('href', 'pdf.php?data=Compras');
             break;
         case 'Compras Diaria':
             fecha.style.display = "block";
+            document.getElementById('excel').hidden=true;
             break;
 
         case 'Compras Mensuales':
             fecha.style.display = "block";
+            document.getElementById('excel').hidden=true;
             dia.setAttribute("type", "month");
             break;
         case 'Compras Anuales':
@@ -87,20 +104,24 @@ function selec_report(sel) {
             dia.setAttribute("type", "number");
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
+            document.getElementById('excel').hidden=true;
             dia.value = '2020';
             break;
         case 'Compras Periodica':
             inicio.style.display = "block";
             final.style.display = "block";
+            document.getElementById('excel').hidden=true;
             break;
 
         case 'Reparaciones Diaria':
             fecha.style.display = "block";
+            document.getElementById('excel').hidden=true;
             break;
 
         case 'Reparaciones Mensuales':
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
+            document.getElementById('excel').hidden=true;
 
             break;
         case 'Reparaciones Anuales':
@@ -110,11 +131,13 @@ function selec_report(sel) {
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
             dia.value = '2020';
+            document.getElementById('excel').hidden=true;
             break;
         case 'Reparaciones Periodica':
             document.querySelector('#report').setAttribute('action', '#');
             inicio.style.display = "block";
             final.style.display = "block";
+            document.getElementById('excel').hidden=true;
             break;
         default:
 
@@ -180,12 +203,25 @@ function get_pdf() {
     }
 }
 
+function get_excel() {
+    let sel = document.getElementById('tipo');
+    var opciones = sel.options[sel.selectedIndex].textContent;
+    switch (opciones) {
+        case 'Inventario':
+            
+            inventario_excel('inventario');
+            break;
+    }
+}
+
 function get_consulta() {
     let sel = document.getElementById('tipo');
     var opciones = sel.options[sel.selectedIndex].textContent;
     let dia = document.getElementById('dia');
     switch (opciones) {
         case 'Inventario':
+            inventario('inventario');
+            break;
 
         case 'Motos de Cliente':
             motos_consulta('motos_cliente');
@@ -235,6 +271,22 @@ function Ventas_pdf(dia, action) {
                 window.open('pdf.php?data=' + action + '&dia=' + dia, '_blank');
             } else {
                 alert('No hay registros de ventas');
+            }
+        }
+    });
+}
+
+function inventario_excel(action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('excel.php');
+            } else {
+                alert('No hay registros de inventario');
             }
         }
     });
@@ -332,6 +384,48 @@ function motos_consulta(action) {
                         <td>${list.placa}</td>
                         <td>${list.moto}</td>
                         <td>${list.kilometraje}</td>
+                        <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                        <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                        <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                    </tr>`
+                    });
+                }
+            } else {
+                alert('No tiene motos registrada de momento');
+            }
+        }
+    });
+}
+
+function inventario(action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action },
+        dataType: "json",
+        success: function (response) {
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                document.getElementById('encabezado').innerHTML = `<th>Venta</th>
+                <th>Compra</th>
+                <th>Nombre</th>
+                <th>Medida</th>
+                <th>Total</th>
+                <th>Marca</th>
+                <th>Saldo</th>
+                <th>Cantidad</th>`;
+                if (response != false) {
+                    response.forEach(list => {
+                        tabla.innerHTML += `<tr>
+                        <td>${list.venta}</td>
+                        <td>${list.compra}</td>
+                        <td>${list.nombre}</td>
+                        <td>${list.medida}</td>
+                        <td>${list.total}</td>
+                        <td>${list.marca}</td>
+                        <td>${list.saldo}</td>
+                        <td>${list.cantidad}</td>
                         <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                         <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                         <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>

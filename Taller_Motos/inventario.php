@@ -5,7 +5,7 @@ $config = array(
 	'url'		=> 'inventary.php',
 );
 
-$ui= new ui_inventary();
+$ui= new ui_inventary($config);
 $ui->action_controller();
 $ui->get_header();
 $ui->get_sidebar();

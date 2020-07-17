@@ -1,8 +1,6 @@
 $(document).ready(function () {
-  var table = $("#example").DataTable({
-    dom: "Bfrtip",
-    buttons: ["copyHtml5", "excelHtml5",],
-
+  $("#example").DataTable({
+   
     language: {
       decimal: "",
       emptyTable: "No hay información",

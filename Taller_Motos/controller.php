@@ -107,4 +107,5 @@ switch ($_POST['action']) {
     case 'motos_cliente':
         echo json_encode($moto->get_motos_client($_POST['id']));
         break;
+    
 }

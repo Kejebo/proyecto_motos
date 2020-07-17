@@ -91,9 +91,10 @@ class ui_report extends Gui
                                     <label for="my-select">Fecha Final</label>
                                     <input type="date"  id="fecha_final" class="form-control" required> </div>
                             </div>
-                            <div class="form-group ml-3">
+                            <div class="form-group ml-3" id="botones_export">
                                 <button class="btn btn-primary" type="submit" id="consultar" onclick="get_consulta()"><i class="fas fa-file"></i> Consultar</button>
                                 <span id="pdf" target="blank" class="btn btn-info"><i class="fas fa-file"></i> Generar PDF</span>
+                                <span hidden id="excel" target="blank" class="btn btn-success" style="background-color: #008000 !important;"><i class="fas fa-file-excel"></i> Generar Excel</span>
                             </div>
 
 
@@ -104,7 +105,7 @@ class ui_report extends Gui
             </div>
             <div class="col-sm-12">
                 <div class="card shadow">
-                    <div class="card-body table-responsive">
+                <div class="card-body table-responsive" id=cuerpo_card>
                         <table class="table table-light" id="example">
                             <thead id="encabezado">
                                 <th>Fecha</th>

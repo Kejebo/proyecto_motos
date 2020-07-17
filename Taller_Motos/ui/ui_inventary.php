@@ -45,7 +45,7 @@ class ui_inventary extends gui
             </div>
           </div>
                 <div class="card-body table-responsive">
-                    <table class="table table-bordered" id="example">
+                    <table class="table table-bordered" id="Inventario">
                         <thead class="thead-dark text-center text-white">
                   <tr>
                     <th>Nombre</th>
