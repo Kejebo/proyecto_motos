@@ -105,7 +105,7 @@ class ui_report extends Gui
             <div class="col-sm-12">
                 <div class="card shadow">
                     <div class="card-body table-responsive">
-                        <table class="table table-light" id="example">
+                        <table class="table table-light text-center" id="example">
                             <thead id="encabezado">
                                 <th>Fecha</th>
                                 <th>Cliente</th>

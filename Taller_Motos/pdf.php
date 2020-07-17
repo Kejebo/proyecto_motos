@@ -95,6 +95,9 @@ $admin = $admin->get_admin();
             case 'venta':
                 get_sale();
                 break;
+            case 'reparacion':
+                get_repairs();
+                break;
             case 'venta_diaria':
                 get_sales_daily();
                 break;
@@ -119,6 +122,18 @@ $admin = $admin->get_admin();
                 break;
             case 'compra_periodo':
                 get_purcharses_periodo();
+                break;
+            case 'reparacion_diaria':
+                get_repair_daily();
+                break;
+            case 'reparacion_mensual':
+                get_repair_mensual($mes);
+                break;
+            case 'reparacion_anual':
+                get_repair_anual();
+                break;
+            case 'reparacion_periodo':
+                get_repair_periodo();
                 break;
             case 'Proveedor':
                 get_proveedor();

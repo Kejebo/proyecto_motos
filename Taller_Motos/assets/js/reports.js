@@ -39,22 +39,18 @@ function selec_report(sel) {
             break;
 
         case 'Proveedores':
-            update_action('Venta_Proveedor');
             consultar.disabled = true;
             break;
         case 'Ventas General':
             consultar.disabled = true;
-            update_action('Venta_General');
             break;
         case 'Ventas Diaria':
             fecha.style.display = "block";
-            update_action('Venta_Diaria');
             break;
 
         case 'Ventas Mensuales':
             fecha.style.display = "block";
             dia.setAttribute("type", "month");
-            update_action('Venta_Mensuales');
             break;
         case 'Ventas Anuales':
             fecha.style.display = "block";
@@ -62,10 +58,8 @@ function selec_report(sel) {
             dia.setAttribute("min", "2020");
             dia.setAttribute("max", "3000");
             dia.value = '2020';
-            update_action('Venta_Anual');
             break;
         case 'Ventas Periodica':
-            update_action('Venta_Periodica');
             inicio.style.display = "block";
             final.style.display = "block";
 
@@ -93,7 +87,9 @@ function selec_report(sel) {
             inicio.style.display = "block";
             final.style.display = "block";
             break;
-
+        case 'Reparaciones General':
+            consultar.disabled = true;
+            break;
         case 'Reparaciones Diaria':
             fecha.style.display = "block";
             break;
@@ -104,7 +100,6 @@ function selec_report(sel) {
 
             break;
         case 'Reparaciones Anuales':
-            document.querySelector('#report').setAttribute('action', '#');
             fecha.style.display = "block";
             dia.setAttribute("type", "number");
             dia.setAttribute("min", "2020");
@@ -112,7 +107,6 @@ function selec_report(sel) {
             dia.value = '2020';
             break;
         case 'Reparaciones Periodica':
-            document.querySelector('#report').setAttribute('action', '#');
             inicio.style.display = "block";
             final.style.display = "block";
             break;
@@ -168,7 +162,7 @@ function get_pdf() {
             break;
 
         case 'Compras Mensuales':
-            Compras_pdf(dia.value, 'compra_mensual');
+            Compras_pdf(dia.value + '-01', 'compra_mensual');
             break;
 
         case 'Compras Anuales':
@@ -176,6 +170,22 @@ function get_pdf() {
             break;
         case 'Compras Periodica':
             compras_periodo_pdf(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'compra_periodo');
+            break;
+        case 'Reparaciones Diaria':
+            reparaciones_pdf(dia.value, 'reparacion_diaria');
+            break;
+
+        case 'Reparaciones Mensuales':
+            reparaciones_pdf(dia.value + '-01', 'reparacion_mensual');
+            break;
+        case 'Reparaciones General':
+            window.open('pdf.php?data=reparacion', '_blank');
+            break;
+        case 'Reparaciones Anuales':
+            reparaciones_pdf(dia.value, 'reparacion_anual');
+            break;
+        case 'Reparaciones Periodica':
+            reparaciones_periodo_pdf(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'reparacion_periodo');
             break;
     }
 }
@@ -217,11 +227,21 @@ function get_consulta() {
         case 'Compras Periodica':
             compras_consulta_periodo(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'compra_periodo');
             break;
-    }
-}
+            break;
+        case 'Reparaciones Diaria':
+            reparaciones_consulta(dia.value, 'reparacion_diaria');
+            break;
 
-function update_action(action) {
-    document.querySelector('#pdf').setAttribute('href', 'pdf.php?data=' + action);
+        case 'Reparaciones Mensuales':
+            reparaciones_consulta(dia.value + '-01', 'reparacion_mensual');
+            break;
+        case 'Reparaciones Anuales':
+            reparaciones_consulta(dia.value, 'reparacion_anual');
+            break;
+        case 'Reparaciones Periodica':
+            reparaciones_consulta_periodo(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'reparacion_periodo');
+            break;
+    }
 }
 
 function Ventas_pdf(dia, action) {
@@ -260,7 +280,7 @@ function compras_periodo_pdf(inicio, final, action) {
     $.ajax({
         type: "post",
         url: "controller.php",
-        data: { inicio,final, action },
+        data: { inicio, final, action },
         dataType: "json",
         success: function (response) {
             if (response != false) {
@@ -271,7 +291,36 @@ function compras_periodo_pdf(inicio, final, action) {
         }
     });
 }
-
+function reparaciones_periodo_pdf(inicio, final, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { inicio, final, action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action + '&inicio=' + inicio + '&final=' + final, '_blank');
+            } else {
+                alert('No hay registros de reparaciones');
+            }
+        }
+    });
+}
+function reparaciones_pdf(dia, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { dia, action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action + '&dia=' + dia, '_blank');
+            } else {
+                alert('No hay registros de Reparaciones');
+            }
+        }
+    });
+}
 function Compras_pdf(dia, action) {
     $.ajax({
         type: "post",
@@ -441,7 +490,7 @@ function compras_consulta(dia, action) {
                 </tr>`
                 });
 
-            }else{
+            } else {
                 alert('No hay compras registradas')
             }
         }
@@ -482,3 +531,77 @@ function compras_consulta_periodo(inicio, final, action) {
 }
 
 
+function reparaciones_consulta(dia, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action, dia },
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('encabezado').innerHTML = `  <th>Fecha Entrada</th>
+            <th>Cliente</th>
+            <th>Moto</th>
+            <th>Placa</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Editar</th>
+            <th>Eliminar</th>`
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                response.forEach(repair => {
+                    tabla.innerHTML += `  <td>${repair.fecha}</td>
+                    <td>${repair.cliente}</td>
+                    <td>${repair.moto}</td>
+                    <td>${repair.placa}</td>
+                    <td>${repair.monto}</td>
+                      <td class="text-center">${repair.estado}</td>
+                    <td><a href="workshop.php?action=update&id=${repair.id}" class="btn btn-warning">+</a></td>
+                    <td><a href="repairs.php?action=delete&id=${repair.id}" class="btn btn-danger">X</a></td>
+                </tr>`
+                });
+
+            } else {
+                alert('No hay reparaciones registradas')
+            }
+        }
+    });
+}
+
+
+function reparaciones_consulta_periodo(inicio,final, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action, inicio,final },
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('encabezado').innerHTML = `  <th>Fecha Entrada</th>
+            <th>Cliente</th>
+            <th>Moto</th>
+            <th>Placa</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Editar</th>
+            <th>Eliminar</th>`
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                response.forEach(repair => {
+                    tabla.innerHTML += `  <td>${repair.fecha}</td>
+                    <td>${repair.cliente}</td>
+                    <td>${repair.moto}</td>
+                    <td>${repair.placa}</td>
+                    <td>${repair.monto}</td>
+                      <td class="text-center">${repair.estado}</td>
+                    <td><a href="workshop.php?action=update&id=${repair.id}" class="btn btn-warning">+</a></td>
+                    <td><a href="repairs.php?action=delete&id=${repair.id}" class="btn btn-danger">X</a></td>
+                </tr>`
+                });
+
+            } else {
+                alert('No hay reparaciones registradas')
+            }
+        }
+    });
+}

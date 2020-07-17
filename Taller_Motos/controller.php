@@ -107,4 +107,16 @@ switch ($_POST['action']) {
     case 'motos_cliente':
         echo json_encode($moto->get_motos_client($_POST['id']));
         break;
+    case 'reparacion_diaria':
+        echo json_encode($work->get_repairs_diario($_POST['dia']));
+        break;
+    case 'reparacion_mensual':
+        echo json_encode($work->get_repairs_mensual($_POST['dia']));
+        break;
+    case 'reparacion_anual':
+        echo json_encode($work->get_repairs_anual($_POST['dia']));
+        break;
+    case 'reparacion_periodo':
+        echo json_encode($work->get_repairs_periodo($_POST['inicio'],$_POST['final']));
+        break;
 }
