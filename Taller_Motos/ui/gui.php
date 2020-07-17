@@ -158,8 +158,8 @@ class Gui
             <script src="assets/js/datatable_buttons_boot.js"></script>
             <script src="assets/js/jszip.min.js"></script>
             <script src="assets/js/pdfmake.min.js"></script>
-            <script src="assets/js/vfs.fonts.js"></script>
-            <script src="assets/js/buttons.html.min.js"></script>
+            <script src="assets/js/vfs_fonts.js"></script>
+            <script src="assets/js/buttons.html5.min.js"></script>
             <script src="assets/js/buttons.print.min.js"></script>
             <script src="assets/js/buttons.colVis.min.js"></script>
 
