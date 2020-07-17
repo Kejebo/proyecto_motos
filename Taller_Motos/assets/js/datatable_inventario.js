@@ -1,5 +1,5 @@
 $(document).ready(function () {
-var printCounter = 0;
+  var printCounter = 0;
   $("#Inventario").append(
     '<caption style="caption-side: bottom">Mygthy Motors / Telefono:83595176 / Correo:mannolo@gmail.com.</caption>'
   );
@@ -9,22 +9,21 @@ var printCounter = 0;
       {
         extend: "copyHtml5",
         exportOptions: {
-          columns: [0,1,2,3,4],
+          columns: [0, 1, 2, 3, 4],
         },
       },
       {
         extend: "excelHtml5",
-        messageTop:
-          "Reporte de Inventario.",
+        messageTop: "Reporte de Inventario.",
         exportOptions: {
-          columns: [0,1,2,3,4],
+          columns: [0, 1, 2, 3, 4],
         },
       },
 
       {
         extend: "print",
         exportOptions: {
-          columns: [0,1,2,3,4],
+          columns: [0, 1, 2, 3, 4],
         },
         messageTop: function () {
           printCounter++;
@@ -60,5 +59,4 @@ var printCounter = 0;
     },
   });
   table.buttons().container().appendTo("#example_wrapper .col-md-6:eq(0)");
-
 });

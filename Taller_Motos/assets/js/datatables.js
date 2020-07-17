@@ -1,6 +1,5 @@
 $(document).ready(function () {
   $("#example").DataTable({
-   
     language: {
       decimal: "",
       emptyTable: "No hay información",
