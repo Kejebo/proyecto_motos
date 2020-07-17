@@ -296,6 +296,23 @@ font-weight: bold;
   margin-top: 20px;
 }
 
+#div_form_completa{
+  margin-left: 0px;
+}
+
+#div_form_validacion{
+  margin-left: 0px;
+}
+
+#div_form_cambio{
+  margin-left: 0px;
+}
+
+.formulario_login{
+  margin-left: 0px !important;
+}
+
+
 
 
 
