@@ -35,14 +35,22 @@
         }
 
         function get_admin(){
+            $array = array(
+                'id_empresa' => 0,
+                'nombre' => "",
+                'logo' => "",
+                'correo' => "",
+                'direccion' => "",
+                'cedula_juridica' => "",
+                'telefono' => ""
+            );
+
             $data = $this->db->get_admin();
             if($data!=false){
                 return $data;
             }else{
-                return array();
+                return $array;
             }
             
         }
     }
-    
-?>

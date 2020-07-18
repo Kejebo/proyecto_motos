@@ -5,12 +5,19 @@ class Ui_admin extends Gui
 {
     var $ln;
     var $data;
+    var $action = 'insert';
+    var $boton = 'Registrar';
 
 
     function __construct($config)
     {
         parent::__construct($config);
         $this->ln = new ln_admin();
+        $datos = $this->ln->get_admin();
+        if ($datos['id_empresa'] != null) {
+            $this->action = 'update';
+            $this->boton = 'Actualizar';
+        }
     }
 
     function action_controller()
@@ -21,37 +28,28 @@ class Ui_admin extends Gui
     function get_content()
     {
 
-        $action = 'insert';
-        $boton = 'Registrar';
-        if (isset($_GET['action'])) {
-            if ($_GET['action'] == 'update_admin') {
-                $action = 'update';
-                $boton = 'Actualizar';
-            }
-        }
-
 ?>
-        <form method="POST" action="admin.php?action=<?= $action ?>" enctype="multipart/form-data">
+        <form method="POST" action="admin.php?action=<?= $this->action ?>" enctype="multipart/form-data">
             <div class=" container row">
                 <div class="col-12 col-sm-12 col-lg-6">
                     <div class="card shadow">
                         <?php $this->data = $this->ln->get_admin(); ?>
                         <div class="card-body">
-                            <input type="hidden" name="id_empresa" value="<?= $this->data['id_cliente']; ?>">
+                            <input type="hidden" name="id_empresa" value="<?= $this->data['id_empresa']; ?>">
                             <div class="form-group">
                                 <div class="input-group mb-3">
 
                                     <div class="input-group-prepend">
 
-                                        <label class="btn btn-success" for="input-imagen"><i class="fas fa-upload"></i> Elegir</label>
+                                        <label class="btn btn-success" for="logo"><i class="fas fa-upload"></i> Elegir</label>
 
                                     </div>
 
-                                    <input type="text" name="file-name" id="file-name" class="form-control file-name" value="<?=$this->data['logo'];?>" readonly>
+                                    <input type="text" name="file-name" id="file-name" name="file-name" class="form-control file-name" value="<?= $this->data['logo']; ?>" readonly>
 
                                 </div>
 
-                                <input type="file" name="input-imagen" id="input-imagen" value="<?=$this->data['logo']; ?>" hidden>
+                                <input type="file" name="logo" id="logo" hidden>
 
                             </div>
 
@@ -87,7 +85,7 @@ class Ui_admin extends Gui
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Direccion</label>
-                                <textarea name="direccion" class="form-control" rows="1" value="<?= $this->data['direccion']; ?>"></textarea>
+                                <textarea name="direccion" class="form-control" rows="1"><?= $this->data['direccion']; ?></textarea>
                             </div>
 
                         </div>
@@ -96,7 +94,7 @@ class Ui_admin extends Gui
             </div>
             <div class="text-center p-4">
                 <hr>
-                <button class="btn btn-success " type="submit"><i class="fas fa-file"></i> Guardar</button>
+                <button class="btn btn-success " type="submit"><i class="fas fa-file"></i><?= $this->boton; ?></button>
             </div>
         </form>
         </div>

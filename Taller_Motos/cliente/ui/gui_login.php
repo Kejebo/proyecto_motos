@@ -1,7 +1,7 @@
 <?php
 
 require_once('ln/ln_security.php');
-
+require_once('db/db_admin.php');
 
 class Gui_login
 {
@@ -9,12 +9,14 @@ class Gui_login
   var $ln_security;
   var $estado;
   var $nombre_cliente;
+  var $db_admin;
 
 
   function __construct($config)
   {
 
     $this->ln_security = new ln_security();
+    $this->db_admin = new db_admin();
 
     if ($config) {
       $this->config = $config;
@@ -75,7 +77,8 @@ class Gui_login
             <div class="social-links mt-3 text-center">
               <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
               <!--<a href="#" class="instagram"><i class="fab fa-instagram"></i></a>-->
-              <a href="https://api.whatsapp.com/send?phone=0050688303820&text=Hola, Soy <?= $this->nombre_cliente ?>" target="_blank" class="google-plus"><i class="fab fa-whatsapp"></i></i></a>
+              <?php $data = $this->db_admin->get_admin();?>
+              <a href="https://api.whatsapp.com/send?phone=00506<?=$data['telefono']?>&text=Buenas <?=$data['nombre']?>, necesito informacion acerca de sus servicios. Soy el usuario <?= $this->nombre_cliente ?>" target="_blank" class="google-plus"><i class="fab fa-whatsapp"></i></i></a>
               <!--<a href="#" class="linkedin"><i class="fab fa-youtube"></i></a>-->
               <span>|</span>
               <a href="#" title="Salir">

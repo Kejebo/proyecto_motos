@@ -58,7 +58,7 @@ class Ui_client extends Gui
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Contraseña</label>
-                                <input type="password" class="form-control" name="clave" id="clave">
+                                <input type="password" class="form-control" name="clave" id="clave" value="<?=($client!= null) ? $client['clave']:''?>">
                             </div>
                             <hr>
                             <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?=$boton?></button>

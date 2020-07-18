@@ -9,20 +9,24 @@ require_once('assets/phpmailer/SMTP.php');
 
 require_once('ln_usuarios.php');
 require_once('ln_client.php');
+require_once('ln_admin.php');
 
 class ln_security
 {
 
     var $ln_usuarios;
     var $ln_clientes;
+    var $ln_admin;
     var $Key = "CLAVESUPERSECRETA";
     var $error;
+    
 
     function __construct()
     {
 
         $this->ln_usuarios = new ln_usuarios();
         $this->ln_clientes = new ln_client();
+        $this->ln_admin = new ln_admin();
     }
 
     function action_controller()
@@ -255,7 +259,7 @@ class ln_security
 
     function enviar_correo($data, $codigo)
     {
-
+        $datos = $this->ln_admin->get_admin();
         $respuesta = false;
         $mail = new PHPMailer(true);
 
@@ -264,12 +268,12 @@ class ln_security
             $mail->isSMTP();                                            // Set mailer to use SMTP
             $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'wrdkillvibe@gmail.com';                     // SMTP username
-            $mail->Password   = 's.Zuniga29';                               // SMTP password
+            $mail->Username   = $datos['correo'];                     // SMTP username
+            $mail->Password   = $datos['contrasena'];                               // SMTP password
             $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
             $mail->Port       = 587;                                    // TCP port to connect to
 
-            $mail->setFrom('wrdkillvibe@gmail.com', 'Taller Migthy Motors');
+            $mail->setFrom($datos['correo'],$datos['nombre']);
             $mail->addAddress($data['correo_electronico_link']);     // Add a recipient
 
             $mail->isHTML(true);                                  // Set email format to HTML

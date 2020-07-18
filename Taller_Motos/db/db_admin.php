@@ -13,10 +13,25 @@ class db_admin extends conexion{
     {
 
         $foto = $_FILES['logo'];
-        $destino = $destino . rand(1, 10) . rand(1, 10) . rand(1, 10) . $foto['name'];
-        move_uploaded_file($foto['tmp_name'], $destino);
+        if($foto['name']!=null){
+            $destino = $destino . rand(1, 10) . rand(1, 10) . rand(1, 10) . $foto['name'];
+            move_uploaded_file($foto['tmp_name'], $destino);
+        }else{
+            $destino = $_POST['file-name'];
+        }
 
         return $destino;
+    }
+
+    function consultar_imagen($logo){
+        $datos = $this->get_admin();
+        if($datos!=false){
+            if($datos['logo']==$logo){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 
     function insert_admin($data){
@@ -46,9 +61,10 @@ class db_admin extends conexion{
     }
     function update_admin($data){
         extract($data);
+        $destino = 'assets/logo/';
+        $destino = $this->cargar($destino);
         $sql="update empresa e set e.nombre='$nombre', e.cedula_juridica='$cedula', e.telefono='$telefono', e.correo='$correo' 
-        ,e.logo='$destino', e.direccion='$direccion' where e.id_empresa='$id_empresa';";
+        ,e.logo='$destino', e.direccion='$direccion', e.contrasena='$contrasena' where e.id_empresa='$id_empresa';";
         $this->execute($sql);
     }
     }
-?>
