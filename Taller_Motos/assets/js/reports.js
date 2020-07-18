@@ -142,7 +142,7 @@ function get_pdf() {
             window.open('pdf.php?data=Venta_Proveedor', '_blank');
             break;
         case 'Ventas General':
-            window.open('pdf.php?data=Venta_General', '_blank');
+            window.open('pdf.php?data=ventas', '_blank');
             break;
         case 'Ventas Diaria':
             Ventas_pdf(dia.value, 'venta_diaria');
@@ -156,6 +156,10 @@ function get_pdf() {
 
         case 'Ventas Periodica':
             Ventas_periodo_pdf(document.getElementById('fecha_inicio').value, document.getElementById('fecha_final').value, 'venta_periodo');
+            break;
+
+        case 'Compras General':
+            window.open('pdf.php?data=compras', '_blank');
             break;
         case 'Compras Diaria':
             Compras_pdf(dia.value, 'compra_diaria');
@@ -569,11 +573,11 @@ function reparaciones_consulta(dia, action) {
 }
 
 
-function reparaciones_consulta_periodo(inicio,final, action) {
+function reparaciones_consulta_periodo(inicio, final, action) {
     $.ajax({
         type: "post",
         url: "controller.php",
-        data: { action, inicio,final },
+        data: { action, inicio, final },
         dataType: "json",
         success: function (response) {
             document.getElementById('encabezado').innerHTML = `  <th>Fecha Entrada</th>

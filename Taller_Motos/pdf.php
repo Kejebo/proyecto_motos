@@ -86,10 +86,10 @@ $admin = $admin->get_admin();
             case 'compras':
                 get_purcharses();
                 break;
-            case 'Compra':
+            case 'compra':
                 get_purchase();
                 break;
-            case 'Ventas':
+            case 'ventas':
                 get_sales();
                 break;
             case 'venta':

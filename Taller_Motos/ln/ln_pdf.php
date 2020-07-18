@@ -347,7 +347,8 @@ function get_sales()
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
 
             </tr>
@@ -358,6 +359,7 @@ function get_sales()
                 <tr>
                     <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
+                    <td><?= $list['usuario'] ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
             <?php } ?>
@@ -379,17 +381,15 @@ function get_sales_daily()
     <table style="width: 100%; text-align:center;" align="center">
         <thead>
             <tr style="background-color: black;">
-                <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 40%">Cliente</th>
+                <th style="text-align: center;    width: 40%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
-
             </tr>
         </thead>
         <tbody>
             <?php foreach ($db->get_sales_diario($_GET['dia']) as $list) { ?>
 
                 <tr>
-                    <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
@@ -414,9 +414,9 @@ function get_sales_periodo()
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
-
             </tr>
         </thead>
         <tbody>
@@ -425,6 +425,7 @@ function get_sales_periodo()
                 <tr>
                     <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
+                    <td><?= $list['usuario'] ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
             <?php } ?>
@@ -448,9 +449,9 @@ function get_sales_mensual($mes)
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
-
             </tr>
         </thead>
         <tbody>
@@ -459,6 +460,7 @@ function get_sales_mensual($mes)
                 <tr>
                     <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
+                    <td><?= $list['usuario'] ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
             <?php } ?>
@@ -482,7 +484,8 @@ function get_sales_anual()
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
 
             </tr>
@@ -493,6 +496,7 @@ function get_sales_anual()
                 <tr>
                     <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
+                    <td><?= $list['usuario'] ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
             <?php } ?>
@@ -516,7 +520,8 @@ function get_sale()
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 30%">Fecha</th>
-                <th style="text-align: center;    width: 70%">Cliente</th>
+                <th style="text-align: center;    width: 35%">Cliente</th>
+                <th style="text-align: center;    width: 35%">Responsable</th>
             </tr>
         </thead>
         <tbody>
@@ -524,6 +529,7 @@ function get_sale()
             <tr>
                 <td><?= $data['fecha']; ?></td>
                 <td><?= $data['cliente']; ?></td>
+                <td><?= $data['usuario']; ?></td>
             </tr>
         </tbody>
     </table>
