@@ -3,6 +3,7 @@ require_once('db/db_inventory.php');
 require_once('db/db_client.php');
 require_once('db/db_motorcycle.php');
 require_once('db/db_proveedor.php');
+require_once('db/db_workshop.php');
 require_once('db/db_purchase.php');
 require_once('db/db_sales.php');
 function get_inventory()
@@ -230,7 +231,7 @@ function get_purcharses_periodo()
 
 ?>
     <div id="titulo">
-        <h2>Lista de Compras desde <?=$_GET['inicio'].' hasta '.$_GET['final']?></h2>
+        <h2>Lista de Compras desde <?= $_GET['inicio'] . ' hasta ' . $_GET['final'] ?></h2>
     </div>
     <br>
     <br>
@@ -345,7 +346,8 @@ function get_sales()
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
 
             </tr>
@@ -356,6 +358,7 @@ function get_sales()
                 <tr>
                     <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
+                    <td><?= $list['usuario'] ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
             <?php } ?>
@@ -377,17 +380,15 @@ function get_sales_daily()
     <table style="width: 100%; text-align:center;" align="center">
         <thead>
             <tr style="background-color: black;">
-                <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 40%">Cliente</th>
+                <th style="text-align: center;    width: 40%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
-
             </tr>
         </thead>
         <tbody>
             <?php foreach ($db->get_sales_diario($_GET['dia']) as $list) { ?>
 
                 <tr>
-                    <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
@@ -404,7 +405,7 @@ function get_sales_periodo()
 
 ?>
     <div id="titulo">
-        <h2>Lista de Ventas desde <?=$_GET['inicio'].' hasta '.$_GET['final']?> </h2>
+        <h2>Lista de Ventas desde <?= $_GET['inicio'] . ' hasta ' . $_GET['final'] ?> </h2>
     </div>
     <br>
     <br>
@@ -412,9 +413,9 @@ function get_sales_periodo()
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
-
             </tr>
         </thead>
         <tbody>
@@ -423,6 +424,7 @@ function get_sales_periodo()
                 <tr>
                     <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
+                    <td><?= $list['usuario'] ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
             <?php } ?>
@@ -446,9 +448,9 @@ function get_sales_mensual($mes)
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
-
             </tr>
         </thead>
         <tbody>
@@ -457,6 +459,7 @@ function get_sales_mensual($mes)
                 <tr>
                     <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
+                    <td><?= $list['usuario'] ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
             <?php } ?>
@@ -480,7 +483,8 @@ function get_sales_anual()
         <thead>
             <tr style="background-color: black;">
                 <th style="text-align: center;    width: 20%">Fecha</th>
-                <th style="text-align: center;    width: 60%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Responsable</th>
                 <th style="text-align: center;    width: 20%">Total</th>
 
             </tr>
@@ -491,6 +495,7 @@ function get_sales_anual()
                 <tr>
                     <td><?= $list['fecha']; ?></td>
                     <td><?= $list['cliente']; ?></td>
+                    <td><?= $list['usuario'] ?></td>
                     <td><?= number_format($list['saldo']); ?></td>
                 </tr>
             <?php } ?>
@@ -501,6 +506,251 @@ function get_sales_anual()
 }
 
 function get_sale()
+{
+    $db = new db_sales();
+    $data = $db->get_sale($_GET['id'])[0];
+?>
+    <div id="titulo">
+        <h2>Lista de Ventas</h2>
+    </div>
+    <br>
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 30%">Fecha</th>
+                <th style="text-align: center;    width: 35%">Cliente</th>
+                <th style="text-align: center;    width: 35%">Responsable</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><?= $data['fecha']; ?></td>
+                <td><?= $data['cliente']; ?></td>
+                <td><?= $data['usuario']; ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 60%">Producto</th>
+                <th style="text-align: center;    width: 10%">Cant</th>
+                <th style="text-align: center;    width: 15%">SubTotal</th>
+                <th style="text-align: center;    width: 15%">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($db->get_detail_sale($_GET['id']) as $list) {
+                $saldo = +$list['saldo']; ?>
+                <tr>
+                    <td><?= $list['nombre_material'] ?></td>
+                    <td><?= $list['cantidad'] ?></td>
+                    <td><?= number_format($list['precio']) ?></td>
+                    <td><?= number_format($list['saldo'])  ?></td>
+                </tr>
+            <?php } ?>
+            <tr>
+                <td colspan="2">Total</td>
+                <td colspan="2"><?= number_format($saldo) ?></td>
+            </tr>
+        </tbody>
+    </table>
+<?php
+}
+
+function get_repairs()
+{
+    $db = new db_workshop();
+
+?>
+    <div id="titulo">
+        <h2>Lista de Reparaciones</h2>
+    </div>
+    <br>
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 15%">Fecha</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Moto</th>
+                <th style="text-align: center;    width: 15%">Estado</th>
+                <th style="text-align: center;    width: 10%">Monto</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($db->get_repairs() as $list) { ?>
+
+                <tr>
+                    <td><?= $list['fecha'] ?></td>
+                    <td><?= $list['cliente'] ?></td>
+                    <td><?= $list['moto'] ?></td>
+                    <td><?= $list['estado'] ?></td>
+                    <td><?= number_format($list['monto']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+
+<?php
+}
+function get_repair_daily()
+{
+    $db = new db_workshop();
+
+?>
+    <div id="titulo">
+        <h2>Lista de Ventas del <?= $_GET['dia'] ?></h2>
+    </div>
+    <br>
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 15%">Fecha</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Moto</th>
+                <th style="text-align: center;    width: 15%">Estado</th>
+                <th style="text-align: center;    width: 10%">Monto</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($db->get_repairs_diario($_GET['dia']) as $list) { ?>
+
+                <tr>
+                    <td><?= $list['fecha'] ?></td>
+                    <td><?= $list['cliente'] ?></td>
+                    <td><?= $list['moto'] ?></td>
+                    <td><?= $list['estado'] ?></td>
+                    <td><?= number_format($list['monto']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+<?php
+}
+
+function get_repair_periodo()
+{
+    $db = new db_workshop();
+
+?>
+    <div id="titulo">
+        <h2>Lista de Reparaciones desde <?= $_GET['inicio'] . ' hasta ' . $_GET['final'] ?> </h2>
+    </div>
+    <br>
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 15%">Fecha</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Moto</th>
+                <th style="text-align: center;    width: 15%">Estado</th>
+                <th style="text-align: center;    width: 10%">Monto</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($db->get_repairs_periodo($_GET['inicio'], $_GET['final']) as $list) { ?>
+
+                <tr>
+                    <td><?= $list['fecha'] ?></td>
+                    <td><?= $list['cliente'] ?></td>
+                    <td><?= $list['moto'] ?></td>
+                    <td><?= $list['estado'] ?></td>
+                    <td><?= number_format($list['monto']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+<?php
+}
+
+function get_repair_mensual($mes)
+{
+    $db = new db_workshop();
+
+?>
+    <div id="titulo">
+        <h2>Lista de Resparaciones de <?= ucfirst($mes['mes']) ?></h2>
+    </div>
+    <br>
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 15%">Fecha</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Moto</th>
+                <th style="text-align: center;    width: 15%">Estado</th>
+                <th style="text-align: center;    width: 10%">Monto</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($db->get_repairs_mensual($_GET['dia']) as $list) { ?>
+
+                <tr>
+                    <td><?= $list['fecha'] ?></td>
+                    <td><?= $list['cliente'] ?></td>
+                    <td><?= $list['moto'] ?></td>
+                    <td><?= $list['estado'] ?></td>
+                    <td><?= number_format($list['monto']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+<?php
+}
+
+function get_repair_anual()
+{
+    $db = new db_workshop();
+
+?>
+    <div id="titulo">
+        <h2>Lista de Reparaciones del Año <?= $_GET['dia'] ?></h2>
+    </div>
+    <br>
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 15%">Fecha</th>
+                <th style="text-align: center;    width: 30%">Cliente</th>
+                <th style="text-align: center;    width: 30%">Moto</th>
+                <th style="text-align: center;    width: 15%">Estado</th>
+                <th style="text-align: center;    width: 10%">Monto</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($db->get_repairs_anual($_GET['dia']) as $list) { ?>
+
+                <tr>
+                    <td><?= $list['fecha'] ?></td>
+                    <td><?= $list['cliente'] ?></td>
+                    <td><?= $list['moto'] ?></td>
+                    <td><?= $list['estado'] ?></td>
+                    <td><?= number_format($list['monto']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+<?php
+}
+
+function get_repair()
 {
     $db = new db_sales();
     $data = $db->get_sale($_GET['id'])[0];

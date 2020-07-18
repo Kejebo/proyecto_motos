@@ -346,7 +346,36 @@ function compras_periodo_pdf(inicio, final, action) {
     },
   });
 }
-
+function reparaciones_periodo_pdf(inicio, final, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { inicio, final, action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action + '&inicio=' + inicio + '&final=' + final, '_blank');
+            } else {
+                alert('No hay registros de reparaciones');
+            }
+        }
+    });
+}
+function reparaciones_pdf(dia, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { dia, action },
+        dataType: "json",
+        success: function (response) {
+            if (response != false) {
+                window.open('pdf.php?data=' + action + '&dia=' + dia, '_blank');
+            } else {
+                alert('No hay registros de Reparaciones');
+            }
+        }
+    });
+}
 function Compras_pdf(dia, action) {
   $.ajax({
     type: "post",
@@ -592,4 +621,80 @@ function compras_consulta_periodo(inicio, final, action) {
       }
     },
   });
+}
+
+
+function reparaciones_consulta(dia, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action, dia },
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('encabezado').innerHTML = `  <th>Fecha Entrada</th>
+            <th>Cliente</th>
+            <th>Moto</th>
+            <th>Placa</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Editar</th>
+            <th>Eliminar</th>`
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                response.forEach(repair => {
+                    tabla.innerHTML += `  <td>${repair.fecha}</td>
+                    <td>${repair.cliente}</td>
+                    <td>${repair.moto}</td>
+                    <td>${repair.placa}</td>
+                    <td>${repair.monto}</td>
+                      <td class="text-center">${repair.estado}</td>
+                    <td><a href="workshop.php?action=update&id=${repair.id}" class="btn btn-warning">+</a></td>
+                    <td><a href="repairs.php?action=delete&id=${repair.id}" class="btn btn-danger">X</a></td>
+                </tr>`
+                });
+
+            } else {
+                alert('No hay reparaciones registradas')
+            }
+        }
+    });
+}
+
+
+function reparaciones_consulta_periodo(inicio, final, action) {
+    $.ajax({
+        type: "post",
+        url: "controller.php",
+        data: { action, inicio, final },
+        dataType: "json",
+        success: function (response) {
+            document.getElementById('encabezado').innerHTML = `  <th>Fecha Entrada</th>
+            <th>Cliente</th>
+            <th>Moto</th>
+            <th>Placa</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Editar</th>
+            <th>Eliminar</th>`
+            let tabla = document.getElementById('cuerpo');
+            tabla.innerHTML = '';
+            if (response != false) {
+                response.forEach(repair => {
+                    tabla.innerHTML += `  <td>${repair.fecha}</td>
+                    <td>${repair.cliente}</td>
+                    <td>${repair.moto}</td>
+                    <td>${repair.placa}</td>
+                    <td>${repair.monto}</td>
+                      <td class="text-center">${repair.estado}</td>
+                    <td><a href="workshop.php?action=update&id=${repair.id}" class="btn btn-warning">+</a></td>
+                    <td><a href="repairs.php?action=delete&id=${repair.id}" class="btn btn-danger">X</a></td>
+                </tr>`
+                });
+
+            } else {
+                alert('No hay reparaciones registradas')
+            }
+        }
+    });
 }

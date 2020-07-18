@@ -37,8 +37,7 @@ class ui_sales extends Gui
                   Exportar
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" target="blank" href="pdf.php?data=Ventas">PDF</a>
-                  <a class="dropdown-item" href="#">EXCEL</a>
+                  <a class="dropdown-item" target="blank" href="pdf.php?data=ventas">PDF</a>
                 </div>
               </div>
           </div>
@@ -67,7 +66,7 @@ class ui_sales extends Gui
                                         <td><?= $list['saldo'] ?></td>
                                         <td><a href="sale.php?action=delete&id=<?=$list['id']?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                         <td><a href="sale.php?action=update_sale&id=<?=$list['id']?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
-                                        <td><a href="pdf.php?data=Venta&id=<?= $list['id'] ?>" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                                        <td><a href="pdf.php?data=venta&id=<?= $list['id'] ?>" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
 
                                     </tr>
                                 <?php } ?>

@@ -42,6 +42,44 @@ class db_workshop extends conexion{
         return false;
             }
     }
+    function get_repairs_diario($fecha){
+      $sql = "call get_reparaciones_diaria('$fecha')";
+      $result = $this->get_data($sql);
+          if($result){
+              return $result;
+          }else{
+      return false;
+          }
+  }
+  function get_repairs_mensual($fecha){
+      $sql = "call get_reparaciones_mensual('$fecha')";
+      $result = $this->get_data($sql);
+          if($result){
+              return $result;
+          }else{
+      return false;
+          }
+  }
+
+  function get_repairs_periodo($inicio,$final){
+      $sql = "call get_reparaciones_periodica('$inicio','$final')";
+      $result = $this->get_data($sql);
+          if($result){
+              return $result;
+          }else{
+      return false;
+          }
+  }
+
+  function get_repairs_anual($fecha){
+      $sql = "call get_reparaciones_anual('$fecha')";
+      $result = $this->get_data($sql);
+          if($result){
+              return $result;
+          }else{
+      return false;
+          }
+  }
     function get_repair($id){
       return $this->get_data("call get_reparacion('$id')")[0];
     }
@@ -129,4 +167,3 @@ function get_reparacion_moto($id){
             }
     }
     }
-?>
