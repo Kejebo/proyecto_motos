@@ -33,5 +33,16 @@
         function update_admin($data){
             $this->db->update_admin($data);
         }
+
+        function get_admin(){
+            $data = $this->db->get_admin();
+            if($data!=false){
+                return $data;
+            }else{
+                return array();
+            }
+            
+        }
     }
+    
 ?>
