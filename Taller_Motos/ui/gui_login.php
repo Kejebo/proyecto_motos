@@ -12,6 +12,7 @@ class Gui_login
 
     function __construct($config)
     {
+        
         $this->ln_security = new ln_security();
 
         if ($config) {
@@ -19,10 +20,13 @@ class Gui_login
         }
 
         $this->ln_security->check_tipo_login($this->config['url']);
+        
     }
 
+    
     function get_header()
     {
+       
 ?>
         <!DOCTYPE html>
         <html lang="en">

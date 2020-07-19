@@ -62,7 +62,7 @@ class ui_user extends Gui
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Correo</label>
-                                <input type="email" class="form-control" name="correo" value="<?= ($user != null) ?  $user['correo'] : '' ?>">
+                                <input type="email" class="form-control" name="correo" value="<?= ($user != null) ?  $user['correo_electronico'] : '' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Tipo</label>

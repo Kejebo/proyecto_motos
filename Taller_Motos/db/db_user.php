@@ -44,7 +44,7 @@ class db_user extends conexion{
     }
     function update_user($data){
         extract($data);
-        $sql="update usuarios u set u.nombre_completo='$nombre', u.clave='$clave', u.correo='$correo', u.tipo='$tipo' where u.id_usuario='$id_usuario';";
+        $sql="update usuarios u set u.nombre_completo='$nombre', u.clave='$clave', u.correo_electronico='$correo', u.tipo='$tipo' where u.id_usuario='$id_usuario';";
         $this->execute($sql);
     }
     }
