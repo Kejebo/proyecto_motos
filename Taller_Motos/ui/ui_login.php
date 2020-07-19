@@ -27,7 +27,7 @@ class UI_login extends Gui_login
                     <div class="card shadow mt-4">
                    
                         <div class="card-header" id="titulosCards" style="background-image: url('<?=$this->data['logo']?>')">
-                            <h6 class="card-title" id="nombre_empresa">Taller Migthy Motors</h6>
+                            <h6 class="card-title" id="nombre_empresa">Taller <?=$this->data['nombre']?></h6>
                             <h5 class="card-title">Bienvenidos</h5>
 
                         </div>
