@@ -1,15 +1,18 @@
 <?php
 require_once('gui.php');
 require_once('ln/ln_client.php');
+require_once('db/db_user.php');
 class Ui_client extends Gui
 {
     var $ln;
+    var $ln_user;
 
 
     function __construct($config)
     {
         parent::__construct($config);
         $this->ln = new ln_client();
+        $this->ln_user = new db_user();
     }
 
     function action_controller()
@@ -19,14 +22,15 @@ class Ui_client extends Gui
 
     function get_content()
     {
-        $client=null;
-        $action='insert';
-        $boton='Registrar';
-        if(isset($_GET['action'])){
-            if($_GET['action']=='update_client'){
-                $client=$this->ln->get_client($_GET['id']);
-                $action='update';
-                $boton='Actualizar';
+        $client = null;
+        $action = 'insert';
+        $boton = 'Registrar';
+        if (isset($_GET['action'])) {
+            if ($_GET['action'] == 'update_client') {
+                $client = $this->ln->get_client($_GET['id']);
+                $usuario = $this->ln_user->get_user_correo($client['correo']);
+                $action = 'update';
+                $boton = 'Actualizar';
             }
         }
 
@@ -38,30 +42,32 @@ class Ui_client extends Gui
                         <h5> <span> <i class="fas fa-bars"></i></span> Registro de clientes</h5>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="clients.php?action=<?=$action?>">
-                        <input type="hidden" name="id_cliente" value="<?=($client!= null) ? $client['id_cliente'] :''?>">
+                        <form method="POST" action="clients.php?action=<?= $action ?>">
+                            <input type="hidden" name="id_cliente" value="<?= ($client != null) ? $client['id_cliente'] : '' ?>">
+                            <input type="hidden" name="tipo" value="cliente">
+                            <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario']; ?>">
                             <div class="form-group">
                                 <label class="etiquetas">Nombre Completo</label>
-                                <input class="form-control" type="text" name="nombre" value="<?=($client!= null) ? $client['nombre_cliente']:''?>">
+                                <input class="form-control" type="text" name="nombre" value="<?= ($client != null) ? $client['nombre_cliente'] : '' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Telefono</label>
-                                <input class="form-control" type="text" name="telefono" value="<?=($client!= null) ? $client['telefono']:''?>">
+                                <input class="form-control" type="text" name="telefono" value="<?= ($client != null) ? $client['telefono'] : '' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Correo</label>
-                                <input class="form-control" type="text" name="correo" value="<?=($client!= null) ? $client['correo']:''?>">
+                                <input class="form-control" type="text" name="correo" value="<?= ($client != null) ? $client['correo'] : '' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Cedula Juridica</label>
-                                <input class="form-control" type="text" name="cedula" value="<?=($client!= null) ? $client['cedula_juridica']:''?>">
+                                <input class="form-control" type="text" name="cedula" value="<?= ($client != null) ? $client['cedula_juridica'] : '' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Contraseña</label>
-                                <input type="password" class="form-control" name="clave" id="clave" value="<?=($client!= null) ? $client['clave']:''?>">
+                                <input type="password" class="form-control" name="clave" id="clave" value="<?= ($client != null) ? $client['clave'] : '' ?>">
                             </div>
                             <hr>
-                            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?=$boton?></button>
+                            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
                         </form>
                     </div>
                 </div>

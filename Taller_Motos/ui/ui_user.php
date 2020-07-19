@@ -23,8 +23,7 @@ class ui_user extends Gui
     {
         $data = array(
             'Administrador' => 'administrador',
-            'Tecnico' => 'Tecnico',
-            'Cliente' => 'cliente'
+            'Tecnico' => 'Tecnico'
         );
         return $data;
     }
@@ -47,7 +46,7 @@ class ui_user extends Gui
             <div class="col-12 col-sm-12 col-lg-4">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h5> <span><i class="fas fa-bars"></i></span> Registro de usuarios</h5>
+                        <h5> <span><i class="fas fa-bars"></i></span> Registro de Usuarios</h5>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="users.php?action=<?= $action ?>">
@@ -97,7 +96,7 @@ class ui_user extends Gui
                             </thead>
                             <tbody class="text-center">
                                 <?php $usuarios = $this->ln_user->get_users(); ?>
-                                <?php foreach ($usuarios as $item) { ?>
+                                <?php foreach ($usuarios as $item) if ($item['tipo'] != 'cliente') { ?>
                                     <tr>
                                         <td><?= $item['nombre_completo'] ?></td>
                                         <td><?= $item['tipo'] ?></td>

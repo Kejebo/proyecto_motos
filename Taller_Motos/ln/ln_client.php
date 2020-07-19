@@ -58,4 +58,3 @@
             $this->db->update_client($data);
         }
     }
-?>
