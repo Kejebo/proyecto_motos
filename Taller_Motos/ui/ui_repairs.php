@@ -52,6 +52,7 @@ class ui_repairs extends Gui
                   <th>Estado</th>
                   <th>Editar</th>
                   <th>Eliminar</th>
+                  <th>Exportar</th>
 
                 </tr>
               </thead>
@@ -75,6 +76,7 @@ class ui_repairs extends Gui
                     ?>
                     <td><a href="workshop.php?action=update&id=<?= $repair['id'] ?>" class="btn btn-warning">+</a></td>
                     <td><a href="repairs.php?action=delete&id=<?= $repair['id'] ?>" class="btn btn-danger">X</a></td>
+                    <td><a href="pdf.php?data=info_reparacion&id=<?= $repair['id'] ?>" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                   </tr>
                 <?php
                 }

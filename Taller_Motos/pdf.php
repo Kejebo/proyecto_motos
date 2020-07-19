@@ -9,6 +9,18 @@ if (isset($_GET['dia'])) {
 $admin = $admin->get_admin();
 ?>
 <style>
+    label {
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+
+    th {
+        height: 40px;
+        font-size: 14px;
+        color: white;
+        text-transform: uppercase;
+    }
+
     thead th {
         height: 40px;
         font-size: 14px;
@@ -23,7 +35,7 @@ $admin = $admin->get_admin();
         background-color: lavender;
     }
 
-    #titulo {
+    #titulo h2 {
         text-align: center;
         font-size: 20px;
         font-weight: bold;
@@ -47,17 +59,14 @@ $admin = $admin->get_admin();
     }
 </style>
 <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
-    <page_header>
-        Logo
+    <page_header style="padding-bottom: 50px;">
+        <img src="assets/logo/497pati.jpg" alt="" style="width: 50px; height: 50px; ">
     </page_header>
     <page_footer>
-        <table style="width: 100%; border: solid 1px black;">
-            <tr>
-                <td style="text-align: left;    width: 50%">Migthy Motors</td>
-                <td style="text-align: right;    width: 50%">pagina [[page_cu]]/[[page_nb]]</td>
-            </tr>
-        </table>
-    </page_footer>
+     <div style="right: auto;"> 
+    [[page_cu]]/[[page_nb]]
+    </div>
+</page_footer>
 
     <div id="datos">
 
@@ -135,6 +144,10 @@ $admin = $admin->get_admin();
             case 'reparacion_periodo':
                 get_repair_periodo();
                 break;
+            case 'info_reparacion':
+                get_detalle_reparacion();
+                break;
+
             case 'Proveedor':
                 get_proveedor();
                 break;

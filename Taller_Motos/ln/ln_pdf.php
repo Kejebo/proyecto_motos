@@ -857,4 +857,71 @@ function get_purchase()
     </table>
 <?php
 }
+function get_detalle_reparacion()
+{
+    $db = new db_workshop();
+    $data = $db->get_repair($_GET['id']);
+?>
+    <div id="titulo">
+        <h2>Detalle de reparacion de Moto <?= $data['moto'] ?> </h2>
+    </div>
+    <br>
+    <label><strong>Encargado: </strong> <?= $data['usuario'] ?></label><br><br>
+    <label><strong>Cliente: </strong><?= $data['cliente'] ?></label><br><br>
+    <label><strong>Estado: </strong></label><?= $data['estado'] ?> <br><br>
+    <label><strong>Precio: </strong><?= number_format($data['monto']) ?></label><br>
+
+    <br>
+    <table style="width: 100%; text-align:center;" align="center">
+        <thead>
+            <tr style="background-color: black;">
+                <th style="text-align: center;    width: 20%">Fecha Entrada</th>
+                <th style="text-align: center;    width: 20%">Fecha Salida</th>
+                <th style="text-align: center;    width: 20%">Kilometraje Entrada</th>
+                <th style="text-align: center;    width: 20%">Kilometraje Salida</th>
+                <th style="text-align: center;    width: 20%">Proxima cita</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><?= $data['fecha_entrada'] ?></td>
+                <td><?= $data['fecha_salida'] ?></td>
+                <td><?= number_format($data['kilometraje_entrada']) ?></td>
+                <td><?= number_format($data['kilometraje_salida']) ?></td>
+                <td><?= number_format($data['cita']) ?></td>
+            </tr>
+            <tr>
+                <th style="background-color: black; text-align: center; color:white" colspan="5">Trabajos</th>
+            </tr>
+            <?php
+            foreach ($db->get_work_details($_GET['id']) as $work) { ?>
+                <tr>
+                    <td colspan="5"><?= $work['nombre_trabajo'] ?></td>
+                </tr>
+            <?php }
+            ?>
+            <tr>
+                <th style="background-color: black; text-align: center; color:white" colspan="5">Materiales Utilizados</th>
+            </tr>
+            <?php
+            foreach ($db->get_repair_details($_GET['id']) as $material) { ?>
+                <tr>
+                    <td colspan="5"><?= $material['nombre'] . ' ' . $material['marca'] ?></td>
+                </tr>
+            <?php }
+            ?>
+            <tr>
+                <th style="background-color: black; text-align: center; color:white; font-size: 14px; text-transform: uppercase;" colspan="5">Observaciones</th>
+            </tr>
+
+            <tr>
+            <td colspan="5"><?= $data['descripcion'] ?></td>
+
+            </tr>
+        </tbody>
+    </table>
+
+<?php
+}
 ?>

@@ -58,7 +58,7 @@ require_once('conexion.php');
             $this->execute("update motos set estado_moto=false where id_moto=$id");
         }
         function get_cilindrajes(){
-            return $this->get_data('select * from cilindrajes');
+            return $this->get_data('select * from cilindrajes order by tamano_cilindraje asc');
         }
         function get_transmisiones(){
             return $this->get_data('select * from transmisiones order by nombre_transmision asc');
@@ -75,5 +75,5 @@ require_once('conexion.php');
         function get_combustible(){
             return $this->get_data("select * from combustible order by tipo_combustible asc");
         }
-    }
+        }
 ?>
