@@ -4,7 +4,6 @@ require_once('db/db_admin.php');
 
 $admin = new db_admin();
 if (isset($_GET['dia'])) {
-   // $mes = $admin->get_month($_GET['dia']);
 }
 $admin = $admin->get_admin();
 ?>
@@ -48,7 +47,7 @@ $admin = $admin->get_admin();
 </style>
 <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
     <page_header>
-        Logo
+    <img src="<?='../'.$admin['logo']?>" style="width: 50px; height: 50px; ">
     </page_header>
     <page_footer>
         <table style="width: 100%; border: solid 1px black;">

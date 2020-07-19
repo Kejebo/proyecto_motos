@@ -60,7 +60,7 @@ $admin = $admin->get_admin();
 </style>
 <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
     <page_header style="padding-bottom: 50px;">
-        <img src="assets/logo/497pati.jpg" alt="" style="width: 50px; height: 50px; ">
+        <img src="<?=$admin['logo']?>" style="width: 50px; height: 50px; ">
     </page_header>
     <page_footer>
      <div style="right: auto;"> 
