@@ -58,7 +58,7 @@ switch ($_POST['action']) {
         break;
     case 'insert_cilindraje':
         $moto->insert_cilindraje($_POST['tamano_cilindraje']);
-        // echo json_encode($moto->get_cilindraje());
+        echo json_encode($moto->get_cilindrajes());
         break;
 
     case 'insert_modelo_motos':

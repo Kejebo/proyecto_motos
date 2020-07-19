@@ -19,7 +19,7 @@ class db_inventory extends conexion
             $presentacion = 0;
         }
         $sql = "call insert_material('$nombre','$marca','$categoria','$cantidad
-        ','$presentacion','$precio_compra','$precio_venta','$cant_minima');";
+        ','$presentacion','$medida','$precio_compra','$precio_venta','$cant_minima');";
         $result = $this->execute($sql);
         return $result;
     }

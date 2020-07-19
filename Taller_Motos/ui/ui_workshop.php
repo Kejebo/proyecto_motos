@@ -16,6 +16,10 @@ class ui_workshop extends Gui
     $this->ln->action_controller();
   }
 
+  function estado()
+  {
+    return array('Espera' => 'Espera', 'Finalizado' => 'Finalizado');
+  }
   function get_content()
   {
     $work = null;
@@ -36,8 +40,8 @@ class ui_workshop extends Gui
 ?>
     <nav aria-label="Page breadcrumb">
       <ol class="breadcrumb opciones">
-        <li class="breadcrumb-item active" aria-current="page"><a href="repairs.php">Inicio</a></li>
-        <li class="active"><a href="workshop.php?id=<?= $_GET['id'] ?>">Informacion</a></li>
+        <li class="breadcrumb-item " aria-current="page"><a href="repairs.php">Inicio</a></li>
+        <li class="breadcrumb-item active"><a href="workshop.php?id=<?= $_GET['id'] ?>">Informacion</a></li>
         <?php if (isset($_GET['id'])) { ?>
           <li><a href="detail_repair.php?id=<?= $_GET['id'] ?>">Detalle de Reparacion</a></li>
         <?php } ?>
@@ -54,13 +58,13 @@ class ui_workshop extends Gui
               <div class="form-group">
                 <label>Estado</label>
                 <select id="my-select" class="form-control" name="estado">
-                  <?php if($work['estado_reparacion']=='Espera'){?>
-                <option selected>Espera</option>
-                <option>Finalizado</option>
+                  <?php if($work['estado_reparacion']=='Finalizado'){?>
+                <option>Espera</option>
+                <option selected>Finalizado</option>
 
                 <?php }else{?>
-                  <option >Espera</option>
-                  <option selected>Finalizado</option>
+                  <option selected >Espera</option>
+                  <option>Finalizado</option>
                   <?php }?>
                 </select>
               </div>
