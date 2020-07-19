@@ -19,7 +19,7 @@ class Gui_login
             $this->config = $config;
         }
 
-        $this->ln_security->check_tipo_login($this->config['url']);
+$this->ln_security->check_tipo_login($this->config['url']);
         
     }
 

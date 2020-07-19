@@ -223,18 +223,21 @@ class ln_security
 
     function check_tipo_login($url)
     {
-       
+        
         if (isset($_COOKIE['usuario'])) {
-            
+           
             if ($url != 'recuperacion.php') {
                 $data = json_decode($_COOKIE['usuario'], true);
                 if ($data['tipo'] == 'administrador' || $data['tipo'] == 'Tecnico') {
-                    header('Location:inventary.php');
+                   header('Location:inventary.php');
                 } else if ($data['tipo'] == 'cliente') {
                     header('Location:cliente/index.php');
                 }
+
             }
+            
         }
+        
     }
 
     function check_tipo_login_tecnico($url)

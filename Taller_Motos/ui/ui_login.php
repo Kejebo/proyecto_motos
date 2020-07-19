@@ -6,7 +6,8 @@ class UI_login extends Gui_login
 {
     var $admin;
     var $data;
-    function __construct(){
+    function __construct($config){
+    parent::__construct($config);
     $this->admin = new db_admin();
     $this->data = $this->admin->get_admin();
     
