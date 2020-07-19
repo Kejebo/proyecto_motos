@@ -19,7 +19,7 @@ class ln_security
     var $ln_admin;
     var $Key = "CLAVESUPERSECRETA";
     var $error;
-    
+
 
     function __construct()
     {
@@ -223,21 +223,18 @@ class ln_security
 
     function check_tipo_login($url)
     {
-        
+
         if (isset($_COOKIE['usuario'])) {
-           
+
             if ($url != 'recuperacion.php') {
                 $data = json_decode($_COOKIE['usuario'], true);
                 if ($data['tipo'] == 'administrador' || $data['tipo'] == 'Tecnico') {
-                   header('Location:inventary.php');
+                    header('Location:inventary.php');
                 } else if ($data['tipo'] == 'cliente') {
                     header('Location:cliente/index.php');
                 }
-
             }
-            
         }
-        
     }
 
     function check_tipo_login_tecnico($url)
@@ -277,7 +274,7 @@ class ln_security
             $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
             $mail->Port       = 587;                                    // TCP port to connect to
 
-            $mail->setFrom($datos['correo'],$datos['nombre']);
+            $mail->setFrom($datos['correo'], $datos['nombre']);
             $mail->addAddress($data['correo_electronico_link']);     // Add a recipient
 
             $mail->isHTML(true);                                  // Set email format to HTML
