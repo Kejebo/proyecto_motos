@@ -8,18 +8,21 @@ require_once('assets/phpmailer/Exception.php');
 require_once('assets/phpmailer/PHPMailer.php');
 require_once('assets/phpmailer/SMTP.php');
 require_once('ln_usuarios.php');
+require_once('db/db_admin.php');
 
 class ln_security
 {
 
     var $ln_usuarios;
     var $Key = "CLAVESUPERSECRETA";
+    var $db;
 
 
     function __construct()
     {
 
         $this->ln_usuarios = new ln_usuarios();
+        $this->db = new db_admin();
     }
 
     function action_controller()
@@ -127,19 +130,20 @@ class ln_security
 
         $respuesta = false;
         $mail = new PHPMailer(true);
+        $datos = $this->db->get_admin();
 
         try {
             $mail->SMTPDebug = 0;                                       // Enable verbose debug output
             $mail->isSMTP();                                            // Set mailer to use SMTP
             $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'wrdkillvibe@gmail.com';                     // SMTP username
-            $mail->Password   = 's.Zuniga29';                               // SMTP password
+            $mail->Username   = $datos['correo'];                     // SMTP username
+            $mail->Password   = $datos['contrasena'];                               // SMTP password
             $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
             $mail->Port       = 587;                                    // TCP port to connect to
 
-            $mail->setFrom('wrdkillvibe@gmail.com', 'Taller Migthy Motors');
-            $mail->addAddress('wrdkillvibe@gmail.com');     // Add a recipient
+            $mail->setFrom($datos['correo'], $datos['nombre']);
+            $mail->addAddress($datos['correo']);     // Add a recipient
 
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = $tema;
