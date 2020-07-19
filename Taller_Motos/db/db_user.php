@@ -13,8 +13,7 @@ class db_user extends conexion{
 
     function insert_user($data){
         extract($data);
-        
-        $sql = "insert into usuarios(nombre_completo,clave) values('$nombre','$clave')";
+        $sql = "insert into usuarios(nombre_completo,correo_electronico,tipo,clave) values('$nombre','$correo','$tipo','$clave')";
         $result = $this->execute($sql);
         return $result;
     }
@@ -31,7 +30,7 @@ class db_user extends conexion{
             }
     }
     function delete_user($id){
-        $sql= "delete from usuarios where id_usuario='$id'";
+        $sql= "delete from usuarios where id_usuario='$id';";
         $this->execute($sql);
     }
     function get_user($id){
@@ -45,7 +44,7 @@ class db_user extends conexion{
     }
     function update_user($data){
         extract($data);
-        $sql="update usuarios u set u.nombre_completo='$nombre', u.clave='$clave' where u.id_usuario='$id_usuario';";
+        $sql="update usuarios u set u.nombre_completo='$nombre', u.clave='$clave', u.correo='$correo', u.tipo='$tipo' where u.id_usuario='$id_usuario';";
         $this->execute($sql);
     }
     }

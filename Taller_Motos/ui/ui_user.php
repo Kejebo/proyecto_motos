@@ -1,27 +1,30 @@
 <?php
 require_once('gui.php');
 require_once('ln/ln_usuarios.php');
+require_once('ln/ln_user.php');
 class ui_user extends Gui
 {
     var $ln;
+    var $ln_user;
 
 
     function __construct($config)
     {
         parent::__construct($config);
         $this->ln = new ln_usuarios();
+        $this->ln_user = new ln_user();
     }
 
     function action_controller()
     {
-        $this->ln->action_controller();
+        $this->ln_user->action_controller();
     }
     function getTypes()
     {
         $data = array(
-            'Administrador' => 'Administrador',
+            'Administrador' => 'administrador',
             'Tecnico' => 'Tecnico',
-            'Cliente' => 'Cliente'
+            'Cliente' => 'cliente'
         );
         return $data;
     }
@@ -33,7 +36,7 @@ class ui_user extends Gui
         $boton = 'Registrar';
         if (isset($_GET['action'])) {
             if ($_GET['action'] == 'update_user') {
-                $user = $this->ln->get_usuario($_GET['id']);
+                $user = $this->ln_user->get_user($_GET['id']);
                 $action = 'update';
                 $boton = 'Actualizar';
             }
@@ -59,7 +62,7 @@ class ui_user extends Gui
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Correo</label>
-                                <input type="email" class="form-control" name="correo"  value="<?= ($user != null) ?  $user['clave'] : '' ?>">
+                                <input type="email" class="form-control" name="correo" value="<?= ($user != null) ?  $user['correo'] : '' ?>">
                             </div>
                             <div class="form-group">
                                 <label class="etiquetas">Tipo</label>
@@ -93,8 +96,15 @@ class ui_user extends Gui
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-
-                             
+                                <?php $usuarios = $this->ln_user->get_users(); ?>
+                                <?php foreach ($usuarios as $item) { ?>
+                                    <tr>
+                                        <td><?= $item['nombre_completo'] ?></td>
+                                        <td><?= $item['tipo'] ?></td>
+                                        <td><a href="users.php?action=delete&id=<?= $item['id_usuario']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                                        <td><a href="users.php?action=update_user&id=<?= $item['id_usuario']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
 
                         </table>

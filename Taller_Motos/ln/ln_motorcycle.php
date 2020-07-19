@@ -35,7 +35,13 @@
             return $this->db->get_motos();
         }
         function get_motos_client($id){
-            return $this->db->get_motos_client($id);
+            $datos = $this->db->get_motos_client($id);
+            if($datos !=null){
+                return $datos;
+            }else{
+                return array();
+            }
+            
         }
         function get_marcas(){
             return $this->db->get_marcas();
