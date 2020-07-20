@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-07-2020 a las 20:18:49
+-- Tiempo de generación: 20-07-2020 a las 05:34:53
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.6
 
@@ -37,8 +37,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_detalle_reparacion` (`id` IN
 		delete from detalle_reparaciones where id_reparacion=id;
 	end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_proveedor` (`id` INT)  begin
-		delete from proveedores where id_proveedor=id; 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_proveedor` (IN `id` INT)  begin
+		UPDATE proveedores p set p.estado=0  where id_proveedor=id; 
 	end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_reparacion` (`id` INT)  begin
@@ -93,8 +93,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_clientes_inactivos` ()  begin
 	select * from clientes where estado_cliente = false;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_compra` (`id` INT)  begin
-		select c.id_compra as id,factura as factura, p.nombre as proveedor, c.fecha as fecha,c_m.precio*c_m.cantidad as saldo 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_compra` (IN `id` INT)  begin
+		select c.id_compra as id,factura as factura, p.nombre as proveedor, u.nombre_completo as usuario, c.fecha as fecha,c_m.precio*c_m.cantidad as saldo 
         , c_m.precio as precio, c_m.cantidad as cantidad, 
         concat(m.nombre,' ',mm.nombre_marca,' ',if(m.presentacion>0,m.presentacion,''),' ',me.nombre_medida) as nombre_material, m.id_material as material from compras_materiales c_m
             inner join compras c on c.id_compra=c_m.id_compra
@@ -102,17 +102,71 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_compra` (`id` INT)  begin
             inner join marcas_materiales mm on mm.id_marca_material=m.id_marca_material
             inner join categorias_material cm on cm.id_categoria=m.id_categoria
 			inner join medidas me on me.id_medida=cm.id_medida
-            inner join proveedores p on p.id_proveedor=c.id_proveedor where c_m.id_compra=id
+            inner join proveedores p on p.id_proveedor=c.id_proveedor
+            inner join usuarios u on u.id_usuario=c.id_usuario
+            where c_m.id_compra=id
 			order by m.id_material
             desc;
 
 		end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_compras` ()  begin
-		select c.id_compra as id,factura as factura, p.nombre as proveedor, c.fecha as fecha,sum(c_m.precio*c_m.cantidad) as saldo from compras c
+		select c.id_compra as id,factura as factura, p.nombre as proveedor, c.fecha as fecha, u.nombre_completo as usuario, sum(c_m.precio*c_m.cantidad) as saldo from compras c
             inner join compras_materiales c_m on c_m.id_compra=c.id_compra
             inner join materiales m on m.id_material = c_m.id_material
             inner join proveedores p on p.id_proveedor=c.id_proveedor
+            inner join usuarios u on u.id_usuario=c.id_usuario
+			group by c.id_compra
+			order by c.id_compra
+            desc;
+
+		end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_compras_periodo` (IN `inicio` DATE, IN `final` DATE)  NO SQL
+begin
+		select c.id_compra as id,factura as factura, p.nombre as proveedor, c.fecha as fecha, u.nombre_completo as usuario, sum(c_m.precio*c_m.cantidad) as saldo from compras c
+            inner join compras_materiales c_m on c_m.id_compra=c.id_compra
+            inner join materiales m on m.id_material = c_m.id_material
+            inner join proveedores p on p.id_proveedor=c.id_proveedor 
+            inner join usuarios u on u.id_usuario=c.id_usuario where c.fecha BETWEEN inicio and final
+			group by c.id_compra
+			order by c.id_compra
+            desc;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_compra_anual` (IN `fecha` INT)  NO SQL
+begin
+		select c.id_compra as id,factura as factura, p.nombre as proveedor, c.fecha as fecha,sum(c_m.precio*c_m.cantidad) as saldo, u.nombre_completo as usuario from compras c
+            inner join compras_materiales c_m on c_m.id_compra=c.id_compra
+            inner join materiales m on m.id_material = c_m.id_material
+            inner join proveedores p on p.id_proveedor=c.id_proveedor 
+            inner join usuarios u on u.id_usuario=c.id_usuario WHERE year(c.fecha)=fecha
+			group by c.id_compra
+			order by c.id_compra
+            desc;
+
+		end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_compra_diaria` (IN `fecha` DATE)  NO SQL
+begin
+		select c.id_compra as id,factura as factura, p.nombre as proveedor, c.fecha as fecha,u.nombre_completo as usuario, sum(c_m.precio*c_m.cantidad) as saldo from compras c
+            inner join compras_materiales c_m on c_m.id_compra=c.id_compra
+            inner join materiales m on m.id_material = c_m.id_material
+            inner join proveedores p on p.id_proveedor=c.id_proveedor 
+            inner join usuarios u on u.id_usuario =c.id_usuario  where c.fecha=fecha
+			group by c.id_compra
+			order by c.id_compra
+            desc;
+
+		end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_compra_mensual` (IN `fecha` DATE)  NO SQL
+begin
+		select c.id_compra as id,factura as factura, p.nombre as proveedor, c.fecha as fecha, u.nombre_completo as usuario, sum(c_m.precio*c_m.cantidad) as saldo from compras c
+            inner join compras_materiales c_m on c_m.id_compra=c.id_compra
+            inner join materiales m on m.id_material = c_m.id_material
+            inner join proveedores p on p.id_proveedor=c.id_proveedor 
+            inner join usuarios u on u.id_usuario=c.id_usuario WHERE MONTH(c.fecha)= MONTH(fecha) AND year(c.fecha)= year(fecha)
 			group by c.id_compra
 			order by c.id_compra
             desc;
@@ -167,7 +221,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_detalle_venta` (`id` INT)  begi
 		end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_inventario` ()  begin
-        select  m.precio_venta as venta, m.precio_compra as compra,m.id_material as id, m.nombre as nombre, me.nombre_medida as medida,m.cantidad_inicial as cantidad,m.cantidad_inicial*m.presentacion as total 
+        select  m.precio_venta as venta, m.precio_compra as compra,m.id_material as id, m.nombre as nombre, m.unidad as medida,m.cantidad_inicial as cantidad,m.cantidad_inicial*m.presentacion as total 
 		,if(m.presentacion>0,m.presentacion,'') as monto, mm.nombre_marca as marca,m.cantidad_inicial+coalesce(compra,0)-coalesce(venta,0)-coalesce(reparacion,0) as saldo 
 
 		from materiales m 
@@ -234,6 +288,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_material` (`id` INT)  begin
 		mm.id_marca_material= m.id_marca_material and cm.id_medida=me.id_medida and m.id_categoria=cm.id_categoria and m.id_material=id;
 	 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_mes` (IN `fecha` DATE)  NO SQL
+BEGIN
+	    SET lc_time_names = 'es_CR';
+
+	SELECT DATE_FORMAT(fecha,'%M') as mes;
+    
+    END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_modelos_motos` ()  begin
 	select * from  modelos_motos;
 end$$
@@ -278,9 +340,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_motos_activas` ()  begin
     order by motos.id_moto asc;
     end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_motos_cliente` (`id` INT)  begin
-	select clientes.nombre_cliente as cliente, concat(motos.numero_placa,' ',ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
-    combus.tipo_combustible as gasolina, motos.numero_placa as placa, motos.id_moto as id,
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_motos_cliente` (IN `id` INT)  begin
+	select clientes.nombre_cliente as cliente, concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    combus.tipo_combustible as gasolina, motos.numero_placa as placa, cilindrajes.tamano_cilindraje as cilindraje, motos.id_moto as id, motos.nuevo_kilometraje as nuevo_kilometraje,
     motos.kilometraje as kilometraje, transmisiones.nombre_transmision as transmision from  motos 
     inner join clientes on clientes.id_cliente = motos.id_cliente
     inner join marcas_motos ma on ma.id_marca_moto = motos.id_marca_moto inner join
@@ -300,13 +362,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_motos_inactivas` ()  begin
     categorias_motos on categorias_motos.id_categoria_moto = motos.id_categoria_moto where estado_moto = false;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparacion` (IN `id` INT)  begin
-	select r.id_reparacion as id, fecha_entrada as fecha_entrada,clientes.nombre_cliente as cliente, clientes.id_cliente as id_cliente,concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
-    m.numero_placa as placa, r.precio as monto, m.id_moto as id_moto, r.kilometraje_entrada as kilometraje_entrada from  reparaciones r 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparacion` (IN `id` INT)  NO SQL
+begin
+	select r.id_reparacion as id, r.fecha_entrada as fecha_entrada,r.fecha_salida as fecha_salida,clientes.nombre_cliente as cliente, clientes.id_cliente as id_cliente,concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto , r.descripcion as descripcion, u.nombre_completo as usuario, r.precio as precio,
+    m.numero_placa as placa, r.precio as monto, m.id_moto as id_moto, r.kilometraje_entrada as kilometraje_entrada,r.kilometraje_entrada as kilometraje_salida,m.nuevo_kilometraje as cita, r.estado as estado from  reparaciones r 
     inner join motos m on r.id_moto=m.id_moto
     inner join clientes on clientes.id_cliente = m.id_cliente
     inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
-    modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto where r.id_reparacion=id;  
+    modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto
+    INNER JOIN usuarios u on u.id_usuario=r.id_usuario
+    where r.id_reparacion=id;  
 	end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparaciones` ()  begin
@@ -316,6 +381,50 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparaciones` ()  begin
     inner join clientes on clientes.id_cliente = m.id_cliente
     inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
     modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto
+    order by r.id_reparacion asc;
+    end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparaciones_anual` (IN `fecha` INT)  NO SQL
+begin
+	select r.id_reparacion as id, fecha_entrada as fecha,clientes.nombre_cliente as cliente, concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    m.numero_placa as placa, r.precio as monto, r.estado as estado from  reparaciones r 
+    inner join motos m on r.id_moto=m.id_moto
+    inner join clientes on clientes.id_cliente = m.id_cliente
+    inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
+    modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto where year(r.fecha_entrada)=fecha
+    order by r.id_reparacion asc;
+    end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparaciones_diaria` (IN `fecha` DATE)  NO SQL
+begin
+	select r.id_reparacion as id, r.fecha_entrada as fecha,clientes.nombre_cliente as cliente, concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    m.numero_placa as placa, r.precio as monto, r.estado as estado from  reparaciones r 
+    inner join motos m on r.id_moto=m.id_moto
+    inner join clientes on clientes.id_cliente = m.id_cliente
+    inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
+    modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto WHERE r.fecha_entrada=fecha
+    order by r.id_reparacion asc;
+    end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparaciones_mensual` (IN `fecha` DATE)  NO SQL
+begin
+	select r.id_reparacion as id, r.fecha_entrada as fecha,clientes.nombre_cliente as cliente, concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    m.numero_placa as placa, r.precio as monto, r.estado as estado from  reparaciones r 
+    inner join motos m on r.id_moto=m.id_moto
+    inner join clientes on clientes.id_cliente = m.id_cliente
+    inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
+    modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto WHERE  month(r.fecha_entrada) = month(fecha) and year(r.fecha_entrada)= year(fecha)
+    order by r.id_reparacion asc;
+    end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reparaciones_periodica` (IN `inicio` DATE, IN `final` DATE)  NO SQL
+begin
+	select r.id_reparacion as id, fecha_entrada as fecha,clientes.nombre_cliente as cliente, concat(ma.nombre_marca,' ',mm.nombre_modelo,' ',mm.ano) as moto ,
+    m.numero_placa as placa, r.precio as monto, r.estado as estado from  reparaciones r 
+    inner join motos m on r.id_moto=m.id_moto
+    inner join clientes on clientes.id_cliente = m.id_cliente
+    inner join marcas_motos ma on ma.id_marca_moto = m.id_marca_moto inner join
+    modelos_motos mm on mm.id_modelo_moto = m.id_modelo_moto where r.fecha_entrada BETWEEN inicio and final
     order by r.id_reparacion asc;
     end$$
 
@@ -379,16 +488,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_usuario_cambio` (`correo` VARCH
 select * from usuarios where correo_electronico = correo and estado_cambio = 0 and estado = 1;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_venta` (`id` INT)  begin
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_venta` (IN `id` INT)  begin
 		select  v.id_venta as id, c.nombre_cliente as cliente, v.fecha as fecha,v_m.precio*v_m.cantidad as saldo 
         , v_m.precio as precio, v_m.cantidad as cantidad, 
-        concat(m.nombre,' ',mm.nombre_marca,' ',if(m.presentacion>0,m.presentacion,''),' ',me.nombre_medida) as nombre_material, m.id_material as material  
+        concat(m.nombre,' ',mm.nombre_marca,' ',if(m.presentacion>0,m.presentacion,''),' ',me.nombre_medida) as nombre_material, m.id_material as material,u.nombre_completo as usuario  
         from ventas_materiales v_m
             inner join ventas v on v_m.id_venta=v.id_venta
 			inner join materiales m on m.id_material = v_m.id_material
             inner join marcas_materiales mm on mm.id_marca_material=m.id_marca_material
             inner join categorias_material cm on cm.id_categoria=m.id_categoria
 			inner join medidas me on me.id_medida=cm.id_medida
+            INNER JOIN usuarios u on u.id_usuario=v.id_usuario
             inner join clientes c on c.id_cliente=v.id_cliente
             where v.id_venta=id
 			order by m.id_material
@@ -396,16 +506,65 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_venta` (`id` INT)  begin
 
 		end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ventas` ()  begin
-		select v.id_venta as id, v.fecha as fecha,c.nombre_cliente as cliente,sum(m.precio_venta*v_m.cantidad) as saldo from ventas v
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ventas` ()  NO SQL
+begin
+		select v.id_venta as id, v.fecha as fecha,c.nombre_cliente as cliente,u.nombre_completo as usuario, sum(m.precio_venta*v_m.cantidad) as saldo from ventas v
             inner join ventas_materiales v_m on v_m.id_venta=v.id_venta
             inner join materiales m on m.id_material = v_m.id_material
             inner join clientes c on c.id_cliente=v.id_cliente
-			group by v.id_venta
+            inner join usuarios u on u.id_usuario=v.id_usuario
+		group by v.id_venta
+			order by v.id_venta desc;
+            end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ventas_anual` (IN `ano` INT)  NO SQL
+begin
+		select v.id_venta as id, v.fecha as fecha,c.nombre_cliente as cliente, u.nombre_completo as usuario, sum(m.precio_venta*v_m.cantidad) as saldo from ventas v
+            inner join ventas_materiales v_m on v_m.id_venta=v.id_venta
+            inner join materiales m on m.id_material = v_m.id_material
+            inner join clientes c on c.id_cliente=v.id_cliente
+            inner join usuarios u on u.id_usuario=v.id_usuario
+		where year(v.fecha)= ano	group by v.id_venta
+			order by v.id_venta
+            desc;
+            end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ventas_diarias` (IN `dia` DATE)  begin
+		select v.id_venta as id, v.fecha as fecha,c.nombre_cliente as cliente, u.nombre_completo as usuario, sum(m.precio_venta*v_m.cantidad) as saldo from ventas v
+            inner join ventas_materiales v_m on v_m.id_venta=v.id_venta
+            inner join materiales m on m.id_material = v_m.id_materia
+            inner join usuarios u on u.id_usuario=v.id_usuario
+            inner join clientes c on c.id_cliente=v.id_cliente
+		where v.fecha=dia	group by v.id_venta
 			order by v.id_venta
             desc;
 
 		end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ventas_mensual` (IN `dia` DATE)  NO SQL
+begin
+		select v.id_venta as id, v.fecha as fecha,c.nombre_cliente as cliente, u.nombre_completo as usuario, sum(m.precio_venta*v_m.cantidad) as saldo from ventas v
+            inner join ventas_materiales v_m on v_m.id_venta=v.id_venta
+            inner join materiales m on m.id_material = v_m.id_material
+            inner join clientes c on c.id_cliente=v.id_cliente
+            inner join usuarios u on u.id_usuario=v.id_usuario
+		where MONTH(v.fecha)=Month(dia) AND year(v.fecha)= year(dia)	group by v.id_venta
+			order by v.id_venta
+            desc;
+            END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ventas_periodo` (IN `inicio` DATE, IN `final` DATE)  NO SQL
+begin
+		select v.id_venta as id, v.fecha as fecha,c.nombre_cliente as cliente, u.nombre_completo as usuario, sum(m.precio_venta*v_m.cantidad) as saldo from ventas v
+            inner join ventas_materiales v_m on v_m.id_venta=v.id_venta
+            inner join materiales m on m.id_material = v_m.id_material
+            inner join clientes c on c.id_cliente=v.id_cliente
+            inner join usuarios u on u.id_usuario=v.id_usuario
+		where v.fecha BETWEEN inicio AND final	
+        group by v.id_venta
+			order by v.id_venta
+            desc;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_detalle_reparacion` (`id_moto` INT, `id_reparacion` INT, `id_material` INT, `cantidad` INT)  begin
 		insert into detalle_reparaciones(id_moto,id_reparacion,id_material,cantidad) values(id_moto,id_reparacion,id_material,cantidad);
@@ -457,9 +616,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_marca_producto` (`nombre` VA
         
 	end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_material` (IN `nombre` VARCHAR(50), IN `marca` INT, IN `id_categoria` INT, IN `cantidad` INT, IN `presentacion` DOUBLE, IN `precio_compra` INT, IN `precio_venta` INT, IN `cant_minima` INT)  begin
-		insert into materiales(nombre,id_marca_material,id_categoria,cantidad_inicial, presentacion,precio_compra,precio_venta,cantidad_minima) 
-        values(nombre,marca,id_categoria,cantidad,presentacion,precio_compra,precio_venta,cant_minima);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_material` (IN `nombre` VARCHAR(50), IN `marca` INT, IN `id_categoria` INT, IN `cantidad` INT, IN `presentacion` DOUBLE, IN `medida` VARCHAR(10), IN `precio_compra` INT, IN `precio_venta` INT, IN `cant_minima` INT)  begin
+		insert into materiales(nombre,id_marca_material,id_categoria,cantidad_inicial, presentacion,precio_compra,precio_venta,cantidad_minima,unidad) 
+        values(nombre,marca,id_categoria,cantidad,presentacion,precio_compra,precio_venta,cant_minima,medida);
 	end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_modelos_motos` (IN `nombre_mode` VARCHAR(50), IN `ano` INT)  begin
@@ -634,7 +793,8 @@ CREATE TABLE `cilindrajes` (
 INSERT INTO `cilindrajes` (`id_cilindraje`, `tamano_cilindraje`, `estado_cilindraje`) VALUES
 (1, 500, 1),
 (2, 225, 1),
-(3, 1400, 1);
+(3, 1400, 1),
+(4, 700, 1);
 
 -- --------------------------------------------------------
 
@@ -777,7 +937,8 @@ INSERT INTO `detalle_reparacion` (`id_reparacion`, `id_material`, `cantidad`, `p
 (37, 6, 15, 0),
 (39, 7, 0, 0),
 (36, 7, 12, 0),
-(35, 6, 5, 0);
+(35, 6, 5, 0),
+(22, 8, 1200, 0);
 
 -- --------------------------------------------------------
 
@@ -802,7 +963,8 @@ INSERT INTO `detalle_trabajo` (`id_reparacion`, `id_trabajo`) VALUES
 (39, 1),
 (39, 1),
 (39, 1),
-(35, 1);
+(35, 1),
+(22, 2);
 
 -- --------------------------------------------------------
 
@@ -817,15 +979,16 @@ CREATE TABLE `empresa` (
   `correo` varchar(30) DEFAULT NULL,
   `direccion` text DEFAULT NULL,
   `cedula_juridica` varchar(30) DEFAULT NULL,
-  `telefono` varchar(16) NOT NULL
+  `telefono` varchar(16) NOT NULL,
+  `contrasena` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `empresa`
 --
 
-INSERT INTO `empresa` (`id_empresa`, `nombre`, `logo`, `correo`, `direccion`, `cedula_juridica`, `telefono`) VALUES
-(1, 'Migthy motors', 'assets/logo/497pati.jpg', 'mannolo@gmail.com', 'B° San Rafael', '20393818', '83595176');
+INSERT INTO `empresa` (`id_empresa`, `nombre`, `logo`, `correo`, `direccion`, `cedula_juridica`, `telefono`, `contrasena`) VALUES
+(1, 'Migthy motors', 'assets/logo/193Captura de pantalla (45).png', 'mannolo@gmail.com', 'B° San Rafael', '20393818', '83595176', '1234');
 
 -- --------------------------------------------------------
 
@@ -906,6 +1069,7 @@ CREATE TABLE `marcas_repuestos` (
 CREATE TABLE `materiales` (
   `id_material` int(11) NOT NULL,
   `id_categoria` int(11) DEFAULT NULL,
+  `unidad` varchar(6) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
   `id_marca_material` int(11) DEFAULT NULL,
   `cantidad_inicial` int(11) DEFAULT NULL,
@@ -920,13 +1084,14 @@ CREATE TABLE `materiales` (
 -- Volcado de datos para la tabla `materiales`
 --
 
-INSERT INTO `materiales` (`id_material`, `id_categoria`, `nombre`, `id_marca_material`, `cantidad_inicial`, `presentacion`, `precio_compra`, `precio_venta`, `cantidad_minima`, `estado`) VALUES
-(1, 2, 'Aceite', 1, 20, 450, 1100, 1500, 5, 0),
-(2, 1, 'Gas', 2, 20, 0, 200, 400, 4, 0),
-(5, 2, 'Aceite', 2, 15, 1000, 2000, 3000, 5, 0),
-(6, 1, 'Cable de frenos', 2, 10, 0, 2000, 5000, 2, 1),
-(7, 2, 'Aceite de moto', 1, 12, 200, 2000, 2200, 11, 1),
-(8, 2, 'Aceite 10w40', 9, 10, 1000, 4000, 5000, 2, 1);
+INSERT INTO `materiales` (`id_material`, `id_categoria`, `unidad`, `nombre`, `id_marca_material`, `cantidad_inicial`, `presentacion`, `precio_compra`, `precio_venta`, `cantidad_minima`, `estado`) VALUES
+(1, 2, 'ml', 'Aceite', 1, 20, 450, 1100, 1500, 5, 0),
+(2, 1, 'unid', 'Gas', 2, 20, 0, 200, 400, 4, 0),
+(5, 2, 'Lt', 'Aceite', 2, 15, 1, 2000, 3000, 5, 0),
+(6, 1, 'unid', 'Cable de frenos', 2, 10, 0, 2000, 5000, 2, 1),
+(7, 2, 'ml', 'Aceite de moto', 1, 12, 200, 2000, 2200, 11, 1),
+(8, 2, 'Lt', 'Aceite 10w40', 9, 10, 1, 4000, 5000, 2, 1),
+(9, 4, 'unid', 'Tonillo', 5, 400, 0, 50, 300, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -997,7 +1162,7 @@ CREATE TABLE `motos` (
 --
 
 INSERT INTO `motos` (`id_moto`, `id_cliente`, `id_marca_moto`, `id_modelo_moto`, `id_transmision`, `id_cilindraje`, `id_combustible`, `numero_chasis`, `numero_placa`, `imagen_moto`, `kilometraje`, `nuevo_kilometraje`, `estado_moto`) VALUES
-(1, 2, 1, 2, 1, 2, 2, '96987', '4657687', NULL, 0, 0, 1),
+(1, 2, 1, 2, 1, 2, 2, '96987', '4657687', NULL, 10020, 11000, 1),
 (2, 2, 2, 2, 1, 1, 2, '4151', '31131', NULL, 16000, 17000, 1),
 (3, 3, 3, 1, 3, 2, 1, '7908', '3029245', NULL, 22, 32, 1),
 (4, 3, 4, 1, 1, 3, 2, '4151', '200019', NULL, 20, 0, 1),
@@ -1028,8 +1193,7 @@ INSERT INTO `proveedores` (`id_proveedor`, `nombre`, `telefono`, `correo`, `cedu
 (3, 'Kendrick Jenkins', ' 83595176', 'fwqfeq', '4121414', 1),
 (4, 'Plomero', ' 8359-51-76', 'rOW@GMAIL.COM', '4121414', 1),
 (5, 'Culi', ' 8359-51-76', 'rOW@GMAIL.COM', '4121414', 1),
-(17, 'Piccolo', '536486', 'grwgrwg', '900921', 1),
-(18, 'ale', '15', '22', '4121414', 1);
+(17, 'Piccolo', '536486', 'grwgrwg', '900921', 1);
 
 -- --------------------------------------------------------
 
@@ -1043,7 +1207,7 @@ CREATE TABLE `reparaciones` (
   `id_usuario` int(11) DEFAULT NULL,
   `fecha_entrada` date DEFAULT NULL,
   `fecha_salida` date DEFAULT NULL,
-  `descripcion` text DEFAULT NULL,
+  `descripcion` text CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
   `precio` int(11) DEFAULT NULL,
   `kilometraje_entrada` varchar(15) NOT NULL,
   `kilometraje_salida` varchar(15) NOT NULL,
@@ -1055,12 +1219,12 @@ CREATE TABLE `reparaciones` (
 --
 
 INSERT INTO `reparaciones` (`id_reparacion`, `id_moto`, `id_usuario`, `fecha_entrada`, `fecha_salida`, `descripcion`, `precio`, `kilometraje_entrada`, `kilometraje_salida`, `estado`) VALUES
-(22, 1, NULL, '2020-04-22', '2020-04-25', 'Rayos Quebrados', 30000, '10020', '10020', 'Espera'),
-(35, 2, NULL, '2020-04-25', '0000-00-00', '', 0, '15698', '', 'Finalizado'),
-(36, 3, NULL, '2020-04-25', '2020-04-26', 'Nada', 2000, '2500', '2501', 'Finalizado'),
-(37, 3, NULL, '2020-04-25', '2020-04-26', 'DaÃ±os de discos', 40000, '5000', '40000', 'Finalizado'),
-(38, 3, NULL, '2020-05-15', '2020-05-16', 'Radiador taqueado', 300000, '20', '22', 'Espera'),
-(39, 6, NULL, '2020-06-28', '2020-06-29', '', 3000, '10000', '11500', 'Espera');
+(22, 1, 3, '2020-04-22', '2020-04-25', 'Rayos Quebrados', 20000, '10020', '10020', 'Finalizado'),
+(35, 2, 3, '2020-04-25', '0000-00-00', '', 0, '15698', '', 'Finalizado'),
+(36, 3, 3, '2020-04-25', '2020-04-26', 'Nada', 2000, '2500', '2501', 'Finalizado'),
+(37, 3, 3, '2020-04-25', '2020-04-26', 'Daños de discos', 40000, '5000', '40000', 'Finalizado'),
+(38, 3, 3, '2020-05-15', '2020-05-16', 'Radiador taqueado', 300000, '20', '22', 'Espera'),
+(39, 6, 3, '2020-06-28', '2020-06-29', '', 3000, '10000', '11500', 'Espera');
 
 -- --------------------------------------------------------
 
@@ -1174,9 +1338,11 @@ CREATE TABLE `ventas_materiales` (
 --
 
 INSERT INTO `ventas_materiales` (`id_venta`, `id_material`, `cantidad`, `precio`) VALUES
-(5, 8, 8, 5000),
 (4, 6, 10, 5000),
-(3, 7, 4, 2200);
+(3, 7, 4, 2200),
+(3, 6, 10, 5000),
+(5, 8, 8, 5000),
+(5, 6, 11, 5000);
 
 --
 -- Índices para tablas volcadas
@@ -1362,7 +1528,7 @@ ALTER TABLE `categorias_material`
 -- AUTO_INCREMENT de la tabla `cilindrajes`
 --
 ALTER TABLE `cilindrajes`
-  MODIFY `id_cilindraje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cilindraje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -1410,7 +1576,7 @@ ALTER TABLE `marcas_repuestos`
 -- AUTO_INCREMENT de la tabla `materiales`
 --
 ALTER TABLE `materiales`
-  MODIFY `id_material` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_material` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `medidas`

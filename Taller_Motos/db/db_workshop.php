@@ -121,10 +121,10 @@ class db_workshop extends conexion{
 
   function close_work($data){
     extract($data);
-    $this->execute("update reparaciones set fecha_salida='$entrega', descripcion='$descripcion'
-    ,precio='$precio',kilometraje_salida='$k_actual',estado='Finalizado'
-    where id_reparacion='$id';");
-    $this->execute("update motos set kilometraje='$k_actual', nuevo_kilometraje='$k_proximo' where id_moto='$id_moto'");
+    print_r($this->execute("update reparaciones set fecha_salida='$entrega', descripcion='$descripcion'
+    ,precio='$precio',kilometraje_salida='$k_actual',estado='$estado'
+    where id_reparacion='$id';"));
+    $this->execute("update motos set kilometraje='$k_actual', nuevo_kilometraje='$k_proximo' where id_moto='$motos'");
   }
 
   function update_work($data){
@@ -158,8 +158,8 @@ function get_reparacion_moto($id){
       }
 }
     function get_clients(){
-        $sql = "select * from clientes;";
-        $result = $this->get_data($sql);
+      $sql = "select * from clientes where estado_cliente=1;";
+      $result = $this->get_data($sql);
             if($result){
                 return $result;
             }else{

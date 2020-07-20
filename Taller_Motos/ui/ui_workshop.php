@@ -31,7 +31,7 @@ class ui_workshop extends Gui
     if (isset($_GET['action'])) {
       if ($_GET['action'] == 'update') {
         $work = $this->ln->get_repair($_GET['id']);
-        $action = 'update_work';
+        $action = 'update_repair';
         $fecha = $work['fecha_entrada'];
         $titulo = 'Actualizar';
       }
@@ -59,7 +59,7 @@ class ui_workshop extends Gui
                 <div class="form-group">
                   <label>Estado</label>
                   <select id="my-select" class="form-control" name="estado">
-                    <?php if ($work['estado_reparacion'] == 'Finalizado') { ?>
+                    <?php if ($work['estado'] == 'Finalizado') { ?>
                       <option>Espera</option>
                       <option selected>Finalizado</option>
 
@@ -72,7 +72,7 @@ class ui_workshop extends Gui
                 <div class="form-group">
                   <label class="etiquetas">Fecha de entrada</label>
                   <input class="form-control" id="entrada" type="date" name="entrada" value="<?= $fecha ?>">
-                  <input type="hidden" id="id" name="id" value="<?= $work['id_reparacion'] ?>">
+                  <input type="hidden" id="id" name="id" value="<?= $work['id'] ?>">
                 </div>
 
                 <div class="form-group">
@@ -134,7 +134,7 @@ class ui_workshop extends Gui
                 </div>
                 <div class="form-group">
                   <label>Proximo Kilometraje</label>
-                  <input type="number" class="form-control" name="k_proximo" value="<?= ($work != null) ? $work['nuevo_kilometraje'] : 0 ?>">
+                  <input type="number" class="form-control" name="k_proximo" value="<?= ($work != null) ? $work['cita'] : 0 ?>">
                 </div>
                 <div class="form-group">
                   <label>Precio</label>
