@@ -1,0 +1,18 @@
+
+GUI CDNS
+
+--Header--
+
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css
+https://kit.fontawesome.com/b99e675b6e.js
+https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css
+
+
+--Footer--
+https://code.jquery.com/jquery-3.5.1.js
+https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js
+https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js
+https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css
+https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js
+https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json
