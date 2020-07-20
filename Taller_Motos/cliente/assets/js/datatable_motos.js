@@ -9,14 +9,14 @@ $(document).ready(function () {
       {
         extend: "copyHtml5",
         exportOptions: {
-          columns: [0, 1, 2, 3, 4],
+          columns: [0, 1, 2, 3],
         },
       },
       {
         extend: "excelHtml5",
         messageTop: "Reporte de Inventario.",
         exportOptions: {
-          columns: [0, 1, 2, 3, 4],
+          columns: [0, 1, 2, 3],
         },
       },
 

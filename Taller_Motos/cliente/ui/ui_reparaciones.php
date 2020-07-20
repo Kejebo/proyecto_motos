@@ -56,28 +56,20 @@ class UI_Reparaciones extends Gui_login
                     <div class="float-left">
                       <h5 class="card-title"">Lista de Reparaciones</h5>
                     </div>
-                    <div class=" float-right">
-                        <div class="btn-group" role="group" aria-label="First group">
-
-                          <div class="btn-group ml-2" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Exportar
-                            </button>
-                          </div>
-                        </div>
-
-                    </div>
+                    
                   </div>
                 </div>
                 <div class="card-body table-responsive">
-                  <table class="table table-bordered" id="Motos">
+                  <table class="table table-bordered" id="Example">
                     <thead class="thead-dark text-center text-white">
                       <tr>
                         <th>Fecha Entrada</th>
                         <th>Moto</th>
                         <th>Placa</th>
                         <th>Precio</th>
+                        <th>Estado</th>
                         <th>Ver</th>
+                        <th>Descargar</th>
                       </tr>
                     </thead>
                     <tbody class="text-center">
@@ -88,12 +80,23 @@ class UI_Reparaciones extends Gui_login
                           <td><?= $repair['moto'] ?></td>
                           <td><?= $repair['placa'] ?></td>
                           <td>₡ <?= number_format($repair['monto']) ?></td>
+                          <?php
+                    if ($repair['estado'] == 'Espera') { ?>
+                      <td class="text-center text-white bg-warning">Espera</td>
+                    <?php
+                    } else { ?>
+                      <td class="text-center text-white bg-success">Finalizado</td>
+                    <?php
+                    }
+                    ?>
+
                           <td><a href="index.php?pagina=detalle_reparacion&reparacion=<?= $repair['id'] ?>" class="btn btn-info"><i class="far fa-eye"></i></a></td>
+                          <td><a href="../pdf.php?data=info_reparacion&id=<?= $repair['id'] ?>" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                         </tr>
                       <?php
                       }
                       ?>
-                    </tbody>
+                    </tbody>  
 
                   </table>
                 </div>
