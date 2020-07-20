@@ -36,7 +36,7 @@ class ui_inventary extends gui
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                       <a class="dropdown-item" target="blank" href="pdf.php?data=inventario">PDF</a>
-                      <a class="dropdown-item" href="excel.php">EXCEL</a>
+                      <a class="dropdown-item" href="excel2.php">EXCEL</a>
                     </div>
                   </div>
               </div>
