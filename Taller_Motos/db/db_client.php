@@ -47,7 +47,7 @@ class db_client extends conexion
 
     function get_clients()
     {
-        $sql = "select * from clientes;";
+        $sql = "select * from clientes where estado_cliente=1;";
         $result = $this->get_data($sql);
         if ($result) {
             return $result;
@@ -57,7 +57,7 @@ class db_client extends conexion
     }
     function delete_client($id)
     {
-        $sql = "delete from clientes where id_cliente='$id'";
+        $sql = "update clientes c set c.estado_cliente=0 where c.id_cliente='$id'";
         $this->execute($sql);
     }
     function get_client($id)

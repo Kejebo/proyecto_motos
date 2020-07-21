@@ -52,7 +52,7 @@ class ui_report extends Gui
                 <div class="col-sm-12">
                     <div class="card shadow">
                         <div class="card-header">
-                            <h5> <span> <i class="fas fa-bars"></i></span> Registro</h5>
+                            <h5> <span> <i class="fas fa-bars"></i></span> Consultas</h5>
                         </div>
                         <div class="card-body">
                             <div onsubmit="return false">
@@ -106,7 +106,7 @@ class ui_report extends Gui
                 <div class="col-sm-12">
                     <div class="card shadow">
                         <div class="card-body table-responsive" id=cuerpo_card>
-                            <table class="table table-light" id="example">
+                            <table class="table table-light " id="example">
                                 <thead id="encabezado">
                                     <th>Fecha</th>
                                     <th>Cliente</th>

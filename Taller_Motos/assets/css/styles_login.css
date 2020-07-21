@@ -9,10 +9,21 @@
   font-family:'Muli', sans-serif;;
 }
 
-body{
-  background-color: #f8f9fa;
+.card{
+  border: none !important;
 }
 
+body{
+  background-color: #f8f9fa;
+  background-image: url('../logo/login.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+#titulosCards{
+  font-family: cursive !important;
+}
   .card-header{
     background-color: #0388A6;
     color: white;

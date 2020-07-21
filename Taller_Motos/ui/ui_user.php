@@ -42,7 +42,8 @@ class ui_user extends Gui
         }
 
 ?>
-        <div class=" container row">
+        <div class="container">
+            <div class="row">
             <div class="col-12 col-sm-12 col-lg-4">
                 <div class="card shadow">
                     <div class="card-header">
@@ -110,7 +111,9 @@ class ui_user extends Gui
                     </div>
                 </div>
             </div>
+        </div>                        
         </div>
+
 <?php
     }
 }

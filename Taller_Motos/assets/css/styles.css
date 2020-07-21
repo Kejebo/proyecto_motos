@@ -28,6 +28,7 @@ body {
   list-style: none;
   color:  white;
   padding: 10px;
+  font-family: fantasy;
 }
 .opciones a:hover{
   color: white;
@@ -35,6 +36,11 @@ body {
   background-color: teal;
   border-radius: 20px;
 }
+.active a{
+  color: white;
+  text-decoration: none;
+  background-color: teal;
+  border-radius: 20px;}
 .card-header {
   background-color: #007bff !important;
   color: white;
@@ -53,6 +59,7 @@ body {
   height: 100%;
   background: black;
   padding: 30px 0px;
+  text-align: center !important;
   position: fixed;
 }
 .wrapper .sidebar::-webkit-scrollbar{

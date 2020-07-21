@@ -16,7 +16,7 @@ class ln_workshop
         case 'delete':
           $this->delete($_GET['id']);
           break;
-        case 'insert':
+        case 'update_repair':
           $this->insert($_POST);
           header('Location: repairs.php');
           break;

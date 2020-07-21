@@ -1,7 +1,7 @@
 <?php
 
 require_once('ln/ln_security.php');
-
+require_once('ln/ln_admin.php');
 class Gui
 {
 
@@ -28,6 +28,8 @@ class Gui
     }
     function get_header()
     {
+        $admin = new ln_admin();
+
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -36,12 +38,13 @@ class Gui
             <meta name="google" content="notranslate">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title><?=$this->config['titulo'];?></title>
+            <title><?= $this->config['titulo']; ?></title>
             <link rel="stylesheet" href="assets/css/all.min.css">
             <link rel="stylesheet" href="assets/css/styles.css">
+            <link rel="icon" type="image/png" href="<?= $admin->get_admin()['logo'] ?>">
             <script src="assets/js/b99e675b6e.js"></script>
             <link rel="stylesheet" href="assets/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-            
+
         </head>
 
     <?php
@@ -55,7 +58,13 @@ class Gui
             <div class="wrapper">
                 <div class="sidebar">
                     <div>
-                        <h2>Sidebar</h2>
+                        <?php $admin = new ln_admin(); ?>
+                        <img src="<?= $admin->get_admin()['logo']; ?>" alt="" style="max-width: 100px; border-radius: 100%;">
+                        <br>
+                        <br>
+                        <form action="security.php?action=logout" method="post">
+                            <button class="btn btn-danger"><i class="fas fa-power-off"></i> Cerrar Sesion</button>
+                        </form>
                     </div>
                     <ul>
                         <li><a href="inventary.php"><i class="fas fa-boxes"></i> Inventario</a></li>
@@ -82,11 +91,7 @@ class Gui
                 ?>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <a class="navbar-brand" id="modulo"><?= $this->config['titulo']; ?></a>
-                        <div class="container-fluid" id="cerrar_sesion_contenedor">
-                            <form action="security.php?action=logout" method="post">
-                                <button class="btn btn-success" id="boton_cerrar_sesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</button>
-                            </form>
-                        </div>
+
                         <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -110,7 +115,7 @@ class Gui
                                     <a class="nav-link" href="motorcycle.php"></i> Motos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="services.php"></i> Servicios</a>
+                                    <a class="nav-link" href="works.php"></i> Servicios</a>
                                 </li>
 
                                 <li class="nav-item">
@@ -123,7 +128,7 @@ class Gui
                                     <a class="nav-link" href="users.php">Usuarios</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="reportes.php">Reportes</a>
+                                    <a class="nav-link" href="reports.php">Reportes</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="admin.php">Empresa</a>
@@ -145,17 +150,30 @@ class Gui
             <script src="assets/js/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
             <script src="assets/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
             <script src="assets/js/main.js"></script>
-            <?php if($this->config['titulo']=='Modulo Reportes'){?>
-            <script src="assets/js/reports.js"></script>
-            <?php }?>
+            <<<<<<< HEAD <?php if ($this->config['titulo'] == 'Modulo Reportes') { ?> <script src="assets/js/reports.js">
+                </script>
+            <?php } ?>
             <link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.min.css" />
             <script src="assets/js/jquery.dataTables.min.js"></script>
             <script src="assets/js/datatables.js"></script>
             <script src="assets/js/datatable_inventario.js"></script>
             <script src="assets/js/all.min.js"></script>
             <script src="assets/json/Spanish.json"></script>
-            
-            
+
+
+            =======
+            <?php if ($this->config['titulo'] == 'Modulo Reportes') { ?>
+                <script src="assets/js/reports.js"></script>
+            <?php } ?>
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+            <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+            <script src="assets/js/datatables.js"></script>
+            <script src="assets/js/datatable_inventario.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+            <script src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"></script>
+
+
+            >>>>>>> Ajustes-v1
             <script src="assets/js/datatable_buttons.js"></script>
             <script src="assets/js/datatable_buttons_boot.js"></script>
             <script src="assets/js/jszip.min.js"></script>

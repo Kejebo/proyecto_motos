@@ -1,7 +1,7 @@
 <?php
   require_once('ui/ui_works.php');
   $config = array(
-  	'titulo'	=> 'Modulo Mantenimiento',
+  	'titulo'	=> 'Modulo Servicios',
   	'url'		=> 'works.php',
   );
   $ui=new ui_works($config);

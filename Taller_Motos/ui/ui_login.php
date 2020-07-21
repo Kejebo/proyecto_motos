@@ -17,7 +17,7 @@ class UI_login extends Gui_login
     function get_content()
     {
 ?>
-
+<div class="contain">
         <div class="row formulario_login">
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 py-3"></div>
@@ -26,9 +26,9 @@ class UI_login extends Gui_login
                 <form action="security.php?action=login" method="post">
                     <div class="card shadow mt-4">
                    
-                        <div class="card-header" id="titulosCards" style="background-image: url('<?=$this->data['logo']?>')">
-                            <h6 class="card-title" id="nombre_empresa">Taller <?=$this->data['nombre']?></h6>
-                            <h5 class="card-title">Bienvenidos</h5>
+                        <div class="card-header bg-success text-uppercase" id="titulosCards">
+                            <h6 class="card-title  text-white " id="nombre_empresa">Taller Migthy Motors</h6>
+                            <h5 class="card-title  text-white ">Bienvenidos</h5>
 
                         </div>
 
@@ -73,7 +73,7 @@ class UI_login extends Gui_login
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 py-3"></div>
 
         </div>
-
+</div>
 <?php
     }
 }
