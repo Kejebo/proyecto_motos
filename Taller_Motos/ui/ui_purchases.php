@@ -19,7 +19,8 @@ class ui_purchases extends Gui
     function get_content()
     {
       ?>
-<div class="container row">
+<div class="container">
+  <div class="row">
   <div class="col-12 col-sm-12 col-md-12 col-lg-12 py-3 contenido_modulos">
     <div class="card shadow">
       <div class="card-header">
@@ -30,7 +31,7 @@ class ui_purchases extends Gui
           <div class="float-right">
             <div class="btn-group" role="group" aria-label="First group">
 
-            <a class="btn btn-dark" href="purchase.php"> + Nuevo</a>
+            <a class="btn btn-dark" href="purchase.php"> <i class="fas fa-plus-circle"></i> Nuevo</a>
             <div class="btn-group ml-2" role="group">
                 <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Exportar
@@ -79,7 +80,7 @@ class ui_purchases extends Gui
         </div>
       </div>
 </div>
-
+</div>
 <?php
     }
 }

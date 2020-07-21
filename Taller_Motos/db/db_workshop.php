@@ -109,8 +109,9 @@ class db_workshop extends conexion{
 
   function insert_repair($data){
     extract($data);
+    $usuario=json_decode($_COOKIE['usuario'],true)['id_usuario'];
     $this->execute("insert into reparaciones(id_moto,fecha_entrada,kilometraje_entrada,fecha_salida,descripcion,precio,
-    kilometraje_salida,estado) values('$motos','$entrada','$kilometraje','$entrega','$descripcion','$precio','$k_actual','$estado')");
+    kilometraje_salida,estado,id_usuario) values('$motos','$entrada','$kilometraje','$entrega','$descripcion','$precio','$k_actual','$estado','$usuario')");
     $this->execute("update motos set kilometraje='$kilometraje' where id_moto='$motos';");
   }
   function insert_material($data,$id){

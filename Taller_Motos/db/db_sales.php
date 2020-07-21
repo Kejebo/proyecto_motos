@@ -13,8 +13,9 @@ class db_sales extends conexion{
 
     function insert_sale($data){
         extract($data);
+        $usuario=json_decode($_COOKIE['usuario'],true)['id_usuario'];
 
-        $sql = "call insert_venta('$cliente','3','$fecha')";
+        $sql = "call insert_venta('$cliente','$usuario','$fecha')";
         $result = $this->execute($sql);
         return $result;
     }

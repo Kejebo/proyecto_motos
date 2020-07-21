@@ -84,7 +84,7 @@ class ui_sale extends Gui
                                         <h5 class="card-title">Detalle de Venta</h5>
                                     </div>
                                     <div class="float-right">
-                                        <a href="sales.php" class="btn btn-dark">Ver Todas</a>
+                                        <a href="sales.php" class="btn btn-dark"><i class="far fa-eye"></i> Ver Todas</a>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@ class ui_sale extends Gui
         <div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-success text-white">
                         <h5 class="modal-title">Agregar Material</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -184,8 +184,7 @@ class ui_sale extends Gui
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="form-sale" onclick="insert_sale_data()">Agregar</button>
+                        <button type="button" class="btn btn-success btn-block" id="form-sale" onclick="insert_sale_data()">Agregar</button>
                     </div>
                 </div>
             </div>

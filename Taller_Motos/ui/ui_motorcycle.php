@@ -45,16 +45,8 @@ class ui_motorcycle extends gui
                             <div class="float-right">
                               <div class="btn-group" role="group" aria-label="First group">
 
-                                <a class="btn btn-dark" href="manage_motorcycle.php">+Nuevo</a>
-                                  <div class="btn-group ml-2" role="group">
-                                  <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Exportar
-                                  </button>
-                                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="#">PDF</a>
-                                    <a class="dropdown-item" href="#">EXCEL</a>
-                                  </div>
-                                </div>
+                                <a class="btn btn-dark" href="manage_motorcycle.php"><i class="fas fa-plus-circle"></i> Nuevo</a>
+                            
                             </div>
 
                             </div>

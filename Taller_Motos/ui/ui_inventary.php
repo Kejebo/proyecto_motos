@@ -18,7 +18,8 @@ class ui_inventary extends gui
   {
 
 ?>
-    <div class="container row">
+    <div class="container">
+      <div class="row">        
       <div  class="col-12 col-sm-12 col-md-12 col-lg-12 py-3 contenido_modulos">
         <div class="card shadow">
           <div class="card-header">
@@ -44,7 +45,7 @@ class ui_inventary extends gui
               </div>
             </div>
           </div>
-                <div class="card-body table-responsive">
+                <div class="card-body  table-responsive">
                     <table class="table table-bordered" id="Inventario">
                         <thead class="thead-dark text-center text-white">
                   <tr>
@@ -77,7 +78,7 @@ class ui_inventary extends gui
           </div>
         </div>
         </div>
-
+    </div>
     </section>
 
 <?php

@@ -83,7 +83,7 @@ class ui_purchase extends Gui
 
                                 </div>
                                 <div class="float-right">
-                                        <a href="purchases.php" class="btn btn-dark">Ver Todas</a>
+                                        <a href="purchases.php" class="btn btn-dark"> <i class="far fa-eye"></i> Ver Todas</a>
                                 </div>
                             </div>
                         </div>
@@ -180,8 +180,7 @@ class ui_purchase extends Gui
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary">Cerrar</button>
-                                <button type="button" class="btn btn-primary" id="form-purchase">Agregar</button>
+                                <button type="button" class="btn btn-success btn-block" id="form-purchase">Agregar</button>
                             </div>
                         </div>
                     </div>

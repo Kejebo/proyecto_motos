@@ -61,7 +61,10 @@ class Ui_admin extends Gui
                                 <label class="etiquetas">Cedula Juridica</label>
                                 <input class="form-control" type="text" name="cedula" value="<?= $this->data['cedula_juridica']; ?>">
                             </div>
-
+                            <div class="form-group">
+                                <label class="etiquetas">Telefono</label>
+                                <input class="form-control" type="text" name="telefono" value="<?= $this->data['telefono']; ?>">
+                            </div>
 
                         </div>
                     </div>
@@ -71,10 +74,7 @@ class Ui_admin extends Gui
                     <div class="card shadow">
 
                         <div class="card-body">
-                            <div class="form-group">
-                                <label class="etiquetas">Telefono</label>
-                                <input class="form-control" type="text" name="telefono" value="<?= $this->data['telefono']; ?>">
-                            </div>
+
                             <div class="form-group">
                                 <label class="etiquetas">Correo</label>
                                 <input class="form-control" type="text" name="correo" value="<?= $this->data['correo']; ?>">

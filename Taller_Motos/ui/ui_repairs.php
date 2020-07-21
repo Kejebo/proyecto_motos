@@ -25,7 +25,7 @@ class ui_repairs extends Gui
           <div class="float-right">
             <div class="btn-group" role="group" aria-label="First group">
 
-                  <a class="btn btn-dark" href="workshop.php"> + Nuevo</a>
+                  <a class="btn btn-dark" href="workshop.php"> <i class="fas fa-plus-circle"></i> Nuevo</a>
                   <div class="btn-group ml-2" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Exportar
@@ -74,8 +74,8 @@ class ui_repairs extends Gui
                     <?php
                     }
                     ?>
-                    <td><a href="workshop.php?action=update&id=<?= $repair['id'] ?>" class="btn btn-warning">+</a></td>
-                    <td><a href="repairs.php?action=delete&id=<?= $repair['id'] ?>" class="btn btn-danger">X</a></td>
+                    <td><a href="workshop.php?action=update&id=<?= $repair['id'] ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="repairs.php?action=delete&id=<?= $repair['id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                     <td><a href="pdf.php?data=info_reparacion&id=<?= $repair['id'] ?>" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                   </tr>
                 <?php

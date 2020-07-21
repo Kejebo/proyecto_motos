@@ -30,7 +30,8 @@ class ui_works extends Gui
         }
 
 ?>
-        <div class=" container row">
+        <div class="container">
+            <div class="row">
             <div class="col-12 col-sm-12 col-lg-4">
                 <div class="card shadow">
                     <div class="card-header">
@@ -55,7 +56,7 @@ class ui_works extends Gui
                     <div class="card-header">
                         <h5 class="card-title">Lista de Trabajos</h5>
                     </div>
-                    <div class="card-body table-responsive">
+                    <div class="card-body">
                         <table class="table table-bordered" id="example">
                             <thead class="thead-dark text-center text-white">
                                 <tr>
@@ -69,7 +70,7 @@ class ui_works extends Gui
                                     foreach($this->ln->get_works() as $data){?>
                                         <tr>
                                             <td><?=$data['nombre_trabajo']?></td>
-                                            <td><a href="works.php?action=delete_work&id=<?= $data['id_trabajo'] ?>" class="btn btn-danger">+</a></td>
+                                            <td><a href="works.php?action=delete_work&id=<?= $data['id_trabajo'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                         </tr>
                                    <?php }?>
                             </tbody>
@@ -78,7 +79,9 @@ class ui_works extends Gui
                     </div>
                 </div>
             </div>
+        </div>                        
         </div>
+
 <?php
     }
 }

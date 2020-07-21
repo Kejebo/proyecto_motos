@@ -42,7 +42,7 @@ class ui_manage_motorcycle extends gui
               <h5>Datos de la Moto</h5>
             </div>
             <div class="float-right">
-              <a href="motorcycle.php" class="btn btn-dark">Todas las Motos</a>
+              <a href="motorcycle.php" class="btn btn-dark">Ver Todas</a>
             </div>
           </div>
         </div>

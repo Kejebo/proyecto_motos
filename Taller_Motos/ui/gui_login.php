@@ -1,6 +1,7 @@
 <?php
 
 require_once('ln/ln_security.php');
+require_once('db/db_admin.php');
 
 
 class Gui_login
@@ -26,7 +27,8 @@ $this->ln_security->check_tipo_login($this->config['url']);
     
     function get_header()
     {
-       
+        $data = new db_admin();
+
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -36,6 +38,8 @@ $this->ln_security->check_tipo_login($this->config['url']);
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Mighty motors</title>
+            <link rel="icon"  type="image/png" href="<?=$data->get_admin()['logo']?>">
+
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
             <link rel="stylesheet" href="assets/css/styles_login.css" <script src="https://kit.fontawesome.com/b99e675b6e.js">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">

@@ -13,8 +13,8 @@ class db_purchase extends conexion{
 
     function insert_purchase($data){
         extract($data);
-
-        $sql = "call insert_compra('$proveedor','3','$factura','$fecha')";
+        $usuario=json_decode($_COOKIE['usuario'],true)['id_usuario'];
+        $sql = "call insert_compra('$proveedor','$usuario','$factura','$fecha')";
         $result = $this->execute($sql);
         return $result;
     }

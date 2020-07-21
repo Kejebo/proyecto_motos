@@ -23,10 +23,10 @@ class ui_detail_repair extends Gui
 ?>
         <nav aria-label="Page breadcrumb">
             <ol class="breadcrumb opciones">
-                <li class="breadcrumb-item active" aria-current="page"><a href="repairs.php">Inicio</a></li>
-                <li class="active"><a href="workshop.php?action=update&id=<?= $_GET['id'] ?>">Informacion</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="repairs.php">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="workshop.php?action=update&id=<?= $_GET['id'] ?>">Informacion</a></li>
                 <?php if (isset($_GET['id'])) { ?>
-                    <li><a href="detail_repair.php?id=<?= $_GET['id'] ?>">Detalle de Reparacion</a></li>
+                    <li class="breadcrumb-item active" ><a href="detail_repair.php?id=<?= $_GET['id'] ?>">Detalle de Reparacion</a></li>
                 <?php } ?>
             </ol>
         </nav>
