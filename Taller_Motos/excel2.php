@@ -24,16 +24,25 @@ header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetm
 header('Content-Disposition: attachment;filename="' . $nombreDelDocumento . '"');
 header('Cache-Control: max-age=0');
 
-$documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('documents/FinalTemplate.xlsx');
+$documento = \PhpOffice\PhpSpreadsheet\IOFactory::load('documents/LibroFinal.xlsx');
+
+$styleArray = [
+    'borders' => [
+        'outline' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['argb' => '#000000'],
+        ],
+    ],
+];
 
 $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
 
 $drawing->setName('Logo Empresa');
 $drawing->setDescription('Logo de la Empresa');
 $drawing->setPath($data['logo']);
-$drawing->setCoordinates('I2');
-$drawing->setOffsetX(0);
-$drawing->setOffsetY(20);
+$drawing->setCoordinates('H3');
+$drawing->setOffsetX(70);
+$drawing->setOffsetY(10);
 $drawing->setHeight(100);
 $drawing->setRotation(0);
 $drawing->getShadow()->setVisible(true);
@@ -47,7 +56,49 @@ $worksheet->getCell('D4')->setValue($data['telefono']);
 $worksheet->getCell('D5')->setValue($data['correo']);
 $worksheet->getCell('D6')->setValue($data['direccion']);
 $worksheet->getCell('D7')->setValue($data['cedula_juridica']);
-$worksheet->getCell('H9')->setValue($data['nombre']);
+$worksheet->getCell('H10')->setValue($data['nombre']);
+
+$datos = $inventory->get_inventory();
+$contadorC=6;
+$contadorF=14;
+
+foreach ($datos as $item){
+    
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['venta']);
+    $worksheet->getStyle('F'.$contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('F'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+    $contadorC++;
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['compra']);
+    $worksheet->getStyle('G'.$contadorF)->applyFromArray($styleArray); 
+    $worksheet->getStyle('G'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+    $contadorC++;
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['nombre']);
+    $worksheet->getStyle('H'.$contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('H'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);  
+    $contadorC++;
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['medida']);
+    $worksheet->getStyle('I'.$contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('I'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER); 
+    $contadorC++; 
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['total']);
+    $worksheet->getStyle('J'.$contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('J'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER); 
+    $contadorC++; 
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['marca']);
+    $worksheet->getStyle('K'.$contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('K'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);  
+    $contadorC++;
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['saldo']);
+    $worksheet->getStyle('L'.$contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('L'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);  
+    $contadorC++;
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['cantidad']);
+    $worksheet->getStyle('M'.$contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('M'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER); 
+    $contadorF++;
+    $contadorC=6;
+      
+}
 
 $writer = IOFactory::createWriter($documento, 'Xlsx');
 $writer->save('php://output');
