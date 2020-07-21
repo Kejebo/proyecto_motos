@@ -23,7 +23,7 @@ $(document).ready(function () {
       {
         extend: "print",
         exportOptions: {
-          columns: [0, 1, 2, 3, 4],
+          columns: [0, 1, 2, 3],
         },
         messageTop: function () {
           printCounter++;
