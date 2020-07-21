@@ -59,45 +59,44 @@ $worksheet->getCell('D7')->setValue($data['cedula_juridica']);
 $worksheet->getCell('H10')->setValue($data['nombre']);
 
 $datos = $inventory->get_inventory();
-$contadorC=6;
-$contadorF=14;
+$contadorC = 6;
+$contadorF = 14;
 
-foreach ($datos as $item){
-    
-    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['venta']);
-    $worksheet->getStyle('F'.$contadorF)->applyFromArray($styleArray);
-    $worksheet->getStyle('F'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+foreach ($datos as $item) {
+
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF, $item['venta']);
+    $worksheet->getStyle('F' . $contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('F' . $contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     $contadorC++;
-    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['compra']);
-    $worksheet->getStyle('G'.$contadorF)->applyFromArray($styleArray); 
-    $worksheet->getStyle('G'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF, $item['compra']);
+    $worksheet->getStyle('G' . $contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('G' . $contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     $contadorC++;
-    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['nombre']);
-    $worksheet->getStyle('H'.$contadorF)->applyFromArray($styleArray);
-    $worksheet->getStyle('H'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);  
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF, $item['nombre']);
+    $worksheet->getStyle('H' . $contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('H' . $contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     $contadorC++;
-    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['medida']);
-    $worksheet->getStyle('I'.$contadorF)->applyFromArray($styleArray);
-    $worksheet->getStyle('I'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER); 
-    $contadorC++; 
-    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['total']);
-    $worksheet->getStyle('J'.$contadorF)->applyFromArray($styleArray);
-    $worksheet->getStyle('J'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER); 
-    $contadorC++; 
-    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['marca']);
-    $worksheet->getStyle('K'.$contadorF)->applyFromArray($styleArray);
-    $worksheet->getStyle('K'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);  
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF, $item['medida']);
+    $worksheet->getStyle('I' . $contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('I' . $contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     $contadorC++;
-    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['saldo']);
-    $worksheet->getStyle('L'.$contadorF)->applyFromArray($styleArray);
-    $worksheet->getStyle('L'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);  
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF, $item['total']);
+    $worksheet->getStyle('J' . $contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('J' . $contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     $contadorC++;
-    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF,$item['cantidad']);
-    $worksheet->getStyle('M'.$contadorF)->applyFromArray($styleArray);
-    $worksheet->getStyle('M'.$contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER); 
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF, $item['marca']);
+    $worksheet->getStyle('K' . $contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('K' . $contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+    $contadorC++;
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF, $item['saldo']);
+    $worksheet->getStyle('L' . $contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('L' . $contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+    $contadorC++;
+    $documento->getActiveSheet()->setCellValueByColumnAndRow($contadorC, $contadorF, $item['cantidad']);
+    $worksheet->getStyle('M' . $contadorF)->applyFromArray($styleArray);
+    $worksheet->getStyle('M' . $contadorF)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     $contadorF++;
-    $contadorC=6;
-      
+    $contadorC = 6;
 }
 
 $writer = IOFactory::createWriter($documento, 'Xlsx');
