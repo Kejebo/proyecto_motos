@@ -31,22 +31,14 @@ class ui_inventary extends gui
                 <div class="btn-group" role="group" aria-label="First group">
 
                 <a class="btn btn-dark" href="materials.php"> + Nuevo</a>
-                <div class="btn-group ml-2" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Exportar
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <a class="dropdown-item" target="blank" href="pdf.php?data=inventario">PDF</a>
-                      <a class="dropdown-item" href="excel2.php">EXCEL</a>
-                    </div>
-                  </div>
+      
               </div>
 
               </div>
             </div>
           </div>
                 <div class="card-body  table-responsive">
-                    <table class="table table-bordered" id="Inventario">
+                    <table class="table table-bordered" id="example">
                         <thead class="thead-dark text-center text-white">
                   <tr>
                     <th>Nombre</th>

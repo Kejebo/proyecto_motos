@@ -26,9 +26,9 @@ class UI_login extends Gui_login
                 <form action="security.php?action=login" method="post">
                     <div class="card shadow mt-4">
                    
-                        <div class="card-header bg-success text-uppercase" id="titulosCards">
-                            <h6 class="card-title  text-white " id="nombre_empresa">Taller Migthy Motors</h6>
-                            <h5 class="card-title  text-white ">Bienvenidos</h5>
+                        <div class="card-header" id="titulosCards">
+                            <h6 class="card-title" id="nombre_empresa">Taller Migthy Motors</h6>
+                            <h5 class="card-title">Bienvenidos</h5>
 
                         </div>
 

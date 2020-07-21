@@ -301,7 +301,7 @@ function inventario_excel(action) {
     dataType: "json",
     success: function (response) {
       if (response != false) {
-        window.open("excel.php");
+        window.open("excel2.php");
       } else {
         alert("No hay registros de inventario");
       }

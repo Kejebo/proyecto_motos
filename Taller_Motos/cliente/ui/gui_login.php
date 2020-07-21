@@ -41,17 +41,13 @@ class Gui_login
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Mighty motors</title>
-      <link rel="stylesheet" href="assets/css/all.min.css">
-      <script src="assets/js/b99e675b6e.js"></script>
       <link rel="stylesheet" href="assets/css/styleCliente.css">
-      <link rel="stylesheet" href="assets/css/bootstrap.min.css" >
-      <script src="assets/js/jquery-3.4.1.js" ></script>
-      <script src="assets/js/popper.min.js" ></script>
-      <script src="assets/js/bootstrap.min.js"></script>
-      <link rel="stylesheet" href="../cliente/assets/css/jquery.dataTables.min.css">
-      <script src="../cliente/assets/js/jquery.dataTables.min.js"></script>
-      <script src="../cliente/assets/js/datatables.js"></script>
-      <script src="assets/js/reports.js"></script>
+      <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+      <script src="assets/js/b99e675b6e.js"></script>
+      <link rel="stylesheet" href="assets/css/all.min.css">
+      <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
+
+
     </head>
 
 
@@ -77,8 +73,8 @@ class Gui_login
             <div class="social-links mt-3 text-center">
               <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
               <!--<a href="#" class="instagram"><i class="fab fa-instagram"></i></a>-->
-              <?php $data = $this->db_admin->get_admin();?>
-              <a href="https://api.whatsapp.com/send?phone=00506<?=$data['telefono']?>&text=Buenas <?=$data['nombre']?>, necesito informacion acerca de sus servicios. Soy el usuario <?= $this->nombre_cliente ?>" target="_blank" class="google-plus"><i class="fab fa-whatsapp"></i></i></a>
+              <?php $data = $this->db_admin->get_admin(); ?>
+              <a href="https://api.whatsapp.com/send?phone=00506<?= $data['telefono'] ?>&text=Buenas <?= $data['nombre'] ?>, necesito informacion acerca de sus servicios. Soy el usuario <?= $this->nombre_cliente ?>" target="_blank" class="google-plus"><i class="fab fa-whatsapp"></i></i></a>
               <!--<a href="#" class="linkedin"><i class="fab fa-youtube"></i></a>-->
               <span>|</span>
               <a href="#" title="Salir">
@@ -111,19 +107,14 @@ class Gui_login
   function get_footer()
   {
     ?>
-
+      <script src="assets/js/jquery-3.5.1.js"></script>
+      <script src="assets/js/popper.min.js"></script>
+      <script src="assets/js/bootstrap.min.js"></script>
       <script src="assets/js/main_login.js"></script>
-      <link rel="stylesheet" href="jquery.dataTables.min.css">
       <script src="assets/js/reports.js"></script>
-      <script src="assets/js/datatable_motos.js"></script>
-      <script src="assets/js/datatable_buttons.js"></script>
-      <script src="assets/js/datatable_buttons_boot.js"></script>
-      <script src="assets/js/jszip.min.js"></script>
-      <script src="assets/js/pdfmake.min.js"></script>
-      <script src="assets/js/vfs_fonts.js"></script>
-      <script src="assets/js/buttons.html5.min.js"></script>
-      <script src="assets/js/buttons.print.min.js"></script>
-      <script src="assets/js/buttons.colVis.min.js"></script>
+      <script src="assets/js/jquery.dataTables.min.js"></script>
+      <script src="assets/js/datatables.js"></script>
+
 
     </body>
 
