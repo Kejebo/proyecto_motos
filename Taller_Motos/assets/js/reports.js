@@ -158,7 +158,7 @@ function get_pdf() {
   let dia = document.getElementById("dia");
   switch (opciones) {
     case "Inventario":
-      Inventario("inventario");
+      window.open("pdf.php?data=inventario", "_blank");
       break;
 
     case "Clientes":

@@ -33,13 +33,8 @@ class ui_sales extends Gui
             <div class="btn-group" role="group" aria-label="First group">
 
             <a class="btn btn-dark" href="sale.php"><i class="fas fa-plus-circle"></i> Nuevo</a>
-            <div class="btn-group ml-2" role="group">
-                <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Exportar
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" target="blank" href="pdf.php?data=ventas">PDF</a>
-                </div>
+                
+                  <a class="btn btn-dark" target="blank" href="pdf.php?data=ventas">PDF</a>
               </div>
           </div>
 

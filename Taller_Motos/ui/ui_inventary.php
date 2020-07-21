@@ -30,7 +30,9 @@ class ui_inventary extends gui
               <div class="float-right">
                 <div class="btn-group" role="group" aria-label="First group">
 
-                <a class="btn btn-dark" href="materials.php"> + Nuevo</a>
+                <a class="btn btn-dark" href="materials.php"><i class="fas fa-plus-circle"></i> Nuevo</a>
+
+                <a class="btn btn-dark ml-2" href="pdf.php?data=inventario" target="_blank"> Generar PDF</a>
       
               </div>
 

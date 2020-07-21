@@ -39,13 +39,13 @@ class Gui
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title><?= $this->config['titulo']; ?></title>
-            <link rel="icon"  type="image/png" href="<?=$admin->get_admin()['logo']?>">
+            <link rel="icon" type="image/png" href="<?= $admin->get_admin()['logo'] ?>">
+            <link rel="stylesheet" href="assets/css/all.min.css">
             <script src="assets/js/b99e675b6e.js"></script>
 
             <link rel="stylesheet" href="assets/css/styles.css">
             <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-            <link rel="stylesheet" href="assets/css/all.min.css">
-        <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
+            <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
         </head>
 
     <?php
@@ -148,7 +148,7 @@ class Gui
             </div>
             <script src="assets/js/jquery-3.5.1.js"></script>
             <script src="assets/js/popper.min.js"></script>
-            <script src="assets/js/bootstrap.min.js" ></script>
+            <script src="assets/js/bootstrap.min.js"></script>
             <script src="assets/js/main.js"></script>
             <?php if ($this->config['titulo'] == 'Modulo Reportes') { ?> <script src="assets/js/reports.js">
                 </script>
@@ -156,8 +156,7 @@ class Gui
             <script src="assets/js/jquery.dataTables.min.js"></script>
             <script src="assets/js/datatables.js"></script>
             <script src="assets/js/all.min.js"></script>
-            <script src="assets/json/Spanish.json"></script>
-           
+
         </body>
 
         </html>
