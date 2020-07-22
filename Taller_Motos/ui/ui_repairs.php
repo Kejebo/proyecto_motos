@@ -64,7 +64,7 @@ class ui_repairs extends Gui
                     <td><?= $repair['cliente'] ?></td>
                     <td><?= $repair['moto'] ?></td>
                     <td><?= $repair['placa'] ?></td>
-                    <td><?= $repair['monto'] ?></td>
+                    <td><?= number_format($repair['monto']) ?></td>
                     <?php
                     if ($repair['estado'] == 'Espera') { ?>
                       <td class="text-center text-white bg-warning">Espera</td>

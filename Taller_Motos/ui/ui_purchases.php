@@ -65,7 +65,7 @@ class ui_purchases extends Gui
                                 <td><?= $list['fecha'] ?></td>
                                 <td><?= $list['factura'] ?></td>
                                 <td><?= $list['proveedor'] ?></td>
-                                <td><?= $list['saldo'] ?></td>
+                                <td><?= number_format($list['saldo']) ?></td>
                                 <td><a href="purchases.php?action=delete&id=<?= $list['id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                 <td><a href="purchase.php?action=update_purchase&id=<?= $list['id'] ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                                 <td><a href="pdf.php?data=compra&id=<?= $list['id'] ?>" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>

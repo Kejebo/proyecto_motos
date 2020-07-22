@@ -1,10 +1,10 @@
 <?php
-  require_once('ui/ui_detail_repair.php');
+  require_once('ui/ui_historial.php');
   $config = array(
-  	'titulo'	=> 'Modulo Mantenimiento',
+  	'titulo'	=> 'Historial de Motos',
   	'url'		=> 'workshop.php',
   );
-  $ui= new ui_detail_repair($config);
+  $ui= new ui_historial($config);
   $ui->action_controller();
   $ui->get_header();
   $ui->get_sidebar();

@@ -76,7 +76,7 @@ class ui_motorcycle extends gui
                                             <td><?= $motos['placa'] ?></td>
                                             <td><?= $motos['transmision'] ?></td>
                                             <td><?= $motos['kilometraje'] ?></td>
-                                            <td><a href="<?= $motos['id']; ?>" class="btn btn-info"><i class="far fa-eye"></i></a></td>
+                                            <td><a href="historial.php?moto=<?= $motos['placa']; ?>" class="btn btn-info"><i class="far fa-eye"></i></a></td>
                                             <td><a href="motorcycle.php?action=delete&id=<?= $motos['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                             <td><a href="manage_motorcycle.php?action=update_moto&id=<?= $motos['id']; ?>" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                                         </tr>
