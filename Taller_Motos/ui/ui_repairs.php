@@ -58,6 +58,7 @@ class ui_repairs extends Gui
               </thead>
               <tbody class="text-center" >
                 <?php
+                if($this->ln->get_repairs()){
                 foreach ($this->ln->get_repairs() as $repair) { ?>
                   <tr>
                     <td><?= $repair['fecha'] ?></td>
@@ -79,7 +80,7 @@ class ui_repairs extends Gui
                     <td><a href="pdf.php?data=info_reparacion&id=<?= $repair['id'] ?>" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                   </tr>
                 <?php
-                }
+                } }
                 ?>
               </tbody>
 

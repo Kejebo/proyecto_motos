@@ -173,7 +173,7 @@ function get_pdf() {
       window.open("pdf.php?data=Venta_Proveedor", "_blank");
       break;
     case "Ventas General":
-      window.open("pdf.php?data=Venta_General", "_blank");
+      window.open("pdf.php?data=ventas", "_blank");
       break;
     case "Ventas Diaria":
       Ventas_pdf(dia.value, "venta_diaria");
@@ -192,12 +192,15 @@ function get_pdf() {
         "venta_periodo"
       );
       break;
+      case "Compras General":
+        window.open("pdf.php?data=compras", "_blank");
+        break;
     case "Compras Diaria":
       Compras_pdf(dia.value, "compra_diaria");
       break;
 
     case "Compras Mensuales":
-      Compras_pdf(dia.value, "compra_mensual");
+      Compras_pdf(dia.value+'-01', "compra_mensual");
       break;
 
     case "Compras Anuales":
@@ -428,8 +431,7 @@ function motos_consulta(action) {
                 <th>Kilometraje</th>
                 <th>Historial</th>
                 <th>Eliminar</th>
-                <th>Editar</th>
-                <th>Exportar</th>`;
+                <th>Editar</th>`;
 
         if (response != false) {
           response.forEach((list) => {
@@ -440,7 +442,6 @@ function motos_consulta(action) {
                         <td><a href="historial.php?moto=${list.placa}" target="_blank" class="btn btn-info"><i class="far fa-eye"></i></a></td>
                         <td><a href="motorcycle.php?action=delete&id=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                         <td><a href="manage_motorcycle.php?action=update_moto&id=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>         
-                        <td><a href="pdf.php?data=info_reparacion&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                     </tr>`;
           });
         }
@@ -548,7 +549,7 @@ function ventas_consulta_periodo(inicio, final, action) {
                     <td>${list["saldo"]}</td>
                     <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                     <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                    <td><a href="pdf.php?data=venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                 </tr>`;
         });
       } else {
@@ -583,7 +584,7 @@ function compras_consulta(dia, action) {
                     <td>${list.saldo}</td>
                     <td><a href="purchases.php?action=delete&id=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                     <td><a href="purchase.php?action=update_purchase&id=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="pdf.php?data=Compra&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                    <td><a href="pdf.php?data=compra&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                 </tr>`;
         });
       } else {
@@ -617,7 +618,7 @@ function compras_consulta_periodo(inicio, final, action) {
                     <td>${list.saldo}</td>
                     <td><a href="purchases.php?action=delete&id=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                     <td><a href="purchase.php?action=update_purchase&id=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="pdf.php?data=Compra&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                    <td><a href="pdf.php?data=compra&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                 </tr>`;
         });
       }

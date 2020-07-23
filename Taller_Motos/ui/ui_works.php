@@ -67,12 +67,13 @@ class ui_works extends Gui
                             </thead>
                             <tbody class="text-center">
                                 <?php 
+                                if($this->ln->get_works()){
                                     foreach($this->ln->get_works() as $data){?>
                                         <tr>
                                             <td><?=$data['nombre_trabajo']?></td>
                                             <td><a href="works.php?action=delete_work&id=<?= $data['id_trabajo'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                         </tr>
-                                   <?php }?>
+                                   <?php }}?>
                             </tbody>
 
                         </table>

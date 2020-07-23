@@ -60,7 +60,7 @@ class ui_sale extends Gui
                                     <?php } ?>
                                 </select>
                                 <div class="input-group-append">
-                                    <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_cliente">+</span>
+                                    <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_cliente"><i class="fas fa-user"></i></span>
                                 </div>
                             </div>
 
