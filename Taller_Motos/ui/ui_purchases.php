@@ -60,7 +60,9 @@ class ui_purchases extends Gui
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <?php foreach ($this->ln->get_purchases() as $list) { ?>
+                        <?php 
+                        if($this->ln->get_purchases()){
+                        foreach ($this->ln->get_purchases() as $list) { ?>
                             <tr>
                                 <td><?= $list['fecha'] ?></td>
                                 <td><?= $list['factura'] ?></td>
@@ -71,7 +73,7 @@ class ui_purchases extends Gui
                                 <td><a href="pdf.php?data=compra&id=<?= $list['id'] ?>" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
 
                             </tr>
-                        <?php } ?>
+                        <?php } }?>
 
                     </tbody>
 

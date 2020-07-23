@@ -5,12 +5,15 @@ require_once('ln/ln_sales.php');
 require_once('db/db_motorcycle.php');
 require_once('db/db_workshop.php');
 require_once('db/db_client.php');
+require_once('db/db_proveedor.php');
 $inventory = new db_inventory();
 $purchase = new ln_purchase();
 $sale = new ln_sales();
 $moto = new db_motorcycle();
 $work = new db_workshop();
 $client = new db_client();
+$proveedor = new db_proveedor();
+
 switch ($_POST['action']) {
     case 'get_medida':
         echo json_encode($inventory->get_category_medida($_POST['id'])[0]);
@@ -35,6 +38,11 @@ switch ($_POST['action']) {
         echo json_encode($client->get_clients());
         break;
 
+    case 'insert_proveedor':
+        $proveedor->insert_proveedor($_POST);
+        echo json_encode($proveedor->get_proveedores());
+        break;
+
     case 'insert_categoria':
         $inventory->insert_categoria($_POST);
         echo json_encode($inventory->get_category());
@@ -48,6 +56,12 @@ switch ($_POST['action']) {
         $moto->insert_transmision($_POST['nombre_transmision']);
         echo json_encode($moto->get_transmisiones());
         break;
+
+    case 'insert_cliente':
+        $client->insert_client($_POST);
+        echo json_encode($client->get_clients());
+        break;
+
     case 'insert_marcas_motos':
         $moto->insert_marca($_POST['nombre_marca']);
         echo json_encode($moto->get_marcas());
@@ -117,6 +131,6 @@ switch ($_POST['action']) {
         echo json_encode($work->get_repairs_anual($_POST['dia']));
         break;
     case 'reparacion_periodo':
-        echo json_encode($work->get_repairs_periodo($_POST['inicio'],$_POST['final']));
+        echo json_encode($work->get_repairs_periodo($_POST['inicio'], $_POST['final']));
         break;
 }

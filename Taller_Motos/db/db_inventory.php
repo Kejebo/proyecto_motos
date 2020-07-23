@@ -108,7 +108,7 @@ class db_inventory extends conexion
     }
     function insert_categoria($data){
         extract($data);
-        $this->execute("insert into categorias_material(id_medida,nombre_categoria) values('$id_medida','$nombre_categoria')");
+        $this->execute("insert into categorias_material(nombre_categoria) values('$nombre_categoria')");
     }
     function validate_sale($id){
         return $this->get_data("call get_saldo('$id')");

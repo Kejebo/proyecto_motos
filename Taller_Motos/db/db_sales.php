@@ -90,7 +90,9 @@ class db_sales extends conexion{
     }
     function update_sale($data){
         extract($data);
-        $this->execute("call update_venta('$id','$cliente','$fecha')");
+        $usuario=json_decode($_COOKIE['usuario'],true)['id_usuario'];
+
+        $this->execute("call update_venta('$id','$cliente','$fecha','$usuario')");
     }
     function get_last_sale(){
         $sql = "select * from ventas

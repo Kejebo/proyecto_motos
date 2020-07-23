@@ -34,7 +34,7 @@ class ui_sales extends Gui
 
             <a class="btn btn-dark" href="sale.php"><i class="fas fa-plus-circle"></i> Nuevo</a>
                 
-                  <a class="btn btn-dark" target="blank" href="pdf.php?data=ventas">PDF</a>
+                  <a class="btn btn-dark ml-2" target="blank" href="pdf.php?data=ventas">PDF</a>
               </div>
           </div>
 
@@ -55,7 +55,9 @@ class ui_sales extends Gui
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <?php foreach ($this->ln->get_sales() as $list) { ?>
+                                <?php 
+                                if($this->ln->get_sales()){
+                                foreach ($this->ln->get_sales() as $list) { ?>
                                     <tr>
                                         <td><?= $list['fecha'] ?></td>
                                         <td><?= $list['cliente'] ?></td>
@@ -65,7 +67,7 @@ class ui_sales extends Gui
                                         <td><a href="pdf.php?data=venta&id=<?= $list['id'] ?>" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
 
                                     </tr>
-                                <?php } ?>
+                                <?php } }?>
 
                             </tbody>
 

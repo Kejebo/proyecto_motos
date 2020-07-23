@@ -52,14 +52,16 @@ class ui_sale extends Gui
                                 <input type="hidden" name="id" id="id" value="<?= $sale[0]['id'] ?>">
                             </div>
 
-
-                            <div class="form-group">
-                                <label class="etiquetas">Cliente</label>
+                            <label class="etiquetas">Cliente</label>
+                            <div class="input-group mb-3">
                                 <select class="form-control" name="cliente" id="cliente">
                                     <?php foreach ($this->ln->get_client() as $clientes) { ?>
                                         <option value="<?= $clientes['id_cliente'] ?>"><?= $clientes['nombre_cliente'] ?></option>
                                     <?php } ?>
                                 </select>
+                                <div class="input-group-append">
+                                    <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_cliente">+</span>
+                                </div>
                             </div>
 
                             <hr>
@@ -79,71 +81,71 @@ class ui_sale extends Gui
 
                     <div class="card shadow">
                         <div class="card-header">
-                                <div class="clearfix">
-                                    <div class="float-left">
-                                        <h5 class="card-title">Detalle de Venta</h5>
-                                    </div>
-                                    <div class="float-right">
-                                        <a href="sales.php" class="btn btn-dark"><i class="far fa-eye"></i> Ver Todas</a>
-                                    </div>
+                            <div class="clearfix">
+                                <div class="float-left">
+                                    <h5 class="card-title">Detalle de Venta</h5>
+                                </div>
+                                <div class="float-right">
+                                    <a href="sales.php" class="btn btn-dark"><i class="far fa-eye"></i> Ver Todas</a>
                                 </div>
                             </div>
-                                <div class="bg-primary text-white card-title p-4 mt-3  table-responsive" style="border-radius:20px;">
-                                    <div class="clearfix p-2">
+                        </div>
+                        <div class="text-white card-title p-4 mt-3  table-responsive" style="border-radius:20px;">
+                            <div class=" container bg-primary  clearfix p-2">
 
-                                        <div class="float-left">
-                                            <h5 class="ml-2">Materiales Vendidos</h5>
+                                <div class="float-left">
+                                    <h5 class="ml-2">Materiales Vendidos</h5>
 
-                                        </div>
-                                        <div class="float-right">
-                                            <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-info mr-5">Agregar</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead class="thead-dark text-center text-white">
-                                                <th>Material</th>
-                                                <th>Cantidad</th>
-                                                <th>SubTotal</th>
-                                                <th>Total</th>
-                                                <th>Eliminar</th>
-                                            </thead>
-                                            <tbody id="detalle" class="text-center">
-
-                                                <?php $id = 0;
-                                                $saldo = 0;
-                                                if (isset($sale)) {
-                                                    foreach ($this->ln->db->get_detail_sale($_GET['id']) as $list) {
-                                                        $saldo += $list['cantidad'] * $list['precio']; ?>
-                                                        <tr ids="<?= $id++ ?>">
-                                                            <input type="hidden" name="detalles[]" class="lista" value='<?php print(json_encode($list)) ?>'>
-                                                            <td><?= $list['nombre_material'] ?></td>
-                                                            <td><?= $list['cantidad'] ?></td>
-                                                            <td><?= $list['precio'] ?></td>
-                                                            <td><?= $list['saldo'] ?></td>
-                                                            <td><span class='delete_detail btn btn-danger' onclick="deletes(this,'sale')"><i class="fas fa-trash"></i></span></td>
-                                                        </tr>
-                                                <?php      }
-                                                } ?>
-                                            </tbody>
-                                            <tfoot id="pie_venta" class="bg-dark text-center text-white">
-                                                <tr>
-                                                    <td>Saldo</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><?= $saldo ?></td>
-                                                    <td></td>
-
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-
-
-                                    </div>
                                 </div>
+                                <div class="float-right">
+                                    <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-info mr-5">Agregar</button>
+                                </div>
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark text-center text-white">
+                                        <th>Material</th>
+                                        <th>Cantidad</th>
+                                        <th>SubTotal</th>
+                                        <th>Total</th>
+                                        <th>Eliminar</th>
+                                    </thead>
+                                    <tbody id="detalle" class="text-center">
+
+                                        <?php $id = 0;
+                                        $saldo = 0;
+                                        if (isset($sale)) {
+                                            foreach ($this->ln->db->get_detail_sale($_GET['id']) as $list) {
+                                                $saldo += $list['cantidad'] * $list['precio']; ?>
+                                                <tr ids="<?= $id++ ?>">
+                                                    <input type="hidden" name="detalles[]" class="lista" value='<?php print(json_encode($list)) ?>'>
+                                                    <td><?= $list['nombre_material'] ?></td>
+                                                    <td><?= $list['cantidad'] ?></td>
+                                                    <td><?= $list['precio'] ?></td>
+                                                    <td><?= $list['saldo'] ?></td>
+                                                    <td><span class='delete_detail btn btn-danger' onclick="deletes(this,'sale')"><i class="fas fa-trash"></i></span></td>
+                                                </tr>
+                                        <?php      }
+                                        } ?>
+                                    </tbody>
+                                    <tfoot id="pie_venta" class="bg-dark text-center text-white">
+                                        <tr>
+                                            <td>Saldo</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><?= $saldo ?></td>
+                                            <td></td>
+
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
 
                             </div>
                         </div>
+
+                    </div>
+                </div>
         </form>
 
         <div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -189,6 +191,47 @@ class ui_sale extends Gui
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="form_cliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title">Agregar Cliente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="tipo" value="cliente">
+                        <input type="hidden" name="id_usuario">
+                        <div class="form-group">
+                            <label class="etiquetas">Nombre Completo</label>
+                            <input class="form-control" type="text" id="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label class="etiquetas">Telefono</label>
+                            <input class="form-control" type="number" id="telefono">
+                        </div>
+                        <div class="form-group">
+                            <label class="etiquetas">Correo</label>
+                            <input class="form-control" type="email" id="correo">
+                        </div>
+                        <div class="form-group">
+                            <label class="etiquetas">Cedula Juridica</label>
+                            <input class="form-control" type="text" id="cedula">
+                        </div>
+                        <div class="form-group">
+                            <label class="etiquetas">Contraseña</label>
+                            <input type="password" class="form-control" id="clave">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-block" data-dismiss="modal" onclick="insert_cliente()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 <?php
     }
 }

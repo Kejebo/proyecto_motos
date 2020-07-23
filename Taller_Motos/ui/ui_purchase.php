@@ -53,14 +53,18 @@ class ui_purchase extends Gui
                                 <label class="etiquetas">Numero de factura</label>
                                 <input class="form-control" type="text" name="factura" id="factura" required value="<?= $purchase != null ? $purchase[0]['factura'] : '' ?>">
                             </div>
-                            <div class="form-group">
-                                <label class="etiquetas">Proveedor</label>
+                            <label class="etiquetas">Proveedor</label>
+                            <div class="input-group mb-3">
                                 <select class="form-control" name="proveedor" id="proveedor">
                                     <?php foreach ($this->ln->get_proveedor() as $proveedores) { ?>
                                         <option value="<?= $proveedores['id_proveedor'] ?>"><?= $proveedores['nombre'] ?></option>
                                     <?php } ?>
                                 </select>
+                                <div class="input-group-append">
+                                    <span class="btn btn-success" type="submit" data-toggle="modal" data-target="#form_proveedor"><i class="fas fa-user-secret"></i></span>
+                                </div>
                             </div>
+
                             <hr>
                             <div class="form-group">
 
@@ -186,6 +190,39 @@ class ui_purchase extends Gui
                     </div>
                 </div>
         </form>
+        <div class="modal fade" id="form_proveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title">Agregar Proveedor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="etiquetas">Nombre Completo</label>
+                            <input class="form-control" type="text" id="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label class="etiquetas">Telefono</label>
+                            <input class="form-control" type="number" id="telefono">
+                        </div>
+                        <div class="form-group">
+                            <label class="etiquetas">Correo</label>
+                            <input class="form-control" type="email" id="correo">
+                        </div>
+                        <div class="form-group">
+                            <label class="etiquetas">Cedula Juridica</label>
+                            <input class="form-control" type="text" id="cedula">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-block" data-dismiss="modal" onclick="insert_proveedor()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 <?php
     }

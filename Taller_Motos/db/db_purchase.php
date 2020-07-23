@@ -89,7 +89,9 @@ class db_purchase extends conexion{
     }
     function update_purchase($data){
         extract($data);
-        $this->execute("call update_compra('$id','$proveedor','$factura','$fecha')");
+        $usuario=json_decode($_COOKIE['usuario'],true)['id_usuario'];
+
+        $this->execute("call update_compra('$id','$proveedor','$factura','$fecha','$usuario')");
     }
     function get_last_pucharse(){
         $sql = "select * from compras

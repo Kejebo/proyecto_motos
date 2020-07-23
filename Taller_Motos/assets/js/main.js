@@ -128,18 +128,62 @@ function insert_marca() {
 
 function insert_category() {
   let nombre_categoria = document.querySelector('#nombre_categoria').value;
-  let id_medida = document.querySelector('#id_medida').value;
   let action = 'insert_categoria';
   $.ajax({
     type: "post",
     url: "controller.php",
-    data: { action, id_medida, nombre_categoria },
+    data: { action,nombre_categoria },
     success: function (response) {
       let datos = JSON.parse(response);
       document.querySelector('#categoria').innerHTML = '';
       datos.forEach(element => {
         document.querySelector('#categoria').innerHTML += `
           <option value=${element.id_categoria}>${element.nombre_categoria}<opcion>`
+      });
+    }
+  });
+}
+
+function insert_cliente() {
+  let nombre = document.querySelector('#nombre').value;
+  let telefono = document.querySelector('#telefono').value;
+  let clave = document.querySelector('#clave').value;
+  let cedula = document.querySelector('#cedula').value;
+  let correo = document.querySelector('#correo').value;
+  let action = 'insert_cliente';
+
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: { action,nombre,telefono,clave,cedula,correo },
+    success: function (response) {
+      let datos = JSON.parse(response);
+      document.querySelector('#cliente').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#cliente').innerHTML += `
+          <option value=${element.id_cliente}>${element.nombre_cliente}<opcion>`
+      });
+    }
+  });
+}
+
+function insert_proveedor() {
+  let nombre = document.querySelector('#nombre').value;
+  let telefono = document.querySelector('#telefono').value;
+  let cedula = document.querySelector('#cedula').value;
+  let correo = document.querySelector('#correo').value;
+  let action = 'insert_proveedor';
+
+  $.ajax({
+    type: "post",
+    url: "controller.php",
+    data: { action,nombre,telefono,cedula,correo },
+    success: function (response) {
+      let datos = JSON.parse(response);
+      document.querySelector('#proveedor').innerHTML = '';
+      datos.forEach(element => {
+        document.querySelector('#proveedor').innerHTML += `
+          <option value=${element.id_proveedor}>${element.nombre}<opcion>`
       });
     }
   });

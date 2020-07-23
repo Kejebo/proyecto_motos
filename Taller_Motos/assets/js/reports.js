@@ -426,6 +426,7 @@ function motos_consulta(action) {
         document.getElementById("encabezado").innerHTML = `<th>#Placa</th>
                 <th>Moto</th>
                 <th>Kilometraje</th>
+                <th>Historial</th>
                 <th>Eliminar</th>
                 <th>Editar</th>
                 <th>Exportar</th>`;
@@ -436,9 +437,10 @@ function motos_consulta(action) {
                         <td>${list.placa}</td>
                         <td>${list.moto}</td>
                         <td>${list.kilometraje}</td>
-                        <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
-                        <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
-                        <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                        <td><a href="historial.php?moto=${list.placa}" target="_blank" class="btn btn-info"><i class="far fa-eye"></i></a></td>
+                        <td><a href="motorcycle.php?action=delete&id=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                        <td><a href="manage_motorcycle.php?action=update_moto&id=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>         
+                        <td><a href="pdf.php?data=info_reparacion&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                     </tr>`;
           });
         }
@@ -514,7 +516,7 @@ function ventas_consulta(dia, action) {
                     <td>${list["saldo"]}</td>
                     <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                     <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="pdf.php?data=Venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                    <td><a href="pdf.php?data=venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                 </tr>`;
         });
       } else {

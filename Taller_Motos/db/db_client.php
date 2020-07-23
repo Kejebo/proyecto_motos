@@ -47,7 +47,7 @@ class db_client extends conexion
 
     function get_clients()
     {
-        $sql = "select * from clientes where estado_cliente=1;";
+        $sql = "select * from clientes where estado_cliente=1 order by nombre_cliente asc;";
         $result = $this->get_data($sql);
         if ($result) {
             return $result;

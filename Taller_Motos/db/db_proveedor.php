@@ -22,7 +22,7 @@ class db_proveedor extends conexion{
     
 
     function get_proveedores(){
-        $sql = "select * from proveedores where estado=1;";
+        $sql = "select * from proveedores where estado=1 order by nombre asc;";
         $result = $this->get_data($sql);
             if($result){
                 return $result;

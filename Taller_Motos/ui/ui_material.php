@@ -40,7 +40,7 @@ class ui_material extends gui
     <h4> <span><i class="fas fa-bars"></i></span> Registro de Inventario</h4>
     </div>
     <div class="float-right">
-      <a href="inventary.php" class="btn btn-dark">Ver Todas</a>
+      <a href="inventary.php" class="btn btn-dark"> <i class="far fa-eye"></i> Ver Todos</a>
     </div>
       </div>
       <form method="post" action="materials.php?action=<?= $action ?>">
@@ -134,15 +134,8 @@ class ui_material extends gui
                   <div class="modal-body">
                     <div class="form-group">
                       <label class="etiquetas">Nombre</label>
-                      <div class="input-group mb-3">
+                      <div class="form-group">
                         <input class="form-control" type="text" id="nombre_categoria" placeholder="Ingrese el nombre de la categoria">
-                        <div class="input-group-append">
-                          <select name="" id="id_medida" class="form-control">
-                            <?php foreach ($this->ln->get_medidas() as $medidas) { ?>
-                              <option value="<?= $medidas['id_medida'] ?>"><?= $medidas['nombre_medida'] ?></option>
-                            <?php } ?>
-                          </select>
-                        </div>
                       </div>
 
                     </div>

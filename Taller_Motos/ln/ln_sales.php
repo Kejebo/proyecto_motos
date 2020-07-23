@@ -35,10 +35,10 @@
         }
 
         function update_sale($data){
+            $this->db->update_sale($data);
 
             extract($data);
             $this->db->delete_detail($id);
-            $this->db->update_sale($data);
             foreach($detalles as $lista){
               $list=json_decode($lista,true);
                 $this->db->insert_detail_sale($id, $list);
