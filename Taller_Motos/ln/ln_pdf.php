@@ -604,7 +604,7 @@ function get_repair_daily()
 
 ?>
     <div id="titulo">
-        <h2>Lista de Ventas del <?= $_GET['dia'] ?></h2>
+        <h2>Lista de Reparaciones del <?= $_GET['dia'] ?></h2>
     </div>
     <br>
     <br>
@@ -680,7 +680,7 @@ function get_repair_mensual($mes)
 
 ?>
     <div id="titulo">
-        <h2>Lista de Resparaciones de <?= ucfirst($mes['mes']) ?></h2>
+        <h2>Lista de Reparaciones de <?= ucfirst($mes['mes']) ?></h2>
     </div>
     <br>
     <br>

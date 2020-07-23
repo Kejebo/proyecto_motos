@@ -41,7 +41,7 @@ class ui_repairs extends Gui
             </div>
           </div>
           <div class="card-body table-responsive">
-            <table class="table table-bordered" id="example">
+            <table class="table table-bordered text-center" id="example">
               <thead class="thead-dark text-center text-white">
                 <tr>
                   <th>Fecha Entrada</th>

@@ -14,6 +14,7 @@ $admin = $admin->get_admin();
         font-size: 12px;
     }
 
+
     th {
         height: 40px;
         font-size: 14px;
