@@ -558,8 +558,8 @@ function ventas_consulta(dia, action) {
                     <td>${list.fecha}</td>
                     <td>${list.cliente}</td>
                     <td>${list["saldo"]}</td>
-                    <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
-                    <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="sale.php?action=delete&id=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                    <td><a href="sale.php?action=update_sale&id=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                     <td><a href="pdf.php?data=venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                 </tr>`;
         });
@@ -590,8 +590,8 @@ function ventas_consulta_periodo(inicio, final, action) {
                     <td>${list.fecha}</td>
                     <td>${list.cliente}</td>
                     <td>${list["saldo"]}</td>
-                    <td><a href="sale.php?action=delete&id=<?=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
-                    <td><a href="sale.php?action=update_sale&id=<?=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="sale.php?action=delete&id=${list.id}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                    <td><a href="sale.php?action=update_sale&id=${list.id}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a></td>
                     <td><a href="pdf.php?data=venta&id=${list.id}" target="blank" class="btn btn-secondary text-white"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                 </tr>`;
         });

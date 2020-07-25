@@ -66,9 +66,14 @@ body {
   background-color: white;
   width: 7px;
   border-radius: 4px;
-  
 }
 
+#modulo{
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 30px;
+  font-family: sans-serif;
+}
 .wrapper .sidebar::-webkit-scrollbar-thumb{
   background-color: lightgray;
 
@@ -157,6 +162,9 @@ footer {
   }
   .wrapper .main_content {
     width: 100%;
+    margin-left: 0px;
+  }
+  #modulo{
     margin-left: 0px;
   }
 }

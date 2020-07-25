@@ -35,7 +35,7 @@ class ui_material extends gui
 ?>
 
     <section class="container" style="color: #04ADBF;">
-      <div class="alert bg-primary text-white clearfix">
+      <div class="alert bg-primary text-white clearfix mt-3">
     <div class="float-left">
     <h4> <span><i class="fas fa-bars"></i></span> Registro de Inventario</h4>
     </div>
@@ -45,7 +45,7 @@ class ui_material extends gui
       </div>
       <form method="post" action="materials.php?action=<?= $action ?>">
         <div class="row">
-          <div class="col-lg-6 col-sm-12 col-12">
+          <div class="col-lg-6 col-sm-12 col-12 pt-3">
             <div class="card shadow">
 
               <div class="card-body">
@@ -148,7 +148,7 @@ class ui_material extends gui
             </div>
           </div>
 
-          <div class="col-12 col-sm-12 col-lg-6">
+          <div class="col-12 col-sm-12 col-lg-6 pt-3">
             <div class="card shadow">
               <div class="card-body">
                 <div class="row">
@@ -156,14 +156,19 @@ class ui_material extends gui
                   <div class="form-group col-sm-6">
                     <label class="etiquetas">Presentacion</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" name="presentacion" value="0">
+                      <input type="text" class="form-control" name="presentacion" value="<?=$material!=null?$material['presentacion']:'0'?>">
                       <div class="input-group-append">
                         <select id="my-select" class="form-control text-center" name="medida">
                           <?php
-                          foreach ($this->unidades() as $data) { ?>
+                          foreach ($this->unidades() as $data) { 
+                              if($data==$material['unidad']){
+                            ?>
+                            <option selected  value="<?= $data ?>"><?= $data ?></option>
+
+                          <?php }else{ ?>
                             <option value="<?= $data ?>"><?= $data ?></option>
 
-                          <?php } ?>
+                        <?php  } }?>
                         </select>
                       </div>
                     </div>
@@ -191,8 +196,8 @@ class ui_material extends gui
           </div>
         </div>
         <div class="text-center">
-          <button class="btn btn-primary" type="submit"><i class="fas fa-file"></i> <?= $boton ?></button>
-          <a href="materials.php" class="btn btn-info">Nuevo</a>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-file"></i>  <?= $boton ?></button>
+          <a href="materials.php" class="btn btn-danger">Nuevo</a>
         </div>
       </form>
 

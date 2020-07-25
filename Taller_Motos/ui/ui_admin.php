@@ -31,7 +31,7 @@ class Ui_admin extends Gui
 ?>
         <form method="POST" action="admin.php?action=<?= $this->action ?>" enctype="multipart/form-data">
             <div class=" container row">
-                <div class="col-12 col-sm-12 col-lg-6">
+                <div class="col-12 col-sm-12 col-lg-6 pt-3">
                     <div class="card shadow">
                         <?php $this->data = $this->ln->get_admin(); ?>
                         <div class="card-body">
@@ -70,7 +70,7 @@ class Ui_admin extends Gui
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 pt-3">
                     <div class="card shadow">
 
                         <div class="card-body">

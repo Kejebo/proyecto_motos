@@ -32,7 +32,7 @@ class ui_works extends Gui
 ?>
         <div class="container">
             <div class="row">
-            <div class="col-12 col-sm-12 col-lg-4">
+            <div class="col-12 col-sm-12 col-lg-4 pt-3">
                 <div class="card shadow">
                     <div class="card-header">
                         <h5> <span><i class="fas fa-bars"></i></span> Registro de Trabajos</h5>
@@ -51,7 +51,7 @@ class ui_works extends Gui
                 </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 pt-3">
                 <div class="card shadow">
                     <div class="card-header">
                         <h5 class="card-title">Lista de Trabajos</h5>
