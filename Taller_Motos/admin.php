@@ -2,7 +2,7 @@
 require_once('ui/ui_admin.php');
 $config = array(
 	'titulo'	=> 'Modulo Administrativo',
-	'url'		=> 'Admin.php',
+	'url'		=> 'admin.php',
 );
 
 $ui= new ui_admin($config);

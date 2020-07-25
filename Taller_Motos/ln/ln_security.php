@@ -239,7 +239,7 @@ class ln_security
 
     function check_tipo_login_tecnico($url)
     {
-        if ($url == 'recuperacion.php' || $url == 'users.php' || $url == 'proveedores.php') {
+        if ($url == 'recuperacion.php' || $url == 'users.php' || $url == 'proveedores.php'|| $url == 'clients.php' || $url == 'admin.php') {
             header('Location:inventary.php');
         }
     }
