@@ -13,7 +13,7 @@ class conexion
 			'host' 	=> 'localhost',
 			'user' 	=> 'root',
 			'pass' 	=> '',
-			'db' 	=> 'db_tallermotos',
+			'db' 	=> 'db_tallermotosv.4',
 		);
 	}
 
