@@ -58,16 +58,22 @@ class Gui
 
             <div class="wrapper">
                 <div class="sidebar">
-                    <div>
-                        <?php $admin = new ln_admin(); ?>
-                        <img src="<?= $admin->get_admin()['logo']; ?>" alt="" style="max-width: 100px; border-radius: 100%;">
-                        <br>
-                        <br>
-                        <form action="security.php?action=logout" method="post">
-                            <button class="btn btn-danger"><i class="fas fa-power-off"></i> Cerrar Sesion</button>
-                            <a class="btn btn-success" target="blank" href="assets/html/introduccion.html"><i class="fas fa-question-circle"></i></a>
-                        </form>
+
+                    <?php $admin = new ln_admin(); ?>
+                    <div class="profile">
+                        <img src="<?= $admin->get_admin()['logo']; ?>" alt="" class="img-fluid rounded-circle">
+                        <h1 class="text-light"><a href="index.html"></a></h1>
+                        <div class="social-links mt-3 text-center">
+                            <a target="blank" href="assets/html/introduccion.html"><i class="fas fa-question-circle"></i></a>
+                            <span>|</span>
+                            <a href="#" title="Salir">
+                                <form action="security.php?action=logout" method="post">
+                                    <button id="boton_cerrar_sesion"><i style="color:white" class="fas fa-sign-out-alt"></i></button>
+                                </form>
+                            </a>
+                        </div>
                     </div>
+
                     <ul>
                         <li><a href="inventary.php"><i class="fas fa-boxes"></i> Inventario</a></li>
                         <li><a href="repairs.php"><i class="fas fa-tools"></i> Reparacion</a></li>
