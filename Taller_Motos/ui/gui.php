@@ -65,6 +65,7 @@ class Gui
                         <br>
                         <form action="security.php?action=logout" method="post">
                             <button class="btn btn-danger"><i class="fas fa-power-off"></i> Cerrar Sesion</button>
+                            <a class="btn btn-success" target="blank" href="assets/html/introduccion.html"><i class="fas fa-question-circle"></i></a>
                         </form>
                     </div>
                     <ul>
